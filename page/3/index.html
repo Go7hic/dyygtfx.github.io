@@ -1,0 +1,1267 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  
+    <title>Go7hic</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="Go7hic">
+    
+
+    
+    <meta name="description">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Go7hic">
+<meta property="og:url" content="http://blog.yongyuan.us/page/3/index.html">
+<meta property="og:site_name" content="Go7hic">
+<meta property="og:description">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Go7hic">
+<meta name="twitter:description">
+
+    
+    <link rel="alternative" href="/atom.xml" title="Go7hic" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css" type="text/css">
+</head>
+
+  <body>
+    <header>
+      
+<div>
+		
+			<!-- <div id="imglogo">
+				<a href="/"><img src="/img/logo.png" alt="Go7hic" title="Go7hic"/></a>
+			</div> -->
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="Go7hic">Go7hic</a></h1>
+				<h2 class="blog-motto"></h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">Home</a></li>
+					
+						<li><a href="/archives">Archives</a></li>
+					
+						<li><a href="/about">About</a></li>
+					
+						<li><a href="/atom.xml">Rss</a></li>
+					
+					<li>
+ 					
+					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="搜索" />
+						<input type="hidden" name="q" value="site:blog.yongyuan.us">
+					</form>
+					
+					</li>
+				</ul>
+			</nav>
+</div>
+
+    </header>
+    <div id="container">
+      <div id="main">
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2014/07/14/2014-07-14-javascript_strict_mode/" title="Javascript 严格模式详解" itemprop="url">Javascript 严格模式详解</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Go7hic" target="_blank" itemprop="author">Go7hic</a>
+		
+  <p class="article-time">
+    <time datetime="2014-07-13T16:00:00.000Z" itemprop="datePublished"> 发表于 2014-07-14</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <h3 id="一、概述">一、概述</h3><p>除了正常运行模式，ECMAscript 5添加了第二种运行模式：”严格模式”（strict mode）。顾名思义，这种模式使得Javascript在更严格的条件下运行。<br>设立”严格模式”的目的，主要有以下几个：</p>
+<ul>
+<li>消除Javascript语法的一些不合理、不严谨之处，减少一些怪异行为; </li>
+<li>消除代码运行的一些不安全之处，保证代码运行的安全；</li>
+<li>提高编译器效率，增加运行速度；</li>
+<li>为未来新版本的Javascript做好铺垫。 </li>
+</ul>
+<p>“严格模式”体现了Javascript更合理、更安全、更严谨的发展方向，包括IE10在内的主流浏览器，都已经支持它，许多大项目已经开始全面拥抱它。另一方面，同样的代码，在”严格模式”中，可能会有不一样的运行结果；一些在”正常模式”下可以运行的语句，在”严格模式”下将不能运行。掌握这些内容，有助于更细致深入地理解Javascript，让你变成一个更好的程序员。<br>本文将对”严格模式”做详细介绍。</p>
+<h3 id="二、进入标志">二、进入标志</h3><p>进入”严格模式”的标志，是下面这行语句</p>
+<p><code>use strict;</code></p>
+<p>老版本的浏览器会把它当作一行普通字符串，加以忽略。</p>
+<h3 id="三、如何调用">三、如何调用</h3><p>“严格模式”有两种调用方法，适用于不同的场合。</p>
+<h4 id="3-1_针对整个脚本文件">3.1 针对整个脚本文件</h4><p>将<code>use strict</code>放在脚本文件的第一行，则整个脚本都将以”严格模式”运行。如果这行语句不在第一行，则无效，整个脚本以”正常模式”运行。如果不同模式的代码文件合并成一个文件，这一点需要特别注意。</p>
+<p>(严格地说，只要前面不是产生实际运行结果的语句，<code>use strict</code>可以不在第一行，比如直接跟在一个空的分号后面。)</p>
+<pre><code><span class="tag">&lt;<span class="title">script</span>&gt;</span><span class="javascript"><span class="pi">
+    "use strict"</span>;
+    <span class="built_in">console</span>.log(<span class="string">"这是严格模式。"</span>);
+</span><span class="tag">&lt;/<span class="title">script</span>&gt;</span>
+<span class="tag">&lt;<span class="title">script</span>&gt;</span><span class="openscad">
+    console.<span class="built_in">log</span><span class="params">(<span class="string">"这是正常模式。"</span>)</span>;
+</span><span class="tag">&lt;/<span class="title">script</span>&gt;</span>
+</code></pre><p>　　<br>上面的代码表示，一个网页中依次有两段Javascript代码。前一个script标签是严格模式，后一个不是。</p>
+<h4 id="3-2_针对单个函数">3.2 针对单个函数</h4><p>将<code>use strict</code>放在函数体的第一行，则整个函数以”严格模式”运行。</p>
+<pre><code><span class="function"><span class="keyword">function</span> <span class="title">strict</span>(<span class="params"></span>)</span>{
+<span class="pi">    "use strict"</span>;
+    <span class="keyword">return</span> <span class="string">"这是严格模式。"</span>;
+}
+ <span class="function"><span class="keyword">function</span> <span class="title">notStrict</span>(<span class="params"></span>) </span>{
+    　<span class="keyword">return</span> <span class="string">"这是正常模式。"</span>;
+　}
+</code></pre><p>　　</p>
+<h4 id="3-3_脚本文件的变通写法">3.3 脚本文件的变通写法</h4><p>因为第一种调用方法不利于文件合并，所以更好的做法是，借用第二种方法，将整个脚本文件放在一个立即执行的匿名函数之中。</p>
+<pre><code>(<span class="function"><span class="keyword">function</span> (<span class="params"></span>)</span>{
+<span class="pi">    "use strict"</span>;
+    <span class="comment">// some code here</span>
+     })();
+</code></pre><p>　　 </p>
+<h3 id="四、语法和行为改变">四、语法和行为改变</h3><p>严格模式对Javascript的语法和行为，都做了一些改变。</p>
+<h4 id="4-1_全局变量显式声明">4.1 全局变量显式声明</h4><p>在正常模式中，如果一个变量没有声明就赋值，默认是全局变量。严格模式禁止这种用法，全局变量必须显式声明。</p>
+<pre><code>v = <span class="number">1</span>; <span class="comment">// 报错，v未声明</span>
+for<span class="comment">(i = 0; i &lt; 2; i++)</span> { 
+<span class="comment">// 报错，i未声明</span>
+}
+</code></pre><p>　　<br>因此，严格模式下，变量都必须先用var命令声明，然后再使用。</p>
+<h4 id="4-2_静态绑定">4.2 静态绑定</h4><p>Javascript语言的一个特点，就是允许”动态绑定”，即某些属性和方法到底属于哪一个对象，不是在编译时确定的，而是在运行时（runtime）确定的。</p>
+<p>严格模式对动态绑定做了一些限制。某些情况下，只允许静态绑定。也就是说，属性和方法到底归属哪个对象，在编译阶段就确定。这样做有利于编译效率的提高，也使得代码更容易阅读，更少出现意外。</p>
+<p>具体来说，涉及以下几个方面。 </p>
+<p>（1）禁止使用with语句 </p>
+<p>因为with语句无法在编译时就确定，属性到底归属哪个对象 。</p>
+<pre><code><span class="pi">"use strict"</span>;
+<span class="keyword">var</span> v = <span class="number">1</span>;
+<span class="keyword">with</span> (o){ <span class="comment">// 语法错误 </span>
+    v = <span class="number">2</span>;
+}
+</code></pre><p>　　<br>（2）创设eval作用域</p>
+<p>正常模式下，Javascript语言有两种变量作用域（scope）：全局作用域和函数作用域。严格模式创设了第三种作用域：eval作用域。<br>正常模式下，eval语句的作用域，取决于它处于全局作用域，还是处于函数作用域。严格模式下，eval语句本身就是一个作用域，不再能够生成全局变量了，它所生成的变量只能用于eval内部。</p>
+<pre><code><span class="pi">"use strict"</span>;
+<span class="keyword">var</span> x = <span class="number">2</span>;
+<span class="built_in">console</span>.info(<span class="built_in">eval</span>(<span class="string">"var x = 5; x"</span>)); <span class="comment">// 5</span>
+<span class="built_in">console</span>.info(x); <span class="comment">// 2</span>
+</code></pre><p>　　</p>
+<h4 id="4-3_增强的安全措施">4.3 增强的安全措施</h4><p>（1）禁止this关键字指向全局对象</p>
+<pre><code><span class="function"><span class="keyword">function</span> <span class="title">f</span>(<span class="params"></span>)</span>{
+    <span class="keyword">return</span> !<span class="keyword">this</span>;
+} 
+<span class="comment">// 返回false，因为"this"指向全局对象，"!this"就是false </span>
+<span class="function"><span class="keyword">function</span> <span class="title">f</span>(<span class="params"></span>)</span>{ 
+<span class="pi">    "use strict"</span>;
+    <span class="keyword">return</span> !<span class="keyword">this</span>;
+} <span class="comment">// 返回true，因为严格模式下，this的值为undefined，所以"!this"为true。 </span>
+因此，使用构造函数时，如果忘了加<span class="keyword">new</span>，<span class="keyword">this</span>不再指向全局对象，而是报错。 
+<span class="function"><span class="keyword">function</span> <span class="title">f</span>(<span class="params"></span>)</span>{
+<span class="pi">    "use strict"</span>;
+    <span class="keyword">this</span>.a = <span class="number">1</span>;
+};
+f();<span class="comment">// 报错，this未定义</span>
+</code></pre><p>　　<br>（2）禁止在函数内部遍历调用栈</p>
+<pre><code><span class="function"><span class="keyword">function</span> <span class="title">f1</span>(<span class="params"></span>)</span>{
+<span class="pi">"use strict"</span>;
+f1.caller; <span class="comment">// 报错</span>
+f1.arguments; <span class="comment">// 报错</span>
+}
+f1();
+</code></pre><p>　　</p>
+<h4 id="4-4_禁止删除变量">4.4 禁止删除变量</h4><p>严格模式下无法删除变量。只有configurable设置为true的对象属性，才能被删除。</p>
+<pre><code><span class="pi">"use strict"</span>;
+<span class="keyword">var</span> x;
+<span class="keyword">delete</span> x; <span class="comment">// 语法错误</span>
+<span class="keyword">var</span> o = <span class="built_in">Object</span>.create(<span class="literal">null</span>, <span class="string">'x'</span>, {
+    value: <span class="number">1</span>,
+    configurable: <span class="literal">true</span>
+    });
+    <span class="keyword">delete</span> o.x; <span class="comment">// 删除成功</span>
+</code></pre><p>　　</p>
+<h4 id="4-5_显式报错">4.5 显式报错</h4><p>正常模式下，对一个对象的只读属性进行赋值，不会报错，只会默默地失败。严格模式下，将报错。</p>
+<pre><code><span class="pi">"use strict"</span>;
+<span class="keyword">var</span> o = {};
+<span class="built_in">Object</span>.defineProperty(o, <span class="string">"v"</span>, { value: <span class="number">1</span>, writable: <span class="literal">false</span> });
+o.v = <span class="number">2</span>; <span class="comment">// 报错</span>
+</code></pre><p>严格模式下，对一个使用getter方法读取的属性进行赋值，会报错。</p>
+<pre><code><span class="pi">"use strict"</span>;
+<span class="keyword">var</span> o = {
+    get v() { <span class="keyword">return</span> <span class="number">1</span>; }
+};
+o.v = <span class="number">2</span>; <span class="comment">// 报错</span>
+</code></pre><p>严格模式下，对禁止扩展的对象添加新属性，会报错。 </p>
+<pre><code><span class="pi">"use strict"</span>;
+<span class="keyword">var</span> o = {};
+<span class="built_in">Object</span>.preventExtensions(o);
+o.v = <span class="number">1</span>; <span class="comment">// 报错</span>
+</code></pre><p>严格模式下，删除一个不可删除的属性，会报错。 </p>
+<pre><code><span class="pi">"use strict"</span>;
+<span class="keyword">delete</span> <span class="built_in">Object</span>.prototype; <span class="comment">// 报错<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">　　</span><br><span class="line">####<span class="number">4.6</span> 重名错误</span><br><span class="line"></span><br><span class="line">严格模式新增了一些语法错误。</span><br><span class="line"></span><br><span class="line">（<span class="number">1</span>）对象不能有重名的属性</span><br><span class="line"></span><br><span class="line">正常模式下，如果对象有多个重名属性，最后赋值的那个属性会覆盖前面的值。严格模式下，这属于语法错误。</span><br><span class="line"><span class="pi"></span><br><span class="line">    "use strict"</span>;</span><br><span class="line">    <span class="keyword">var</span> o = &#123;</span><br><span class="line">        p: <span class="number">1</span>,</span><br><span class="line">        p: <span class="number">2</span></span><br><span class="line">        &#125;; <span class="comment">// 语法错误</span></span><br><span class="line">        </span><br><span class="line">（<span class="number">2</span>）函数不能有重名的参数</span><br><span class="line"></span><br><span class="line">正常模式下，如果函数有多个重名的参数，可以用<span class="built_in">arguments</span>[i]读取。严格模式下，这属于语法错误。</span><br><span class="line"><span class="pi"></span><br><span class="line">    "use strict"</span>;</span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">f</span>(<span class="params">a, a, b</span>) </span>&#123; <span class="comment">// 语法错误</span></span><br><span class="line">        <span class="keyword">return</span> ;</span><br><span class="line">    &#125;</span><br><span class="line">　　</span><br><span class="line">####<span class="number">4.7</span> 禁止八进制表示法</span><br><span class="line"></span><br><span class="line">正常模式下，整数的第一位如果是<span class="number">0</span>，表示这是八进制数，比如<span class="number">0100</span>等于十进制的<span class="number">64</span>。严格模式禁止这种表示法，整数第一位为<span class="number">0</span>，将报错。</span><br><span class="line"><span class="pi"></span><br><span class="line">    "use strict"</span>;</span><br><span class="line">    <span class="keyword">var</span> n = <span class="number">0100</span>; <span class="comment">// 语法错误</span></span><br></pre></td></tr></table></figure></span>
+</code></pre><h4 id="4-8_arguments对象的限制">4.8 arguments对象的限制</h4><p><code>arguments</code>是函数的参数对象，严格模式对它的使用做了限制。</p>
+<p>（1）不允许对arguments赋值</p>
+<pre><code><span class="pi">"use strict"</span>;
+<span class="built_in">arguments</span>++; <span class="comment">// 语法错误</span>
+<span class="keyword">var</span> obj = { set p(<span class="built_in">arguments</span>) { } }; <span class="comment">// 语法错误</span>
+<span class="keyword">try</span> { } <span class="keyword">catch</span> (<span class="built_in">arguments</span>) { } <span class="comment">// 语法错误</span>
+<span class="function"><span class="keyword">function</span> <span class="title">arguments</span>(<span class="params"></span>) </span>{ } <span class="comment">// 语法错误</span>
+<span class="keyword">var</span> f = <span class="keyword">new</span> <span class="built_in">Function</span>(<span class="string">"arguments"</span>, <span class="string">"'use strict'; return 17;"</span>); <span class="comment">// 语法错误</span>
+</code></pre><p>　　<br>（2）arguments不再追踪参数的变化</p>
+<pre><code><span class="function"><span class="keyword">function</span> <span class="title">f</span>(<span class="params">a</span>) </span>{
+    a = <span class="number">2</span>;
+    <span class="keyword">return</span> [a, <span class="built_in">arguments</span>[<span class="number">0</span>]];
+}
+f(<span class="number">1</span>); <span class="comment">// 正常模式为[2,2]</span>
+<span class="function"><span class="keyword">function</span> <span class="title">f</span>(<span class="params">a</span>) </span>{
+<span class="pi">    "use strict"</span>;
+    a = <span class="number">2</span>;
+    <span class="keyword">return</span> [a, <span class="built_in">arguments</span>[<span class="number">0</span>]];
+}
+f(<span class="number">1</span>); <span class="comment">// 严格模式为[2,1]</span>
+</code></pre><p>　　<br>（3）禁止使用arguments.callee<br>这意味着，你无法在匿名函数内部调用自身了。</p>
+<pre><code><span class="pi">"use strict"</span>;
+<span class="keyword">var</span> f = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>{ <span class="keyword">return</span> <span class="built_in">arguments</span>.callee; };
+f(); <span class="comment">// 报错</span>
+</code></pre><p>　　</p>
+<h4 id="4-9_函数必须声明在顶层">4.9 函数必须声明在顶层</h4><p>将来Javascript的新版本会引入”块级作用域”。为了与新版本接轨，严格模式只允许在全局作用域或函数作用域的顶层声明函数。也就是说，不允许在非函数的代码块内声明函数。</p>
+<pre><code><span class="pi">"use strict"</span>;
+<span class="keyword">if</span> (<span class="literal">true</span>) {
+    <span class="function"><span class="keyword">function</span> <span class="title">f</span>(<span class="params"></span>) </span>{ } <span class="comment">// 语法错误</span>
+}
+<span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; <span class="number">5</span>; i++) {
+    <span class="function"><span class="keyword">function</span> <span class="title">f2</span>(<span class="params"></span>) </span>{ } <span class="comment">// 语法错误</span>
+}
+</code></pre><p>　　</p>
+<h4 id="4-10_保留字">4.10 保留字</h4><p>为了向将来Javascript的新版本过渡，严格模式新增了一些保留字：implements, interface, let, package, private, protected, public, static, yield。</p>
+<p>使用这些词作为变量名将会报错。</p>
+<pre><code><span class="function"><span class="keyword">function</span> <span class="title">package</span>(<span class="params">protected</span>) </span>{ <span class="comment">// 语法错误</span>
+<span class="pi">    "use strict"</span>;
+    <span class="keyword">var</span> implements; <span class="comment">// 语法错误</span>
+}
+</code></pre><p>　<br>此外，ECMAscript第五版本身还规定了另一些保留字（class, enum, export, extends, import, super），以及各大浏览器自行增加的const保留字，也是不能作为变量名的。</p>
+<p>转自: <a href="http://www.ruanyifeng.com/blog/2013/01/javascript_strict_mode.html" target="_blank" rel="external">http://www.ruanyifeng.com/blog/2013/01/javascript_strict_mode.html</a></p>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+	  	<span></span>
+		<a href="/2014/07/14/2014-07-14-javascript_strict_mode/#disqus_thread" class="comments-count-link">Comments</a>
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2014/07/10/2014-07-10-performance/" title="Navigation Timing测试页面加载速度" itemprop="url">Navigation Timing测试页面加载速度</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Go7hic" target="_blank" itemprop="author">Go7hic</a>
+		
+  <p class="article-time">
+    <time datetime="2014-07-09T16:00:00.000Z" itemprop="datePublished"> 发表于 2014-07-10</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <h3 id="Navigation_Timing测试页面加载速度">Navigation Timing测试页面加载速度</h3><p>Navigation Timing 是一个可以在web中精确测量性能的javascript API。这个API提供了一个简单的方法来获得页面导航、加载事件的精确而又详细的时间状态。目前在 IE9、Chrome、Firefox nightly builds 中可用。</p>
+<p>这篇文章描述了 Navigation API 并展示了如何使用API导出时间数据。</p>
+<p><strong>使用方法</strong></p>
+<p>在Chrome中打开控制台，在命令行中输入performance，点开并查看它的timing属性，你会看到如下代码：<br><img src="http://images.cnblogs.com/cnblogs_com/mrsunny/201209/201209041728583788.png" alt="perfoemance"><br>如果在IE中使用，需要使用<code>&lt;!doctype html&gt;</code>文档声明，浏览器需要在标准模式下。</p>
+<p><strong>各属性代表的意义</strong></p>
+<p>每一个performance.timing属性都表示一个页面事件（例如页面发送了请求）或者页面加载（例如当DOM开始加载），测量以毫秒的形式从1970年1月1日的午夜开始。结果为0表示该事件未发生（例如redirectEnd或者redirectStart等）。</p>
+<p>这些事件所代表的含义在Microsoft’s performance.timing documentation 和 更加正式的 W3C Editor’s Draft 中都有描述。IE9支持除了secureConnectionStart时间外在API草案中描述的所有属性，并且IE9额外提供了msFirstPaint事件，该事件在dcoument display开始，在loadEventEnd之后触发。</p>
+<p>这里有一张从 Navigation Timing draft 弄来的 performance.timing 事件的顺序图：<br><img src="http://dvcs.w3.org/hg/webperf/raw-file/tip/specs/NavigationTiming/timing-overview.png" alt="performace顺序图"><br><strong>navigationStart</strong></p>
+<p>当load/unload动作被触发时，也可能是提示关闭当前文档时（即回车键在url地址栏中按下，页面被再次刷新，submit按钮被点击）。如果当前窗口中没有前一个文档，那么navigationStart的值就是fetchStart。 </p>
+<p><strong>redirectStart</strong></p>
+<p>它可能是页面重定向时的开始时间（如果存在重定向的话）或者是0。</p>
+<p><strong>unloadEventStart</strong></p>
+<p>如果被请求的文档来自于前一个同源（同源策略）的文档，那么该属性存储的是浏览器开始卸载前一个文档的时刻。否则的话（前一个文档非同源或者没有前一个文档），为0。</p>
+<p><strong>unloadEventEnd</strong></p>
+<p>表示同源的前一个文档卸载完成的时刻。如果前一个文档不存在或者非同源，则为0。</p>
+<p><strong>redirectEnd</strong></p>
+<p>如果存在重定向的话，redirectEnd表示最后一次重定向后服务器端response的数据被接收完毕的时间。否则的话就是0。</p>
+<p><strong>fetchStart</strong></p>
+<p>fetchStart是指在浏览器发起任何请求之前的时间值。在fetchStart和domainLookupStart之间，浏览器会检查当前文档的缓存。</p>
+<p><strong>domainLookupStart</strong></p>
+<p>这个属性是指当浏览器开始检查当前域名的DNS之前的那一时刻。如果因为任何原因没有去检查DNS（即浏览器使用了缓存，持久连接，或者本地资源），那么它的值等同于fetchStart。</p>
+<p><strong>domainLookupEnd</strong></p>
+<p>指浏览器完成DNS检查时的时间。如果DNS没有被检查，那么它的值等同于fetchStart。</p>
+<p><strong>connectStart</strong></p>
+<p>当浏览器开始于服务器连接时的时间。如果资源取自缓存（或者服务器由于其他任何原因没有建立连接，例如持久连接），那么它的值等同于domainLookupEnd。</p>
+<p><strong>connectEnd</strong></p>
+<p>当浏览器端完成与服务器端建立连接的时刻。如果没有建立连接它的值等同于domainLookupEnd。</p>
+<p><strong>secureConnectionStart</strong></p>
+<p>可选。如果页面使用HTTPS，它的值是安全连接握手之前的时刻。如果该属性不可用，则返回undefined。如果该属性可用，但没有使用HTTPS，则返回0。</p>
+<p><strong>responseStart</strong></p>
+<p>指客户端收到从服务器端（或缓存、本地资源）响应回的第一个字节的数据的时刻。</p>
+<p><strong>responseEnd</strong></p>
+<p>指客户端收到从服务器端（或缓存、本地资源）响应回的最后一个字节的数据的时刻。</p>
+<p><strong>domLoading</strong></p>
+<p>指document对象创建完成的时刻。</p>
+<p><strong>domInteractive</strong></p>
+<p>指文档解析完成的时刻，包括在“传统模式”下被阻塞的通过script标签加载的内容（除了使用defer或者async属性异步加载的情况）。</p>
+<p><strong>domContentLoadedEventStart</strong></p>
+<p>当DOMContentLoaded事件触发之前，浏览器完成所有script（包括设置了defer属性但未设置async属性的script）的下载和解析之后的时刻。</p>
+<p><strong>domContentLoadedEventEnd</strong></p>
+<p>当DOMContentLoaded事件完成之后的时刻。它也是javascript类库中DOMready事件触发的时刻。</p>
+<p><strong>domComplete</strong></p>
+<p>如果已经没有任何延迟加载的事件（所有图片的加载）阻止load事件发生，那么该时刻将会将document.readyState属性设置为”complete”，此时刻就是domComplete。</p>
+<p><strong>loadEventStart</strong></p>
+<p>该属性返回的是load事件刚刚发生的时刻，如果load事件还没有发生，则返回0。</p>
+<p><strong>loadEventEnd</strong></p>
+<p>该属性返回load事件完成之后的时刻。如果load事件未发生，则返回0。</p>
+<p>检测用户通过哪种方式来到此页面：</p>
+<p>我们有几种方式来打开一个页面，例如，在地址栏输入url，刷新当前页面，通过history的前进后退。这时候 performance.navigation 就派上用场了。这个 API 有两个属性：</p>
+<p><strong>redirectCount</strong>页面请求被重定向的次数<br><strong>type</strong>页面被载入的方式。</p>
+<p>以下列举了 type 属性的三种取值情况：</p>
+<p>0：用户通过点击链接或者在浏览器地址栏输入URL的方式进入页面。</p>
+<p>1：页面重载。</p>
+<p>2：通过浏览器history的前进或后退进入页面。</p>
+<p>eg:你通过点击链接或者在地址栏输入URL的方式进入页面。</p>
+<p>实时页面性能测试：</p>
+<p>通过 Navigation Timing API ，我们可以精确实时的获取真实用户的在实际网络环境中的页面加载速度，而不是仅仅在开发环境、公司网络中测试页面加载速度。</p>
+<p>页面性能统计：</p>
+<p>我们甚至可以使用 XHR 将用户每次浏览网页时的 performance.timing 数据发送到服务器端。这种方式是实时的，不过效率比较低。或者，可以使用本地存储的方式将用户页面性能的数据存储在本地并周期性的打包发送到服务器端进行分析。通过这种方式，navigation timing API 实现了一种简单的提供页面性能历史数据的方法。</p>
+<p>参考资料:<br><a href="http://www.w3.org/TR/navigation-timing/" target="_blank" rel="external">http://www.w3.org/TR/navigation-timing/</a>  </p>
+<p><a href="http://www.html5rocks.com/en/tutorials/webperformance/basics/" target="_blank" rel="external">http://www.html5rocks.com/en/tutorials/webperformance/basics/</a></p>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+	  	<span></span>
+		<a href="/2014/07/10/2014-07-10-performance/#disqus_thread" class="comments-count-link">Comments</a>
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2014/05/08/2014-05-08-js-gaoshou/" title="js高手的六个秘密" itemprop="url">js高手的六个秘密</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Go7hic" target="_blank" itemprop="author">Go7hic</a>
+		
+  <p class="article-time">
+    <time datetime="2014-05-07T16:00:00.000Z" itemprop="datePublished"> 发表于 2014-05-08</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <h2 id="js高手的六个秘密">js高手的六个秘密</h2><p>作为一个前端开发者，我遇见过很多使用Javascript的人。他们其中的大多数每天所做的事情仅仅是使用jQuery和一些插件为网页增加一个很酷的灯箱效果或者一个图片滑动效果。在光谱的对面，则是那些挥舞着键盘编写自己代码的绝地武士级别的开发者。</p>
+<p>当你处于这两种级别之间时，你可能不清楚如何前进。成为专家的道路有很多，但是如果你陷入了迷茫失去了前进的动力，那么这里有几个Javascript专家应该了解的概念：</p>
+<p><strong>Javascript秘密之一：闭包</strong></p>
+<p>Javascript的闭包允许一个函数进入它的父作用域。这个概念另很多开发者都感到很疑惑。当我开始学习Javascript时，我花了很长时间来调试那些出现意想不到的闭包的代码。我从给这些错误中学到的是闭包非常非常酷，因此我花费了好几个小时来徒劳的使用闭包解决我的问题。</p>
+<p>我渐渐的意识到：当你返回一个内部函数（注意阅读后面提到的高阶函数）时，它依然能够进入它的父作用域，此时闭包非常有用。闭包创建一系列私有或者受保护的环境来保持变量。</p>
+<p>// <strong>闭包</strong></p>
+<p>function makeThreeTimer(){</p>
+<p>var count = 0;</p>
+<p>return function(){</p>
+<p>if(count &lt; 3){</p>
+<p>console.log(‘doing work’);</p>
+<p>count++;</p>
+<p>}</p>
+<p>else {</p>
+<p>throw new Error(‘No more work’);</p>
+<p>}</p>
+<p>}</p>
+<p>}</p>
+<p>var threeTimer = makeThreeTimer();</p>
+<p>threeTimer(); // 输出 ‘doing work’ (count 增加了)<br>threeTimer(); // 输出 ‘doing work’ (count 增加了)</p>
+<p>threeTimer(); // 输出 ‘doing work’ (count 增加了)<br>threeTimer(); // 抛出一个错误</p>
+<p>threeTimer.count; // 返回 undefined<br>在上米你的例子中，放threeTimer被调用时count被获取并增加，但是它并不能被点标示符或者方括号标示符所获取。</p>
+<p><strong>Javascript秘密之二：高阶函数</strong></p>
+<p>在函数式编程语言中，函数是第一类成员。它们能像其它值一样被传递，这个特性为编程增加了许多有趣的可能性。</p>
+<p>高阶函数是指那些产生或者消耗其它函数的函数。function原型中的call和bind方法，都是高阶函数。一些技巧例如柯里化以及memoization都可以用高阶函数来表达。Javascript可以使用高阶函数来实现面向方向编程。</p>
+<p><strong>Javascript秘密之三：调用函数</strong></p>
+<p>在理解了调用函数的大多数方法之后（使用括号操作符），是时候来学习如何使用call和apply了。使用call/apply而不是括号操作符的好处在于你可以指定函数执行的上下文（this的值）。在告诫函数中你经常可以见到this，尤其是当接受一个函数并执行它是。Function原型中干的bind方法的内部实现就是一个call/apply的好例子：</p>
+<p>// 使用apply去实现bind方法的可能情形</p>
+<p>function bind(func, context){</p>
+<p>return function(){</p>
+<p>func.apply(context, Array.prototype.slice.apply(arguments));</p>
+<p>}</p>
+<p>}</p>
+<p><strong>Javascript秘密之四：什么是this？</strong></p>
+<p>this关键字是许多Javascript开发者遇到的最大的障碍，因此他们尽量避免使用它。到目前为止我看到的关于这一点的最好的解释来自Yehuda Katz博客中关于函数调用的文章。当我们不使用call/apply或者bind时，this值总是指向全局对象，除了下面的情形：</p>
+<p>1.函数被new操作符调用，此时this指向被构建的新对象；</p>
+<p>2.函数在一个对象中，此时this指向这个对象。</p>
+<p>然而，函数被异步调用时，第二条应该被忽视，例如一个点击处理函数或者setTimeout。例如：</p>
+<p>Person.getName(); // ‘this’ 指向 Person</p>
+<p>setTimeout(Person.getName, 1000); // ‘this’ 指向全局对象     </p>
+<p><strong>Javascript秘密之五：保护全局作用域</strong></p>
+<p>Javascript的一个缺点的一个页面中的脚本都在一个共享的全局上下文中被执行。这一缺点可以导致网站受到跨域脚本攻击。共享全局上下文还会导致其他问题。例如，许多脚本在一个页面中运行，但是并不是所有的都由你来决定（例如广告）。这些在全局空间中运行的脚本可以获取同一个全局变量。如果有两段脚本碰巧使用同一个全局变量，它们会开始相互影响。代码可能会中断。</p>
+<p>减少使用全局作用域是一个消除代码互相干涉的防御性技巧，它能帮你省下不少调试时间。有时你也许不能消除全局变量，但是你可以使用一些技巧例如命名空间来减少你留下的足迹：</p>
+<p>// 命名空间</p>
+<p>//一个全局足迹是包含了其他需要引用的变量</p>
+<p>var MyApp = {};</p>
+<p>MyApp.id = 42;</p>
+<p>MyApp.utils = {</p>
+<p>validate: function(){</p>
+<p>//do work</p>
+<p>}</p>
+<p>};<br>或者使用模块模式：</p>
+<p>// 模块模式</p>
+<p>//模块模式依赖于自调用匿名函数，它创建的闭包拥有获取父函数中变量的能力</p>
+<p>var MyApp = (function(){</p>
+<p>//declare a local variable</p>
+<p>var appId = 42;</p>
+<p>function getAppId(){</p>
+<p>//指向这个函数符作用域中的一个变量</p>
+<p>return appId;</p>
+<p>}</p>
+<p>return {</p>
+<p>getAppId: getAppId</p>
+<p>};</p>
+<p>}());</p>
+<p>appId; // undefined</p>
+<p>MyApp.appId; //undefined</p>
+<p>MyApp.getAppId(); // 返回 42. (通过闭包获取）    </p>
+<p><strong>Javascript秘密之六：继承</strong></p>
+<p>关于继承，由于一些原因Javascript有一个长而令人困惑的历史。许多开发者 — 包括我遇到的一些Javascript开打折 —对传统模型理解深刻但是却被原型模型完全搞糊涂了。如果你阅读了《使用原型继承的语言列表》一文之后，你会感触更深。</p>
+<p>除了Javascript之外，原型继承并不是主流语言的继承方式。更糟的是，在Javascript中可以模拟传统模型的继承方式。结果导致了Javascript中有许多中继承方式，它们中的许多互不相让甚至互相冲突。我建议完全抛弃伪传统继承方式，它是Javascript的一个警告。虽然传统继承方式对其他开发者来说很熟悉，但是由于它只是一个模拟方式，它会很快导致代码的崩溃。</p>
+<p>本文译自6 secrets of JavaScript Jedis，原文地址<a href="http://www.infoworld.com/d/application-development/6-secrets-of-javascript-jedis-231322?page=0,2" target="_blank" rel="external">http://www.infoworld.com/d/application-development/6-secrets-of-javascript-jedis-231322?page=0,2</a></p>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+	  	<span></span>
+		<a href="/2014/05/08/2014-05-08-js-gaoshou/#disqus_thread" class="comments-count-link">Comments</a>
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2014/05/06/2014-05-06-js-scop/" title="谈谈JavaScript中的闭包" itemprop="url">谈谈JavaScript中的闭包</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Go7hic" target="_blank" itemprop="author">Go7hic</a>
+		
+  <p class="article-time">
+    <time datetime="2014-05-05T16:00:00.000Z" itemprop="datePublished"> 发表于 2014-05-06</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <h3 id="谈谈JavaScript中的闭包">谈谈JavaScript中的闭包</h3><p>爱因斯坦曾说过，如果你不能给一个六岁的孩童将清楚什么是闭包，那就证明你自己也不理解。我尝试着去给一个27岁的朋友讲解，但失败了。</p>
+<p>JavaScript中函数的重要性毋庸置疑。在理解了JavaScript中的函数之后，非常重要的地点就是理解我们怎样使用函数来创建闭包。一直以来，闭包都是JavaScript新手学习时的一个难点所在，它位于JavaScript函数与变量作用域交叉的一个灰色地带：</p>
+<p><img src="http://htmljs.b0.upaiyun.com/uploads/1389597690904-%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202014-01-13%20%E4%B8%8B%E5%8D%881.20.17.png" alt="目录结构"></p>
+<p>本文将尽可能简单的方法讲述关于JavaScript闭包的那些事情，使用的代码也非常的简单。如果一开始就讲述闭包的概念，只会使得你更加的困惑。所以我们就从一个我们熟悉的领域开始，慢慢的向闭包的邪恶领域前进，看看我们在那里能发现什么。</p>
+<p>下面开始我们的冒险之旅吧！</p>
+<p>函数中的函数</p>
+<p>我们要做的第一件事情是理解当你在函数中创建了函数并且从函数内部返回一个函数时究竟发生了什么。首先我们来快速的回顾一下函数。</p>
+<p>看下面的代码：</p>
+<p>function calculateRectangleArea(length,width){<br>    return length*width;<br>}   </p>
+<p>var roomArea = calculateRectangleArea(10,10);<br>alert(roomArea);<br>calculateRectangleArea函数接收两个参数并且返回这两个参数的乘积。在这个例子中没我们将返回的数赋值给了变量roomArea。</p>
+<p>当代码运行之后，roomArea变量包含了10乘10的结果，也就是100：</p>
+<p><img src="http://htmljs.b0.upaiyun.com/uploads/1389597709290-%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202014-01-13%20%E4%B8%8B%E5%8D%881.20.27.png" alt="代码结果"><br>正如你所知道的，一个函数可以返回任何东西。在这个例子中，我们返回了一个数。你可以返回一些文本（也就是字符串），undefined，一个自定义对象等等。只要调用函数的代码知道怎么处理返回的值，你可以做任何你想做的事情。你甚至可以返回另一个函数。我们下面就来看一个这样的例子：</p>
+<p>function youSayGoodBye(){<br>    alert(‘Good Bye!’);</p>
+<pre><code><span class="function"><span class="keyword">function</span> <span class="title">andISayHello</span><span class="params">()</span></span>{
+    alert(<span class="string">'Hello!'</span>);
+}
+
+<span class="keyword">return</span> andISayHello; 
+</code></pre><p>}<br>你可以在函数内部包括函数。在这个例子中，我们的youSayGoodBye函数包含了一个alert语句以及另一个叫做andTSayHello的函数：</p>
+<p><img src="http://htmljs.b0.upaiyun.com/uploads/1389597723104-%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202014-01-13%20%E4%B8%8B%E5%8D%881.25.09.png" alt="函数"><br>有趣的地方是当youSayGoodBye函数调用时返回了什么东西。它返回了andISayHello函数：</p>
+<p>function youSayGoodBye(){<br>    alert(‘Good Bye!’);</p>
+<pre><code><span class="function"><span class="keyword">function</span> <span class="title">andISayHello</span><span class="params">()</span></span>{
+    alert(<span class="string">'Hello!'</span>);
+}
+
+<span class="keyword">return</span> andISayHello;
+</code></pre><p>}<br>下面我们调用这个函数，并且让一个变量指向这个函数的调用结果：</p>
+<p>var something = youSayGoodBye();<br>在这行代码运行的时候，youSayGoodBye函数中的所有代码同时也在运行。这意味着，你可以看到一个对话框（由于alert）说Good Bye！：</p>
+<p><img src="http://htmljs.b0.upaiyun.com/uploads/1389597744293-%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202014-01-13%20%E4%B8%8B%E5%8D%881.29.06.png" alt="good bye"><br>当运行结束之后，andISayHello函数将会被创建并且返回。在这个时候，变量something只关注一个东西，这个东西就是andISayHello函数：</p>
+<p><img src="http://htmljs.b0.upaiyun.com/uploads/1389597757035-%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202014-01-13%20%E4%B8%8B%E5%8D%881.40.17.png" alt="运行结束"><br>由于something现在指向一个函数，因此你可以通过括号标示符调用它：</p>
+<p>var something = youSayHello();<br>something();<br>当你这么做的时候，返回的内部函数（也就是andISayHello）将会执行。和前面一样，你将会看到一个对话框，但是对话框这次说的是Hello！– 这是由于内部的alert决定的：</p>
+<p><img src="http://htmljs.b0.upaiyun.com/uploads/1389597771981-%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202014-01-13%20%E4%B8%8B%E5%8D%881.42.50.png" alt="hello"><br>上面提到的所有东西都很直观。唯一你可能觉得比较新的地方是一旦一个函数返回一个值，这个函数就不再存在了。唯一存在的东西是返回值。</p>
+<p>现在我们已经接近闭包的邪恶领域了。在下一部分中，我们将扩展前面提到的代码来看看一个变形的例子。</p>
+<p>内部函数不是自包含函数的情况</p>
+<p>在前面的例子中，你的andISayHello函数是一个自包含函数并且不依赖于外部函数的任何变量或状态：</p>
+<p>function youSayGoodBye() {</p>
+<pre><code>alert<span class="params">(<span class="string">"Good Bye!"</span>)</span>;
+
+<span class="function"><span class="keyword">function</span> <span class="title">andISayHello</span><span class="params">()</span> {</span>
+    alert<span class="params">(<span class="string">"Hello!"</span>)</span>;
+}
+
+return andISayHello;
+</code></pre><p>}<br>在现实的很多场景中，几乎没有这样的自包含函数的例子。你经常会发现需要在内部函数和外部函数之间共享变量和数据。为了强调这一点，我们看看下面的例子：</p>
+<p>function stopWatch() {<br>    var startTime = Date.now();</p>
+<pre><code><span class="function"><span class="keyword">function</span> <span class="title">getDelay</span>(<span class="params"></span>) </span>{
+    <span class="keyword">var</span> elapsedTime = <span class="built_in">Date</span>.now() - startTime;
+    alert(elapsedTime);
+}
+
+<span class="keyword">return</span> getDelay;
+</code></pre><p>}<br>这个例子展示了一个简单地测量消耗的时间的方式。在stopWatch函数中，你有一个startTime变量来被赋值为Date.now()：</p>
+<p> var startTime = Date.now();<br>你也有一个叫做getDelay的内部函数：</p>
+<p>function getDelay() {<br>  var elapsedTime = Date.now() - startTime;<br>  alert(elapsedTime);<br>}<br>getDelay函数展示了一个包含当前时间Date.now()和前面定义的开始时间startTime之间间隔的对话框。</p>
+<p>回到外部函数stopWatch()，在运行结束之前发生的最户一件事情是返回getDelay函数。正如你所见的，这里的这段代码和先前的例子非常类似。你有一个外部函数，你有一个内部函数，然后外部函数返回了内部函数。</p>
+<p>现在，为了弄清楚，stopWatch函数是怎么运行的，我们添加下面的代码：</p>
+<p>var timer = stopWatch();</p>
+<p>// 做一些消耗时间的式<br>for (var i = 0; i &lt; 1000000; i++) {<br>    var foo = Math.random() * 10000;<br>}</p>
+<p>// 调用返回函数<br>timer();<br>如果你运行这个例子，你将看到一个对话框展示从初始化到timer函数被调用之间时间间隔的对话框。你的for循环接收时候，timer变量像一个函数一样被调用：</p>
+<p><img src="http://htmljs.b0.upaiyun.com/uploads/1389597808064-%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202014-01-13%20%E4%B8%8B%E5%8D%882.50.43.png" alt="468"></p>
+<p>基本上，你现在有了一个秒表可以用来计算一个长时间运行的操作花费了多长时间。</p>
+<p>现在你看到我们的简单的秒表例子已经运行起来了，我们回到stopWatch函数看看实际上发生了什么。正如前面所提到的，上面的例子和前面的youSayGoodBye/andISayHello例子很相似。要注意的一点是当getDelay函数返回并赋值给timer变量时发生了什么。</p>
+<p><img src="http://htmljs.b0.upaiyun.com/uploads/1389597819038-%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202014-01-13%20%E4%B8%8B%E5%8D%882.55.09.png" alt=""><br>外部函数stopWatch不再起作用，time人变量被绑定到了getDelay函数。现在，有区别的地方来了。getDelay函数依赖于外部函数stopWatch上下文中的startTime变量：</p>
+<p>…<br>var startTime = Date.now();<br>…</p>
+<p>var elapsedTime = Date.now() - startTime;<br>…  </p>
+<p>当getDelay函数被返回时外部函数stopWatch函数不再器作用，那么下面的这行代码又发生了什么？</p>
+<p>var elapsedTime = Date.now() - startTime;<br>在这个上下文中，看起来startTime变量没有被定义。但是，这段代码显然正常运行了，因此这里存在一些其他的东西。这里提到的“其他的东西”值得就是害羞而神秘的闭包。我们来看看究竟发生了什么似的我们的startTime变量储存了一个实际的值而不是undefined。</p>
+<p>JavaScript runtime将会持续跟踪你的变量，内存使用，引用，实际上来说它非常的聪明。在这个例子中，它探测到内部函数（getDelay）依赖于一个来自外部函数（stopWatch）的变量。当这种情况发生时，runtime将会确保任何来自于外部函数的变量仍然在内部函数中可用，即使外部函数已经调用结束了。</p>
+<p>为了说明这一点，我们来看一张图：</p>
+<p><img src="http://htmljs.b0.upaiyun.com/uploads/1389597838417-%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202014-01-13%20%E4%B8%8B%E5%8D%883.03.33.png" alt=""><br>变量timer依然指向getDelay函数，但是getDelay函数依然可以获取来自于外部函数stopWatch中的startTime变量。这个内部函数 – 由于它将来自于外部函数的相关变量包含进了自己的作用域中 – 因此被称为闭包：</p>
+<p><img src="http://htmljs.b0.upaiyun.com/uploads/1389597858778-%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202014-01-13%20%E4%B8%8B%E5%8D%883.05.32.png" alt=""><br>至此，我们可以给闭包下一个定义：闭包就是一个新创建但是依然包含外部作用域变量的函数：</p>
+<p><img src="http://htmljs.b0.upaiyun.com/uploads/1389597875629-%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202014-01-13%20%E4%B8%8B%E5%8D%883.08.29.png" alt=""><br>再次回到前面的例子，在timer变量初始化时startTime得到了Date.now()的值。当stopWatch返回了内部桉树getDelay时，stopWatch函数不再起作用。但是内部函数依赖的变量却没有消失。这些共享的变量没有消失。相反，它们被包含进入了内部函数，也就是闭包中。</p>
+<p>总结</p>
+<p>闭包乍看上去很复杂，但是其实很简单，它存在于JavaScript中的各个地方。重要的一点是记住：闭包允许函数保持运行，即使函数的韩静发生了巨大的变化或者小时。当函数被创建时任何包含在作用域中的变量都会被保护起来以确保函数的正常运行。这样的机制对于JavaScript这样的动态语言来说是非常重要的，因为你可以随时创建，修改以及销毁变量。</p>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+	  	<span></span>
+		<a href="/2014/05/06/2014-05-06-js-scop/#disqus_thread" class="comments-count-link">Comments</a>
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2014/05/01/2014-05-01-seajs-1/" title="初探sea.js(一)" itemprop="url">初探sea.js(一)</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Go7hic" target="_blank" itemprop="author">Go7hic</a>
+		
+  <p class="article-time">
+    <time datetime="2014-04-30T16:00:00.000Z" itemprop="datePublished"> 发表于 2014-05-01</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <h3 id="初探sea-js(一)">初探sea.js(一)</h3><p>早就对国内玉伯的sea.js有所耳闻了，但是一直没有去学习接触，之前用过类似的require.js，现在觉定来熟悉一下sea.js，希望它越来越好，走向国际化，(<em>^__^</em>) 嘻嘻…….</p>
+<p><strong>0x0 介绍</strong></p>
+<p>在前几年，前端界最火的莫过于jQuery，那是个插件纷飞的年代。而现在，CommonJS草案的提出，Node.js让JavaScript在服务端大展拳脚，前端界已经不是那个手持jQuery的小孩了。</p>
+<p>在这个新的浪潮中，JavaScript模块化开发开始流行起来。CommonJS标准制定后，Node.js兴起，RequireJS使得JavaScript模块化在客户端齐头并进，ES6模块标准呼之欲出，涌现出了很多模块化的方案，兼容ES6也好，不兼容也罢；国内外相关的项目如雨后春笋边涌现出来，谁都有可能引领标准。这系列文章将记录我对sea.js的学习。</p>
+<p><strong>0x1 为什么用sea.js？</strong></p>
+<p>Sea.js 追求简单、自然的代码书写和组织方式，具有以下核心特性：</p>
+<p>简单友好的模块定义规范：Sea.js 遵循 CMD 规范，可以像 Node.js 一般书写模块代码。<br>自然直观的代码组织方式：依赖的自动加载、配置的简洁清晰，可以让我们更多地享受编码的乐趣。<br>Sea.js 还提供常用插件，非常有助于开发调试和性能优化，并具有丰富的可扩展接口。</p>
+<p><strong>0x2 开始吧</strong></p>
+<p>首先去sea.js官网下载最新的文件<a href="http://seajs.org/docs/" target="_blank" rel="external">http://seajs.org/docs/</a> 。  或者          <a href="https://github.com/seajs/seajs。" target="_blank" rel="external">https://github.com/seajs/seajs。</a><br>下载之后看到目录结构：<br>dist      — sea.js 等压缩好的文件，直接可用<br>docs      — 使用文档<br>lib       — 给 Node.js 用的版本<br>src       — 源码<br>tests     — 测试集<br>tools     — 压缩等工具，可查看 build.xml 得到源码合并顺序<br>Makefile  — 可执行构建、测试等命令</p>
+<p>然后我们开始创建自己的工作文件目录，这个看各自的命名喜好啦，以下是我的目录截图</p>
+<p><img src="https://github.com/dyygtfx/dyygtfx.github.com/blob/master/_posts/blog/img/2014-04-30_235853.png?raw=true" alt="目录结构"></p>
+<p>然后呢把之前下载的seajs文件里的seajs/dist中的文件都放在scripts/seajs主要就是sea.js.jquery.js以及应用的Js</p>
+<p>接下来我们开始代码了，想想是不是都好激动呢</p>
+<p>第一步当然是引入sea.js啦</p>
+<figure class="highlight"><figcaption><span>src="Assets/scripts/seajs/sea.js" id="seajsnode">``` </span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#10;&#20851;&#20110;id=&#34;seajsnode&#34;&#30340;&#20004;&#20010;&#35299;&#37322;&#65306;&#10;a. SeaJS&#21152;&#36733;&#33258;&#36523;&#30340;script&#26631;&#31614;&#30340;&#20854;&#20182;&#23646;&#24615;&#65288;&#22914;data-config&#12289;data-main&#65289;&#31561;&#26469;&#23454;&#29616;&#19981;&#21516;&#30340;&#21151;&#33021;&#10;b. SeaJS&#20869;&#37096;&#36890;&#36807;document.getElementById(&#34;seajsnode&#34;)&#26469;&#33719;&#21462;&#36825;&#20010;script&#26631;&#31614;&#65288;&#20854;&#23454;SeaJS&#20869;&#37096;&#36824;&#26377;&#19968;&#31181;&#26041;&#24335;&#65292;&#19981;&#36807;&#21478;&#19968;&#31181;&#26041;&#24335;&#30340;&#25928;&#29575;&#27604;&#36739;&#20302;&#65292;&#25152;&#20197;&#19981;&#25512;&#33616;&#65292;&#22914;&#26524;&#26377;&#20852;&#36259;&#65292;&#21487;&#20197;&#30475;&#19968;&#19979;&#28304;&#30721;   https://github.com/seajs/seajs/blob/master/src/util-path.js&#65289;&#10;&#10;&#31532;&#20108;&#27493;&#24320;&#22987;&#20889;&#33258;&#24049;&#24212;&#29992;&#30340;Js&#20195;&#30721;&#21862;&#10;&#10;``` &#10;define(function(require,exports,module)&#123;&#10;     var util = &#123;&#125;;&#10;     var colorRange = [&#39;0&#39;,&#39;1&#39;,&#39;2&#39;,&#39;3&#39;,&#39;4&#39;,&#39;5&#39;,&#39;6&#39;,&#39;7&#39;,&#39;8&#39;,&#39;9&#39;,&#39;A&#39;,&#39;B&#39;,&#39;C&#39;,&#39;D&#39;,&#39;E&#39;,&#39;F&#39;];&#10;     util.randomColor = function()&#123;&#10;          return &#39;#&#39; +&#10;               colorRange[Math.floor(Math.random() * 16)] +&#10;               colorRange[Math.floor(Math.random() * 16)] +&#10;               colorRange[Math.floor(Math.random() * 16)] +&#10;               colorRange[Math.floor(Math.random() * 16)] +&#10;               colorRange[Math.floor(Math.random() * 16)] +&#10;               colorRange[Math.floor(Math.random() * 16)];&#10;     &#125;;&#10;    &#10;     var helloSeaJS = document.getElementById(&#39;hello-seajs&#39;);&#10;     helloSeaJS.style.color = util.randomColor();&#10;     window.setInterval(function()&#123;&#10;          helloSeaJS.style.color = util.randomColor();&#10;     &#125;,1500);&#10;&#125;); &#10;``` &#10;&#10;sea.js&#37324;&#25152;&#26377;&#30340;&#20195;&#30721;&#37117;&#25918;&#22312;define(function(require,exports,module)&#123;&#125;);&#20989;&#25968;&#20307;&#37324;&#38754;&#65292;define&#26159;SeaJS&#23450;&#20041;&#30340;&#19968;&#20010;&#20840;&#23616;&#20989;&#25968;&#65292;&#29992;&#26469;&#23450;&#20041;&#19968;&#20010;&#27169;&#22359;&#12290;&#10;&#19978;&#38754;&#25105;&#20204;&#21457;&#29616;&#23601;&#26159;&#19968;&#20010;js&#25991;&#20214;&#65292;&#22312;seajs&#37324;&#19968;&#20010;&#25991;&#20214;&#34920;&#31034;&#19968;&#20010;&#27169;&#22359;&#65292;&#20004;&#20010;&#25991;&#20214;&#23601;&#26159;&#35201;&#20998;&#24320;&#26469;&#20889;&#21464;&#25104;&#20004;&#20010;&#27169;&#22359;&#20102;&#12290;&#25509;&#19979;&#30475;&#30475;&#25105;&#20204;&#24590;&#20040;&#25226;&#36825;&#20010;&#19968;&#20010;&#25991;&#20214;&#27169;&#22359;&#21464;&#25104;&#20004;&#20010;&#25991;&#20214;&#27169;&#22359;&#10;&#31532;&#19968;&#37096;&#20998;  &#29420;&#31435;&#20986;util.js&#10;&#10;``` &#10;define(function(require,exports,module)&#123;&#10;     var util = &#123;&#125;;&#10;    &#10;     var colorRange = [&#39;0&#39;,&#39;1&#39;,&#39;2&#39;,&#39;3&#39;,&#39;4&#39;,&#39;5&#39;,&#39;6&#39;,&#39;7&#39;,&#39;8&#39;,&#39;9&#39;,&#39;A&#39;,&#39;B&#39;,&#39;C&#39;,&#39;D&#39;,&#39;E&#39;,&#39;F&#39;];&#10;    &#10;     util.randomColor = function()&#123;&#10;          return &#39;#&#39; +&#10;               colorRange[Math.floor(Math.random() * 16)] +&#10;               colorRange[Math.floor(Math.random() * 16)] +&#10;               colorRange[Math.floor(Math.random() * 16)] +&#10;               colorRange[Math.floor(Math.random() * 16)] +&#10;               colorRange[Math.floor(Math.random() * 16)] +&#10;               colorRange[Math.floor(Math.random() * 16)];&#10;     &#125;;&#10;    &#10;     module.exports = util;&#10;&#125;);&#10;``` &#10;&#25105;&#20204;&#21457;&#29616;&#36825;&#20010;&#27169;&#22359;&#38500;define&#20043;&#22806;&#65292;&#25105;&#20204;&#30475;&#21040;module.exports = util;&#36825;&#19968;&#21477;&#27604;&#36739;&#29305;&#27530;&#12290;&#36825;&#21477;&#26159;&#22312;&#35828;&#65292;&#25105;util&#27169;&#22359;&#21521;&#22806;&#26292;&#38706;&#30340;&#25509;&#21475;&#23601;&#36825;&#20123;&#65292;&#20854;&#20182;&#25152;&#26377;&#30340;&#19996;&#35199;&#37117;&#26159;&#25105;&#20869;&#37096;&#29992;&#30340;&#65292;&#20320;&#20204;&#23601;&#21035;&#24819;&#29992;&#21862;&#12290;&#10;&#20877;&#30475;&#30475;&#21478;&#19968;&#20010;&#27169;&#22359;application.js:&#10;&#10;``` &#10;define(function(require,exports,module)&#123;&#10;    &#10;     var util = require(&#39;./util&#39;);&#10;    &#10;     var helloSeaJS = document.getElementById(&#39;hello-seajs&#39;);&#10;     helloSeaJS.style.color = util.randomColor();&#10;     window.setInterval(function()&#123;&#10;          helloSeaJS.style.color = util.randomColor();&#10;     &#125;,1500);&#10;&#125;);&#10;``` &#10;&#10;&#36825;&#20010;&#27169;&#22359;&#37324;&#65292;&#25105;&#20204;&#30475;&#21040;var util = require(&#39;./util&#39;);&#36825;&#21477;&#27604;&#36739;&#29305;&#27530;&#12290;&#36825;&#21477;&#23601;&#26159;&#22312;&#35828;&#65292;&#25105;application&#27169;&#22359;&#30001;&#20110;&#19994;&#21153;&#38656;&#35201;&#65292;&#24819;&#35831;util&#27169;&#22359;&#26469;&#24110;&#24537;&#65292;&#25152;&#20197;&#25226;util&#32473;require&#36827;&#26469;&#12290;&#29616;&#22312;&#22522;&#26412;&#19978;&#25226;&#19978;&#38754;&#37027;&#20010;&#19968;&#20010;&#27169;&#22359;&#20998;&#20026;&#20004;&#20010;&#27169;&#22359;&#20102;&#65292;&#35760;&#20303;&#65292;&#19968;&#20010;&#25991;&#20214;&#23601;&#26159;&#19968;&#20010;&#27169;&#22359;&#12290;&#10;&#10;&#26368;&#21518;&#24320;&#22987;&#24341;&#20837;&#20195;&#30721;&#10;&#36825;&#37324;&#35201;&#29992;&#21040;sea.js&#30340;&#27169;&#22359;&#21152;&#36733;&#21551;&#21160;&#65292;&#20855;&#20307;&#30475;&#36825;&#37324;https://github.com/seajs/seajs/issues/260  &#12290;&#24456;&#31616;&#21333;&#20351;&#29992;seajs.use&#21363;&#21487;&#65292;&#27604;&#22914;&#36825;&#37324;&#25105;&#20204;&#21487;&#20197;&#22312;  &#10;&#10;``` &#60;script src=&#34;assets/scripts/seajs/sea.js&#34; id=&#34;seajsnode&#34;&#62;</span><br></pre></td></tr></table></figure>
+<p>后面加上：</p>
+<p><code>&lt;script&gt; seajs.use(&quot;application/application&quot;); &lt;/script&gt;</code> </p>
+<p>嗯，到这里我们差不多就结束了可以看到我们可爱的hello world效果了，至于那些打包压缩的事下次再来学习吧。<br>具体的首页代码就是下面的了，自己再加上上面的Js代码去看看效果吧，(<em>^__^</em>) 嘻嘻……<br><img src="https://github.com/dyygtfx/dyygtfx.github.com/blob/master/_posts/blog/img/2014-05-01_003855.png?raw=true" alt="效果图"></p>
+<pre><code><span class="doctype">&lt;!doctype html&gt;</span>
+<span class="tag">&lt;<span class="title">html</span> <span class="attribute">lang</span>=<span class="value">"en"</span>&gt;</span>
+<span class="tag">&lt;<span class="title">head</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">meta</span> <span class="attribute">charset</span>=<span class="value">"UTF-8"</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">title</span>&gt;</span>hello world<span class="tag">&lt;/<span class="title">title</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">style</span> <span class="attribute">type</span>=<span class="value">"text/css"</span>&gt;</span><span class="css">
+        <span class="tag">html</span>,<span class="tag">body</span>,<span class="tag">h1</span><span class="rules">{<span class="rule"><span class="attribute">padding</span>:<span class="value"><span class="number">0px</span></span></span>;<span class="rule"><span class="attribute">margin</span>:<span class="value"><span class="number">0px</span></span></span>;<span class="rule"><span class="attribute">font-size</span>:<span class="value"><span class="number">18px</span></span></span>;}</span>
+
+        <span class="id">#hello-seajs</span><span class="rules">{
+            <span class="rule"><span class="attribute">-webkit-transition</span>:<span class="value">color <span class="number">1.5s</span> ease</span></span>;
+            <span class="rule"><span class="attribute">-o-transition</span>:<span class="value">color <span class="number">1.5s</span> ease</span></span>;
+            <span class="rule"><span class="attribute">-moz-transition</span>:<span class="value">color <span class="number">1.5s</span> ease</span></span>;
+            <span class="rule"><span class="attribute">transition</span>:<span class="value">color <span class="number">1.5s</span> ease</span></span>;
+            <span class="rule"><span class="attribute">font-size</span>:<span class="value"><span class="number">10em</span></span></span>;
+            <span class="rule"><span class="attribute">text-align</span>:<span class="value">center</span></span>;
+        }</span>
+    </span><span class="tag">&lt;/<span class="title">style</span>&gt;</span>
+<span class="tag">&lt;/<span class="title">head</span>&gt;</span>
+<span class="tag">&lt;<span class="title">body</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">h1</span> <span class="attribute">id</span>=<span class="value">"hello-seajs"</span>&gt;</span>
+        Hello world
+    <span class="tag">&lt;/<span class="title">h1</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">script</span> <span class="attribute">src</span>=<span class="value">"scripts/seajs/sea.js"</span> <span class="attribute">id</span>=<span class="value">"seajsnode"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="title">script</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">script</span>&gt;</span><span class="openscad"> seajs.<span class="keyword">use</span><span class="params">(<span class="string">"application/application"</span>)</span>; </span><span class="tag">&lt;/<span class="title">script</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">script</span> <span class="attribute">src</span>=<span class="value">"scripts/application/util.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="title">script</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">script</span> <span class="attribute">src</span>=<span class="value">"scripts/application/application.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="title">script</span>&gt;</span>
+<span class="tag">&lt;/<span class="title">body</span>&gt;</span>
+<span class="tag">&lt;/<span class="title">html</span>&gt;</span>
+</code></pre>
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+	  	<span></span>
+		<a href="/2014/05/01/2014-05-01-seajs-1/#disqus_thread" class="comments-count-link">Comments</a>
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2014/04/27/2014-04-27-javascript-scope/" title="谈谈Js里变量作用域和上下文" itemprop="url">谈谈Js里变量作用域和上下文</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Go7hic" target="_blank" itemprop="author">Go7hic</a>
+		
+  <p class="article-time">
+    <time datetime="2014-04-26T16:00:00.000Z" itemprop="datePublished"> 发表于 2014-04-27</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p>由于不是第一次看Js的书，所以对于这本犀牛书里的内容我可能不会按顺序来看，会选一些我觉得需要重复了解的一些章节跳着看。今天看了下变量作用域和函数这两部分的内容。大家都知道作用域和闭包几乎是毕业狗去面试必问的。 </p>
+<p>现在就结合网上的一篇文章在重新回顾下作用域这个东西吧。<br>作用域和上下文并不是同一个东西，很多人可能会把它搞混。每一个函数调用都联系着一个作用域和一个上下文。根本上来说，作用域是基于函数的而上下文是基于对象的。换句话说，作用域与函数调用是能够获取的变量有联系，它对与每一次调用来说都是独一无二的。上下文常常代表this变量的值，它指向“拥有”当前执行的这段代码的对象。</p>
+<p><strong>变量作用域</strong></p>
+<p>一个变量的作用域是程序源代码中定义这个变量的区域。全局变量拥有全局作用域，在js代码里的任何地方都是有定义的。然而在函数内声明的变量只在函数体内有定义，他们是局部变量，作用域是局部性的，函数参数也是局部变量，他们只在函数体内有定义。在函数体内局部变量的优先级高于同名的全局变量，如果在函数体内声明的一个局部变量或者函数参数中带有的变量和全局变量重名，那么全局变量就被局部变量所遮盖。</p>
+<p>Javascript目前并不支持块作用域，在其中你可以在一个if 声明，switch声明，for循环或者while循环中定义一个变量作用域。这意味着变量在开闭花括号之外不能被获取。目前来说，任何定义在块内的变量都能在块之外被获取。然而，这样的情况马上就要改变了，为了支持定义块作用域变量，let关键字已经被官方增加到了ES6的标准中.</p>
+<p><strong>“this”上下文</strong></p>
+<p>上下文经常决定一个函数是怎么被调用的。当一个函数作为一个对象的方法被掉调用时，this指向调用这个方法的对象：</p>
+<p>var object = {<br>    foo: function(){<br>        alert(this === object);<br>    }<br>};</p>
+<p>object.foo(); // true  `<br>同样的原则也适用于当使用new操作符定义一个对象实例的情况。在这种情况下，在函数作用域内的this指向新创建的实例：</p>
+<p>function foo(){<br>    alert(this);<br>}</p>
+<p>foo() // window<br>new foo() // foo`<br>当作为未绑定对象被调用时，this默认指向全局上下文或者浏览器中的window对象。然而，如果函数在严格模式下被执行，上下文将被默认为undefined</p>
+<p><strong>执行上下文和作用域链</strong></p>
+<p>Javascript是一门单线程语言，这意味着在浏览器环境下一个时间点只能做一件事。当Javascript解释器初始化执行代码时，它首先默认进入一个全局执行上下文。在此基础上每一次函数的调用都将创建一个新的执行上下文。</p>
+<p>这里通常就是产生疑惑的地方，这里所说的“执行上下文”实际上对应着所有指向作用域的意图和目的，它于前面所讨论的上下文有所不同。这是一个很不好的命名管理，但是它很不幸的是已经被定义到了ECMAScript的标准中，这实在是让人有点无法接受。</p>
+<p>每次一个新的执行上下文被创建时，它都被添加到了作用域链（有时它也被称为执行栈或者调用栈）的顶部。浏览器总是执行当前位于作用域链顶部的执行上下文。一旦执行完成，它就会被从栈的顶部移除，并将控制权返回到它下面的执行上下文。例如：</p>
+<p>function first(){<br>    second();<br>    function second(){<br>        third();<br>        function third(){<br>            fourth();<br>            function fourth(){<br>                // do something<br>            }<br>        }<br>    }<br>}<br>first();<br>运行上边的代码会导致嵌套函数一路执行一直到fourth函数。在这个点上的作用于连从上到下的顺序是：fourth,third,second,first,global。fourth函数可以获取到全局变量以及任何定义在first，second,third 中的变量以及函数。一旦fourth函数执行完成，它将会被从作用域中被移除，执行权将会返回到third函数。这个过程一直继续直到所有的代码完成执行。</p>
+<p>不同执行上下文中的命名冲突将由作用域链的攀登(climbing up the scope chain)来解决，它从本地一直移动到全局。这意味着拥有相同名字并位于作用域链更上方的的本地变量会被优先获取。</p>
+<p>一个执行上下文分为创建和执行两个阶段。在创建阶段，解释器首先创建一个变量对象（也被成为激活对象），它由执行上下文中定义的所有变量，函数声明以及参数组成。从这里开始接下来作用域连被初始化，this的值随后被决定。接着在执行阶段，代码被解释执行。</p>
+<p>简单来说，每次当你试图获取一个函数执行上下文中的值是，查询过程将总是从自己的变量对象开始。如果这个变量在变量对象中没有被找到，搜索将会转向作用域链。它将会攀登作用域链来检查每个执行上下文，查找是个否有名字匹配的变量。</p>
+<p><strong>闭包</strong></p>
+<p>当一个嵌套函数试图获取外部函数之外的值时，闭包便产生了，它将在外部函数返回之后被执行。它将保持对外部函数本地变量，以及在内部定义的函数的获取能力。封装允许我们在暴露一个公共接口的情况下隐藏和保持来自外部作用域的执行上下文，并用于未来的操控。下面是一个简单的例子：</p>
+<p>function foo(){<br>    var local = ‘private variable’;<br>    return function bar(){<br>        return local;<br>    }<br>}</p>
+<p>var getLocalVariable = foo();<br>getLocalVariable() // private variable<br>一个最流行的闭包类型是广为流传的模块模式。它允许你模拟公共，私有以及特权成员：</p>
+<p>var Module = (function(){<br>    var privateProperty = ‘foo’;</p>
+<pre><code><span class="function"><span class="keyword">function</span> <span class="title">privateMethod</span><span class="params">(args)</span></span>{
+    <span class="comment">//do something</span>
+}
+
+<span class="keyword">return</span> {
+
+    publicProperty: <span class="string">""</span>,
+
+    publicMethod: <span class="function"><span class="keyword">function</span><span class="params">(args)</span></span>{
+        <span class="comment">//do something</span>
+    },
+
+    privilegedMethod: <span class="function"><span class="keyword">function</span><span class="params">(args)</span></span>{
+        privateMethod(args);
+    }
+}
+</code></pre><p>})();<br>这个模块执行的过程似乎是在编译器解释它之后作为一个单体被执行。在这个闭包的执行上下文外部唯一可以获取的成员是你返回对象中的属性和方法(例如Module.publicMethod)。然而，由于执行上下文被保护，所有的私有属性和方法在应用的生命周期内都会保持活跃，这意味着所有变量在未来将可以通过共有方法被获取。</p>
+<p>另一个类型的闭包叫做立即执行函数表达式（IIFE），它仅仅是一个在window上下文中自我调用的匿名函数：</p>
+<p>function(window){</p>
+<pre><code><span class="keyword">var</span> a = <span class="string">'foo'</span>, b = <span class="string">'bar'</span>;
+
+<span class="function"><span class="keyword">function</span> <span class="title">private</span><span class="params">()</span></span>{
+    <span class="comment">// do something</span>
+}
+
+window.Module = {
+
+    <span class="keyword">public</span>: <span class="function"><span class="keyword">function</span><span class="params">()</span></span>{
+        <span class="comment">// do something </span>
+    }
+};
+</code></pre><p>})(this);<br>当试图保持全局命名空间时这个表达式非常有用，任何在这个函数体内生命的变量对于闭包来说都是本地变量，但是它们又将始终在运行期间保持活跃。这是一个为应用和框架封装源代码的好方法，尤其适用于暴露一个用于交互的全局接口的情形。</p>
+<p><strong>call和apply</strong></p>
+<p>这是两个位于所有函数内部的简单的方法，它们使你能在任何想要的上下文中执行任何函数。call函数要求参数显式的一个一个罗列出来而apply要求你以数组的形式提供参数：</p>
+<p>function user(first, last, age){<br>    // do something<br>}<br>user.call(window, ‘John’, ‘Doe’, 30);<br>user.apply(window, [‘John’, ‘Doe’, 30]);<br>上面两个函数调用的结果都相同，user函数都在window上下文中被调用并都给与的三个参数。</p>
+<p>ECMAScript 5 引入了Function.prototype.bind方法用来操纵上下文。它返回了一个永久绑定在bind函数第一个参数上下文中的函数，而不管这个函数是怎么使用的。它通过使用一个在合适的上下文中重定向调用的闭包来实现。下面是在不支持bind的浏览器中的实现方法：</p>
+<p>if(!(‘bind’ in Function.prototype)){<br>    Function.prototype.bind = function(){<br>        var fn = this, context = arguments[0], args = Array.prototype.slice.call(arguments, 1);<br>        return function(){<br>            return fn.apply(context, args);<br>        }<br>    }<br>}`<br>这在上下文经常性丢失的情形下很常用：面向对象和事件处理。这很有必要因为一个节点的addEventListener方法总是在节点事件处理器被绑定的上下文中执行回调函数，它也应该这样做。然而如果你要使用更高级的面向对象技巧并不要一个对象的方法作为回调函数，你需要去手动调整上下文。下面的是一个用到了bind函数的例子：</p>
+<p>function MyClass(){<br>    this.element = document.createElement(‘div’);<br>    this.element.addEventListener(‘click’, this.onClick.bind(this), false);<br>}</p>
+<p>MyClass.prototype.onClick = function(e){<br>    // do something<br>};<br>当你回看bind函数的代码是，你可能会注意到其中一行代码涉及了Array对象的一个方法：</p>
+<p>`Array.prototype.slice.call(arguments, 1);<br>有意思的一点是这里的arguments对象并不是真正的数组，然而它经常被描述为一个类数组的对象，辟谷期更像是一个节点列表(由document.getElemntsBytagName()返回的东西)。它们包含一个Length属性和索引值但是它们任然不是数组，因此并不支持任何数组的原生方法例如slice和push。然而，由于它们太相似了，因此数组的方法能被采用或者说劫持。在上面的例子中，数组对象的方法都在一个类数组对象的上下文中被执行。</p>
+<p>这种使用另一个对象方法的技巧也被运用于模拟传统继承方法的Javascript中的面向对象编程：</p>
+<p>MyClass.prototype.init = function(){<br>    //在”MyClass”实例的上下文中调用超类的init方法<br>    MySuperClass.prototype.init.apply(this, arguments);<br>}<br>通过在一个子类(MyClass)实例的上下文中调用超类(MySuperClass)的方法，我们能够模仿这种强大的设计模式。</p>
+<p>结论</p>
+<p>在你开始学习更高级的设计模式之前，理解这些概念非常的重要，因为作用域和上下文在现代Javascript中边沿了一个重要又基础的角色。无论我们谈论闭包，面向对象还是继承，或者多种事件的实现，上下文和作用域链都扮演着一个非常重要的角色。如果你的目标是掌握Javascript语言并且更好的理解它，那么作用域链和闭包应该是你学习的起点。</p>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+	  	<span></span>
+		<a href="/2014/04/27/2014-04-27-javascript-scope/#disqus_thread" class="comments-count-link">Comments</a>
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2014/04/26/2014-04-26-javascript-prototype/" title="谈谈JavaScript中的原型继承" itemprop="url">谈谈JavaScript中的原型继承</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Go7hic" target="_blank" itemprop="author">Go7hic</a>
+		
+  <p class="article-time">
+    <time datetime="2014-04-25T16:00:00.000Z" itemprop="datePublished"> 发表于 2014-04-26</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <h3 id="谈谈JavaScript中的原型继承">谈谈JavaScript中的原型继承</h3><p>在Javascript面向对象编程中，原型继承不仅是一个重点也是一个不容易掌握的点。在本文中，我们将对Javascript中的原型继承进行一些探索。</p>
+<p>基本形式</p>
+<p>我们先来看下面一段代码：</p>
+<p>//构造器函数<br>function Shape(){<br>    this.x = 0;<br>    this.y = 0;<br>}</p>
+<p>//一个shape实例<br>var s = new Shape();<br>虽然这个例子非常简单，但是有四个“非常重要”的点需要在此阐明：</p>
+<p>1.s是一个对象，并且默认的它拥有访问Shape.prototype（即每个由Shape构造函数创建的对象拥有的原型）的权限；简单来说，Shape.prototype就是一个“监视”着所有Shape实例的对象。你可以将一个对象的原型想象成一个由许多属性（变量/函数）组成的后备集合，当原型在它自己身上找不到东西时就会去原型中查找。</p>
+<p>2.原型可以在所有的Shape实例中共享。例如，所有的原型都拥有（直接）访问原型的权限。</p>
+<p>3.当你调用实例中的一个函数时，这个实例会在它自己身上查找这个函数的定义。如果找不到，那么原型将会查找这个函数的定义。</p>
+<p>4.无论被调用的函数的定义在哪里找到（在实例本身中或者它的原型中），this的值都是指向用来调用函数的这个实例。因此如果我们调用了一个s中干的函数，如果这个函数并没有在s中直接定义而是在s的原型中，this值依然指向s。</p>
+<p>现在我们将上面强调的几点运用到一个例子中。假设我们将一个函数getPosition()绑定到s上。我们可能会这样做：</p>
+<p>s.getPosition(){<br>    return [this.x,this.y];<br>}<br>这样做没有什么错误。你可以直接调用s.getPosition()然后你将获得返回的数组。</p>
+<p>但是如果我们创建了另一个Shape的实例s2怎么办；它依然能够调用getPosition()函数吗？</p>
+<p>答案显然是不能。</p>
+<p>getPosition函数直接在实例s中北创建。因此，这个函数并不会讯在与s2中。</p>
+<p>当你调用s2.getPosition()时，下面的步骤会依次发生(注意第三步非常重要)：</p>
+<p>1.实例s2会检查getPosition的定义；<br>2.这个函数不存在于s2中；<br>3.s2的原型（和s一起共享的后备集合）检查getPosition的定义；<br>4.这个函数不存在与原型中；<br>5.这个函数的定义没有被找到；</p>
+<p>一个简单（但并不是最优）的解决方案是将getPosition在实例s2（以及后面每一个需要getPosition的实例）中再定义一次。这是一个很不好的做法因为你在做无意义的复制代码的工作，而且在每个实例中定义一个函数会消耗更多的内存（如果你关心这点的话）。</p>
+<p>我们有更好的办法。</p>
+<p>在原型中定义属性</p>
+<p>我们完全可以达到所有实例共享getPosition函数的目的，不是在每个实例中都定义getPosition，而是在构造器函数的原型中。我们来看下面的代码：</p>
+<p>//构造器函数<br>function Shape(){<br>    this.x = 0;<br>    this.y = 0 ;<br>}  </p>
+<p>Shape.prototype.getPosition = function(){<br>    return [this.x,this.y];<br>}  </p>
+<p>var s = new Shape(),<br>        s2 = new Shape();<br>由于原型在所有Shape的实例中共享，s和s2都能够访问到getPosition函数。</p>
+<p>调用s2.getPosition()函数会经历下面的步骤：</p>
+<p>1.实例s2检查getPosition的定义；<br>2.函数不存在与s2中；<br>3.检查原型；<br>4.getPosition的定义存在于原型中；<br>5.getPosition会连同指向s2的this一起执行；</p>
+<p>绑定到原型的属性非常适合于重用。你可以在所有的实例中重用同样的函数。</p>
+<p>原型中的陷阱</p>
+<p>当你把对象或者数组绑定到原型中的时候要非常小心。所有的实例将会共享这些被绑定的对象/数组的引用。如果一个实例操纵了对象或数组，那么所有的实例都会受到影响。</p>
+<p>function Shape() {<br>  this.x = 0;<br>  this.y = 0;<br>}</p>
+<p>Shape.prototype.types = [‘round’, ‘flat’];</p>
+<p>s = new Shape();<br>s2 = new Shape();</p>
+<p>s.types.push(‘bumpy’);</p>
+<p>console.log(s.types); // [‘round’, ‘flat’, ‘bumpy’]<br>console.log(s2.types); // [‘round’, ‘flat’, ‘bumpy’]<br>当s.types.push(’bumpy’)这行代码运行时，实例s将会检查一个叫做types的数组。它不存在与实例s中，于是原型检查这个数组。这个数组，types，存在于原型中，因此我们为他添加一个元素’bumpy’。</p>
+<p>结果，由于s2也共享原型，它也能通过非直接的方式发现types数组发生了变化。</p>
+<p>现实世界中当你使用Backbone.js时也会发生类似的事情。当你定义了一个视图/模型/集合，Backbone会把你通过extend函数(例如：Backbone.View.extend({}))传递的属性添加到你定义的实体的原型中。</p>
+<p>这意味着如果你在定义实体时添加了一个对象或者数组，所有的实例将会共享这些对象或者数组，很有可能你的一个实例会毁掉另外一个实例。为了避免这样的情况，你经常会看到任梦将这些对象/数组包括在一个函数中，每次返回一个对象/数组的实例：</p>
+<p>注意：Backbone在model defaults的部分中谈到了这一点：</p>
+<p>记住在Javascript中，对象是以引用的方式被传递的，因此如果你包含了一个对象作为默认值，它将在所有实例中被共享。因此，我们将defaults定义为一个函数。<br>另一种类型的Shape</p>
+<p>假设现在我们想要创建一种特定类型的Shape，比如说一个圆。如果它能继承Shape的所有功能并且还能在它的原型中定义自定义函数那该多好：</p>
+<p>function Shape() {<br>  this.x = 0;<br>  this.y = 0;<br>}</p>
+<p>function Circle() {<br>  this.radius = 0;<br>}<br>那么我们怎么形容一个circle是一个shape呢？有以下几种方法：</p>
+<p>1.借用构造函数并且赋值给原型</p>
+<p>当我们创建一个圆时，我们想要让实例拥有一个半径（来源于Circle构造函数），以及一个x位置，一个y位置（来源于Shape构造函数）。</p>
+<p>我们我们仅仅声明c = new Circle()，那么c仅仅只有半径。Shape构造函数对x和y进行了初始化。我们想要这个功能。因此我们来借用这个功能。</p>
+<p>function Circle() {<br>  this.radius = 0;</p>
+<p>  Shape.call(this);<br>}<br>最后一行代码Shape.call(this)调用了Shape构造函数并改变了当Circle构造函数被调用时指向this的this值。这是在说些什么？</p>
+<p>现在我们来使用上面的构造函数创建一个新的圆然后看看发生了什么：</p>
+<p>var c = new Circle();<br>这行代码调用了Circle构造函数，它首先在c上绑定了一个变量radius。记住，此时的this指向的是c。我们接着调用Shape构造函数，然后将Shape中的this值指向当前在Circle中的this值，也就是c。Shape构造函数将x和y绑定到了当前的this上，也就是说，c现在拥有值为0的x和y属性。</p>
+<p>另外，你在这个例子中放置Shape.call(this)的为止并不重要。如果你想在初始化之后重载x和y（也就是将圆心放在一个另外的地方），你可以在调用Shape函数之后完成这件事。</p>
+<p>问题是现在我们实例化的圆虽然拥有了变量x，y和radius，但是它并不能从Shape的原型中获取任何东西。我们需要设置Circle构造函数来将Shape的原型重用为它的原型 – 以便所有的圆都能获取作为shape的福利。</p>
+<p>一种方式是我们将Circle.prototype的值设置为Shape.prototype:</p>
+<p>function Shape() {<br>  this.x = 0;<br>  this.y = 0;<br>}</p>
+<p>Shape.prototype.getPosition = function () {<br>  return [this.x, this.y];<br>};</p>
+<p>function Circle() {<br>  this.radius = 0;<br>  Shape.call(this);<br>}</p>
+<p>Circle.prototype = Shape.prototype;</p>
+<p>var s = new Shape(),<br>    c = new Circle();<br>这样做运行的很好，但是它并不是最优选择。实例c现在拥有访问getPosition函数的权限，因为Circle构造器函数和Shape构造器函数共享了它的原型。</p>
+<p>要是我们还想给所有元定义一个getArea函数怎么办？我们将把这个函数绑定到Circle构造器函数的原型中以便它可以为所有圆所用。</p>
+<p>编写下面的代码：</p>
+<p>function Shape() {<br>  this.x = 0;<br>  this.y = 0;<br>}</p>
+<p>Shape.prototype.getPosition = function () {<br>  return [this.x, this.y];<br>};</p>
+<p>function Circle() {<br>  this.radius = 0;<br>  Shape.call(this);<br>}</p>
+<p>Circle.prototype = Shape.prototype;</p>
+<p>Circle.prototype.getArea = function () {<br>  return Math.PI <em> this.radius </em> this.radius;<br>};</p>
+<p>var s = new Shape(),<br>    c = new Circle();<br>现在的情况是Circle和Shape共享同一个原型，我们在Circle.prototype中添加了一个函数其实也就相当于在Shape.prototype中添加了一个函数。</p>
+<p>怎么会这个样子！</p>
+<p>一个Shape的实例并没有radius变量，只有Circle实例拥有radius变量。但是现在，所有的Shape实例都可以访问getArea函数 – 这将导致一个错误，但是当所有圆调用这个函数时则一切正常。</p>
+<p>将所有的原型设置为同一个对象并不能满足我们的需求。</p>
+<p>2.Circle原型是一个Shape的实例</p>
+<p>function Shape() {<br>  this.x = 0;<br>  this.y = 0;<br>}</p>
+<p>Shape.prototype.getPosition = function () {<br>  return [this.x, this.y];<br>};</p>
+<p>function Circle() {<br>  this.radius = 0;<br>}</p>
+<p>Circle.prototype = new Shape();</p>
+<p>var c = new Circle();<br>这个方法非常的酷。我们并没有借用构造器函数但是Circle拥有了x和y，同时也拥有了getPosition函数。它是怎么实现的呢？</p>
+<p>Circle.prototype现在是一个Shape的实例。这意味着c有一个直接的变量radius（由Circle构造器函数提供）。然而，在c的原型中，有一个x和y。现在注意，有趣的东西要来了：在c的原型的原型中，有一个getPosition函数的定义。看起来其实是这样的：</p>
+<p>enter image description here<br>因此，如果你试图获取c.x，那么它将在c的原型中被找到。</p>
+<p>这种方法的缺点是如果你想要重载x和y，那么你必须在Circle构造器或者Circle原型中做这件事。</p>
+<p>function Shape() {<br>  this.x = 0;<br>  this.y = 0;<br>}</p>
+<p>Shape.prototype.getPosition = function () {<br>  return [this.x, this.y];<br>};</p>
+<p>function Circle() {<br>  this.radius = 0;<br>}</p>
+<p>Circle.prototype = new Shape();<br>Circle.prototype.x = 5;<br>Circle.prototype.y = 10;</p>
+<p>var c = new Circle();</p>
+<p>console.log(c.getPosition()); // [5, 10]<br>调用c.getPosition将会经历下列步骤：</p>
+<p>1.该函数在c中没有被找到；<br>2.该函数在c的原型（Shape的实例）中没有被找到；<br>3.该函数在Shape实例的原型（c的原型的原型）中被找到；<br>4.该函数连同指向c的this一起被调用；<br>5.在getPosition函数的定义中，我们在this中寻找x；<br>6.x没有直接在c中被找到；<br>7.我们在c的原型（Shape实例）中查找x；<br>8.我们在c的原型中找到x； 9.我们在c的原型中找到y；</p>
+<p>除了有一层一层的原型链带来的头痛之外，这个方法还是很不错的。</p>
+<p>这个方法还可以使用Object.create()来替代。</p>
+<p>3.借用构造函数并使用Object.create</p>
+<p>function Shape() {<br>  this.x = 0;<br>  this.y = 0;<br>}</p>
+<p>Shape.prototype.getPosition = function () {<br>  return [this.x, this.y];<br>};</p>
+<p>function Circle() {<br>  this.radius = 0;</p>
+<p>  Shape.call(this);<br>  this.x = 5;<br>  this.y = 10;<br>}</p>
+<p>Circle.prototype = Object.create(Shape.prototype);</p>
+<p>var c = new Circle();</p>
+<p>console.log(c.getPosition()); // [5, 10]<br>这个方法的一大好处就是x和y直接被绑定到了c上 – 这将使查询速度大大提高（如果你的程序关心这件事情）因为你再也不需要向上查询原型链了。</p>
+<p>我们来看一看Object.create的替代方法(polyfill)：</p>
+<p>Object.create = (function(){<br>  // 中间构造函数<br>  function F(){}</p>
+<p>  return function(o){<br>    …<br>    // 将中间构造函数的原型设置为我们给它的对象o<br>    F.prototype = o;<br>    // 返回一个中间构造函数的实例；<br>        // 它是一个空对象但是原型是我们给它的对象o<br>    return new F();<br>  };<br>})();<br>上说过程基本上是完成了Circle.prototype = new Shape()；只是现在Circle.prototype是一个空对象（一个中间构造函数F的实例），而它的原型是Shape.prototype。</p>
+<p>你应该使用哪个方法</p>
+<p>非常重要的一点是记住如果你在Shape构造函数上绑定有对象/数组，那么所有的圆都可以修改这些共享的对象/数组。如果将Circle.prototype设置为一个Shape的实例时这个方法会有很大的缺陷。</p>
+<p>function Shape() {<br>  this.x = 0;<br>  this.y = 0;<br>  this.types = [‘flat’, ‘round’];<br>}</p>
+<p>Shape.prototype.getPosition = function () {<br>  return [this.x, this.y];<br>};</p>
+<p>function Circle() {<br>  this.radius = 0;<br>}</p>
+<p>Circle.prototype = new Shape();</p>
+<p>var c = new Circle(),<br>    c2 = new Circle();</p>
+<p>c.types.push(‘bumpy’);</p>
+<p>console.log(c.types);  // [“flat”, “round”, “bumpy”]<br>console.log(c2.types); // [“flat”, “round”, “bumpy”]<br>为了避免这种情况的发生，你可以借用Shape的构造函数并且使用Object.create以便每一个圆都能拥有它自己的types数组。</p>
+<p>…<br>function Circle() {<br>  this.radius = 0;<br>  Shape.call(this);<br>}</p>
+<p>Circle.prototype = Object.create(Shape.prototype);</p>
+<p>var c = new Circle(),<br>    c2 = new Circle();</p>
+<p>c.types.push(‘bumpy’);</p>
+<p>console.log(c.types);  // [“flat”, “round”, “bumpy”]<br>console.log(c2.types); // [“flat”, “round”]<br>一个更高级的例子</p>
+<p>我们现在在前面讨论的基础上更进一步，创建一个新的Circle的类型，Sphere。一个椭圆和圆差不多，只是在计算面积时有不同的公式。</p>
+<p>function Shape() {<br>  this.x = 0;<br>  this.y = 0;<br>}</p>
+<p>Shape.prototype.getPosition = function () {<br>  return [this.x, this.y];<br>};</p>
+<p>function Circle() {<br>  this.radius = 0;</p>
+<p>  Shape.call(this);<br>  this.x = 5;<br>  this.y = 10;<br>}</p>
+<p>Circle.prototype = Object.create(Shape.prototype);</p>
+<p>Circle.prototype.getArea = function () {<br>  return Math.PI <em> this.radius </em> this.radius;<br>};</p>
+<p>function Sphere() {<br>}</p>
+<p>// TODO: 在这里设置原型链</p>
+<p>Sphere.prototype.getArea = function () {<br>  return 4 <em> Math.PI </em> this.radius * this.radius;<br>};</p>
+<p>var sp = new Sphere();<br>我们应该使用哪种方法来设置原型链？记住，我们并不想要毁掉我们关于圆的getArea的定义。我们只是想在椭圆中有另一种方式的实现。</p>
+<p>我们并能够借用构造函数并为原型赋值（方法1）。因为这样做将会改变所有圆的getArea的定义。然而，我们可以使用Object.create或者将Sphere的原型设置为一个Circle的实例。我们来看看应该怎么做：</p>
+<p>…<br>function Circle() {<br>  this.radius = 0;</p>
+<p>  Shape.call(this);<br>  this.x = 5;<br>  this.y = 10;<br>}</p>
+<p>Circle.prototype = Object.create(Shape.prototype);</p>
+<p>Circle.prototype.getArea = function () {<br>  return Math.PI <em> this.radius </em> this.radius;<br>};</p>
+<p>function Sphere() {<br>  Circle.call(this);<br>}</p>
+<p>Sphere.prototype = Object.create(Circle.prototype);</p>
+<p>Sphere.prototype.getArea = function () {<br>  return 4 <em> Math.PI </em> this.radius * this.radius;<br>};</p>
+<p>var sp = new Sphere();<br>调用sp.getArea()将会经历一下步骤：</p>
+<p>1.在sp中查找getArea的定义；<br>2.在sp中没有找到相关定义；<br>3.在Sphere的原型（一个中间对象，它的原型是Circle.prototype）中查找； 4.在这个中间对象中找到关于getArea的定义，由于我们在Sphere的原型中重新定义了getArea，这里采用新的定义；<br>5.连同指向sp的this调用getArea方法；</p>
+<p>我们注意到Circle.prototype也有一个getArea的定义。然而，由于Sphere.prototype已经有了一个getArea的定义，我们永远不会使用到Circle.prototype中的的getArea – 这样我们就成功的“重载”了这个函数（重载一位这在查询链的前面定义了一个名字相同的函数）。</p>
+<p>本文译自Javascript: An Exploration of Prototypal Inheritance，原文地址<a href="http://mrjoelkemp.com/2014/01/javascript-an-exploration-of-prototypal-inheritance/" target="_blank" rel="external">http://mrjoelkemp.com/2014/01/javascript-an-exploration-of-prototypal-inheritance/</a></p>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+	  	<span></span>
+		<a href="/2014/04/26/2014-04-26-javascript-prototype/#disqus_thread" class="comments-count-link">Comments</a>
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+
+  <nav id="page-nav" class="clearfix">
+    <a class="extend prev" rel="prev" href="/page/2/"><span></span>Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span>
+  </nav>
+
+</div>
+     <!-- <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+
+  
+
+  
+
+  <div class="linkslist">
+  <p class="asidetitle">友情链接</p>
+    <ul>
+        
+          <li>
+            
+            	<a href="https://dyy.im" target="_blank" title="哥特复兴">哥特复兴</a>
+            
+          </li>
+        
+    </ul>
+</div>
+
+  
+
+
+  <div class="rsspart">
+	<a href="/atom.xml" target="_blank" title="rss">RSS 订阅</a>
+</div>
+
+</aside>
+</div> -->
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> 万物之中，希望至美 <br/>
+			至美之物，永不凋零</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+	</div>
+			
+		
+				<div class="cc-license">
+          <a href="http://creativecommons.org/licenses/by-nc/4.0" class="cc-opacity" target="_blank">
+            <img src="/img/cc-by-nc.svg" alt="Creative Commons" />
+          </a>
+        </div>
+    
+
+		<p class="copyright">
+		 © 2011 - 2015
+		
+		<a href="/about" target="_blank" title="Go7hic">Go7hic</a>
+		
+
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+
+
+
+
+<script type="text/javascript">
+
+var disqus_shortname = 'g07hic';
+
+(function(){
+  var dsq = document.createElement('script');
+  dsq.type = 'text/javascript';
+  dsq.async = true;
+  dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+}());
+(function(){
+  var dsq = document.createElement('script');
+  dsq.type = 'text/javascript';
+  dsq.async = true;
+  dsq.src = '//' + disqus_shortname + '.disqus.com/count.js';
+  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+}());
+</script>
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回顶部"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+ </html>
+

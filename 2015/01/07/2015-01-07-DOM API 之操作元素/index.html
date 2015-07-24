@@ -1,0 +1,590 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  
+    <title>3.DOM API 之操作元素 | Go7hic</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="Go7hic">
+    
+
+    
+    <meta name="description" content="DOM API 之操作元素在上一篇文章里我们讨论了如何在没有jQuery的支持下选择元素，这次我们来聊一聊如何使用DOM API创建新元素、修改已有元素的属性或者移动元素的位置。原生的浏览器API已经给我们提供了DOM操作的所有功能，我们能够不借助jQuery或者其他函数库的帮助就完成这些。
+当然有些操作会显得比较冗长，所以我必须再强调一遍，这系列文章的用意不是让开发人员不分情况的彻底丢弃jQue">
+<meta property="og:type" content="article">
+<meta property="og:title" content="3.DOM API 之操作元素">
+<meta property="og:url" content="http://blog.yongyuan.us/2015/01/07/2015-01-07-DOM API 之操作元素/index.html">
+<meta property="og:site_name" content="Go7hic">
+<meta property="og:description" content="DOM API 之操作元素在上一篇文章里我们讨论了如何在没有jQuery的支持下选择元素，这次我们来聊一聊如何使用DOM API创建新元素、修改已有元素的属性或者移动元素的位置。原生的浏览器API已经给我们提供了DOM操作的所有功能，我们能够不借助jQuery或者其他函数库的帮助就完成这些。
+当然有些操作会显得比较冗长，所以我必须再强调一遍，这系列文章的用意不是让开发人员不分情况的彻底丢弃jQue">
+<meta property="og:updated_time" content="2015-07-24T16:00:15.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="3.DOM API 之操作元素">
+<meta name="twitter:description" content="DOM API 之操作元素在上一篇文章里我们讨论了如何在没有jQuery的支持下选择元素，这次我们来聊一聊如何使用DOM API创建新元素、修改已有元素的属性或者移动元素的位置。原生的浏览器API已经给我们提供了DOM操作的所有功能，我们能够不借助jQuery或者其他函数库的帮助就完成这些。
+当然有些操作会显得比较冗长，所以我必须再强调一遍，这系列文章的用意不是让开发人员不分情况的彻底丢弃jQue">
+
+    
+    <link rel="alternative" href="/atom.xml" title="Go7hic" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css" type="text/css">
+</head>
+
+  <body>
+    <header>
+      
+<div>
+		
+			<!-- <div id="imglogo">
+				<a href="/"><img src="/img/logo.png" alt="Go7hic" title="Go7hic"/></a>
+			</div> -->
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="Go7hic">Go7hic</a></h1>
+				<h2 class="blog-motto"></h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">Home</a></li>
+					
+						<li><a href="/archives">Archives</a></li>
+					
+						<li><a href="/about">About</a></li>
+					
+						<li><a href="/atom.xml">Rss</a></li>
+					
+					<li>
+ 					
+					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="搜索" />
+						<input type="hidden" name="q" value="site:blog.yongyuan.us">
+					</form>
+					
+					</li>
+				</ul>
+			</nav>
+</div>
+
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2015/01/07/2015-01-07-DOM API 之操作元素/" title="3.DOM API 之操作元素" itemprop="url">3.DOM API 之操作元素</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Go7hic" target="_blank" itemprop="author">Go7hic</a>
+		
+  <p class="article-time">
+    <time datetime="2015-01-06T16:00:00.000Z" itemprop="datePublished"> 发表于 2015-01-07</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#DOM_API_之操作元素"><span class="toc-number">1.</span> <span class="toc-text">DOM API 之操作元素</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#创建元素"><span class="toc-number">2.</span> <span class="toc-text">创建元素</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#在元素前/后插入元素"><span class="toc-number">3.</span> <span class="toc-text">在元素前/后插入元素</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#作为子元素插入"><span class="toc-number">4.</span> <span class="toc-text">作为子元素插入</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#移动元素"><span class="toc-number">5.</span> <span class="toc-text">移动元素</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#删除元素"><span class="toc-number">6.</span> <span class="toc-text">删除元素</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#添加/删除_CSS_Classes"><span class="toc-number">7.</span> <span class="toc-text">添加/删除 CSS Classes</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#添加/删除/修改元素属性"><span class="toc-number">8.</span> <span class="toc-text">添加/删除/修改元素属性</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#添加/修改内容"><span class="toc-number">9.</span> <span class="toc-text">添加/修改内容</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#添加/修改_Style"><span class="toc-number">10.</span> <span class="toc-text">添加/修改 Style</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#专用的DOM操作库"><span class="toc-number">11.</span> <span class="toc-text">专用的DOM操作库</span></a></li></ol>
+		
+		</div>
+		
+		<h4 id="DOM_API_之操作元素">DOM API 之操作元素</h4><p>在上一篇文章里我们讨论了如何在没有jQuery的支持下选择元素，这次我们来聊一聊如何使用DOM API创建新元素、修改已有元素的属性或者移动元素的位置。原生的浏览器API已经给我们提供了DOM操作的所有功能，我们能够不借助jQuery或者其他函数库的帮助就完成这些。</p>
+<p>当然有些操作会显得比较冗长，所以我必须再强调一遍，这系列文章的用意不是让开发人员不分情况的彻底丢弃jQuery，而是希望我们能够在没有jQuery的帮助时也能完成这些任务。在实际生产中我们依然会使用各种函数库，但是我们可以仔细选择，使用更加适合我们需要的库，而不是不分情况的把整个jQuery都加载到页面里。</p>
+<ul>
+<li>创建元素</li>
+<li>在元素前/后插入元素</li>
+<li>作为子元素插入</li>
+<li>移动元素</li>
+<li>删除元素</li>
+<li>添加/删除 CSS Classes</li>
+<li>添加/删除/修改元素属性</li>
+<li>添加/修改内容</li>
+<li>添加/修改 Style</li>
+<li>专用的DOM操作库</li>
+</ul>
+<h4 id="创建元素">创建元素</h4><p>jQuery<br>如果我们要创建一个 div 元素：</p>
+<pre><code>$(<span class="comment">'<span class="xmlDocTag">&lt;div&gt;</span><span class="xmlDocTag">&lt;/div&gt;</span>');</span>
+</code></pre><p>DOM API，createElement这个很常见了：</p>
+<pre><code><span class="comment">// IE 5.5+</span>
+<span class="built_in">document</span>.createElement(<span class="string">'div'</span>);
+</code></pre><p>或许有人会说，jQuery省去了好些字符。这没错，但确实要依照工程实际而定，如果我们只是用到jQuery的小部分功能，那省去的字数可能还没有jQuery自身的文件大。</p>
+<h4 id="在元素前/后插入元素">在元素前/后插入元素</h4><p>假设我们已经有了如下HTML结构：</p>
+<figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;<span class="keyword">div</span> <span class="property">id</span>=<span class="string">"1"</span>&gt;&lt;/<span class="keyword">div</span>&gt;</span><br><span class="line">&lt;<span class="keyword">div</span> <span class="property">id</span>=<span class="string">"2"</span>&gt;&lt;/<span class="keyword">div</span>&gt;</span><br><span class="line">&lt;<span class="keyword">div</span> <span class="property">id</span>=<span class="string">"3"</span>&gt;&lt;/<span class="keyword">div</span>&gt;</span><br></pre></td></tr></table></figure>
+<p>现在我们要在 id=1 的 div 后面插入一个 id=1.1 的新 div 元素，期望的结果是这样的：<br><figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;<span class="keyword">div</span> <span class="property">id</span>=<span class="string">"1"</span>&gt;&lt;/<span class="keyword">div</span>&gt;</span><br><span class="line">&lt;<span class="keyword">div</span> <span class="property">id</span>=<span class="string">"1.1"</span>&gt;&lt;/<span class="keyword">div</span>&gt;</span><br><span class="line">&lt;<span class="keyword">div</span> <span class="property">id</span>=<span class="string">"2"</span>&gt;&lt;/<span class="keyword">div</span>&gt;</span><br><span class="line">&lt;<span class="keyword">div</span> <span class="property">id</span>=<span class="string">"3"</span>&gt;&lt;/<span class="keyword">div</span>&gt;</span><br></pre></td></tr></table></figure></p>
+<p>jQuery</p>
+<pre><code>$('#1').after('<span class="tag">&lt;<span class="title">div</span> <span class="attribute">id</span>=<span class="value">"1.1"</span>&gt;</span><span class="tag">&lt;/<span class="title">div</span>&gt;</span>');
+</code></pre><p>DOM API，有Web开发新人会认为链式调用是jQuery的专利，事实上没有jQuery我们也可以使用链式调用：</p>
+<pre><code><span class="comment">// IE 4+</span>
+<span class="built_in">document</span>.getElementById(<span class="string">'1'</span>)
+    .insertAdjacentHTML(<span class="string">'afterend'</span>, <span class="string">'&lt;div id="1.1"&gt;&lt;/div&gt;'</span>);
+</code></pre><p>哈哈，这可能是DOM API里不多的从IE 4开始就没怎么变化过的函数了~</p>
+<p>假设我们希望在 id=1 的 div 前面插入一个 id=0.9 的新 div 元素，期望的结果是这样：<br><figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;<span class="keyword">div</span> <span class="property">id</span>=<span class="string">"0.9"</span>&gt;&lt;/<span class="keyword">div</span>&gt;</span><br><span class="line">&lt;<span class="keyword">div</span> <span class="property">id</span>=<span class="string">"1"</span>&gt;&lt;/<span class="keyword">div</span>&gt;</span><br><span class="line">&lt;<span class="keyword">div</span> <span class="property">id</span>=<span class="string">"2"</span>&gt;&lt;/<span class="keyword">div</span>&gt;</span><br><span class="line">&lt;<span class="keyword">div</span> <span class="property">id</span>=<span class="string">"3"</span>&gt;&lt;/<span class="keyword">div</span>&gt;</span><br></pre></td></tr></table></figure></p>
+<p>jQuery</p>
+<pre><code>$('#1').before('<span class="tag">&lt;<span class="title">div</span> <span class="attribute">id</span>=<span class="value">"0.9"</span>&gt;</span><span class="tag">&lt;/<span class="title">div</span>&gt;</span>');
+</code></pre><p>DOM API</p>
+<pre><code><span class="comment">// IE 4+</span>
+<span class="built_in">document</span>.getElementById(<span class="string">'1'</span>)
+    .insertAdjacentHTML(<span class="string">'beforebegin'</span>, <span class="string">'&lt;div id="0.9"&gt;&lt;/div&gt;'</span>);
+</code></pre><p>同在后面插入相比，只有一个参数不同。不得不说，看到一个函数被IE 4以上所有的浏览器都支持的时候，作为一个前端开发人员我还是挺惊讶的 ^_^</p>
+<h4 id="作为子元素插入">作为子元素插入</h4><p>假设我们已经有了如下HTML结构：</p>
+<figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;<span class="keyword">div</span> <span class="property">id</span>=<span class="string">"parent"</span>&gt;</span><br><span class="line">    &lt;<span class="keyword">div</span> <span class="property">id</span>=<span class="string">"oldChild"</span>&gt;&lt;/<span class="keyword">div</span>&gt;</span><br><span class="line">&lt;/<span class="keyword">div</span>&gt;</span><br></pre></td></tr></table></figure>
+<p>现在我们希望在 parent 容器的第一个子元素之前插入一个新的 div 元素，就象这样：</p>
+<figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;<span class="keyword">div</span> <span class="property">id</span>=<span class="string">"parent"</span>&gt;</span><br><span class="line">    &lt;<span class="keyword">div</span> <span class="property">id</span>=<span class="string">"newChild"</span>&gt;&lt;/<span class="keyword">div</span>&gt;</span><br><span class="line">    &lt;<span class="keyword">div</span> <span class="property">id</span>=<span class="string">"oldChild"</span>&gt;&lt;/<span class="keyword">div</span>&gt;</span><br><span class="line">&lt;/<span class="keyword">div</span>&gt;</span><br></pre></td></tr></table></figure>
+<p>jQuery</p>
+<pre><code>$('#parent').prepend('<span class="tag">&lt;<span class="title">div</span> <span class="attribute">id</span>=<span class="value">"newChild"</span>&gt;</span><span class="tag">&lt;/<span class="title">div</span>&gt;</span>');
+</code></pre><p>DOM API</p>
+<pre><code><span class="comment">// IE 4+</span>
+<span class="built_in">document</span>.getElementById(<span class="string">'parent'</span>)
+    .insertAdjacentHTML(<span class="string">'afterbegin'</span>, <span class="string">'&lt;div id="newChild"&gt;&lt;/div&gt;'</span>);
+</code></pre><p>如果我们希望在第一个子元素的后面插入那个 div 元素，期望得到这样的结构：</p>
+<figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;<span class="keyword">div</span> <span class="property">id</span>=<span class="string">"parent"</span>&gt;</span><br><span class="line">    &lt;<span class="keyword">div</span> <span class="property">id</span>=<span class="string">"oldChild"</span>&gt;&lt;/<span class="keyword">div</span>&gt;</span><br><span class="line">    &lt;<span class="keyword">div</span> <span class="property">id</span>=<span class="string">"newChild"</span>&gt;&lt;/<span class="keyword">div</span>&gt;</span><br><span class="line">&lt;/<span class="keyword">div</span>&gt;</span><br></pre></td></tr></table></figure>
+<p>jQuery</p>
+<pre><code>$('#parent').append('<span class="tag">&lt;<span class="title">div</span> <span class="attribute">id</span>=<span class="value">"newChild"</span>&gt;</span><span class="tag">&lt;/<span class="title">div</span>&gt;</span>');
+</code></pre><p>DOM API</p>
+<pre><code><span class="comment">// IE 4+</span>
+<span class="built_in">document</span>.getElementById(<span class="string">'parent'</span>)
+    .insertAdjacentHTML(<span class="string">'beforeend'</span>, <span class="string">'&lt;div id="newChild"&gt;&lt;/div&gt;'</span>);
+</code></pre><p>这一节看上去和上一节差不多，总之我们发现使用DOM API操作元素也不是很复杂，而且到目前为止对浏览器的兼容性都很不错，包括古老的IE浏览器也能很好的适应。</p>
+<h4 id="移动元素">移动元素</h4><p>假设有以下HTML结构：</p>
+<figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;<span class="keyword">div</span> <span class="property">id</span>=<span class="string">"parent"</span>&gt;</span><br><span class="line">    &lt;<span class="keyword">div</span> <span class="property">id</span>=<span class="string">"c1"</span>&gt;&lt;/<span class="keyword">div</span>&gt;</span><br><span class="line">    &lt;<span class="keyword">div</span> <span class="property">id</span>=<span class="string">"c2"</span>&gt;&lt;/<span class="keyword">div</span>&gt;</span><br><span class="line">    &lt;<span class="keyword">div</span> <span class="property">id</span>=<span class="string">"c3"</span>&gt;&lt;/<span class="keyword">div</span>&gt;</span><br><span class="line">&lt;/<span class="keyword">div</span>&gt;</span><br><span class="line">&lt;<span class="keyword">div</span> <span class="property">id</span>=<span class="string">"orphan"</span>&gt;&lt;/<span class="keyword">div</span>&gt;</span><br></pre></td></tr></table></figure>
+<p>在这里希望把 #orphan 移动到 parent 容器中作为最后一个元素，期望的HTML是：<br><figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;<span class="keyword">div</span> <span class="property">id</span>=<span class="string">"parent"</span>&gt;</span><br><span class="line">    &lt;<span class="keyword">div</span> <span class="property">id</span>=<span class="string">"c1"</span>&gt;&lt;/<span class="keyword">div</span>&gt;</span><br><span class="line">    &lt;<span class="keyword">div</span> <span class="property">id</span>=<span class="string">"c2"</span>&gt;&lt;/<span class="keyword">div</span>&gt;</span><br><span class="line">    &lt;<span class="keyword">div</span> <span class="property">id</span>=<span class="string">"c3"</span>&gt;&lt;/<span class="keyword">div</span>&gt;</span><br><span class="line">    &lt;<span class="keyword">div</span> <span class="property">id</span>=<span class="string">"orphan"</span>&gt;&lt;/<span class="keyword">div</span>&gt;</span><br><span class="line">&lt;/<span class="keyword">div</span>&gt;</span><br></pre></td></tr></table></figure></p>
+<p>jQuery</p>
+<pre><code><span class="variable">$(</span><span class="string">'#parent'</span>).append(<span class="variable">$(</span><span class="string">'#orphan'</span>));
+</code></pre><p>DOM API</p>
+<pre><code><span class="comment">// IE 5.5+</span>
+<span class="built_in">document</span>.getElementById(<span class="string">'parent'</span>)
+    .appendChild(<span class="built_in">document</span>.getElementById(<span class="string">'orphan'</span>));
+</code></pre><p>也还是蛮好记的对不对？如果我们希望把 #orphan 移动到 parent 容器的第一个元素，类似于：</p>
+<figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;<span class="keyword">div</span> <span class="property">id</span>=<span class="string">"parent"</span>&gt;</span><br><span class="line">    &lt;<span class="keyword">div</span> <span class="property">id</span>=<span class="string">"orphan"</span>&gt;&lt;/<span class="keyword">div</span>&gt;</span><br><span class="line">    &lt;<span class="keyword">div</span> <span class="property">id</span>=<span class="string">"c1"</span>&gt;&lt;/<span class="keyword">div</span>&gt;</span><br><span class="line">    &lt;<span class="keyword">div</span> <span class="property">id</span>=<span class="string">"c2"</span>&gt;&lt;/<span class="keyword">div</span>&gt;</span><br><span class="line">    &lt;<span class="keyword">div</span> <span class="property">id</span>=<span class="string">"c3"</span>&gt;&lt;/<span class="keyword">div</span>&gt;</span><br><span class="line">&lt;/<span class="keyword">div</span>&gt;</span><br></pre></td></tr></table></figure>
+<p>jQuery</p>
+<pre><code><span class="variable">$(</span><span class="string">'#parent'</span>).prepend(<span class="variable">$(</span><span class="string">'#orphan'</span>));
+</code></pre><p>DOM API</p>
+<pre><code><span class="comment">// IE 5.5+</span>
+<span class="built_in">document</span>.getElementById(<span class="string">'parent'</span>)
+    .insertBefore(<span class="built_in">document</span>.getElementById(<span class="string">'orphan'</span>), <span class="built_in">document</span>.getElementById(<span class="string">'c1'</span>));
+</code></pre><p>直接使用DOM API看上去确实很长，这都是拜 document.getElementById 所赐。</p>
+<h4 id="删除元素">删除元素</h4><p>假设我们的HTML元素中有一个 id=”foobar” 的元素，我们希望把他从DOM树中删除：</p>
+<p>jQuery</p>
+<pre><code><span class="variable">$(</span><span class="string">'#foobar'</span>).remove();
+</code></pre><p>DOM API</p>
+<pre><code><span class="comment">// IE 5.5+</span>
+<span class="built_in">document</span>.getElementById(<span class="string">'foobar'</span>)
+    .parentNode.removeChild(<span class="built_in">document</span>.getElementById(<span class="string">'foobar'</span>));
+</code></pre><h4 id="添加/删除_CSS_Classes">添加/删除 CSS Classes</h4><p>假设在HTML中有这样一个 div ：</p>
+<pre><code>&lt;<span class="keyword">div</span> <span class="property">id</span>=<span class="string">"foo"</span>&gt;&lt;/<span class="keyword">div</span>&gt;
+</code></pre><p>我们希望给他加入名为 bold 的CSS Class，期望DOM变成这样：</p>
+<pre><code>&lt;<span class="keyword">div</span> <span class="property">id</span>=<span class="string">"foo"</span> <span class="type">class</span>=<span class="string">"bold"</span>&gt;&lt;/<span class="keyword">div</span>&gt;
+</code></pre><p>jQuery</p>
+<pre><code><span class="variable">$(</span><span class="string">'#foo'</span>).addClass(<span class="string">'bold'</span>);
+</code></pre><p>DOM API</p>
+<pre><code><span class="built_in">document</span>.getElementById(<span class="string">'foo'</span>).className += <span class="string">'bold'</span>;
+</code></pre><p>当然我们还可以把刚刚加上的Class删除掉：</p>
+<p>jQuery</p>
+<pre><code><span class="variable">$(</span><span class="string">'#foo'</span>).removeClass(<span class="string">'bold'</span>);
+</code></pre><p>DOM API</p>
+<pre><code><span class="comment">// IE 5.5+</span>
+<span class="built_in">document</span>.getElementById(<span class="string">'foo'</span>).className =
+    <span class="built_in">document</span>.getElementById(<span class="string">'foo'</span>).className.replace(<span class="regexp">/^bold$/</span>, <span class="string">''</span>);
+</code></pre><h4 id="添加/删除/修改元素属性">添加/删除/修改元素属性</h4><p>仍然从简单的 foo 元素开始：</p>
+<pre><code>&lt;<span class="keyword">div</span> <span class="property">id</span>=<span class="string">"foo"</span>&gt;&lt;/<span class="keyword">div</span>&gt;
+</code></pre><p>我们希望在 div 元素上设定 role=”button” 来让它能够充当一个 button，这样能够在可访问性设备（屏幕阅读器等）上获得较好的可访问性：</p>
+<p>jQuery</p>
+<pre><code><span class="variable">$(</span><span class="string">'#foo'</span>).attr(<span class="string">'role'</span>, <span class="string">'button'</span>);
+</code></pre><p>DOM API</p>
+<pre><code><span class="comment">// IE 5.5+</span>
+<span class="built_in">document</span>.getElementById(<span class="string">'foo'</span>).setAttribute(<span class="string">'role'</span>, <span class="string">'button'</span>);
+</code></pre><p>这两种方法都可以识别元素是否已经具备了这个属性，然后自动创建/更新这个属性。现在让我们再把这个 role 删除掉（我都觉得自己好烦…）</p>
+<p>jQuery</p>
+<pre><code><span class="variable">$(</span><span class="string">'#foo'</span>).removeAttr(<span class="string">'role'</span>);
+</code></pre><p>DOM API</p>
+<pre><code><span class="comment">// IE 5.5+</span>
+<span class="built_in">document</span>.getElementById(<span class="string">'foo'</span>).removeAttribute(<span class="string">'role'</span>);
+</code></pre><h4 id="添加/修改内容">添加/修改内容</h4><p>这次的 foo 元素比原来复杂多了（^_^）：</p>
+<pre><code>&lt;<span class="keyword">div</span> <span class="property">id</span>=<span class="string">"foo"</span>&gt;Hi there!&lt;/<span class="keyword">div</span>&gt;
+</code></pre><p>如果要把 foo 的内容改成 Goodbye!：</p>
+<p>jQuery</p>
+<pre><code><span class="variable">$(</span><span class="string">'#foo'</span>).<span class="keyword">text</span>(<span class="string">'Goodbye!'</span>);
+</code></pre><p>DOM API</p>
+<pre><code><span class="comment">// IE 5.5+</span>
+<span class="built_in">document</span>.getElementById(<span class="string">'foo'</span>).innerHTML = <span class="string">'Goodbye!'</span>;
+
+<span class="comment">// IE 5.5+ but NOT Firefox</span>
+<span class="built_in">document</span>.getElementById(<span class="string">'foo'</span>).innerText = <span class="string">'GoodBye!'</span>;
+
+<span class="comment">// IE 9+</span>
+<span class="built_in">document</span>.getElementById(<span class="string">'foo'</span>).textContent = <span class="string">'Goodbye!'</span>;
+</code></pre><p>最常见的 innerHTML 属性在各种条件下都工作的很好。但是 innerText 和 textContent 的好处在于他们只是处理目标元素内的文字，而不是像 innerHTML 一样直接插入标签。当插入的内容是用户输入的内容时，这样能够一定程度上避免注入的问题。</p>
+<h4 id="添加/修改_Style">添加/修改 Style</h4><p>一般来说，直接用JavaScript脚本操作DOM元素的 style 是代码中的“坏味道”，当然就像 goto 一样我们总会有些时候需要这样做。</p>
+<p>假设HTML的结构是这样的：</p>
+<pre><code><span class="tag">&lt;<span class="title">span</span> <span class="attribute">id</span>=<span class="value">"note"</span>&gt;</span>Attention!<span class="tag">&lt;/<span class="title">span</span>&gt;</span>
+</code></pre><p>可以通过JavaScript代码让这段文字变得醒目一些，比如变成粗体（或者闪烁三下/转体三圈):</p>
+<p>jQuery</p>
+<pre><code><span class="variable">$(</span><span class="string">'#note'</span>).css(<span class="string">'fontWeight'</span>, <span class="string">'bold'</span>);
+</code></pre><p>DOM API</p>
+<pre><code><span class="comment">// IE 5.5+</span>
+<span class="built_in">document</span>.getElementById(<span class="string">'note'</span>).style.fontWeight = <span class="string">'bold'</span>;
+</code></pre><p>这里很难得我比较喜欢DOM API写法，style.fontWeight 看上去比较像是正常的对象-属性的逻辑。</p>
+<h4 id="专用的DOM操作库">专用的DOM操作库</h4><p>看到这里比上一篇选择元素要容易一些，在IE 6及以上的版本中跨浏览器使用DOM API操作元素相对比较容易。jQuery确实使得冗长的DOM API变得简单易懂，但是如果只是把jQuery用作DOM操作，似乎还是有些大材小用。我们可以试试jBone和dom.js这两个库，他们都可以在跨浏览器的情况下很好的兼容DOM元素操作，著名的Backbone中使用的正是前者。很多使用jQuery的开发人员觉得原生的DOM API不堪入目，但是我想他们并不真的掌握DOM API，其实DOM API并没有比jQuery复杂太多。</p>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://blog.yongyuan.us/2015/01/07/2015-01-07-DOM API 之操作元素/" data-title="3.DOM API 之操作元素 | Go7hic" data-tsina="null" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+ <a href="/2015/06/27/2014-06-27-javascript-callback/" title="深入理解js里的回调函数">
+  <strong>上一篇：</strong><br/>
+  <span>
+  深入理解js里的回调函数</span>
+</a>
+</div>
+
+
+<div class="next">
+<a href="/2015/01/07/2015-01-07-ajax/"  title="4.Ajax">
+ <strong>下一篇：</strong><br/> 
+ <span>4.Ajax
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+
+<section id="comments" class="comment">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+
+</div>  
+      <!-- <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目录</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#DOM_API_之操作元素"><span class="toc-number">1.</span> <span class="toc-text">DOM API 之操作元素</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#创建元素"><span class="toc-number">2.</span> <span class="toc-text">创建元素</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#在元素前/后插入元素"><span class="toc-number">3.</span> <span class="toc-text">在元素前/后插入元素</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#作为子元素插入"><span class="toc-number">4.</span> <span class="toc-text">作为子元素插入</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#移动元素"><span class="toc-number">5.</span> <span class="toc-text">移动元素</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#删除元素"><span class="toc-number">6.</span> <span class="toc-text">删除元素</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#添加/删除_CSS_Classes"><span class="toc-number">7.</span> <span class="toc-text">添加/删除 CSS Classes</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#添加/删除/修改元素属性"><span class="toc-number">8.</span> <span class="toc-text">添加/删除/修改元素属性</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#添加/修改内容"><span class="toc-number">9.</span> <span class="toc-text">添加/修改内容</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#添加/修改_Style"><span class="toc-number">10.</span> <span class="toc-text">添加/修改 Style</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#专用的DOM操作库"><span class="toc-number">11.</span> <span class="toc-text">专用的DOM操作库</span></a></li></ol>
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+
+  
+
+  
+
+  <div class="linkslist">
+  <p class="asidetitle">友情链接</p>
+    <ul>
+        
+          <li>
+            
+            	<a href="https://dyy.im" target="_blank" title="哥特复兴">哥特复兴</a>
+            
+          </li>
+        
+    </ul>
+</div>
+
+  
+
+
+  <div class="rsspart">
+	<a href="/atom.xml" target="_blank" title="rss">RSS 订阅</a>
+</div>
+
+</aside>
+</div> -->
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> 万物之中，希望至美 <br/>
+			至美之物，永不凋零</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+	</div>
+			
+		
+				<div class="cc-license">
+          <a href="http://creativecommons.org/licenses/by-nc/4.0" class="cc-opacity" target="_blank">
+            <img src="/img/cc-by-nc.svg" alt="Creative Commons" />
+          </a>
+        </div>
+    
+
+		<p class="copyright">
+		 © 2011 - 2015
+		
+		<a href="/about" target="_blank" title="Go7hic">Go7hic</a>
+		
+
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      $('.hoverqrcode').hide();
+  });
+});   
+</script>
+
+
+
+
+<script type="text/javascript">
+
+var disqus_shortname = 'g07hic';
+
+(function(){
+  var dsq = document.createElement('script');
+  dsq.type = 'text/javascript';
+  dsq.async = true;
+  dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+}());
+(function(){
+  var dsq = document.createElement('script');
+  dsq.type = 'text/javascript';
+  dsq.async = true;
+  dsq.src = '//' + disqus_shortname + '.disqus.com/count.js';
+  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+}());
+</script>
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回顶部"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>
+

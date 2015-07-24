@@ -80,6 +80,452 @@
 
    
     
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2015/12/31/2014-12-31- Ruby 函数式编程/" title="Ruby 函数式编程" itemprop="url">Ruby 函数式编程</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Go7hic" target="_blank" itemprop="author">Go7hic</a>
+		
+  <p class="article-time">
+    <time datetime="2015-12-30T16:00:00.000Z" itemprop="datePublished"> 发表于 2015-12-31</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p>本文档翻译自 Arnau Sanchez (tokland)所编译的这份文档 <a href="http://code.google.com/p/tokland/wiki/RubyFunctionalProgramming" target="_blank" rel="external">RubyFunctionalProgramming</a>。</p>
+<p>同时也有<a href="http://www.h6.dion.ne.jp/~machan/misc/FPwithRuby.html" target="_blank" rel="external">日文版本</a>。</p>
+<h2 id="目录">目录</h2><ul>
+<li><a href="#简介">简介</a></li>
+<li><a href="#理论部分">理论部分</a></li>
+<li><a href="#ruby-的函数式编程">Ruby的函数式编程</a><ul>
+<li><a href="#不要更新变量">不要更新变量</a></li>
+<li><a href="#不要重用变量">不要重用变量</a></li>
+<li><a href="#用-blocks-作为高阶函数">用 Blocks 作为高阶函数</a></li>
+<li><a href="#面向对象与函数式编程">面向对象与函数式编程</a></li>
+<li><a href="#万物皆表达式">万物皆表达式</a></li>
+<li><a href="#递归">递归</a></li>
+<li><a href="#惰性枚举器">惰性枚举器</a></li>
+<li><a href="#一个实际的例子">一个实际的例子</a></li>
+</ul>
+</li>
+<li><a href="#结论">结论</a></li>
+<li><a href="#简报">简报</a></li>
+<li><a href="#延伸阅读">延伸阅读</a></li>
+</ul>
+<h2 id="简介">简介</h2><blockquote>
+<p>命令式编程比较牛吗？<br>不！不！不！只是比较快，比较简单，比较诱人而已。</p>
+</blockquote>
+<pre><code><span class="attribute">x </span>=<span class="string"> x + 1</span>
+</code></pre><p>在美好的小学时光里，我们会对上面这行感到困惑。这个 <code>x</code> 到底是什么呢？为什么加了一之后，<code>x</code> 仍然还是 <code>x</code>。</p>
+<p>不知道为什么，当我们就开始编程时，就不在乎这是为什么了。心想：“嗯”，“这不是什么大问题，编程中将事情做完最重要，没有必要去挑剔数学的纯粹性 （让大学里的大鬍子教兽们去烦恼就好）” 。但我们错了，也付出极高的代价，只是我们还不知道而已。</p>
+<h2 id="理论部分">理论部分</h2><p><a href="http://en.wikipedia.org/wiki/Functional_programming" target="_blank" rel="external">维基百科</a>的解释：“函数式编程是一种写程序的范式，将计算视为对数学函数的求值，并避免使用状态及可变的数据” 换句话说，函数式编程提倡没有副作用的代码，不改变变量的值。这与命令式编程相反，命令式编程强调改变状态。</p>
+<p>仅此而已。那有什么好处呢？</p>
+<ul>
+<li><p>更简洁的代码：“变量”一旦定义之后就不再改动，所以我们不需要追踪变量的状态，就可以理解一个函数、方法、类别、甚至是整个项目是怎么工作的。</p>
+</li>
+<li><p>引用透明：表达式可以用本身的值换掉。如果我们用同样的参数调用一个函数，可以确信输出会是一样的结果（没有其它的状态可改变它的值）。这也是为什么爱因斯坦说：“重复做一样的事却期望不同的结果”是疯狂的理由。</p>
+</li>
+</ul>
+<p>引用透明打开了前往某些美妙事物的大门</p>
+<ul>
+<li><p>并行化：如果调用函数是各自独立的，则他们可以在不同的进程甚至是机器里执行，而不会有竞态条件的问题。“平常” 写并发程序讨厌的细节（锁、semaphore…等）在函数式编程里面通通消失不见了。</p>
+</li>
+<li><p>记忆化：由于函数调用的结果等于它的返回值，我们可以把这些值缓存起来。</p>
+</li>
+<li><p>模组化：代码里不存有状态，所以我们可以将项目用小的黑箱连结起来，函数式编程提倡自下而上的编程风格。</p>
+</li>
+<li><p>容易调试：函数彼此互相隔离，只依赖输入与输出，所以很容易调试。</p>
+</li>
+</ul>
+<h2 id="Ruby_的函数式编程">Ruby 的函数式编程</h2><p>听着不错，但怎样才能在每天的 Ruby 编程中运用函数式编程呢（Ruby 不是函数式语言）？函数式编程广义来说，是一种风格，任何语言都能使用。用在特别为这种范式打造的语言里当然会更自然，但某种程度上来说，可以应用到任何语言。</p>
+<p>说明一点：本文不提倡仅仅为了保持理论上的函数纯粹性去编写古怪风格的代码。相反，我要表达的是 <strong>只要能提升代码品质，就可以用使用函数式编程</strong> 。</p>
+<h3 id="不要更新变量">不要更新变量</h3><p>别更新它们，创建新的变量。</p>
+<h4 id="不要对数组或字串做_append">不要对数组或字串做 <code>append</code></h4><p>No:</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">indexes = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>]</span><br><span class="line">indexes &lt;&lt; <span class="number">4</span></span><br><span class="line">indexes <span class="comment"># [1, 2, 3, 4]</span></span><br></pre></td></tr></table></figure>
+<p>Yes：</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">indexes = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>]</span><br><span class="line">all_indexes = indexes + [<span class="number">4</span>] <span class="comment"># [1, 2, 3, 4]</span></span><br></pre></td></tr></table></figure>
+<h4 id="不要更新_hash">不要更新 hash</h4><p>No:</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">hash = &#123;<span class="symbol">:a</span> =&gt; <span class="number">1</span>, <span class="symbol">:b</span> =&gt; <span class="number">2</span>&#125;</span><br><span class="line">hash[<span class="symbol">:c</span>] = <span class="number">3</span></span><br><span class="line">hash</span><br></pre></td></tr></table></figure>
+<p>Yes:</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">hash = &#123;<span class="symbol">:a</span> =&gt; <span class="number">1</span>, <span class="symbol">:b</span> =&gt; <span class="number">2</span>&#125;</span><br><span class="line">new_hash = hash.merge(<span class="symbol">:c</span> =&gt; <span class="number">3</span>)</span><br></pre></td></tr></table></figure>
+<h4 id="不要使用有破坏性的方法，即那些带惊叹号的方法">不要使用有破坏性的方法，即那些带惊叹号的方法</h4><p>No:</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">string = <span class="string">"hello"</span></span><br><span class="line">string.gsub!(<span class="regexp">/l/</span>, <span class="string">'z'</span>)</span><br><span class="line">string <span class="comment"># "hezzo"</span></span><br></pre></td></tr></table></figure>
+<p>Yes:</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">string = <span class="string">"hello"</span></span><br><span class="line">new_string =  string.gsub(<span class="regexp">/l/</span>, <span class="string">'z'</span>) <span class="comment"># "hezzo"</span></span><br></pre></td></tr></table></figure>
+<h4 id="如何累积值">如何累积值</h4><p>No:</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">output = []</span><br><span class="line">output &lt;&lt; <span class="number">1</span></span><br><span class="line">output &lt;&lt; <span class="number">2</span> <span class="keyword">if</span> i_have_to_add_two</span><br><span class="line">output &lt;&lt; <span class="number">3</span></span><br></pre></td></tr></table></figure>
+<p>Yes:</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">output = [<span class="number">1</span>, (<span class="number">2</span> <span class="keyword">if</span> i_have_to_add_two), <span class="number">3</span>].compact</span><br></pre></td></tr></table></figure>
+<h4 id="不要重用变量">不要重用变量</h4><p>我们应该避免的常见模式：</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">number = gets</span><br><span class="line">number = number.to_i</span><br></pre></td></tr></table></figure>
+<p>这里，我们没有更新 number，但用新的值冲掉了之前的值。从函数式变成的观点看，更新变量和冲掉之前的变量都是不好的。它们都违背了同样的原则：一旦写下 number = gets ， number 在其 scope 中值就不该变化。如果要做转化，使用其它变量名：</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">number_string = gets</span><br><span class="line">number = number_string.to_i</span><br></pre></td></tr></table></figure>
+<p>记住，把 “变量 = 值” 中的等号看做是数学中的等号。一旦等于了，就不应该改变。这该是程序员和将来读该代码的人之间的神圣约定：scope 中的变量总是可以直接被它们的值所替代。</p>
+<h3 id="用_Blocks_作为高阶函数">用 Blocks 作为高阶函数</h3><p>语言需要有高阶函数才能支持函数式编程。高阶函数是可以接受别的函数作为参数，并可以返回函数的函数。</p>
+<p>Ruby (与 Smalltalk 还有其它语言）在这个方面上非常特别，语言本身就内置这个功能： <strong>blocks</strong> 区块。区块是一段匿名的代码，你可以随意的传来传去或是执行它。让我们看区块的典型用途，来构造函数式编程的构造子。</p>
+<h4 id="init-empty_+_each_+_push_=_map">init-empty + each + push = map</h4><p>No:</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">dogs = []</span><br><span class="line">[<span class="string">"milu"</span>, <span class="string">"rantanplan"</span>].each <span class="keyword">do</span> |name|</span><br><span class="line">  dogs &lt;&lt; name.upcase</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line">dogs <span class="comment"># =&gt; ["MILU", "RANTANPLAN"]</span></span><br></pre></td></tr></table></figure>
+<p>Yes:</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">dogs = [<span class="string">"milu"</span>, <span class="string">"rantanplan"</span>].map <span class="keyword">do</span> |name|</span><br><span class="line">  name.upcase</span><br><span class="line"><span class="keyword">end</span> <span class="comment"># =&gt; ["MILU", "RANTANPLAN"]</span></span><br></pre></td></tr></table></figure>
+<h4 id="init-empty_+_each_+_conditional_push_-&gt;_select/reject">init-empty + each + conditional push -&gt; select/reject</h4><p>No:</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">dogs = []</span><br><span class="line">[<span class="string">"milu"</span>, <span class="string">"rantanplan"</span>].each <span class="keyword">do</span> |name|</span><br><span class="line">  <span class="keyword">if</span> name.size == <span class="number">4</span></span><br><span class="line">    dogs &lt;&lt; name</span><br><span class="line">  <span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line">dogs <span class="comment"># =&gt; ["milu"]</span></span><br></pre></td></tr></table></figure>
+<p>Yes:</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">dogs = [<span class="string">"milu"</span>, <span class="string">"rantanplan"</span>].select <span class="keyword">do</span> |name|</span><br><span class="line">  name.size == <span class="number">4</span></span><br><span class="line"><span class="keyword">end</span> <span class="comment"># =&gt; ["milu"]</span></span><br></pre></td></tr></table></figure>
+<h4 id="initialize_+_each_+_accumulate_-&gt;_inject">initialize + each + accumulate -&gt; inject</h4><p>No:</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">length = <span class="number">0</span></span><br><span class="line">[<span class="string">"milu"</span>, <span class="string">"rantanplan"</span>].each <span class="keyword">do</span> |dog_name|</span><br><span class="line">  length += dog_name.length</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line">length <span class="comment"># =&gt; 14</span></span><br></pre></td></tr></table></figure>
+<p>Yes:</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">length = [<span class="string">"milu"</span>, <span class="string">"rantanplan"</span>].inject(<span class="number">0</span>) <span class="keyword">do</span> |accumulator, dog_name|</span><br><span class="line">  accumulator + dog_name.length</span><br><span class="line"><span class="keyword">end</span> <span class="comment"># =&gt; 14</span></span><br></pre></td></tr></table></figure>
+<p>在上例这种特殊情况下，累积器与元素之间的操作很简单，我们不需要区块，只要将二元操作符传给符号初始值即可。</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">length = [<span class="string">"milu"</span>, <span class="string">"rantanplan"</span>].map(&amp;<span class="symbol">:length</span>).inject(<span class="number">0</span>, <span class="symbol">:+</span>) <span class="comment"># 14</span></span><br></pre></td></tr></table></figure>
+<h4 id="empty_+_each_+_accumulate_+_push_-&gt;_scan">empty + each + accumulate + push -&gt; scan</h4><p>想像一下，你不仅想要摺迭(fold)的结果，也想得到过程中产生的部分值。用命令式编程风格，你可能会这么写：</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">lengths = []</span><br><span class="line">total_length = <span class="number">0</span></span><br><span class="line">[<span class="string">"milu"</span>, <span class="string">"rantanplan"</span>].each <span class="keyword">do</span> |dog_name|</span><br><span class="line">  lengths &lt;&lt; total_length</span><br><span class="line">  total_length += dog_name.length</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line">lengths <span class="comment"># [0, 4, 14]</span></span><br></pre></td></tr></table></figure>
+<p>在函数式的世界里，Haskell 称之为 <a href="http://zvon.org/other/haskell/Outputprelude/scanl_f.html" target="_blank" rel="external">scan</a>, C++ 称之为 <a href="http://www.cplusplus.com/reference/std/numeric/partial_sum/" target="_blank" rel="external">partial_sum</a>, Clojure 称之为 <a href="http://clojuredocs.org/clojure_core/clojure.core/reductions" target="_blank" rel="external">reductions</a>。</p>
+<p>令人讶异的是，Ruby 居然没有这样的函数！让我们自己写一个。这个怎么样：</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">lengths = [<span class="string">"milu"</span>, <span class="string">"rantanplan"</span>].partial_inject(<span class="number">0</span>) <span class="keyword">do</span> |dog_name|</span><br><span class="line">  dog_name.length</span><br><span class="line"><span class="keyword">end</span> <span class="comment"># [0, 4, 14]</span></span><br></pre></td></tr></table></figure>
+<p><code>Enumerable#partial_inject</code> 可以这么实现：</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">module</span> <span class="title">Enumerable</span></span></span><br><span class="line">  <span class="function"><span class="keyword">def</span> </span>partial_inject(initial_value, &amp;block)</span><br><span class="line">    <span class="keyword">self</span>.inject([initial_value, [initial_value]]) <span class="keyword">do</span> |(accumulated, output), element|</span><br><span class="line">      new_value = <span class="keyword">yield</span>(accumulated, element)</span><br><span class="line">      [new_value, output &lt;&lt; new_value]</span><br><span class="line">    <span class="keyword">end</span>[<span class="number">1</span>]</span><br><span class="line">  <span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+<p>实现的细节不重要（为了效率我使用了 <code>&lt;&lt;</code>），重要的是，当发现有趣的模式可以被抽象化时，我们将其写在函式库中，为其撰写文档，对其反覆测试，然后就可在将来任意项目中使用了。</p>
+<h4 id="initial_assign_+_conditional_assign_+_conditional_assign_+_…">initial assign + conditional assign + conditional assign + …</h4><p>这样的程序我们常常看到：</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">name = obj1.name</span><br><span class="line">name = obj2.name <span class="keyword">if</span> !name</span><br><span class="line">name = ask_name <span class="keyword">if</span> !name</span><br></pre></td></tr></table></figure>
+<p>在此时你应该觉得这样的代码使你很不自在（变量一会是这个值，一会是那个值；变量名 <code>name</code> 到处都是…等）。函数式的方式更简短，也更简洁：</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">name = obj1.name || obj2.name || ask_name</span><br></pre></td></tr></table></figure>
+<p>另一个有更复杂条件的例子：</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> </span>get_best_object(obj1, obj2, obj3)</span><br><span class="line">  <span class="keyword">return</span> obj1 <span class="keyword">if</span> obj1.price &lt; <span class="number">20</span></span><br><span class="line">  <span class="keyword">return</span> obj2 <span class="keyword">if</span> obj2.quality &gt; <span class="number">3</span></span><br><span class="line">  obj3</span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+<p>初衷是为了节省几行代码，结果是代码变得难读懂了。别这样。写成如下表达式会更清楚：</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> </span>get_best_object(obj1, obj2, obj3)</span><br><span class="line">  <span class="keyword">if</span> obj1.price &lt; <span class="number">20</span></span><br><span class="line">    obj1</span><br><span class="line">  <span class="keyword">elsif</span> obj2.quality &gt; <span class="number">3</span></span><br><span class="line">    obj2</span><br><span class="line">  <span class="keyword">else</span></span><br><span class="line">    obj3</span><br><span class="line">  <span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+<p>确实有一点啰嗦，但逻辑（缩进让它更突出了）比一堆行内 <code>if/unless</code> 来得清楚。经验法则告诉我们，仅在你确定会用到副作用时，使用行内条件式，而不是在变量赋值或返回的场合使用：</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">country = <span class="constant">Country</span>.find(<span class="number">1</span>)</span><br><span class="line">country.invade <span class="keyword">if</span> country.has_oil?</span><br><span class="line"><span class="comment"># more code here</span></span><br></pre></td></tr></table></figure>
+<h4 id="如何从_enumerable_创造一个_hash">如何从 enumerable 创造一个 hash</h4><p>Ruby 默认没有实现从 Enumerable 直接转到 Hash 的函数（本人认为这个缺陷令人遗憾）。这也是为什么新手持续写出下面这个糟糕的模式(而你又怎么能责怪他们呢？唉！）：</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">hash = &#123;&#125;</span><br><span class="line">input.each <span class="keyword">do</span> |item|</span><br><span class="line">  hash[item] = process(item)</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line">hash</span><br></pre></td></tr></table></figure>
+<p>丑陋啊！但手边有没有更好的办法呢？过去 Hash 构造子需要一个有着连续键值对的扁平集合 （呃，用 flatten 数组来描述映射？Lisp 曾这么做，但还是很丑陋）。幸运的是，最新版本的 Ruby 也接受键值对，这样更有意义（作为 <code>hash.to_a</code> 的逆操作），现在你可以这么写：</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="constant">Hash</span>[input.map <span class="keyword">do</span> |item|</span><br><span class="line">  [item, process(item)]</span><br><span class="line"><span class="keyword">end</span>]</span><br></pre></td></tr></table></figure>
+<p>不赖嘛，但这打破了平常的撰写顺序。在 Ruby 中我们期望从左向右写，给对象调用方法。而“好的”函数式方式是使用 <code>inject</code>：</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">input.inject(&#123;&#125;) <span class="keyword">do</span> |hash, item|</span><br><span class="line">  hash.merge(item =&gt; process(item))</span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+<p>还是很啰嗦，所以我们最好将它放在 Enumerable 模组，<a href="http://rubyworks.github.com/facets/" target="_blank" rel="external">Facets</a> 正是这么干的。命名为 <code>Enumerable#mash</code>：</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">module</span> <span class="title">Enumerable</span></span></span><br><span class="line">  <span class="function"><span class="keyword">def</span> </span>mash(&amp;block)</span><br><span class="line">    <span class="keyword">self</span>.inject(&#123;&#125;) <span class="keyword">do</span> |output, item|</span><br><span class="line">      key, value = block_given? ? <span class="keyword">yield</span>(item) <span class="symbol">:</span> item</span><br><span class="line">      output.merge(key =&gt; value)</span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line">  <span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[<span class="string">"functional"</span>, <span class="string">"programming"</span>, <span class="string">"rules"</span>].map &#123; |s| [s, s.length] &#125;.mash</span><br><span class="line"><span class="comment"># &#123;"functional"=&gt;10, "programming"=&gt;11, "rules"=&gt;5&#125;</span></span><br></pre></td></tr></table></figure>
+<p>或使用 <code>mash</code> 及选择性区块来一步完成：</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[<span class="string">"functional"</span>, <span class="string">"programming"</span>, <span class="string">"rules"</span>].mash &#123; |s| [s, s.length] &#125;</span><br><span class="line"><span class="comment"># &#123;"functional"=&gt;10, "programming"=&gt;11, "rules"=&gt;5&#125;</span></span><br></pre></td></tr></table></figure>
+<h3 id="面向对象与函数式编程">面向对象与函数式编程</h3><p><a href="http://www.sics.se/~joe/" target="_blank" rel="external">Joe Armstrong</a> (Erlang 发明人) 在 “Coders At work” 谈论过面向对象编程的重用性：</p>
+<p>“我认为缺少重用性是面向对象语言造成的，而不是函数式语言。面向对象语言的问题是，它们带着语言执行环境的所有隐含资讯四处乱窜。你想要的是香蕉，但看到的却是拿着香蕉的大猩猩和整个丛林”</p>
+<p>公平点说，我的看法是这不是面向对象编程的本质问题。你可以写出函数式的面向对象程序，但确定的是：</p>
+<ul>
+<li>典型的 OOP 倾向强调改变对象的状态。</li>
+<li>典型的 OOP 倾向层与层之间紧密的耦合。</li>
+<li>典型的 OOP 将同一性(identity)与状态的概念混在一起了。</li>
+<li>数据与代码的混合引出了概念与实际操作中的问题。</li>
+</ul>
+<p><a href="https://twitter.com/richhickey" target="_blank" rel="external">Rich Hickey</a>，Clojure 的发明人（运行在 JVM 上的的函数式 Lisp 方言），在这场<a href="http://www.infoq.com/presentations/Value-Identity-State-Rich-Hickey" target="_blank" rel="external">出色的演讲</a>里谈论了状态、数值以及同一性。</p>
+<h3 id="万物皆表达式">万物皆表达式</h3><p>可以这么写：</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> found_dog == our_dog</span><br><span class="line">  name = found_dog.name</span><br><span class="line">  message = <span class="string">"We found our dog <span class="subst">#&#123;name&#125;</span>!"</span></span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">  message = <span class="string">"No luck"</span></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+<p>然而，控制结构（<code>if</code>, <code>while</code>, <code>case</code> 等）也返回表达式，所以只要这样写就好：</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">message = <span class="keyword">if</span> found_dog == my_dog</span><br><span class="line">  name = found_dog.name</span><br><span class="line">  <span class="string">"We found our dog <span class="subst">#&#123;name&#125;</span>!"</span></span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">  <span class="string">"No luck"</span></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+<p>这样子我们不用重复变量名 <code>message</code>，意图也更明显。我们可以专注在程序在干什么（返回讯息），而不是冗长的代码和一堆我们并不在乎的变量。再强调一次，我们在缩小程序的作用域。</p>
+<p>另一个函数式程序的好处是，表达式可以用来构造数据：</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="symbol">:name</span> =&gt; <span class="string">"M.Cassatt"</span>,</span><br><span class="line">  <span class="symbol">:paintings</span> =&gt; paintings.select &#123; |p| p.author == <span class="string">"M.Cassatt"</span> &#125;,</span><br><span class="line">  <span class="symbol">:birth</span> =&gt; painters.detect &#123; |p| p.name == <span class="string">"M.Cassatt"</span> &#125;.birth.year,</span><br><span class="line">  ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="递归">递归</h3><p>纯函数式语言没有隐含的状态，大量利用了递归。为了避免栈溢出，函数式使用一种称为尾递归优化（TCO）的机制。Ruby 1.9 实现了这种机制，但缺省没有打开。要是你希望你的程序，在哪都跑的话，就不要用尾递归。</p>
+<p>但是某些情况下，递归仍然是很有用的，即便是每次递归时都创建新的栈。注意！某些递归的用途可以用 foldings 来实现（像 <code>Enumerable#inject</code>）。</p>
+<p>在 MRI-1.9 启用 TCO：</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="constant">RubyVM::InstructionSequence</span>.compile_option = &#123;</span><br><span class="line">  <span class="symbol">:tailcall_optimization</span> =&gt; <span class="keyword">true</span>,</span><br><span class="line">  <span class="symbol">:trace_instruction</span> =&gt; <span class="keyword">false</span>,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>简单例子：</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">module</span> <span class="title">Math</span></span></span><br><span class="line">  <span class="function"><span class="keyword">def</span> </span><span class="keyword">self</span>.factorial_tco(n, acc=<span class="number">1</span>)</span><br><span class="line">    n &lt; <span class="number">1</span> ? acc <span class="symbol">:</span> factorial_tco(n-<span class="number">1</span>, n*acc)</span><br><span class="line">  <span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+<p>在递归深度不太可能很深的情况下，你仍可以使用：</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Node</span></span></span><br><span class="line">  has_many <span class="symbol">:children</span>, <span class="symbol">:class_name</span> =&gt; <span class="string">"Node"</span></span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">def</span> </span>all_children</span><br><span class="line">    <span class="keyword">self</span>.children.flat_map <span class="keyword">do</span> |child|</span><br><span class="line">      [child] + child.all_children</span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line">  <span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+<h3 id="惰性枚举器">惰性枚举器</h3><p>惰性求值延迟了表达式的求值，在真正需要时才会求值。与 eager evaluation（迫切求值） 相反，eager evaluation 当一个变量被赋值时、函数被调用时…甚至变量没有被使用的情况下，都立马对表达式求值，惰性不是函数式编程的必需品，但这是个符合函数式范式的好策略（Haskell 大概是最佳的例子，弥漫着懒惰的语言）。</p>
+<p>Ruby 所猜用的基本上是迫切求值（虽然同许多其它的语言一样，在条件语句中不满足判定条件时，在短路布尔运算 <code>&amp;&amp;</code>, <code>||</code>等情况下，不对表达式求值）。然而，与任何内置高阶函数的语言一样，延迟求值是隐性支援，因为程序员可自己决定区块何时被调用。</p>
+<p>Enumerators 同样 从 Ruby 1.9 开始支援(1.8 请用 backports)，它们提供了一个简单的介面来定义惰性 enumerables。经典的例子是构造一个枚举器，返回所有的自然数：</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">require</span> <span class="string">'backports'</span> <span class="comment"># 1.8 才需要</span></span><br><span class="line">natural_numbers = <span class="constant">Enumerator</span>.new <span class="keyword">do</span> |yielder|</span><br><span class="line">  number = <span class="number">1</span></span><br><span class="line">  loop <span class="keyword">do</span></span><br><span class="line">    yielder.<span class="keyword">yield</span> number</span><br><span class="line">    number += <span class="number">1</span></span><br><span class="line">  <span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+<p>可以写得更有函数味：</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">natural_numbers = <span class="constant">Enumerator</span>.new <span class="keyword">do</span> |yielder|</span><br><span class="line">  (<span class="number">1</span>..<span class="number">1.0</span>/<span class="number">0</span>).each <span class="keyword">do</span> |number|</span><br><span class="line">    yielder.<span class="keyword">yield</span> number</span><br><span class="line">  <span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">natural_numbers.take(<span class="number">10</span>)</span><br><span class="line"><span class="comment"># [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]</span></span><br></pre></td></tr></table></figure>
+<p>现在，试试给 <code>natural_numbers</code> 做 <code>map</code>，发生什么事？它不会停止。标准的 enumerable 方法 (<code>map</code>, <code>select</code> 等）返回一个数组，所以在输入流是无穷大时，无法正常工作。让我们扩展 Enumerator 类别，比如加入这个惰性的 <code>Enumerator#map</code>：</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Enumerator</span></span></span><br><span class="line">  <span class="function"><span class="keyword">def</span> </span>map(&amp;block)</span><br><span class="line">    <span class="constant">Enumerator</span>.new <span class="keyword">do</span> |yielder|</span><br><span class="line">      <span class="keyword">self</span>.each <span class="keyword">do</span> |value|</span><br><span class="line">        yielder.<span class="keyword">yield</span>(block.call(value))</span><br><span class="line">      <span class="keyword">end</span></span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line">  <span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+<p>现在我们可以给所有自然数的流做 <code>map</code> 了：</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">natural_numbers.map &#123; |x| <span class="number">2</span> * x &#125;.take(<span class="number">10</span>)</span><br><span class="line"><span class="comment"># [2, 4, 6, 8, 10, 12, 14, 16, 18, 20]</span></span><br></pre></td></tr></table></figure>
+<p>枚举器是构造惰性行为的砖瓦，你也可使用实现了所有 Enumerable 方法惰性化的函式库：</p>
+<p><a href="https://github.com/yhara/enumerable-lazy" target="_blank" rel="external">https://github.com/yhara/enumerable-lazy</a></p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">require</span> <span class="string">'enumerable/lazy'</span></span><br><span class="line">(<span class="number">1</span>..<span class="number">1.0</span>/<span class="number">0</span>).lazy.map &#123; |x| <span class="number">2</span>*x &#125;.take(<span class="number">10</span>).to_a</span><br><span class="line"><span class="comment"># [2, 4, 6, 8, 10, 12, 14, 16, 18, 20]</span></span><br></pre></td></tr></table></figure>
+<h4 id="惰性求值的好处">惰性求值的好处</h4><ol>
+<li><p>显而易见的好处: 无需在不必要的情况下，构造、储存完整的结构（也许，可以更有效率的使用 CPU 及内存）</p>
+</li>
+<li><p>不太显而易见的好处: 惰性求值使写的程序无需了解超出它需要了解的范围。让我们看一个例子：你写了某种解题工具，可以提供无数种解法，但在某个时候，你只想要前十种解法。你可能会这么写：</p>
+</li>
+</ol>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">solver(input, <span class="symbol">:max</span> =&gt; <span class="number">10</span>)</span><br></pre></td></tr></table></figure>
+<p>当你与惰性结构一起工作时，不需要说什么时候该结束。调用者自己会决定他需要多少值。代码更简单，编码者也不许负责默认输出多少个结果：</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">solver(input).take(<span class="number">10</span>)</span><br></pre></td></tr></table></figure>
+<h3 id="一个实际的例子">一个实际的例子</h3><p>练习：“前十个平方可被五整除的自然数的和是多少？”</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="constant">Integer::</span>natural.select &#123; |x| x**<span class="number">2</span> % <span class="number">5</span> == <span class="number">0</span> &#125;.take(<span class="number">10</span>).inject(<span class="symbol">:+</span>) <span class="comment">#=&gt; 275</span></span><br></pre></td></tr></table></figure>
+<p>让我们跟等价的命令式版本来比较：</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">n, num_elements, sum = <span class="number">1</span>, <span class="number">0</span>, <span class="number">0</span></span><br><span class="line"><span class="keyword">while</span> num_elements &lt; <span class="number">10</span></span><br><span class="line">  <span class="keyword">if</span> n**<span class="number">2</span> % <span class="number">5</span> == <span class="number">0</span></span><br><span class="line">    sum += n</span><br><span class="line">    num_elements += <span class="number">1</span></span><br><span class="line">  <span class="keyword">end</span></span><br><span class="line">  n += <span class="number">1</span></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line">sum <span class="comment">#=&gt; 275</span></span><br></pre></td></tr></table></figure>
+<p>我希望这个例子展示了本文档谈到的函数式编程优点：</p>
+<ol>
+<li><p>简洁: 你会撰写更少的代码。函数式程序处理的是表达式，而表达式可以连锁起来；命令式程序处理的是变量的改动（叙述式），而这不能连锁。</p>
+</li>
+<li><p>抽象: 你可以争论说我们使用 <code>select</code>, <code>inject</code>…等等，来隐藏了一大堆代码，我很高兴你这么说，事情就是这样。将通用的、可重用的代码隐藏起来，撰写抽象代码是任何编程的重点，函数式编程尤为这样。让人高兴的不是因为代码少了，而是因为依靠辨认出可重用的模式，简化了代码的复杂性。</p>
+</li>
+<li><p>更有声明式的味道: 看看命令式的版本，第一眼看起来是一沱无用的代码 ── 没有注解的话 ── 它会做什么你完全没有概念。你可能会说：“好吧，从这里开始读，草草记下 <code>n</code> 与 <code>sum</code> 的值，进入某个循环，看看 <code>n</code> 与 <code>sum</code> 的值如何变化，看看最后一次迭代的情形” 等等。函数式版本则不言自明，函数式版本描述、声明它在干的事，而不是如何干这件事。</p>
+</li>
+</ol>
+<p>“函数式编程像是将你的问题叙述给数学家。命令式编程像是给白痴下指令” (arcus 在 Freenode #scheme 频道所说）</p>
+<h3 id="结论">结论</h3><p>更好地理解函数式编程原理，能帮助我们写出更清晰、重用性更高和更简洁的代码。Ruby 基本上是一个命令式语言，但它的函数式能力也很强，学会何时用和如何用（以及何时不该用）这种能力吧。“状态是万恶的根源，尽可能避免它”， 将这句话当成你的座右铭吧。</p>
+<h3 id="简报">简报</h3><p>Workshop at <a href="http://conferenciarails.org/" target="_blank" rel="external">Conferencia Rails 2011</a>: <a href="http://public.arnau-sanchez.com/ruby-functional/" target="_blank" rel="external">Functional Programming with Ruby</a> <a href="http://www.slideshare.net/tokland/functional-programming-with-ruby-9975242" target="_blank" rel="external">(slideshare)</a></p>
+<h3 id="延伸阅读">延伸阅读</h3><p><a href="http://en.wikipedia.org/wiki/Functional_programming" target="_blank" rel="external">http://en.wikipedia.org/wiki/Functional_programming</a></p>
+<p><a href="http://www.defmacro.org/ramblings/fp.html" target="_blank" rel="external">http://www.defmacro.org/ramblings/fp.html</a> <strong><a href="http://t.cn/zYaCDw7" target="_blank" rel="external">译文</a></strong></p>
+<p><a href="http://www.cse.chalmers.se/~rjmh/Papers/whyfp.html" target="_blank" rel="external">http://www.cse.chalmers.se/~rjmh/Papers/whyfp.html</a></p>
+<p><a href="http://www.khelll.com/blog/ruby/ruby-and-functional-programming/" target="_blank" rel="external">http://www.khelll.com/blog/ruby/ruby-and-functional-programming/</a></p>
+<p><a href="http://www.bestechvideos.com/2008/11/30/rubyconf-2008-better-ruby-through-functional-programming" target="_blank" rel="external">http://www.bestechvideos.com/2008/11/30/rubyconf-2008-better-ruby-through-functional-programming</a></p>
+<p><a href="http://channel9.msdn.com/Blogs/pdc2008/TL11" target="_blank" rel="external">http://channel9.msdn.com/Blogs/pdc2008/TL11</a></p>
+<p><a href="http://www.infoq.com/presentations/Value-Identity-State-Rich-Hickey" target="_blank" rel="external">http://www.infoq.com/presentations/Value-Identity-State-Rich-Hickey</a></p>
+<h2 id="授权">授权</h2><p>This document is licensed under the CC-By 3.0 License, which encourages you to share these documents. See <a href="http://creativecommons.org/licenses/by/3.0/" target="_blank" rel="external">http://creativecommons.org/licenses/by/3.0/</a> for more details.</p>
+<p><img alt="CC-By 3.0 License http://creativecommons.org/licenses/by/3.0/" style="border-width:0" src="http://i.creativecommons.org/l/by/3.0/88x31.png"></p>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+	  	<span></span>
+		<a href="/2015/12/31/2014-12-31- Ruby 函数式编程/#disqus_thread" class="comments-count-link">Comments</a>
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2015/10/19/2014-10-19-chrome-tools/" title="Chrome开发者工具使用教程" itemprop="url">Chrome开发者工具使用教程</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Go7hic" target="_blank" itemprop="author">Go7hic</a>
+		
+  <p class="article-time">
+    <time datetime="2015-10-18T16:00:00.000Z" itemprop="datePublished"> 发表于 2015-10-19</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <h3 id="Elements">Elements</h3><p>chrome devtools 中 Elements panel 是审查 dom 元素和 css 的, 可以实时修改 dom/css.</p>
+<ul>
+<li>windows: ctrl + shift + i</li>
+<li>mac: cmd + opt + i</li>
+</ul>
+<h3 id="DOM">DOM</h3><p><strong>修改 html &amp; 属性</strong></p>
+<p>节点右键, 如下图, 可以: </p>
+<p><img src="http://gtms02.alicdn.com/tps/i2/TB1cHVlGFXXXXb.XXXXYkh.ZXXX-527-423.jpg" alt="修改元素"></p>
+<ul>
+<li>添加属性(enter)</li>
+<li>修改 html(F2)</li>
+<li>删除元素(delete)</li>
+</ul>
+<p>除了右键, 还可以:</p>
+<ul>
+<li><code>h</code> toggle 元素的 visibility 属性</li>
+<li>拖拽节点, 调整顺序</li>
+<li>拖拽节点到编辑器</li>
+</ul>
+<p><img src="http://img3.tbcdn.cn/L1/461/1/6568776c7a3cb0bdf17cf3760c5a0b23221f5653" alt="查看元素"></p>
+<ul>
+<li>ctrl + z` 撤销修改</li>
+</ul>
+<p><strong>查看元素上绑定了哪些事件</strong><br><img src="http://img4.tbcdn.cn/L1/461/1/e2aacb4eb0fedb9002aeb89439f08944fefd636a" alt="查看事件"></p>
+<ul>
+<li>默认会列出 All Nodes, 这些包括代理绑定在该节点的父/祖父节点上的事件, 因为在在冒泡或捕获阶段会经过该节点</li>
+<li>Selected Node Only 只会列出当前节点上绑定的事件</li>
+<li>每个事件会有对应的几个属性 <code>handler</code>, <code>isAtribute</code>, <code>lineNumber</code>, <code>listenerBody</code>, <code>sourceName</code>, <code>type</code>, <code>useCapture</code></li>
+</ul>
+<p><code>handle</code></p>
+<p>handler是处理函数, 右键可以看到这个函数定义的位置, 一般 js 库绑定事件会包一层, 所以这里很难找到对应handler</p>
+<p><code>isAtribute</code> 表明事件是否通过 html 属性(类似onClick)形式绑定的</p>
+<p><code>useCapture</code> 是 addEventListener 的第三个参数, 说明事件是以 冒泡 还是 捕获 顺序执行</p>
+<p><strong>Styles</strong></p>
+<p>修改样式</p>
+<ul>
+<li>添加规则<br><img src="http://img2.tbcdn.cn/L1/461/1/47df15944c5aad071da619c02693f1f00e3efad2" alt=""></li>
+<li>添加、修改属性 同样可以通过 ctrl + z 取消</li>
+</ul>
+<h3 id="断点">断点</h3><p><strong>代码断点</strong></p>
+<ul>
+<li><p>设置断点</p>
+<ul>
+<li>在 Sources 面板 js 文件行号处设置断点, 这里除了常规断点外, 还有个条件断点(右键 conditional breakpoint), 在设置的条件为 true 时才会断电, 在循环中需要断点时比较有用.</li>
+<li>断点后可以查看 堆栈, 变量 信息:</li>
+<li><img src="http://img3.tbcdn.cn/L1/461/1/a178787031ff59a3eeb9c4b33cc59338353a4b43" alt=""></li>
+</ul>
+</li>
+<li><p>在调用堆栈这里可以切换到堆栈中的任何地方重新执行(右键restart frame), 如果想查看断点前的信息时比较有用.</p>
+</li>
+<li><p>断点后的变量保存到全局</p>
+<ul>
+<li>选中变量, 右键 Evalute in console</li>
+<li>在 console 中选中输出的内容, 右键 store as global variable</li>
+</ul>
+</li>
+</ul>
+<p><strong>事件断点</strong></p>
+<p><strong>元素上事件断点</strong></p>
+<p><code>devtools</code> 可以查看某一个元素上绑定了哪些事件: <code>Elements</code> &gt; <code>Event Listeners</code><br><img src="http://img1.tbcdn.cn/L1/461/1/25f7737f9f88b5b921ecbb0a7eb0cdf9726ac880" alt=""></p>
+<p><strong>dom mutation 断点(推荐)</strong></p>
+<p><code>dom mutation event</code> 是 DOM3 添加的新的事件, 一般是 dom 结构改变时触发. <code>devtools</code> 可以对 <code>DOMSubtreeModified</code> <code>DOMAttrModified</code> 和 <code>DOMNodeRemoved</code> 时断点. 对上面 元素上事件断点(<code>mouseover</code>) 后不容易找到业务代码, 使用 mutation 断点, 断点后配合 <code>call stack</code> 就可以找到业务代码了, 如下图</p>
+<p><img src="http://img2.tbcdn.cn/L1/461/1/14811e0e62a2ecb31c5875ac7186f4caa9e6ccfa" alt=""></p>
+<p> 这种情况使用全局搜索(ctrl + shift + f) 代码中 css classname 也能找到业务代码, 然后直接断点也可以.</p>
+<p><strong>全局事件断点</strong></p>
+<p>devtools 还可以对事件发生时断点, 比如 click 发生时断点, 这个跟 元素上事件断点 不同, 不会限定在元素上, 只要是事件发生, 并且有 handler 就断点; 还可以对 resize, ajax, setTimeout/setInterval 断点.</p>
+<p>下面这个图是 resize 时中断, 因为库都代理了, 还需要在断点处一步一步跟下去才能走到业务代码中.<br><img src="http://img1.tbcdn.cn/L1/461/1/6fe5a3d32743e8402343062a5ceebdc408cbe511" alt=""></p>
+<p><strong>几个常用的断点快捷键:</strong></p>
+<ul>
+<li>F8: 继续执行</li>
+<li>F10: step over, 单步执行, 不进入函数</li>
+<li>F11: step into, 单步执行, 进入函数</li>
+<li>shift + F11: step out, 跳出函数</li>
+<li>ctrl + o: 打开文件</li>
+<li>ctrl + shit + o: 跳到函数定义位置</li>
+<li>ctrl + shift + f: 所有脚本中搜索</li>
+</ul>
+<h3 id="Console">Console</h3><p><strong>元素选择</strong></p>
+<p><strong>$(selector)</strong></p>
+<p>即使当前页面没有加载jQuery，你也依然可以使用$和$$函数来选取元素，实际上，这两个函数只是对document.querySelector()和document.querySelectorAll()的简单封装，$用于选取单个元素，$$则用于选取多个：<br><img src="http://gtms01.alicdn.com/tps/i1/TB1l6KZFVXXXXc4aXXXYCer4FXX-1190-203.png" alt=""></p>
+<p><strong>$_</strong></p>
+<p>使用 <code>$_</code> 来引用最近的一个表达式<br><img src="http://gtms01.alicdn.com/tps/i1/TB1D2mQFVXXXXc_XFXX0zJfZVXX-394-121.png" alt=""></p>
+<p><strong>$0 - $4</strong></p>
+<p>除了<code>$_</code>，你还可以使用<code>$0</code>,<code>$1</code>,<code>$2</code>,<code>$3</code>,<code>$4</code>这5个变量来引用最近选取过的5个DOM元素。 $0 为Elements HTML 面板中选中的元素。 $1 为上一次在 HTML 面板中选中的元素。 $2、$3、$4 同样的。不过只能到$4</p>
+<p><strong>copy</strong></p>
+<p>复制到剪切板，copy之后，直接ctrl+v<br><img src="http://gtms02.alicdn.com/tps/i2/TB1iSq5FVXXXXXGaXXXJJvZJFXX-920-127.png" alt=""></p>
+<p><strong>信息输出</strong></p>
+<p>在js代码中打点<code>`console.log()</code> 类似debugger</p>
+<p>转自网络</p>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+	  	<span></span>
+		<a href="/2015/10/19/2014-10-19-chrome-tools/#disqus_thread" class="comments-count-link">Comments</a>
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2015/09/03/2014-09-03-weituo/" title="理解JavaScript事件委托的技术原理" itemprop="url">理解JavaScript事件委托的技术原理</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Go7hic" target="_blank" itemprop="author">Go7hic</a>
+		
+  <p class="article-time">
+    <time datetime="2015-09-02T16:00:00.000Z" itemprop="datePublished"> 发表于 2015-09-03</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p>我们知道函数都是对象，都会占用内存，内存中的对象越多，性能越差。而且，添加到页面上的事件处理程序数量会直接关系到页面的整体性能。那么有没有什么方法能够解决一点相关的问题呢？有，事件委托就是“事件处理程序数量过多”导致的问题的解决方法。</p>
+<p>使用事件委托技术能让你避免对特定的每个节点添加事件监听器；相反，事件监听器是被添加到它们的父元素上。事件监听器会分析从子元素冒泡上来的事件，找到是哪个子元素的事件。基本概念非常简单，但仍有很多人不理解事件委托的工作原理。这里我将要解释事件委托是如何工作的，并提供几个纯JavaScript的基本事件委托的例子。</p>
+<p>假定我们有一个UL元素，它有几个子元素：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">ul</span> <span class="attribute">id</span>=<span class="value">"parent-list"</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="title">li</span> <span class="attribute">id</span>=<span class="value">"post-1"</span>&gt;</span>Item 1<span class="tag">&lt;/<span class="title">li</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="title">li</span> <span class="attribute">id</span>=<span class="value">"post-2"</span>&gt;</span>Item 2<span class="tag">&lt;/<span class="title">li</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="title">li</span> <span class="attribute">id</span>=<span class="value">"post-3"</span>&gt;</span>Item 3<span class="tag">&lt;/<span class="title">li</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="title">li</span> <span class="attribute">id</span>=<span class="value">"post-4"</span>&gt;</span>Item 4<span class="tag">&lt;/<span class="title">li</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="title">li</span> <span class="attribute">id</span>=<span class="value">"post-5"</span>&gt;</span>Item 5<span class="tag">&lt;/<span class="title">li</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="title">li</span> <span class="attribute">id</span>=<span class="value">"post-6"</span>&gt;</span>Item 6<span class="tag">&lt;/<span class="title">li</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">ul</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>我们还假设，当每个子元素被点击时，将会有各自不同的事件发生。你可以给每个独立的li元素添加事件监听器，但有时这些li元素可能会被删除，可能会有新增，监听它们的新增或删除事件将会是一场噩梦，尤其是当你的监听事件的代码放在应用的另一个地方时。但是，如果你将监听器安放到它们的父元素上呢？你如何能知道是那个子元素被点击了？</p>
+<p>简单：当子元素的事件冒泡到父ul元素时，你可以检查事件对象的target属性，捕获真正被点击的节点元素的引用。下面是一段很简单的JavaScript代码，演示了事件委托的过程：</p>
+<figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 找到父元素，添加监听器...</span></span><br><span class="line">document.getElementById(<span class="string">"parent-list"</span>).addEventListener(<span class="string">"click"</span>,function(<span class="keyword">e</span>) &#123;</span><br><span class="line">	<span class="comment">// e.target是被点击的元素!</span></span><br><span class="line">	<span class="comment">// 如果被点击的是li元素</span></span><br><span class="line">	<span class="keyword">if</span>(<span class="keyword">e</span>.target &amp;&amp; <span class="keyword">e</span>.target.nodeName == <span class="string">"LI"</span>) &#123;</span><br><span class="line">		<span class="comment">// 找到目标，输出ID!</span></span><br><span class="line">		console.<span class="literal">log</span>(<span class="string">"List item "</span>,<span class="keyword">e</span>.target.id.<span class="keyword">replace</span>(<span class="string">"post-"</span>),<span class="string">" was clicked!"</span>);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>第一步是给父元素添加事件监听器。当有事件触发监听器时，检查事件的来源，排除非li子元素事件。如果是一个li元素，我们就找到了目标！如果不是一个li元素，事件将被忽略。这个例子非常简单，UL和li是标准的父子搭配。让我们试验一些差异比较大的元素搭配。假设我们有一个父元素div，里面有很多子元素，但我们关心的是里面的一个带有”classA” CSS类的A标记：</p>
+<figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 获得父元素DIV, 添加监听器...</span></span><br><span class="line">document.getElementById(<span class="string">"myDiv"</span>).addEventListener(<span class="string">"click"</span>,function(<span class="keyword">e</span>) &#123;</span><br><span class="line">	<span class="comment">// e.target是被点击的元素</span></span><br><span class="line">	<span class="keyword">if</span>(<span class="keyword">e</span>.target &amp;&amp; <span class="keyword">e</span>.target.nodeName == <span class="string">"A"</span>) &#123;</span><br><span class="line">		<span class="comment">// 获得CSS类名</span></span><br><span class="line">		<span class="keyword">var</span> classes = <span class="keyword">e</span>.target.className.<span class="keyword">split</span>(<span class="string">" "</span>);</span><br><span class="line">		<span class="comment">// 搜索匹配!</span></span><br><span class="line">		<span class="keyword">if</span>(classes) &#123;</span><br><span class="line">			<span class="comment">// For every CSS class the element has...</span></span><br><span class="line">			<span class="keyword">for</span>(<span class="keyword">var</span> x = 0; x &lt; classes.length; x++) &#123;</span><br><span class="line">				<span class="comment">// If it has the CSS class we want...</span></span><br><span class="line">				<span class="keyword">if</span>(classes[x] == <span class="string">"classA"</span>) &#123;</span><br><span class="line">					<span class="comment">// Bingo!</span></span><br><span class="line">					console.<span class="literal">log</span>(<span class="string">"Anchor element clicked!"</span>);</span><br><span class="line"></span><br><span class="line">					<span class="comment">// Now do something here....</span></span><br><span class="line"></span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">	&#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>上面这个例子中不仅比较了标签名，而且比较了CSS类名。虽然稍微复杂了一点，但还是很具代表性的。比如，如果某个A标记里有一个span标记，则这个span将会成为target元素。这个时候，我们需要上溯DOM树结构，找到里面是否有一个 A.classA 的元素。</p>
+<p>因为大部分程序员都会使用jQuery等工具库来处理DOM元素和事件，我建议大家都使用里面的事件委托方法，因为这里工具库里都提供了高级的委托方法和元素甄别方法。</p>
+<p>希望这篇文章能帮助你理解JavaScript事件委托的幕后原理，希望你也感受到了事件委托的强大用处！</p>
+<p>总结</p>
+<p>事件委托的好处：提高性能；后面新添加的元素也会有之前的事件。<br>所有用到按钮的时间都适合采用事件委托技术，最适合采用事件委托技术的事件包括click,mousedown,mouseup,keydown,keyup,keypress。</p>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+	  	<span></span>
+		<a href="/2015/09/03/2014-09-03-weituo/#disqus_thread" class="comments-count-link">Comments</a>
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
     <article class="post-expand javascript" itemprop="articleBody"> 
         <header class="article-info clearfix">
   <h1 itemprop="name">
@@ -185,6 +631,423 @@
 
 
 
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2015/06/27/2014-06-27-javascript-callback/" title="深入理解js里的回调函数" itemprop="url">深入理解js里的回调函数</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Go7hic" target="_blank" itemprop="author">Go7hic</a>
+		
+  <p class="article-time">
+    <time datetime="2015-06-26T16:00:00.000Z" itemprop="datePublished"> 发表于 2015-06-27</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p>在Javascript中，函数是第一类对象，这意味着函数可以像对象一样按照第一类管理被使用。既然函数实际上是对象：它们能被“存储”在变量中，能作为函数参数被传递，能在函数中被创建，能从函数中返回。</p>
+<p>因为函数是第一类对象，我们可以在Javascript使用回调函数。在下面的文章中，我们将学到关于回调函数的方方面面。回调函数可能是在Javascript中使用最多的函数式编程技巧，虽然在字面上看起来它们一直一小段Javascript或者jQuery代码，但是对于许多开发者来说它任然是一个谜。在阅读本文之后你能了解怎样使用回调函数。</p>
+<p>回调函数是从一个叫函数式编程的编程范式中衍生出来的概念。简单来说，函数式编程就是使用函数作为变量。函数式编程过去 - 甚至是现在，依旧没有被广泛使用 - 它过去常被看做是那些受过特许训练的，大师级别的程序员的秘传技巧。</p>
+<p>幸运的是，函数式编程的技巧现在已经被充分阐明因此像我和你这样的普通人也能去轻松使用它。函数式编程中的一个主要技巧就是回调函数。在后面内容中你会发现实现回调函数其实就和普通函数传参一样简单。这个技巧是如此的简单以致于我常常感到很奇怪为什么它经常被包含在讲述Javascript高级技巧的章节中。</p>
+<h3 id="什么是回调或者高阶函数">什么是回调或者高阶函数</h3><p>一个回调函数，也被称为高阶函数，是一个被作为参数传递给另一个函数（在这里我们把另一个函数叫做“otherFunction”）的函数，回调函数在otherFunction中被调用。一个回调函数本质上是一种编程模式（为一个常见问题创建的解决方案），因此，使用回调函数也叫做回调模式。</p>
+<p>下面是一个在jQuery中使用回调函数简单普遍的例子：</p>
+<p>/注意到click方法中是一个函数而不是一个变量<br>//它就是回调函数<br>$(“#btn_1”).click(function() {<br>  alert(“Btn 1 Clicked”);<br>});<br>正如你在前面的例子中看到的，我们将一个函数作为参数传递给了click方法。click方法会调用（或者执行）我们传递给它的函数。这是Javascript中回调函数的典型用法，它在jQuery中广泛被使用。</p>
+<p>下面是另一个Javascript中典型的回调函数的例子：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> friends = [<span class="string">"Mike"</span>, <span class="string">"Stacy"</span>, <span class="string">"Andy"</span>, <span class="string">"Rick"</span>];</span><br><span class="line">friends.forEach(<span class="function"><span class="keyword">function</span> (<span class="params">eachName, index</span>)</span>&#123;</span><br><span class="line"><span class="built_in">console</span>.log(index + <span class="number">1</span> + <span class="string">". "</span> + eachName); <span class="comment">// 1. Mike, 2. Stacy, 3. Andy, 4. Rick</span></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>再一次，注意到我们讲一个匿名函数（没有名字的函数）作为参数传递给了forEach方法。</p>
+<p>到目前为止，我们将匿名函数作为参数传递给了另一个函数或方法。在我们看更多的实际例子和编写我们自己的回调函数之前，先来理解回调函数是怎样运作的。</p>
+<h3 id="回调函数是怎样运作的？">回调函数是怎样运作的？</h3><p>因为函数在Javascript中是第一类对象，我们像对待对象一样对待函数，因此我们能像传递变量一样传递函数，在函数中返回函数，在其他函数中使用函数。当我们将一个回调函数作为参数传递给另一个函数是，我们仅仅传递了函数定义。我们并没有在参数中执行函数。我们并不传递像我们平时执行函数一样带有一对执行小括号()的函数。</p>
+<p>需要注意的很重要的一点是回调函数并不会马上被执行。它会在包含它的函数内的某个特定时间点被“回调”（就像它的名字一样）。因此，即使第一个jQuery的例子如下所示：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//匿名函数不会再参数中被执行</span></span><br><span class="line"><span class="comment">//这是一个回调函数    </span></span><br><span class="line">$(<span class="string">"#btn_1"</span>).click(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    alert(<span class="string">"Btn 1 Clicked"</span>);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>这个匿名函数稍后会在函数体内被调用。即使有名字，它依然在包含它的函数内通过arguments对象获取。</p>
+<h3 id="回调函数是闭包">回调函数是闭包</h3><p>当我们能够把一个回调函数作为一个argument传递给另一个函数时，这个回调函数在包含它的函数内的某一点执行，就好像这个回调函数是在包含它的函数中定义的一样。这意味着回调函数本质上是一个闭包。</p>
+<p>正如我们所知，闭包能够进入包含它的函数的作用域，因此回调函数能获取包含它的函数中的变量，以及全局作用域中的变量。</p>
+<h3 id="实现回调函数的基本原理">实现回调函数的基本原理</h3><p>回调函数并不复杂，但是在我们开始创建并使用回调函数之前，我们应该熟悉几个实现回调函数的基本原理。</p>
+<p>使用命名或匿名函数作为回调</p>
+<p>在前面的jQuery例子以及forEach的例子中，我们使用了再参数位置定义的匿名函数作为回调函数。这是在回调函数使用中的一种普遍的魔术。另一种常见的模式是定义一个命名函数并将函数名作为变量传递给函数。比如下面的例子：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//全局变量</span></span><br><span class="line"><span class="keyword">var</span> allUserData = [];</span><br><span class="line"></span><br><span class="line"><span class="comment">//普通的logStuff函数，将内容打印到控制台     </span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">logStuff</span> (<span class="params">userData</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">if</span> ( <span class="keyword">typeof</span> userData === <span class="string">"string"</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">console</span>.log(userData);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span> ( <span class="keyword">typeof</span> userData === <span class="string">"object"</span>)&#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">var</span> item <span class="keyword">in</span> userData)&#123;</span><br><span class="line">            <span class="built_in">console</span>.log(item + <span class="string">": "</span> + userData[item]);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125; </span><br><span class="line"></span><br><span class="line"><span class="comment">//一个接收两个参数的函数，后面一个是回调函数     </span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getInput</span> (<span class="params">options, callback</span>)</span>&#123;</span><br><span class="line">    allUserData.push(options);</span><br><span class="line">    callback(options);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//当我们调用getInput函数时，我们将logStuff作为一个参数传递给它     </span></span><br><span class="line"><span class="comment">//因此logStuff将会在getInput函数内被回调（或者执行）     </span></span><br><span class="line">getInput(&#123;name:<span class="string">"Rich"</span>,speciality:<span class="string">"Javascript"</span>&#125;, logStuff);</span><br><span class="line"><span class="comment">//name:Rich</span></span><br><span class="line"><span class="comment">//speciality:Javascript</span></span><br></pre></td></tr></table></figure></p>
+<p>传递参数给回调函数</p>
+<p>既然回调函数在执行时仅仅是一个普通函数，我们就能给它传递参数。我们能够传递任何包含它的函数的属性（或者全局属性）作为回调函数的参数。在前面的例子中，我们将options作为一个参数传递给了回调函数。现在我们传递一个全局变量和一个本地变量：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//全局变量</span></span><br><span class="line"><span class="keyword">var</span> generalLastName = <span class="string">"Cliton"</span>；</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getInput</span> (<span class="params">options, callback</span>)</span>&#123;</span><br><span class="line">    allUserData.push (options);</span><br><span class="line">    <span class="comment">//将全局变量generalLastName传递给回调函数</span></span><br><span class="line">    callback(generalLastName,options);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>在执行之前确保回调函数是一个函数</p>
+<p>在调用之前检查作为参数被传递的回调函数确实是一个函数，这样的做法是明智的。同时，这也是一个实现条件回调函数的最佳时间。</p>
+<p>我们来重构上面例子中的getInput函数来确保检查是恰当的。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getInput</span>(<span class="params">options, callback</span>)</span>&#123;</span><br><span class="line">    allUserData.push(options);    </span><br><span class="line">    <span class="comment">//确保callback是一个函数    </span></span><br><span class="line">    <span class="keyword">if</span>(<span class="keyword">typeof</span> callback === <span class="string">"function"</span>)&#123;</span><br><span class="line">        <span class="comment">//调用它，既然我们已经确定了它是可调用的</span></span><br><span class="line">          callback(options);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>如果没有适当的检查，如果getInput的参数中没有一个回调函数或者传递的回调函数事实上并不是一个函数，我们的代码将会导致运行错误。</p>
+<h3 id="使用this对象的方法作为回调函数时的问题">使用this对象的方法作为回调函数时的问题</h3><p>当回调函数是一个this对象的方法时，我们必须改变执行回调函数的方法来保证this对象的上下文。否则如果回调函数被传递给一个全局函数，this对象要么指向全局window对象（在浏览器中）。要么指向包含方法的对象。<br>我们在下面的代码中说明：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//定义一个拥有一些属性和一个方法的对象 //我们接着将会把方法作为回调函数传递给另一个函数</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> clientData = &#123;</span><br><span class="line">    id: <span class="number">094545</span>,</span><br><span class="line">    fullName <span class="string">"Not Set"</span>,</span><br><span class="line">    <span class="comment">//setUsrName是一个在clientData对象中的方法</span></span><br><span class="line">    setUserName: fucntion (firstName, lastName)&#123;</span><br><span class="line">        <span class="comment">//这指向了对象中的fullName属性</span></span><br><span class="line">        <span class="keyword">this</span>.fullName = firstName + <span class="string">" "</span> + lastName;</span><br><span class="line">    &#125;</span><br><span class="line">&#125; </span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getUserInput</span>(<span class="params">firstName, lastName, callback</span>)</span>&#123;</span><br><span class="line">    <span class="comment">//在这做些什么来确认firstName/lastName</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">//现在存储names</span></span><br><span class="line">    callback(firstName, lastName);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>在下面你的代码例子中，当clientData.setUsername被执行时，this.fullName并没有设置clientData对象中的fullName属性。相反，它将设置window对象中的fullName属性，因为getUserInput是一个全局函数。这是因为全局函数中的this对象指向window对象。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">getUserInput(<span class="string">"Barack"</span>,<span class="string">"Obama"</span>,clientData.setUserName);</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(clientData,fullName);  <span class="comment">//Not Set</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//fullName属性将在window对象中被初始化     </span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">window</span>.fullName);  <span class="comment">//Barack Obama</span></span><br></pre></td></tr></table></figure></p>
+<p>使用Call和Apply函数来保存this</p>
+<p>我们可以使用Call或者Apply函数来修复上面你的问题。到目前为止，我们知道了每个Javascript中的函数都有两个方法:Call 和 Apply。这些方法被用来设置函数内部的this对象以及给此函数传递变量。</p>
+<p>call接收的第一个参数为被用来在函数内部当做this的对象，传递给函数的参数被挨个传递（当然使用逗号分开）。Apply函数的第一个参数也是在函数内部作为this的对象，然而最后一个参数确是传递给函数的值的数组。</p>
+<p>ring起来很复杂，那么我们来看看使用Apply和Call有多么的简单。为了修复前面例子的问题，我将在下面你的例子中使用Apply函数：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//注意到我们增加了新的参数作为回调对象，叫做“callbackObj”</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getUserInput</span>(<span class="params">firstName, lastName, callback. callbackObj</span>)</span>&#123;</span><br><span class="line">        <span class="comment">//在这里做些什么来确认名字</span></span><br><span class="line"></span><br><span class="line">        callback.apply(callbackObj, [firstName, lastName]);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>使用Apply函数正确设置了this对象，我们现在正确的执行了callback并在clientData对象中正确设置了fullName属性：</p>
+<p>//我们将clientData.setUserName方法和clientData对象作为参数，clientData对象会被Apply方法使用来设置this对象<br>getUserName(“Barack”, “Obama”, clientData.setUserName, clientData);</p>
+<p>//clientData中的fullName属性被正确的设置<br>console.log(clientUser.fullName); //Barack Obama<br>我们也可以使用Call函数，但是在这个例子中我们使用Apply函数。</p>
+<p>允许多重回调函数</p>
+<p>我们可以将不止一个的回调函数作为参数传递给一个函数，就像我们能够传递不止一个变量一样。这里有一个关于jQuery中AJAX的例子：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">successCallback</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="comment">//在发送之前做点什么</span></span><br><span class="line">&#125;     </span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">successCallback</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">  <span class="comment">//在信息被成功接收之后做点什么</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">completeCallback</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">  <span class="comment">//在完成之后做点什么</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">errorCallback</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="comment">//当错误发生时做点什么</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">$.ajax(&#123;</span><br><span class="line">    url:<span class="string">"http://fiddle.jshell.net/favicon.png"</span>,</span><br><span class="line">    success:successCallback,</span><br><span class="line">    complete:completeCallback,</span><br><span class="line">    error:errorCallback</span><br><span class="line"></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
+<h3 id="“回调地狱”问题以及解决方案">“回调地狱”问题以及解决方案</h3><p>在执行异步代码时，无论以什么顺序简单的执行代码，经常情况会变成许多层级的回调函数堆积以致代码变成下面的情形。这些杂乱无章的代码叫做回调地狱因为回调太多而使看懂代码变得非常困难。我从node-mongodb-native，一个适用于Node.js的MongoDB驱动中拿来了一个例子。这段位于下方的代码将会充分说明回调地狱：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> p_client = <span class="keyword">new</span> Db(<span class="string">'integration_tests_20'</span>, <span class="keyword">new</span> Server(<span class="string">"127.0.0.1"</span>, <span class="number">27017</span>, &#123;&#125;), &#123;<span class="string">'pk'</span>:CustomPKFactory&#125;);</span><br><span class="line">   p_client.open(<span class="function"><span class="keyword">function</span>(<span class="params">err, p_client</span>) </span>&#123;</span><br><span class="line">       p_client.dropDatabase(<span class="function"><span class="keyword">function</span>(<span class="params">err, done</span>) </span>&#123;</span><br><span class="line">           p_client.createCollection(<span class="string">'test_custom_key'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">err, collection</span>) </span>&#123;</span><br><span class="line">               collection.insert(&#123;<span class="string">'a'</span>:<span class="number">1</span>&#125;, <span class="function"><span class="keyword">function</span>(<span class="params">err, docs</span>) </span>&#123;</span><br><span class="line">                   collection.find(&#123;<span class="string">'_id'</span>:<span class="keyword">new</span> ObjectID(<span class="string">"aaaaaaaaaaaa"</span>)&#125;, <span class="function"><span class="keyword">function</span>(<span class="params">err, cursor</span>) </span>&#123;</span><br><span class="line">                       cursor.toArray(<span class="function"><span class="keyword">function</span>(<span class="params">err, items</span>) </span>&#123;</span><br><span class="line">                           test.assertEquals(<span class="number">1</span>, items.length);</span><br><span class="line"></span><br><span class="line">                           <span class="comment">// Let's close the db</span></span><br><span class="line">                           p_client.close();</span><br><span class="line">                       &#125;);</span><br><span class="line">                   &#125;);</span><br><span class="line">               &#125;);</span><br><span class="line">           &#125;);</span><br><span class="line">       &#125;);</span><br><span class="line">   &#125;);</span><br></pre></td></tr></table></figure></p>
+<p>你应该不想在你的代码中遇到这样的问题，当你当你遇到了-你将会是不是的遇到这种情况-这里有关于这个问题的两种解决方案。</p>
+<p>给你的函数命名并传递它们的名字作为回调函数，而不是主函数的参数中定义匿名函数。<br>模块化L将你的代码分隔到模块中，这样你就可以到处一块代码来完成特定的工作。然后你可以在你的巨型应用中导入模块。<br>创建你自己的回调函数</p>
+<p>既然你已经完全理解了关于Javascript中回调函数的一切（我认为你已经理解了，如果没有那么快速的重读以便），你看到了使用回调函数是如此的简单而强大，你应该查看你的代码看看有没有能使用回调函数的地方。回调函数将在以下几个方面帮助你： </p>
+<ul>
+<li>避免重复代码（DRY-不要重复你自己） - 在你拥有更多多功能函数的地方实现更好的抽象（依然能保持所有功能） - 让代码具有更好的可维护性 </li>
+<li>使代码更容易阅读 </li>
+<li>编写更多特定功能的函数</li>
+</ul>
+<p>创建你的回调函数非常简单。在下面的例子中，我将创建一个函数完成以下工作：读取用户信息，用数据创建一首通用的诗，并且欢迎用户。这本来是个非常复杂的函数因为它包含很多if/else语句并且，它将在调用那些用户数据需要的功能方面有诸多限制和不兼容性。</p>
+<p>相反，我用回调函数实现了添加功能，这样一来获取用户信息的主函数便可以通过简单的将用户全名和性别作为参数传递给回调函数并执行来完成任何任务。</p>
+<p>简单来讲，getUserInput函数是多功能的：它能执行具有无种功能的回调函数。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//首先，创建通用诗的生成函数；它将作为下面的getUserInput函数的回调函数</span></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">genericPoemMaker</span>(<span class="params">name, gender</span>) </span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(name + <span class="string">" is finer than fine wine."</span>);</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">"Altruistic and noble for the modern time."</span>);</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">"Always admirably adorned with the latest style."</span>);</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">"A "</span> + gender + <span class="string">" of unfortunate tragedies who still manages a perpetual smile"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">        <span class="comment">//callback，参数的最后一项，将会是我们在上面定义的genericPoemMaker函数</span></span><br><span class="line">        <span class="function"><span class="keyword">function</span> <span class="title">getUserInput</span>(<span class="params">firstName, lastName, gender, callback</span>) </span>&#123;</span><br><span class="line">            <span class="keyword">var</span> fullName = firstName + <span class="string">" "</span> + lastName;</span><br><span class="line">            <span class="comment">// Make sure the callback is a function</span></span><br><span class="line">            <span class="keyword">if</span> (<span class="keyword">typeof</span> callback === <span class="string">"function"</span>) &#123;</span><br><span class="line">            <span class="comment">// Execute the callback function and pass the parameters to it</span></span><br><span class="line">            callback(fullName, gender);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br></pre></td></tr></table></figure></p>
+<p>调用getUserInput函数并将genericPoemMaker函数作为回调函数：<br><figure class="highlight inform7"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">getUserInput(<span class="string">"Michael"</span>, <span class="string">"Fassbender"</span>, <span class="string">"Man"</span>, genericPoemMaker);</span><br><span class="line">// 输出</span><br><span class="line">/* Michael Fassbender <span class="keyword">is</span> finer than fine wine.</span><br><span class="line">Altruistic and noble for the modern time.</span><br><span class="line">Always admirably adorned with the latest style.</span><br><span class="line">A <span class="keyword">Man</span> <span class="keyword">of</span> unfortunate tragedies who still manages a perpetual smile.</span><br><span class="line">*/</span><br></pre></td></tr></table></figure></p>
+<p>因为getUserInput函数仅仅只负责提取数据，我们可以把任意回调函数传递给它。例如，我们可以传递一个greetUser函数：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">unction greetUser(customerName, sex)  &#123;</span><br><span class="line">   <span class="keyword">var</span> salutation  = sex &amp;&amp; sex === <span class="string">"Man"</span> ? <span class="string">"Mr."</span> : <span class="string">"Ms."</span>;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">"Hello, "</span> + salutation + <span class="string">" "</span> + customerName);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 将greetUser作为一个回调函数</span></span><br><span class="line">getUserInput(<span class="string">"Bill"</span>, <span class="string">"Gates"</span>, <span class="string">"Man"</span>, greetUser);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 这里是输出</span></span><br><span class="line">Hello, Mr. Bill Gates</span><br></pre></td></tr></table></figure></p>
+<p>我们调用了完全相同的getUserInput函数，但是这次完成了一个完全不同的任务。</p>
+<p>正如你所见，回调函数很神奇。即使前面的例子相对简单，想象一下能节省多少工作量，你的代码将会变得更加的抽象，这一切只需要你开始使用毁掉函数。大胆的去使用吧。</p>
+<p>在Javascript编程中回调函数经常以几种方式被使用，尤其是在现代web应用开发以及库和框架中：</p>
+<blockquote>
+<p>.异步调用（例如读取文件，进行HTTP请求，等等）<br>.时间监听器/处理器<br>.setTimeout和setInterval方法<br>.一般情况：精简代码</p>
+</blockquote>
+<p>结束语</p>
+<p>Javascript回调函数非常美妙且功能强大，它们为你的web应用和代码提供了诸多好处。你应该在有需求时使用它；或者为了代码的抽象性，可维护性以及可读性而使用回调函数来重构你的代码。<br>原文： <a href="http://javascriptissexy.com/understand-javascript-callback-functions-and-use-them/" target="_blank" rel="external">http://javascriptissexy.com/understand-javascript-callback-functions-and-use-them/</a></p>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+	  	<span></span>
+		<a href="/2015/06/27/2014-06-27-javascript-callback/#disqus_thread" class="comments-count-link">Comments</a>
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2015/01/07/2015-01-07-DOM API 之操作元素/" title="3.DOM API 之操作元素" itemprop="url">3.DOM API 之操作元素</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Go7hic" target="_blank" itemprop="author">Go7hic</a>
+		
+  <p class="article-time">
+    <time datetime="2015-01-06T16:00:00.000Z" itemprop="datePublished"> 发表于 2015-01-07</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <h4 id="DOM_API_之操作元素">DOM API 之操作元素</h4><p>在上一篇文章里我们讨论了如何在没有jQuery的支持下选择元素，这次我们来聊一聊如何使用DOM API创建新元素、修改已有元素的属性或者移动元素的位置。原生的浏览器API已经给我们提供了DOM操作的所有功能，我们能够不借助jQuery或者其他函数库的帮助就完成这些。</p>
+<p>当然有些操作会显得比较冗长，所以我必须再强调一遍，这系列文章的用意不是让开发人员不分情况的彻底丢弃jQuery，而是希望我们能够在没有jQuery的帮助时也能完成这些任务。在实际生产中我们依然会使用各种函数库，但是我们可以仔细选择，使用更加适合我们需要的库，而不是不分情况的把整个jQuery都加载到页面里。</p>
+<ul>
+<li>创建元素</li>
+<li>在元素前/后插入元素</li>
+<li>作为子元素插入</li>
+<li>移动元素</li>
+<li>删除元素</li>
+<li>添加/删除 CSS Classes</li>
+<li>添加/删除/修改元素属性</li>
+<li>添加/修改内容</li>
+<li>添加/修改 Style</li>
+<li>专用的DOM操作库</li>
+</ul>
+<h4 id="创建元素">创建元素</h4><p>jQuery<br>如果我们要创建一个 div 元素：</p>
+<pre><code>$(<span class="comment">'<span class="xmlDocTag">&lt;div&gt;</span><span class="xmlDocTag">&lt;/div&gt;</span>');</span>
+</code></pre><p>DOM API，createElement这个很常见了：</p>
+<pre><code><span class="comment">// IE 5.5+</span>
+<span class="built_in">document</span>.createElement(<span class="string">'div'</span>);
+</code></pre><p>或许有人会说，jQuery省去了好些字符。这没错，但确实要依照工程实际而定，如果我们只是用到jQuery的小部分功能，那省去的字数可能还没有jQuery自身的文件大。</p>
+<h4 id="在元素前/后插入元素">在元素前/后插入元素</h4><p>假设我们已经有了如下HTML结构：</p>
+<figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;<span class="keyword">div</span> <span class="property">id</span>=<span class="string">"1"</span>&gt;&lt;/<span class="keyword">div</span>&gt;</span><br><span class="line">&lt;<span class="keyword">div</span> <span class="property">id</span>=<span class="string">"2"</span>&gt;&lt;/<span class="keyword">div</span>&gt;</span><br><span class="line">&lt;<span class="keyword">div</span> <span class="property">id</span>=<span class="string">"3"</span>&gt;&lt;/<span class="keyword">div</span>&gt;</span><br></pre></td></tr></table></figure>
+<p>现在我们要在 id=1 的 div 后面插入一个 id=1.1 的新 div 元素，期望的结果是这样的：<br><figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;<span class="keyword">div</span> <span class="property">id</span>=<span class="string">"1"</span>&gt;&lt;/<span class="keyword">div</span>&gt;</span><br><span class="line">&lt;<span class="keyword">div</span> <span class="property">id</span>=<span class="string">"1.1"</span>&gt;&lt;/<span class="keyword">div</span>&gt;</span><br><span class="line">&lt;<span class="keyword">div</span> <span class="property">id</span>=<span class="string">"2"</span>&gt;&lt;/<span class="keyword">div</span>&gt;</span><br><span class="line">&lt;<span class="keyword">div</span> <span class="property">id</span>=<span class="string">"3"</span>&gt;&lt;/<span class="keyword">div</span>&gt;</span><br></pre></td></tr></table></figure></p>
+<p>jQuery</p>
+<pre><code>$('#1').after('<span class="tag">&lt;<span class="title">div</span> <span class="attribute">id</span>=<span class="value">"1.1"</span>&gt;</span><span class="tag">&lt;/<span class="title">div</span>&gt;</span>');
+</code></pre><p>DOM API，有Web开发新人会认为链式调用是jQuery的专利，事实上没有jQuery我们也可以使用链式调用：</p>
+<pre><code><span class="comment">// IE 4+</span>
+<span class="built_in">document</span>.getElementById(<span class="string">'1'</span>)
+    .insertAdjacentHTML(<span class="string">'afterend'</span>, <span class="string">'&lt;div id="1.1"&gt;&lt;/div&gt;'</span>);
+</code></pre><p>哈哈，这可能是DOM API里不多的从IE 4开始就没怎么变化过的函数了~</p>
+<p>假设我们希望在 id=1 的 div 前面插入一个 id=0.9 的新 div 元素，期望的结果是这样：<br><figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;<span class="keyword">div</span> <span class="property">id</span>=<span class="string">"0.9"</span>&gt;&lt;/<span class="keyword">div</span>&gt;</span><br><span class="line">&lt;<span class="keyword">div</span> <span class="property">id</span>=<span class="string">"1"</span>&gt;&lt;/<span class="keyword">div</span>&gt;</span><br><span class="line">&lt;<span class="keyword">div</span> <span class="property">id</span>=<span class="string">"2"</span>&gt;&lt;/<span class="keyword">div</span>&gt;</span><br><span class="line">&lt;<span class="keyword">div</span> <span class="property">id</span>=<span class="string">"3"</span>&gt;&lt;/<span class="keyword">div</span>&gt;</span><br></pre></td></tr></table></figure></p>
+<p>jQuery</p>
+<pre><code>$('#1').before('<span class="tag">&lt;<span class="title">div</span> <span class="attribute">id</span>=<span class="value">"0.9"</span>&gt;</span><span class="tag">&lt;/<span class="title">div</span>&gt;</span>');
+</code></pre><p>DOM API</p>
+<pre><code><span class="comment">// IE 4+</span>
+<span class="built_in">document</span>.getElementById(<span class="string">'1'</span>)
+    .insertAdjacentHTML(<span class="string">'beforebegin'</span>, <span class="string">'&lt;div id="0.9"&gt;&lt;/div&gt;'</span>);
+</code></pre><p>同在后面插入相比，只有一个参数不同。不得不说，看到一个函数被IE 4以上所有的浏览器都支持的时候，作为一个前端开发人员我还是挺惊讶的 ^_^</p>
+<h4 id="作为子元素插入">作为子元素插入</h4><p>假设我们已经有了如下HTML结构：</p>
+<figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;<span class="keyword">div</span> <span class="property">id</span>=<span class="string">"parent"</span>&gt;</span><br><span class="line">    &lt;<span class="keyword">div</span> <span class="property">id</span>=<span class="string">"oldChild"</span>&gt;&lt;/<span class="keyword">div</span>&gt;</span><br><span class="line">&lt;/<span class="keyword">div</span>&gt;</span><br></pre></td></tr></table></figure>
+<p>现在我们希望在 parent 容器的第一个子元素之前插入一个新的 div 元素，就象这样：</p>
+<figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;<span class="keyword">div</span> <span class="property">id</span>=<span class="string">"parent"</span>&gt;</span><br><span class="line">    &lt;<span class="keyword">div</span> <span class="property">id</span>=<span class="string">"newChild"</span>&gt;&lt;/<span class="keyword">div</span>&gt;</span><br><span class="line">    &lt;<span class="keyword">div</span> <span class="property">id</span>=<span class="string">"oldChild"</span>&gt;&lt;/<span class="keyword">div</span>&gt;</span><br><span class="line">&lt;/<span class="keyword">div</span>&gt;</span><br></pre></td></tr></table></figure>
+<p>jQuery</p>
+<pre><code>$('#parent').prepend('<span class="tag">&lt;<span class="title">div</span> <span class="attribute">id</span>=<span class="value">"newChild"</span>&gt;</span><span class="tag">&lt;/<span class="title">div</span>&gt;</span>');
+</code></pre><p>DOM API</p>
+<pre><code><span class="comment">// IE 4+</span>
+<span class="built_in">document</span>.getElementById(<span class="string">'parent'</span>)
+    .insertAdjacentHTML(<span class="string">'afterbegin'</span>, <span class="string">'&lt;div id="newChild"&gt;&lt;/div&gt;'</span>);
+</code></pre><p>如果我们希望在第一个子元素的后面插入那个 div 元素，期望得到这样的结构：</p>
+<figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;<span class="keyword">div</span> <span class="property">id</span>=<span class="string">"parent"</span>&gt;</span><br><span class="line">    &lt;<span class="keyword">div</span> <span class="property">id</span>=<span class="string">"oldChild"</span>&gt;&lt;/<span class="keyword">div</span>&gt;</span><br><span class="line">    &lt;<span class="keyword">div</span> <span class="property">id</span>=<span class="string">"newChild"</span>&gt;&lt;/<span class="keyword">div</span>&gt;</span><br><span class="line">&lt;/<span class="keyword">div</span>&gt;</span><br></pre></td></tr></table></figure>
+<p>jQuery</p>
+<pre><code>$('#parent').append('<span class="tag">&lt;<span class="title">div</span> <span class="attribute">id</span>=<span class="value">"newChild"</span>&gt;</span><span class="tag">&lt;/<span class="title">div</span>&gt;</span>');
+</code></pre><p>DOM API</p>
+<pre><code><span class="comment">// IE 4+</span>
+<span class="built_in">document</span>.getElementById(<span class="string">'parent'</span>)
+    .insertAdjacentHTML(<span class="string">'beforeend'</span>, <span class="string">'&lt;div id="newChild"&gt;&lt;/div&gt;'</span>);
+</code></pre><p>这一节看上去和上一节差不多，总之我们发现使用DOM API操作元素也不是很复杂，而且到目前为止对浏览器的兼容性都很不错，包括古老的IE浏览器也能很好的适应。</p>
+<h4 id="移动元素">移动元素</h4><p>假设有以下HTML结构：</p>
+<figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;<span class="keyword">div</span> <span class="property">id</span>=<span class="string">"parent"</span>&gt;</span><br><span class="line">    &lt;<span class="keyword">div</span> <span class="property">id</span>=<span class="string">"c1"</span>&gt;&lt;/<span class="keyword">div</span>&gt;</span><br><span class="line">    &lt;<span class="keyword">div</span> <span class="property">id</span>=<span class="string">"c2"</span>&gt;&lt;/<span class="keyword">div</span>&gt;</span><br><span class="line">    &lt;<span class="keyword">div</span> <span class="property">id</span>=<span class="string">"c3"</span>&gt;&lt;/<span class="keyword">div</span>&gt;</span><br><span class="line">&lt;/<span class="keyword">div</span>&gt;</span><br><span class="line">&lt;<span class="keyword">div</span> <span class="property">id</span>=<span class="string">"orphan"</span>&gt;&lt;/<span class="keyword">div</span>&gt;</span><br></pre></td></tr></table></figure>
+<p>在这里希望把 #orphan 移动到 parent 容器中作为最后一个元素，期望的HTML是：<br><figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;<span class="keyword">div</span> <span class="property">id</span>=<span class="string">"parent"</span>&gt;</span><br><span class="line">    &lt;<span class="keyword">div</span> <span class="property">id</span>=<span class="string">"c1"</span>&gt;&lt;/<span class="keyword">div</span>&gt;</span><br><span class="line">    &lt;<span class="keyword">div</span> <span class="property">id</span>=<span class="string">"c2"</span>&gt;&lt;/<span class="keyword">div</span>&gt;</span><br><span class="line">    &lt;<span class="keyword">div</span> <span class="property">id</span>=<span class="string">"c3"</span>&gt;&lt;/<span class="keyword">div</span>&gt;</span><br><span class="line">    &lt;<span class="keyword">div</span> <span class="property">id</span>=<span class="string">"orphan"</span>&gt;&lt;/<span class="keyword">div</span>&gt;</span><br><span class="line">&lt;/<span class="keyword">div</span>&gt;</span><br></pre></td></tr></table></figure></p>
+<p>jQuery</p>
+<pre><code><span class="variable">$(</span><span class="string">'#parent'</span>).append(<span class="variable">$(</span><span class="string">'#orphan'</span>));
+</code></pre><p>DOM API</p>
+<pre><code><span class="comment">// IE 5.5+</span>
+<span class="built_in">document</span>.getElementById(<span class="string">'parent'</span>)
+    .appendChild(<span class="built_in">document</span>.getElementById(<span class="string">'orphan'</span>));
+</code></pre><p>也还是蛮好记的对不对？如果我们希望把 #orphan 移动到 parent 容器的第一个元素，类似于：</p>
+<figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;<span class="keyword">div</span> <span class="property">id</span>=<span class="string">"parent"</span>&gt;</span><br><span class="line">    &lt;<span class="keyword">div</span> <span class="property">id</span>=<span class="string">"orphan"</span>&gt;&lt;/<span class="keyword">div</span>&gt;</span><br><span class="line">    &lt;<span class="keyword">div</span> <span class="property">id</span>=<span class="string">"c1"</span>&gt;&lt;/<span class="keyword">div</span>&gt;</span><br><span class="line">    &lt;<span class="keyword">div</span> <span class="property">id</span>=<span class="string">"c2"</span>&gt;&lt;/<span class="keyword">div</span>&gt;</span><br><span class="line">    &lt;<span class="keyword">div</span> <span class="property">id</span>=<span class="string">"c3"</span>&gt;&lt;/<span class="keyword">div</span>&gt;</span><br><span class="line">&lt;/<span class="keyword">div</span>&gt;</span><br></pre></td></tr></table></figure>
+<p>jQuery</p>
+<pre><code><span class="variable">$(</span><span class="string">'#parent'</span>).prepend(<span class="variable">$(</span><span class="string">'#orphan'</span>));
+</code></pre><p>DOM API</p>
+<pre><code><span class="comment">// IE 5.5+</span>
+<span class="built_in">document</span>.getElementById(<span class="string">'parent'</span>)
+    .insertBefore(<span class="built_in">document</span>.getElementById(<span class="string">'orphan'</span>), <span class="built_in">document</span>.getElementById(<span class="string">'c1'</span>));
+</code></pre><p>直接使用DOM API看上去确实很长，这都是拜 document.getElementById 所赐。</p>
+<h4 id="删除元素">删除元素</h4><p>假设我们的HTML元素中有一个 id=”foobar” 的元素，我们希望把他从DOM树中删除：</p>
+<p>jQuery</p>
+<pre><code><span class="variable">$(</span><span class="string">'#foobar'</span>).remove();
+</code></pre><p>DOM API</p>
+<pre><code><span class="comment">// IE 5.5+</span>
+<span class="built_in">document</span>.getElementById(<span class="string">'foobar'</span>)
+    .parentNode.removeChild(<span class="built_in">document</span>.getElementById(<span class="string">'foobar'</span>));
+</code></pre><h4 id="添加/删除_CSS_Classes">添加/删除 CSS Classes</h4><p>假设在HTML中有这样一个 div ：</p>
+<pre><code>&lt;<span class="keyword">div</span> <span class="property">id</span>=<span class="string">"foo"</span>&gt;&lt;/<span class="keyword">div</span>&gt;
+</code></pre><p>我们希望给他加入名为 bold 的CSS Class，期望DOM变成这样：</p>
+<pre><code>&lt;<span class="keyword">div</span> <span class="property">id</span>=<span class="string">"foo"</span> <span class="type">class</span>=<span class="string">"bold"</span>&gt;&lt;/<span class="keyword">div</span>&gt;
+</code></pre><p>jQuery</p>
+<pre><code><span class="variable">$(</span><span class="string">'#foo'</span>).addClass(<span class="string">'bold'</span>);
+</code></pre><p>DOM API</p>
+<pre><code><span class="built_in">document</span>.getElementById(<span class="string">'foo'</span>).className += <span class="string">'bold'</span>;
+</code></pre><p>当然我们还可以把刚刚加上的Class删除掉：</p>
+<p>jQuery</p>
+<pre><code><span class="variable">$(</span><span class="string">'#foo'</span>).removeClass(<span class="string">'bold'</span>);
+</code></pre><p>DOM API</p>
+<pre><code><span class="comment">// IE 5.5+</span>
+<span class="built_in">document</span>.getElementById(<span class="string">'foo'</span>).className =
+    <span class="built_in">document</span>.getElementById(<span class="string">'foo'</span>).className.replace(<span class="regexp">/^bold$/</span>, <span class="string">''</span>);
+</code></pre><h4 id="添加/删除/修改元素属性">添加/删除/修改元素属性</h4><p>仍然从简单的 foo 元素开始：</p>
+<pre><code>&lt;<span class="keyword">div</span> <span class="property">id</span>=<span class="string">"foo"</span>&gt;&lt;/<span class="keyword">div</span>&gt;
+</code></pre><p>我们希望在 div 元素上设定 role=”button” 来让它能够充当一个 button，这样能够在可访问性设备（屏幕阅读器等）上获得较好的可访问性：</p>
+<p>jQuery</p>
+<pre><code><span class="variable">$(</span><span class="string">'#foo'</span>).attr(<span class="string">'role'</span>, <span class="string">'button'</span>);
+</code></pre><p>DOM API</p>
+<pre><code><span class="comment">// IE 5.5+</span>
+<span class="built_in">document</span>.getElementById(<span class="string">'foo'</span>).setAttribute(<span class="string">'role'</span>, <span class="string">'button'</span>);
+</code></pre><p>这两种方法都可以识别元素是否已经具备了这个属性，然后自动创建/更新这个属性。现在让我们再把这个 role 删除掉（我都觉得自己好烦…）</p>
+<p>jQuery</p>
+<pre><code><span class="variable">$(</span><span class="string">'#foo'</span>).removeAttr(<span class="string">'role'</span>);
+</code></pre><p>DOM API</p>
+<pre><code><span class="comment">// IE 5.5+</span>
+<span class="built_in">document</span>.getElementById(<span class="string">'foo'</span>).removeAttribute(<span class="string">'role'</span>);
+</code></pre><h4 id="添加/修改内容">添加/修改内容</h4><p>这次的 foo 元素比原来复杂多了（^_^）：</p>
+<pre><code>&lt;<span class="keyword">div</span> <span class="property">id</span>=<span class="string">"foo"</span>&gt;Hi there!&lt;/<span class="keyword">div</span>&gt;
+</code></pre><p>如果要把 foo 的内容改成 Goodbye!：</p>
+<p>jQuery</p>
+<pre><code><span class="variable">$(</span><span class="string">'#foo'</span>).<span class="keyword">text</span>(<span class="string">'Goodbye!'</span>);
+</code></pre><p>DOM API</p>
+<pre><code><span class="comment">// IE 5.5+</span>
+<span class="built_in">document</span>.getElementById(<span class="string">'foo'</span>).innerHTML = <span class="string">'Goodbye!'</span>;
+
+<span class="comment">// IE 5.5+ but NOT Firefox</span>
+<span class="built_in">document</span>.getElementById(<span class="string">'foo'</span>).innerText = <span class="string">'GoodBye!'</span>;
+
+<span class="comment">// IE 9+</span>
+<span class="built_in">document</span>.getElementById(<span class="string">'foo'</span>).textContent = <span class="string">'Goodbye!'</span>;
+</code></pre><p>最常见的 innerHTML 属性在各种条件下都工作的很好。但是 innerText 和 textContent 的好处在于他们只是处理目标元素内的文字，而不是像 innerHTML 一样直接插入标签。当插入的内容是用户输入的内容时，这样能够一定程度上避免注入的问题。</p>
+<h4 id="添加/修改_Style">添加/修改 Style</h4><p>一般来说，直接用JavaScript脚本操作DOM元素的 style 是代码中的“坏味道”，当然就像 goto 一样我们总会有些时候需要这样做。</p>
+<p>假设HTML的结构是这样的：</p>
+<pre><code><span class="tag">&lt;<span class="title">span</span> <span class="attribute">id</span>=<span class="value">"note"</span>&gt;</span>Attention!<span class="tag">&lt;/<span class="title">span</span>&gt;</span>
+</code></pre><p>可以通过JavaScript代码让这段文字变得醒目一些，比如变成粗体（或者闪烁三下/转体三圈):</p>
+<p>jQuery</p>
+<pre><code><span class="variable">$(</span><span class="string">'#note'</span>).css(<span class="string">'fontWeight'</span>, <span class="string">'bold'</span>);
+</code></pre><p>DOM API</p>
+<pre><code><span class="comment">// IE 5.5+</span>
+<span class="built_in">document</span>.getElementById(<span class="string">'note'</span>).style.fontWeight = <span class="string">'bold'</span>;
+</code></pre><p>这里很难得我比较喜欢DOM API写法，style.fontWeight 看上去比较像是正常的对象-属性的逻辑。</p>
+<h4 id="专用的DOM操作库">专用的DOM操作库</h4><p>看到这里比上一篇选择元素要容易一些，在IE 6及以上的版本中跨浏览器使用DOM API操作元素相对比较容易。jQuery确实使得冗长的DOM API变得简单易懂，但是如果只是把jQuery用作DOM操作，似乎还是有些大材小用。我们可以试试jBone和dom.js这两个库，他们都可以在跨浏览器的情况下很好的兼容DOM元素操作，著名的Backbone中使用的正是前者。很多使用jQuery的开发人员觉得原生的DOM API不堪入目，但是我想他们并不真的掌握DOM API，其实DOM API并没有比jQuery复杂太多。</p>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+	  	<span></span>
+		<a href="/2015/01/07/2015-01-07-DOM API 之操作元素/#disqus_thread" class="comments-count-link">Comments</a>
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2015/01/07/2015-01-07-ajax/" title="4.Ajax" itemprop="url">4.Ajax</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Go7hic" target="_blank" itemprop="author">Go7hic</a>
+		
+  <p class="article-time">
+    <time datetime="2015-01-06T16:00:00.000Z" itemprop="datePublished"> 发表于 2015-01-07</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <h2 id="Ajax">Ajax</h2><p>大部分人开发者在学习jQuery的时候，看到 $.ajax() 函数都会觉得这真是太棒了！是的，它魔法般的把 ajax 请求变得极其容易，同时提供了足够多的控制项。在浏览器API层面这些请求都是由 XMLHttpRequest 对象完成的，$.ajax() 函数对它做了包装，这篇文章里快速浏览一下如何通过浏览器API提交ajax请求，包括跨域的ajax请求，试过之后可以发现这其实也不是很复杂。</p>
+<p>译者注：在工程中使用原生代码进行Ajax操作是不明智的，作者也并非希望手工处理浏览器差异，只是希望能够理解jQuery背后的工作原理。<br>GETting POSTing URL Encoding JSON Uploading CORS JSONP Libraries to Consider Next in this Series</p>
+<h4 id="GET_请求">GET 请求</h4><p>我们从一个简单的请求开始，向服务器提交一个查询，通过用户的ID查询用户的名字，在URI的参数中包含了请求的用户ID。在请求结束之后弹出alert对话框提示结果。</p>
+<p>jQuery</p>
+<p>在jQuery中提交GET请求有两种方法，可以使用 $.get() 函数进行简单的请求，或者使用 $.ajax() 函数来获得更多的控制。在这里我们统一使用 $.ajax() 函数来统一所有的请求。<br><figure class="highlight fortran"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">$.ajax(<span class="string">'myservice/username'</span>, &#123;</span><br><span class="line">  <span class="type">data</span>: &#123;</span><br><span class="line">      id: <span class="string">'some-unique-id'</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br><span class="line">.<span class="keyword">then</span>(</span><br><span class="line">  <span class="function"><span class="keyword">function</span></span> success(<span class="keyword">name</span>) &#123;</span><br><span class="line">      alert(<span class="string">'User\'s name is '</span> + <span class="keyword">name</span>);</span><br><span class="line">  &#125;,</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">function</span></span> fail(<span class="type">data</span>, <span class="keyword">status</span>) &#123;</span><br><span class="line">      alert(<span class="string">'Request failed.  Returned status of '</span> + <span class="keyword">status</span>);</span><br><span class="line">  &#125;</span><br><span class="line">);</span><br></pre></td></tr></table></figure></p>
+<p>Native XMLHttpRequest Object<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> xhr = <span class="keyword">new</span> XMLHttpRequest();</span><br><span class="line">xhr.open(<span class="string">'GET'</span>, <span class="built_in">encodeURI</span>(<span class="string">'myservice/username?id=some-unique-id'</span>));</span><br><span class="line">xhr.onload = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (xhr.status === <span class="number">200</span>) &#123;</span><br><span class="line">        alert(<span class="string">'User\'s name is '</span> + xhr.responseText);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span> &#123;</span><br><span class="line">        alert(<span class="string">'Request failed.  Returned status of '</span> + xhr.status);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line">xhr.send();</span><br></pre></td></tr></table></figure></p>
+<p>上面这段JS代码在IE 7及以上的浏览器中都能正常的工作，即使是IE 6中也提供了有限的支持。</p>
+<h4 id="POST_请求">POST 请求</h4><p>上一节通过GET请求我们已经能够通过用户ID获取用户的名字，在这里我们进一步修改他/她的名字，并为其添加“地址”字段。当然这个操作通过GET请求也是可以完成的，但仍然推荐使用POST请求。我们需要向服务器提交POST请求，请求中包含了用户的新名字以及地址信息，服务器收到请求后会加以处理并将更新后的名字返回，在JS里我们要验证返回的新名字与我们要修改的是否一致。</p>
+<p>如果考虑到HTTP 1.1标准，这里我们更应该使用PATCH请求，PATCH并不是传统意义上通用的请求方式，在IE 8等较老的浏览器中存在某些问题，因此这里而我们只讨论POST请求。对于代码来说这两种请求的区别倒是不大，只有请求的方式字段不同。</p>
+<p>jQuery<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> newName = <span class="string">'John Smith'</span>;</span><br><span class="line"></span><br><span class="line">$.ajax(<span class="string">'myservice/username?'</span> + $.param(&#123;id: <span class="string">'some-unique-id'</span>&#125;), &#123;</span><br><span class="line">    method: <span class="string">'POST'</span>,</span><br><span class="line">    data: &#123;</span><br><span class="line">        name: newName</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br><span class="line">.then(</span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">success</span>(<span class="params">name</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (name !== newName) &#123;</span><br><span class="line">            alert(<span class="string">'Something went wrong.  Name is now '</span> + name);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;,</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">fail</span>(<span class="params">data, status</span>) </span>&#123;</span><br><span class="line">        alert(<span class="string">'Request failed.  Returned status of '</span> + status);</span><br><span class="line">    &#125;</span><br><span class="line">);</span><br></pre></td></tr></table></figure></p>
+<p>Native XMLHttpRequest Object<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> newName = <span class="string">'John Smith'</span>,</span><br><span class="line">    xhr = <span class="keyword">new</span> XMLHttpRequest();</span><br><span class="line"></span><br><span class="line">xhr.open(<span class="string">'POST'</span>,</span><br><span class="line"><span class="built_in">encodeURI</span>(<span class="string">'myservice/username?id=some-unique-id'</span>));</span><br><span class="line">xhr.setRequestHeader(<span class="string">'Content-Type'</span>, <span class="string">'application/x-www-form-urlencoded'</span>);</span><br><span class="line">xhr.onload = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (xhr.status === <span class="number">200</span> &amp;&amp; xhr.responseText !== newName) &#123;</span><br><span class="line">        alert(<span class="string">'Something went wrong.  Name is now '</span> + xhr.responseText);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span> (xhr.status !== <span class="number">200</span>) &#123;</span><br><span class="line">        alert(<span class="string">'Request failed.  Returned status of '</span> + xhr.status);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line">xhr.send(<span class="built_in">encodeURI</span>(<span class="string">'name='</span> + newName));</span><br></pre></td></tr></table></figure></p>
+<p>原生的API这样工作的也还算不错。</p>
+<blockquote>
+<p>译者注：原生的方式写起来很复杂，而且需要手工处理 Content-Type 这样的HTTP头，手工判断返回的HTTP状态码。工程中强烈不推荐使用这样的代码，作者在这里强调原生API也能完成POST请求，只是为了说明jQuery背后的工作原理，并非推荐在工程中直接使用这样的代码。</p>
+</blockquote>
+<h4 id="URL_编码">URL 编码</h4><p>jQuery中提供了工具方法，对请求中需要传递的数据进行编码：<br><figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$.</span>param(&#123;</span><br><span class="line">    <span class="symbol">key1:</span> <span class="string">'some value'</span>,</span><br><span class="line">    <span class="string">'key 2'</span><span class="symbol">:</span> <span class="string">'another value'</span></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
+<p>在浏览器API中，提供了两个函数：encodeURI 和 encodeURIComponent 用于进行URL转码，两者的区别在于前者用于完整的URI的转码，因此URI中的合法字符（斜线等）不会被转码；后者用于URI的一部分（比如协议、主机名、路径或查询字符串）转码，因此所有可以转码的内容都会被转码。</p>
+<p>如果我们想要“仿造”一个jQuery中的 $.param() 函数：<br><figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">function <span class="title">param</span>(<span class="params"><span class="keyword">object</span></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> encodedString = <span class="string">''</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">var</span> prop <span class="keyword">in</span> <span class="keyword">object</span>) &#123;</span><br><span class="line">        <span class="keyword">if</span> (<span class="keyword">object</span>.hasOwnProperty(prop)) &#123;</span><br><span class="line">            <span class="keyword">if</span> (encodedString.length &gt; <span class="number">0</span>) &#123;</span><br><span class="line">                encodedString += <span class="string">'&amp;'</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            encodedString += encodeURI(prop + <span class="string">'='</span> + <span class="keyword">object</span>[prop]);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> encodedString;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h4 id="发送/接收_JSON">发送/接收 JSON</h4><p>RESTful接口大行其道的今天，JSON数据的发送/接收用的越来越多，这里我们假设需要向服务器发送待更新的数据，在服务器处理完更新之后，返回更新之后的整体数据。这里最适合的HTTP方法是PUT：</p>
+<p>jQuery<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">$.ajax(<span class="string">'myservice/user/1234'</span>, &#123;</span><br><span class="line">    method: <span class="string">'PUT'</span>,</span><br><span class="line">    contentType: <span class="string">'application/json'</span>,</span><br><span class="line">    processData: <span class="literal">false</span>,</span><br><span class="line">    data: <span class="built_in">JSON</span>.stringify(&#123;</span><br><span class="line">        name: <span class="string">'John Smith'</span>,</span><br><span class="line">        age: <span class="number">34</span></span><br><span class="line">    &#125;)</span><br><span class="line">&#125;)</span><br><span class="line">.then(</span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">success</span>(<span class="params">userInfo</span>) </span>&#123;</span><br><span class="line">        <span class="comment">// userInfo will be a JavaScript object containing properties such as</span></span><br><span class="line">        <span class="comment">// name, age, address, etc</span></span><br><span class="line">    &#125;</span><br><span class="line">);</span><br></pre></td></tr></table></figure></p>
+<p>使用jQuery通过回调的方式提交Ajax请求有时候会把逻辑打散，事实上在不使用defer模式的情况下进行多重ajax请求是非常让人头晕的事情。jQuery默认的content-type是 application/x-www-form-urlencoded，如果需要使用其他的类型需要手工指定。</p>
+<blockquote>
+<p>译者注：作者这里对 $.ajax() 函数有误解，在 $.ajax() 函数中，data 的内容不需要手工通过 JSON.stringify() 进行序列化，而是可以通过指定 dataType=json 来实现对传入数据的序列化。</p>
+</blockquote>
+<h4 id="Web_API">Web API</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> xhr = <span class="keyword">new</span> XMLHttpRequest();</span><br><span class="line">xhr.open(<span class="string">'PUT'</span>, <span class="string">'myservice/user/1234'</span>);</span><br><span class="line">xhr.setRequestHeader(<span class="string">'Content-Type'</span>, <span class="string">'application/json'</span>);</span><br><span class="line">xhr.onload = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (xhr.status === <span class="number">200</span>) &#123;</span><br><span class="line">        <span class="keyword">var</span> userInfo = <span class="built_in">JSON</span>.parse(xhr.responseText);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line">xhr.send(<span class="built_in">JSON</span>.stringify(&#123;</span><br><span class="line">    name: <span class="string">'John Smith'</span>,</span><br><span class="line">    age: <span class="number">34</span></span><br><span class="line">&#125;));</span><br></pre></td></tr></table></figure>
+<p>由于对JSON的支持问题，上面这段代码只有在IE 8及以上的浏览器中才能正常工作，如果要兼容比较旧的版本，只需要在页面加载json.js就好。</p>
+<h4 id="上传文件">上传文件</h4><p>在IE 9以及更早的浏览器中，在页面里上传文件的唯一方法是提交一个带有 <input type="file"> 标签的表单，在这里没有Web API可以使用。所以我们只能在现代浏览器中讨论上传文件，这里会用到File API。</p>
+<p>有两种方法可以上传文件，第一种是使用 <form enctype="multipart/form-data">将文件作为HTTP请求的一部分上传。第二种是将文件作为请求的整体上传到服务器，两种方法都需要使用 File 或 Blob 对象。</form></p>
+<p>假设上传文件的HTML标签是：<br><figure class="highlight fsharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;input <span class="class"><span class="keyword">type</span></span>=<span class="string">"file"</span> id=<span class="string">"test-input"</span>&gt;</span><br></pre></td></tr></table></figure></p>
+<p>jQuery</p>
+<p>首先可以通过 multipart/form-data 的方式上传文件：<br><figure class="highlight nimrod"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> file = $('<span class="comment">#test-input')[0].files[0],</span></span><br><span class="line">    formData = new <span class="type">FormData</span>();</span><br><span class="line"></span><br><span class="line">formData.append('file', file);</span><br><span class="line"></span><br><span class="line">$.ajax('myserver/uploads', &#123;</span><br><span class="line">    <span class="keyword">method</span>: '<span class="type">POST</span>',</span><br><span class="line">    contentType: <span class="literal">false</span>,</span><br><span class="line">    processData: <span class="literal">false</span>,</span><br><span class="line">    data: formData</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
+<p>第二种方式：<br><figure class="highlight nimrod"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> file = $('<span class="comment">#test-input')[0].files[0];</span></span><br><span class="line"></span><br><span class="line">$.ajax('myserver/uploads', &#123;</span><br><span class="line">    <span class="keyword">method</span>: '<span class="type">POST</span>',</span><br><span class="line">    contentType: file.<span class="keyword">type</span>,</span><br><span class="line">    processData: <span class="literal">false</span>,</span><br><span class="line">    data: file</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
+<p>两种方式中，都使用了 processData: false 来防止jQuery对文件内容进行编码。</p>
+<p>XMLHttpRequest</p>
+<p>第一种方式，multipart/form-data：<br><figure class="highlight ocaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">var formData = <span class="keyword">new</span> <span class="type">FormData</span><span class="literal">()</span>,</span><br><span class="line">    file = document.getElementById(<span class="symbol">'test</span>-input').files[<span class="number">0</span>],</span><br><span class="line">    xhr = <span class="keyword">new</span> <span class="type">XMLHttpRequest</span><span class="literal">()</span>;</span><br><span class="line"></span><br><span class="line">formData.append(<span class="symbol">'file'</span>, file);</span><br><span class="line">xhr.<span class="keyword">open</span>(<span class="symbol">'POST'</span>, <span class="symbol">'myserver</span>/uploads');</span><br><span class="line">xhr.send(formData);</span><br></pre></td></tr></table></figure></p>
+<p>第二种方式：<br><figure class="highlight vhdl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">var <span class="keyword">file</span> = document.getElementById(<span class="attribute">'test</span>-input').files[<span class="number">0</span>],</span><br><span class="line">    xhr = <span class="keyword">new</span> XMLHttpRequest();</span><br><span class="line"></span><br><span class="line">xhr.<span class="keyword">open</span>(<span class="attribute">'POST</span>', <span class="attribute">'myserver</span>/uploads');</span><br><span class="line">xhr.setRequestHeader(<span class="attribute">'Content</span>-<span class="keyword">Type</span>', <span class="keyword">file</span>.<span class="keyword">type</span>);</span><br><span class="line">xhr.send(<span class="keyword">file</span>);</span><br></pre></td></tr></table></figure></p>
+<h4 id="跨域请求">跨域请求</h4><blockquote>
+<p>译者注：jQuery及原生API的Ajax的跨域请求展开是一个很长的话题，原作者在这里介绍的并不详细，因此只是对原文稍加翻译，译者或许会在后面补一篇专门针对跨域Ajax的介绍。</p>
+</blockquote>
+<p>跨域请求，特别是IE 8及更早浏览器中的跨域请求这个专题展开讨论会很复杂，我们这里并不关心所有的细节，只讨论最基本的同源策略和跨域请求。Mozilla 开发者网络里可以找到关于跨域请求的详细说明。</p>
+<p>在现代浏览器中，跨域请求和非跨域请求在代码实现层面没有太大区别，只需要在服务器上做好相应设置，浏览器会完成剩下的判断和处理工作。跨域中还有一个需要注意的问题是，cookie 在默认情况不会被跨域请求携带，必须在 XMLHttpRequest 中指定 withCredentials 标记才会提交跨域cookie。</p>
+<p>jQuery<br><figure class="highlight nimrod"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">$.ajax('http://someotherdomain.com', &#123;</span><br><span class="line">    <span class="keyword">method</span>: '<span class="type">POST</span>',</span><br><span class="line">    contentType: 'text/plain',</span><br><span class="line">    data: 'sometext',</span><br><span class="line">    beforeSend: function(xmlHttpRequest) &#123;</span><br><span class="line">        xmlHttpRequest.withCredentials = <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
+<p>XMLHttpRequest<br><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> xhr = <span class="keyword">new</span> <span class="type">XMLHttpRequest</span>();</span><br><span class="line">xhr.open(<span class="symbol">'POS</span>T', <span class="symbol">'http</span>:<span class="comment">//someotherdomain.com');</span></span><br><span class="line">xhr.withCredentials = <span class="literal">true</span>;</span><br><span class="line">xhr.setRequestHeader(<span class="symbol">'Content</span>-<span class="type">Type</span>', <span class="symbol">'text</span>/plain');</span><br><span class="line">xhr.send(<span class="symbol">'sometex</span>t');</span><br></pre></td></tr></table></figure></p>
+<p>jQuery actually becomes a headache to deal with when we need to send a cross-domain ajax request in IE8 or IE9. If you’re using jQuery for this purpose, you are truly trying to fit a square peg into a round hole.</p>
+<p>To understand why jQuery is a poor fit for cross-origin requests in IE9 and IE8, it’s important to understand a couple low-level points:</p>
+<p>Cross-origin ajax requests in IE8 and IE9 can only be sent using the IE-proprietary XDomainRequest transport. I’ll save the rant for why this was such a huge mistake by the IE development team for another blog post. Regardless, XDomainRequest is a stripped down version of XMLHttpReqest, and it must be used when making cross-origin ajax requests in IE8 and IE9. To read more about the (significant) restrictions imposed on this transport, read Eric Law’s MSDN post on the subject.</p>
+<p>jQuery’s ajax method (and all associated aliases) are just wrappers for XMLHttpRequest. It has a hard dependency on XMLHttpRequest.</p>
+<p>So, you need to use XDomainRequest to send the cross-origin request in IE8/9, but jQuery.ajax is hard-coded to use XMLHttpRequest. That’s a problem, and resolving it in the context of jQuery is not going to be pleasant. In fact, it’s so unpleasant that no one in their right mind would do it. Luckily, for those dead-set on using jQuery for this type of call, there are a few plug-ins that will “fix” jQuery in this regard. Essentially, the plug-ins must override jQuery’s ajax request sending/handling logic via the $.ajaxTransport method.</p>
+<p>But, sending ajax requests in IE8/9 is pretty simple without jQuery. In fact, even if you’re a die-hard jQuery fan, you should do it this way:</p>
+<figure class="highlight livescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="pi">// For cross-origin requests, some simple logic</span><br><span class="line">//</span> <span class="keyword">to</span> determine <span class="keyword">if</span> XDomainReqeust <span class="keyword">is</span> needed.</span><br><span class="line"><span class="keyword">if</span> (<span class="keyword">new</span> XMLHttpRequest().withCredentials === <span class="literal">undefined</span>) &#123;</span><br><span class="line">    <span class="keyword">var</span> xdr = <span class="keyword">new</span> XDomainRequest();</span><br><span class="line">    xdr.open(<span class="string">'POST'</span>, <span class="string">'http://someotherdomain.com'</span>);</span><br><span class="line">    xdr.send(<span class="string">'sometext'</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>Note that you cannot set any request headers when using XDomainRequest. If you can avoid making cross-origin ajax requests in IE8/9, you should. But if you must, become familiar with its limitations.</p>
+<h4 id="JSONP">JSONP</h4><p>这里介绍JSONP并不是推荐你使用它，他会导致一些潜在的安全问题，在现代浏览器中如果可能，还是应该直接使用跨域Ajax。</p>
+<p>对于初学JSONP的同学，名字可能会造成一些困扰，事实上这里并没有JSON数据在网络上传输。一个很常见的误解是服务器一定返回包含JSON数据的HTTP包，然后客户端通过JSONP回调来使用。事实上服务器返回的是一段包含了数据结构的脚本代码，而非JSON。</p>
+<p>JSONP的实现方式并不优雅，它建立在 <script> 标签不需要遵守同源策略的基础上，同时需要在浏览器端和服务器端都针对JSONP调用书写特殊的代码，服务器通过解析 <script> 的请求地址，生成包含特定数据的文本并返回给客户端。</p>
+<p>jQuery<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">$.ajax(<span class="string">'http://jsonp-aware-endpoint.com/user'</span>, &#123;</span><br><span class="line">    jsonp: <span class="string">'callback'</span>,</span><br><span class="line">    dataType: <span class="string">'jsonp'</span>,</span><br><span class="line">    data: &#123;</span><br><span class="line">        id: <span class="number">123</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;).then(<span class="function"><span class="keyword">function</span>(<span class="params">response</span>) </span>&#123;</span><br><span class="line">    <span class="comment">// handle requested data from server</span></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
+<p>我们在讨论一种并不优雅的实现方法，jQuery 中把他包装成和惯常ajax请求类似的格式。事实上下面这段代码更加接接近JSONP的本质：</p>
+<h4 id="Without_jQuery">Without jQuery</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">window</span>.myJsonpCallback = <span class="function"><span class="keyword">function</span>(<span class="params">data</span>) </span>&#123;</span><br><span class="line">    <span class="comment">// handle requested data from server</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> scriptEl = <span class="built_in">document</span>.createElement(<span class="string">'script'</span>);</span><br><span class="line">scriptEl.setAttribute(<span class="string">'src'</span>,</span><br><span class="line">    <span class="string">'http://jsonp-aware-endpoint.com/user?callback=myJsonpCallback&amp;id=123'</span>);</span><br><span class="line"><span class="built_in">document</span>.body.appendChild(scriptEl);</span><br></pre></td></tr></table></figure>
+<h4 id="可以替代jQuery的库">可以替代jQuery的库</h4><p>上面已经阐述过了，在没有辅助库的帮助下，也可以通过原生API完成Ajax的大部分任务，如果为了简化开发流程同时兼顾浏览器兼容性，有几个库可以考虑：</p>
+<p>fetch: 这是一个polyfill（抱歉这个没有很好地翻译，可以看这里），能够帮助我们处理浏览器兼容性，在旧的浏览器中提供较好的ajax支持。</p>
+<p>xdomain: 跨浏览器实现的跨域请求库，通过 Web Messaging API 来实现。</p>
+<p>Lightweight-JSONP: 轻量级JSONP库，提供了对JSONP的支持。</p>
+</script></p>
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+	  	<span></span>
+		<a href="/2015/01/07/2015-01-07-ajax/#disqus_thread" class="comments-count-link">Comments</a>
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+
+  <nav id="page-nav" class="clearfix">
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/">Next<span></span></a>
+  </nav>
 
 </div>
      <!-- <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>

@@ -1,0 +1,473 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  
+    <title>JavaScript启示录(一)笔记： 作用域和闭包 | Go7hic</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="Go7hic">
+    
+
+    
+    <meta name="description" content="首先这是篇读书笔记，《Javascript启示录》这本书虽然薄但写得真好，翻译的也不错。本书个人觉得作者是围绕JavaScript一切皆为对象来展开写的，只有一两章没有过多的涉及到对象，其中就包括这个知识点，我就先从这章记起吧。
+首先我们要知道在js里作用域是用来执行代码的上下文，有三种类型分别为全局作用域、局部作用域、eVal作用域。
+看一段代码展示各种作用域的用法：12345678910111">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JavaScript启示录(一)笔记： 作用域和闭包">
+<meta property="og:url" content="http://blog.yongyuan.us/2014/07/20/2014-07-20-scope/index.html">
+<meta property="og:site_name" content="Go7hic">
+<meta property="og:description" content="首先这是篇读书笔记，《Javascript启示录》这本书虽然薄但写得真好，翻译的也不错。本书个人觉得作者是围绕JavaScript一切皆为对象来展开写的，只有一两章没有过多的涉及到对象，其中就包括这个知识点，我就先从这章记起吧。
+首先我们要知道在js里作用域是用来执行代码的上下文，有三种类型分别为全局作用域、局部作用域、eVal作用域。
+看一段代码展示各种作用域的用法：12345678910111">
+<meta property="og:updated_time" content="2015-07-24T16:03:57.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="JavaScript启示录(一)笔记： 作用域和闭包">
+<meta name="twitter:description" content="首先这是篇读书笔记，《Javascript启示录》这本书虽然薄但写得真好，翻译的也不错。本书个人觉得作者是围绕JavaScript一切皆为对象来展开写的，只有一两章没有过多的涉及到对象，其中就包括这个知识点，我就先从这章记起吧。
+首先我们要知道在js里作用域是用来执行代码的上下文，有三种类型分别为全局作用域、局部作用域、eVal作用域。
+看一段代码展示各种作用域的用法：12345678910111">
+
+    
+    <link rel="alternative" href="/atom.xml" title="Go7hic" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css" type="text/css">
+</head>
+
+  <body>
+    <header>
+      
+<div>
+		
+			<!-- <div id="imglogo">
+				<a href="/"><img src="/img/logo.png" alt="Go7hic" title="Go7hic"/></a>
+			</div> -->
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="Go7hic">Go7hic</a></h1>
+				<h2 class="blog-motto"></h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">Home</a></li>
+					
+						<li><a href="/archives">Archives</a></li>
+					
+						<li><a href="/about">About</a></li>
+					
+						<li><a href="/atom.xml">Rss</a></li>
+					
+					<li>
+ 					
+					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="搜索" />
+						<input type="hidden" name="q" value="site:blog.yongyuan.us">
+					</form>
+					
+					</li>
+				</ul>
+			</nav>
+</div>
+
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2014/07/20/2014-07-20-scope/" title="JavaScript启示录(一)笔记： 作用域和闭包" itemprop="url">JavaScript启示录(一)笔记： 作用域和闭包</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Go7hic" target="_blank" itemprop="author">Go7hic</a>
+		
+  <p class="article-time">
+    <time datetime="2014-07-19T16:00:00.000Z" itemprop="datePublished"> 发表于 2014-07-20</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#JavaScript没有块作用域"><span class="toc-number">1.</span> <span class="toc-text">JavaScript没有块作用域</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#避免作用域陷阱"><span class="toc-number">2.</span> <span class="toc-text">避免作用域陷阱</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#作用域链"><span class="toc-number">3.</span> <span class="toc-text">作用域链</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#闭包是由作用域链引起的"><span class="toc-number">4.</span> <span class="toc-text">闭包是由作用域链引起的</span></a></li></ol>
+		
+		</div>
+		
+		<p>首先这是篇读书笔记，《Javascript启示录》这本书虽然薄但写得真好，翻译的也不错。本书个人觉得作者是围绕JavaScript一切皆为对象来展开写的，只有一两章没有过多的涉及到对象，其中就包括这个知识点，我就先从这章记起吧。</p>
+<p>首先我们要知道在js里作用域是用来执行代码的上下文，有三种类型分别为全局作用域、局部作用域、eVal作用域。</p>
+<p>看一段代码展示各种作用域的用法：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> foo = <span class="number">0</span>;<span class="comment">// 全局作用域</span></span><br><span class="line"><span class="built_in">console</span>.log(foo); <span class="comment">//输出0</span></span><br><span class="line"><span class="keyword">var</span> myFunction = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">	<span class="keyword">var</span> foo = <span class="number">1</span>; <span class="comment">//局部作用域</span></span><br><span class="line">	<span class="built_in">console</span>.log(foo); <span class="comment">// 输出1</span></span><br><span class="line">	<span class="keyword">var</span> myNestedFunction = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">		<span class="keyword">var</span> foo = <span class="number">2</span>; <span class="comment">//局部作用域</span></span><br><span class="line">		<span class="built_in">console</span>.log = <span class="number">2</span>; <span class="comment">// 输出2</span></span><br><span class="line"></span><br><span class="line">	&#125;()</span><br><span class="line">&#125;()</span><br><span class="line"><span class="built_in">eval</span>(<span class="string">'var foo = 3; console.log(foo);'</span>); <span class="comment">//eval()作用域</span></span><br></pre></td></tr></table></figure></p>
+<h4 id="JavaScript没有块作用域">JavaScript没有块作用域</h4><p>因为逻辑语句(if)和循环语句(while)无法创建作用域，所以变量可以互相覆盖。看代码:<br><figure class="highlight openscad"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">var foo = <span class="number">1</span>;</span><br><span class="line"><span class="keyword">if</span><span class="params">(<span class="literal">true</span>)</span> &#123;</span><br><span class="line">	foo = <span class="number">2</span>; <span class="comment">//foo等于2</span></span><br><span class="line">	<span class="keyword">for</span> <span class="params">(var i = <span class="number">3</span>;i &lt;= <span class="number">5</span>;i++)</span> &#123;</span><br><span class="line">	foo = i; <span class="comment">//foo 等于3,4,5</span></span><br><span class="line">	console.<span class="built_in">log</span><span class="params">(foo)</span>; <span class="comment">//输出3,4,5</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>可以看到整个代码在运行时foo是变化的，因为JavaScript没有作用域。</p>
+<h4 id="避免作用域陷阱">避免作用域陷阱</h4><p>我们总说在声明变量的时候要是用var。因为不用var，变量将会在全局作用域中，那么本该在局部作用域中定义的变量跑到全局作用域里去了。看代码:</p>
+<figure class="highlight openscad"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">var foo = <span class="function"><span class="keyword">function</span> <span class="params">()</span> &#123;</span></span><br><span class="line">	var boo = <span class="function"><span class="keyword">function</span><span class="params">()</span> &#123;</span></span><br><span class="line">	bar = <span class="number">2</span>; <span class="comment">// 没有使用var 定义，所以bar是在全局作用域里</span></span><br><span class="line">	&#125;<span class="params">()</span></span><br><span class="line">&#125;<span class="params">()</span></span><br><span class="line">console.<span class="built_in">log</span><span class="params">()</span> <span class="comment">// 输出2，因为bar等同于在全局定义的一个变量，相当于window.bar</span></span><br><span class="line"></span><br><span class="line">var foo = <span class="function"><span class="keyword">function</span> <span class="params">()</span> &#123;</span></span><br><span class="line">	var boo = <span class="function"><span class="keyword">function</span><span class="params">()</span> &#123;</span></span><br><span class="line">		var doo = <span class="number">2</span> <span class="comment">//在局部作用域定义的</span></span><br><span class="line">	&#125;<span class="params">()</span>;</span><br><span class="line">&#125;<span class="params">()</span>;</span><br><span class="line">console.<span class="built_in">log</span><span class="params">(doo)</span> <span class="comment">//输出undefined，因为doo只能在boo函数作用域才有用。</span></span><br></pre></td></tr></table></figure>
+<h4 id="作用域链">作用域链</h4><p>我们知道当JavaScript查找变量时，会遵循一个基于作用域的层次结构形成的一个查找链。看代码:<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> name = <span class="string">'gothic'</span>;</span><br><span class="line"><span class="keyword">var</span> func1 = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">	<span class="keyword">var</span> func2 = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">	<span class="built_in">console</span>.log(name); <span class="comment">//虽然在func2作用域，但在全局作用域里查找到了name</span></span><br><span class="line">	&#125;();</span><br><span class="line">&#125;();</span><br></pre></td></tr></table></figure></p>
+<p>在func2函数没找到name变量，就会继续在func2的父函数func1查找，如果func1也没找到就会继续往上全局作用域里查找，这种层次查找结构就形成了一条作用域链。如果都没找到就返回undefined。<br>再看一个例子:<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> x = <span class="number">10</span>;</span><br><span class="line"><span class="keyword">var</span> foo = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">	<span class="keyword">var</span> y = <span class="number">20</span>;</span><br><span class="line">	<span class="keyword">var</span> bar = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">	<span class="keyword">var</span> z = <span class="number">30</span>;</span><br><span class="line">	<span class="built_in">console</span>.log(x+y+z);</span><br><span class="line">	&#125;()</span><br><span class="line">&#125;()</span><br><span class="line">foo(); <span class="comment">//输出60</span></span><br></pre></td></tr></table></figure></p>
+<p>你可能会发现上面作用域链上的三个变量是不同的，要是换成一样的还会往上循着作用域链查找变量吗。</p>
+<p>看看:<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> x = <span class="literal">false</span>;</span><br><span class="line"><span class="keyword">var</span> foo = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">	<span class="keyword">var</span> x = <span class="literal">false</span>;</span><br><span class="line">	bar = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">		<span class="keyword">var</span> x = <span class="literal">true</span>;</span><br><span class="line">		<span class="built_in">console</span>.log(x);</span><br><span class="line">	&#125;()</span><br><span class="line">&#125;()</span><br></pre></td></tr></table></figure></p>
+<p>你会发现在作用域链内最近的地方找到变量就会停止查找，不管作用域链顶部是不是还有相同的变量。</p>
+<p>So,我们可以看出其实是函数决定作用域的，作用链是根据函数定义时的位置确定的，而不是在调用的时候确定的。也就是说作用域链是在函数调用之前创建的，正因如此才会产生接下来介绍的闭包。</p>
+<h4 id="闭包是由作用域链引起的">闭包是由作用域链引起的</h4><p>讨论Js似乎永远离不开闭包这个话题，而且似乎也很受面试老师的欢迎，我也不知道为什么有的面试官喜欢问这个问题，有的或许是真的出于技术面试，有的或许只是为了跟风，说不定他自己也不能解释好闭包这个问题。</p>
+<p>看下面代码:<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> pFunction = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">	<span class="keyword">var</span> foo = <span class="string">'foo'</span>;</span><br><span class="line">	<span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;  <span class="comment">// 返回i一个匿名函数</span></span><br><span class="line">	<span class="built_in">console</span>.log(foo); <span class="comment">//输出'foo'</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> nextFunction = pFunction();</span><br><span class="line">nextFunction(); <span class="comment">//输出foo，因为返回的函数的可以通过作用域链访问foo;</span></span><br></pre></td></tr></table></figure></p>
+<p>停，这个还不是给你重点说闭包的，这个代码段主要是想说 作用域链是在定义时确定的，在函数内部传递代码不会改变作用域链。<br>下面再来看段闭包(当然上面那个也是闭包)的代码：<br><figure class="highlight openscad"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">var countUpFromZero = <span class="function"><span class="keyword">function</span><span class="params">()</span> &#123;</span></span><br><span class="line">	var count = <span class="number">0</span>;</span><br><span class="line">	return <span class="function"><span class="keyword">function</span><span class="params">()</span> &#123;</span></span><br><span class="line">	return ++count; <span class="comment">//count在作用域内定义，父函数里</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;<span class="params">()</span> <span class="comment">//立即调用，返回嵌套函数</span></span><br><span class="line">console.<span class="built_in">log</span><span class="params">(countUpFromZero<span class="params">()</span>)</span>;<span class="comment">//输出1;</span></span><br><span class="line">console.<span class="built_in">log</span><span class="params">(countUpFromZero<span class="params">()</span>)</span>;<span class="comment">//输出2;</span></span><br><span class="line">console.<span class="built_in">log</span><span class="params">(countUpFromZero<span class="params">()</span>)</span>;<span class="comment">//输出3;</span></span><br></pre></td></tr></table></figure></p>
+<p>我们可以看到每次调用countUpFromZero函数时，包含在他里面的匿名函数仍可以访问父函数的作用域。这种就是闭包的一个示例。当然这里没有过得分析闭包，因为这里已经有了一篇这样的文章<a href="http://blog.yongyuan.us/js-scop">http://blog.yongyuan.us/js-scop</a></p>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://blog.yongyuan.us/2014/07/20/2014-07-20-scope/" data-title="JavaScript启示录(一)笔记： 作用域和闭包 | Go7hic" data-tsina="null" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+ <a href="/2014/08/14/2014-08-14-you-know-nothing-about-code/" title="You know nothing about code">
+  <strong>上一篇：</strong><br/>
+  <span>
+  You know nothing about code</span>
+</a>
+</div>
+
+
+<div class="next">
+<a href="/2014/07/17/2014-07-17-js-12-guaipi/"  title="JavaScript的12个怪癖">
+ <strong>下一篇：</strong><br/> 
+ <span>JavaScript的12个怪癖
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+
+<section id="comments" class="comment">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+
+</div>  
+      <!-- <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目录</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#JavaScript没有块作用域"><span class="toc-number">1.</span> <span class="toc-text">JavaScript没有块作用域</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#避免作用域陷阱"><span class="toc-number">2.</span> <span class="toc-text">避免作用域陷阱</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#作用域链"><span class="toc-number">3.</span> <span class="toc-text">作用域链</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#闭包是由作用域链引起的"><span class="toc-number">4.</span> <span class="toc-text">闭包是由作用域链引起的</span></a></li></ol>
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+
+  
+
+  
+
+  <div class="linkslist">
+  <p class="asidetitle">友情链接</p>
+    <ul>
+        
+          <li>
+            
+            	<a href="https://dyy.im" target="_blank" title="哥特复兴">哥特复兴</a>
+            
+          </li>
+        
+    </ul>
+</div>
+
+  
+
+
+  <div class="rsspart">
+	<a href="/atom.xml" target="_blank" title="rss">RSS 订阅</a>
+</div>
+
+</aside>
+</div> -->
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> 万物之中，希望至美 <br/>
+			至美之物，永不凋零</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+	</div>
+			
+		
+				<div class="cc-license">
+          <a href="http://creativecommons.org/licenses/by-nc/4.0" class="cc-opacity" target="_blank">
+            <img src="/img/cc-by-nc.svg" alt="Creative Commons" />
+          </a>
+        </div>
+    
+
+		<p class="copyright">
+		 © 2011 - 2015
+		
+		<a href="/about" target="_blank" title="Go7hic">Go7hic</a>
+		
+
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      $('.hoverqrcode').hide();
+  });
+});   
+</script>
+
+
+
+
+<script type="text/javascript">
+
+var disqus_shortname = 'g07hic';
+
+(function(){
+  var dsq = document.createElement('script');
+  dsq.type = 'text/javascript';
+  dsq.async = true;
+  dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+}());
+(function(){
+  var dsq = document.createElement('script');
+  dsq.type = 'text/javascript';
+  dsq.async = true;
+  dsq.src = '//' + disqus_shortname + '.disqus.com/count.js';
+  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+}());
+</script>
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回顶部"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>
+
