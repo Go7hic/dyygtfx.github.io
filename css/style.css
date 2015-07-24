@@ -438,6 +438,7 @@ body >header a {
   width: 86%;
   font-family: Roboto, sans-serif;
   line-height: 1.5;
+  font-size: 240%;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
