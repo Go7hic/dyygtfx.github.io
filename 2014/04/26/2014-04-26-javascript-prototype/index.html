@@ -25,7 +25,7 @@
 我们先来看下面一段代码：
 //构造器函数function Shape(){    this.x = 0;    this.y = 0;}
 //一个shape实例var s = new Shape();虽然">
-<meta property="og:updated_time" content="2015-07-24T15:58:53.000Z">
+<meta property="og:updated_time" content="2015-07-24T16:07:52.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="谈谈JavaScript中的原型继承">
 <meta name="twitter:description" content="谈谈JavaScript中的原型继承在Javascript面向对象编程中，原型继承不仅是一个重点也是一个不容易掌握的点。在本文中，我们将对Javascript中的原型继承进行一些探索。
@@ -119,8 +119,7 @@
 <p>基本形式</p>
 <p>我们先来看下面一段代码：</p>
 <p>//构造器函数<br>function Shape(){<br>    this.x = 0;<br>    this.y = 0;<br>}</p>
-<p>//一个shape实例<br>var s = new Shape();<br>虽然这个例子非常简单，但是有四个“非常重要”的点需要在此阐明：</p>
-<p>1.s是一个对象，并且默认的它拥有访问Shape.prototype（即每个由Shape构造函数创建的对象拥有的原型）的权限；简单来说，Shape.prototype就是一个“监视”着所有Shape实例的对象。你可以将一个对象的原型想象成一个由许多属性（变量/函数）组成的后备集合，当原型在它自己身上找不到东西时就会去原型中查找。</p>
+<p>//一个shape实例<br>var s = new Shape();<br>虽然这个例子非常简单，但是有四个“非常重要”的点需要在此阐明：<br><a id="more"></a><br>1.s是一个对象，并且默认的它拥有访问Shape.prototype（即每个由Shape构造函数创建的对象拥有的原型）的权限；简单来说，Shape.prototype就是一个“监视”着所有Shape实例的对象。你可以将一个对象的原型想象成一个由许多属性（变量/函数）组成的后备集合，当原型在它自己身上找不到东西时就会去原型中查找。</p>
 <p>2.原型可以在所有的Shape实例中共享。例如，所有的原型都拥有（直接）访问原型的权限。</p>
 <p>3.当你调用实例中的一个函数时，这个实例会在它自己身上查找这个函数的定义。如果找不到，那么原型将会查找这个函数的定义。</p>
 <p>4.无论被调用的函数的定义在哪里找到（在实例本身中或者它的原型中），this的值都是指向用来调用函数的这个实例。因此如果我们调用了一个s中干的函数，如果这个函数并没有在s中直接定义而是在s的原型中，this值依然指向s。</p>

@@ -30,7 +30,7 @@ JavaScript中函数的重要性毋庸置疑。在理解了JavaScript中的函数
 <meta property="og:image" content="http://htmljs.b0.upaiyun.com/uploads/1389597838417-%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202014-01-13%20%E4%B8%8B%E5%8D%883.03.33.png">
 <meta property="og:image" content="http://htmljs.b0.upaiyun.com/uploads/1389597858778-%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202014-01-13%20%E4%B8%8B%E5%8D%883.05.32.png">
 <meta property="og:image" content="http://htmljs.b0.upaiyun.com/uploads/1389597875629-%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202014-01-13%20%E4%B8%8B%E5%8D%883.08.29.png">
-<meta property="og:updated_time" content="2015-07-24T15:59:51.000Z">
+<meta property="og:updated_time" content="2015-07-24T16:08:14.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="谈谈JavaScript中的闭包">
 <meta name="twitter:description" content="谈谈JavaScript中的闭包爱因斯坦曾说过，如果你不能给一个六岁的孩童将清楚什么是闭包，那就证明你自己也不理解。我尝试着去给一个27岁的朋友讲解，但失败了。
@@ -118,8 +118,7 @@ JavaScript中函数的重要性毋庸置疑。在理解了JavaScript中的函数
 		</div>
 		
 		<h3 id="谈谈JavaScript中的闭包">谈谈JavaScript中的闭包</h3><p>爱因斯坦曾说过，如果你不能给一个六岁的孩童将清楚什么是闭包，那就证明你自己也不理解。我尝试着去给一个27岁的朋友讲解，但失败了。</p>
-<p>JavaScript中函数的重要性毋庸置疑。在理解了JavaScript中的函数之后，非常重要的地点就是理解我们怎样使用函数来创建闭包。一直以来，闭包都是JavaScript新手学习时的一个难点所在，它位于JavaScript函数与变量作用域交叉的一个灰色地带：</p>
-<p><img src="http://htmljs.b0.upaiyun.com/uploads/1389597690904-%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202014-01-13%20%E4%B8%8B%E5%8D%881.20.17.png" alt="目录结构"></p>
+<p>JavaScript中函数的重要性毋庸置疑。在理解了JavaScript中的函数之后，非常重要的地点就是理解我们怎样使用函数来创建闭包。一直以来，闭包都是JavaScript新手学习时的一个难点所在，它位于JavaScript函数与变量作用域交叉的一个灰色地带：<br><a id="more"></a><br><img src="http://htmljs.b0.upaiyun.com/uploads/1389597690904-%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202014-01-13%20%E4%B8%8B%E5%8D%881.20.17.png" alt="目录结构"></p>
 <p>本文将尽可能简单的方法讲述关于JavaScript闭包的那些事情，使用的代码也非常的简单。如果一开始就讲述闭包的概念，只会使得你更加的困惑。所以我们就从一个我们熟悉的领域开始，慢慢的向闭包的邪恶领域前进，看看我们在那里能发现什么。</p>
 <p>下面开始我们的冒险之旅吧！</p>
 <p>函数中的函数</p>

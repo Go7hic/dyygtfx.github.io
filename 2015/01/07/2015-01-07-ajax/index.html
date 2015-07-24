@@ -17,7 +17,7 @@
 <meta property="og:url" content="http://blog.yongyuan.us/2015/01/07/2015-01-07-ajax/index.html">
 <meta property="og:site_name" content="Go7hic">
 <meta property="og:description" content="Ajax大部分人开发者在学习jQuery的时候，看到 $.ajax() 函数都会觉得这真是太棒了！是的，它魔法般的把 ajax 请求变得极其容易，同时提供了足够多的控制项。在浏览器API层面这些请求都是由 XMLHttpRequest 对象完成的，$.ajax() 函数对它做了包装，这篇文章里快速浏览一下如何通过浏览器API提交ajax请求，包括跨域的ajax请求，试过之后可以发现这其实也不是很复">
-<meta property="og:updated_time" content="2015-07-24T16:00:30.000Z">
+<meta property="og:updated_time" content="2015-07-24T16:09:38.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="4.Ajax">
 <meta name="twitter:description" content="Ajax大部分人开发者在学习jQuery的时候，看到 $.ajax() 函数都会觉得这真是太棒了！是的，它魔法般的把 ajax 请求变得极其容易，同时提供了足够多的控制项。在浏览器API层面这些请求都是由 XMLHttpRequest 对象完成的，$.ajax() 函数对它做了包装，这篇文章里快速浏览一下如何通过浏览器API提交ajax请求，包括跨域的ajax请求，试过之后可以发现这其实也不是很复">
@@ -103,8 +103,7 @@
 		
 		</div>
 		
-		<h2 id="Ajax">Ajax</h2><p>大部分人开发者在学习jQuery的时候，看到 $.ajax() 函数都会觉得这真是太棒了！是的，它魔法般的把 ajax 请求变得极其容易，同时提供了足够多的控制项。在浏览器API层面这些请求都是由 XMLHttpRequest 对象完成的，$.ajax() 函数对它做了包装，这篇文章里快速浏览一下如何通过浏览器API提交ajax请求，包括跨域的ajax请求，试过之后可以发现这其实也不是很复杂。</p>
-<p>译者注：在工程中使用原生代码进行Ajax操作是不明智的，作者也并非希望手工处理浏览器差异，只是希望能够理解jQuery背后的工作原理。<br>GETting POSTing URL Encoding JSON Uploading CORS JSONP Libraries to Consider Next in this Series</p>
+		<h2 id="Ajax">Ajax</h2><p>大部分人开发者在学习jQuery的时候，看到 $.ajax() 函数都会觉得这真是太棒了！是的，它魔法般的把 ajax 请求变得极其容易，同时提供了足够多的控制项。在浏览器API层面这些请求都是由 XMLHttpRequest 对象完成的，$.ajax() 函数对它做了包装，这篇文章里快速浏览一下如何通过浏览器API提交ajax请求，包括跨域的ajax请求，试过之后可以发现这其实也不是很复杂。<br><a id="more"></a><br>译者注：在工程中使用原生代码进行Ajax操作是不明智的，作者也并非希望手工处理浏览器差异，只是希望能够理解jQuery背后的工作原理。<br>GETting POSTing URL Encoding JSON Uploading CORS JSONP Libraries to Consider Next in this Series</p>
 <h4 id="GET_请求">GET 请求</h4><p>我们从一个简单的请求开始，向服务器提交一个查询，通过用户的ID查询用户的名字，在URI的参数中包含了请求的用户ID。在请求结束之后弹出alert对话框提示结果。</p>
 <p>jQuery</p>
 <p>在jQuery中提交GET请求有两种方法，可以使用 $.get() 函数进行简单的请求，或者使用 $.ajax() 函数来获得更多的控制。在这里我们统一使用 $.ajax() 函数来统一所有的请求。<br><figure class="highlight fortran"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">$.ajax(<span class="string">'myservice/username'</span>, &#123;</span><br><span class="line">  <span class="type">data</span>: &#123;</span><br><span class="line">      id: <span class="string">'some-unique-id'</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br><span class="line">.<span class="keyword">then</span>(</span><br><span class="line">  <span class="function"><span class="keyword">function</span></span> success(<span class="keyword">name</span>) &#123;</span><br><span class="line">      alert(<span class="string">'User\'s name is '</span> + <span class="keyword">name</span>);</span><br><span class="line">  &#125;,</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">function</span></span> fail(<span class="type">data</span>, <span class="keyword">status</span>) &#123;</span><br><span class="line">      alert(<span class="string">'Request failed.  Returned status of '</span> + <span class="keyword">status</span>);</span><br><span class="line">  &#125;</span><br><span class="line">);</span><br></pre></td></tr></table></figure></p>
@@ -190,18 +189,18 @@
 <nav class="article-nav clearfix">
  
  <div class="prev" >
- <a href="/2015/01/07/2015-01-07-DOM API 之操作元素/" title="3.DOM API 之操作元素">
+ <a href="/2015/06/27/2014-06-27-javascript-callback/" title="深入理解js里的回调函数">
   <strong>上一篇：</strong><br/>
   <span>
-  3.DOM API 之操作元素</span>
+  深入理解js里的回调函数</span>
 </a>
 </div>
 
 
 <div class="next">
-<a href="/2015/01/06/2015-01-06-DOM API 之选择元素/"  title="2.DOM API 之选择元素">
+<a href="/2015/01/07/2015-01-07-DOM API 之操作元素/"  title="3.DOM API 之操作元素">
  <strong>下一篇：</strong><br/> 
- <span>2.DOM API 之选择元素
+ <span>3.DOM API 之操作元素
 </span>
 </a>
 </div>

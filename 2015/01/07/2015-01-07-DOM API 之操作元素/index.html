@@ -11,19 +11,16 @@
     
 
     
-    <meta name="description" content="DOM API 之操作元素在上一篇文章里我们讨论了如何在没有jQuery的支持下选择元素，这次我们来聊一聊如何使用DOM API创建新元素、修改已有元素的属性或者移动元素的位置。原生的浏览器API已经给我们提供了DOM操作的所有功能，我们能够不借助jQuery或者其他函数库的帮助就完成这些。
-当然有些操作会显得比较冗长，所以我必须再强调一遍，这系列文章的用意不是让开发人员不分情况的彻底丢弃jQue">
+    <meta name="description" content="DOM API 之操作元素在上一篇文章里我们讨论了如何在没有jQuery的支持下选择元素，这次我们来聊一聊如何使用DOM API创建新元素、修改已有元素的属性或者移动元素的位置。原生的浏览器API已经给我们提供了DOM操作的所有功能，我们能够不借助jQuery或者其他函数库的帮助就完成这些。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="3.DOM API 之操作元素">
 <meta property="og:url" content="http://blog.yongyuan.us/2015/01/07/2015-01-07-DOM API 之操作元素/index.html">
 <meta property="og:site_name" content="Go7hic">
-<meta property="og:description" content="DOM API 之操作元素在上一篇文章里我们讨论了如何在没有jQuery的支持下选择元素，这次我们来聊一聊如何使用DOM API创建新元素、修改已有元素的属性或者移动元素的位置。原生的浏览器API已经给我们提供了DOM操作的所有功能，我们能够不借助jQuery或者其他函数库的帮助就完成这些。
-当然有些操作会显得比较冗长，所以我必须再强调一遍，这系列文章的用意不是让开发人员不分情况的彻底丢弃jQue">
-<meta property="og:updated_time" content="2015-07-24T16:00:15.000Z">
+<meta property="og:description" content="DOM API 之操作元素在上一篇文章里我们讨论了如何在没有jQuery的支持下选择元素，这次我们来聊一聊如何使用DOM API创建新元素、修改已有元素的属性或者移动元素的位置。原生的浏览器API已经给我们提供了DOM操作的所有功能，我们能够不借助jQuery或者其他函数库的帮助就完成这些。">
+<meta property="og:updated_time" content="2015-07-24T16:09:44.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="3.DOM API 之操作元素">
-<meta name="twitter:description" content="DOM API 之操作元素在上一篇文章里我们讨论了如何在没有jQuery的支持下选择元素，这次我们来聊一聊如何使用DOM API创建新元素、修改已有元素的属性或者移动元素的位置。原生的浏览器API已经给我们提供了DOM操作的所有功能，我们能够不借助jQuery或者其他函数库的帮助就完成这些。
-当然有些操作会显得比较冗长，所以我必须再强调一遍，这系列文章的用意不是让开发人员不分情况的彻底丢弃jQue">
+<meta name="twitter:description" content="DOM API 之操作元素在上一篇文章里我们讨论了如何在没有jQuery的支持下选择元素，这次我们来聊一聊如何使用DOM API创建新元素、修改已有元素的属性或者移动元素的位置。原生的浏览器API已经给我们提供了DOM操作的所有功能，我们能够不借助jQuery或者其他函数库的帮助就完成这些。">
 
     
     <link rel="alternative" href="/atom.xml" title="Go7hic" type="application/atom+xml">
@@ -106,8 +103,7 @@
 		
 		</div>
 		
-		<h4 id="DOM_API_之操作元素">DOM API 之操作元素</h4><p>在上一篇文章里我们讨论了如何在没有jQuery的支持下选择元素，这次我们来聊一聊如何使用DOM API创建新元素、修改已有元素的属性或者移动元素的位置。原生的浏览器API已经给我们提供了DOM操作的所有功能，我们能够不借助jQuery或者其他函数库的帮助就完成这些。</p>
-<p>当然有些操作会显得比较冗长，所以我必须再强调一遍，这系列文章的用意不是让开发人员不分情况的彻底丢弃jQuery，而是希望我们能够在没有jQuery的帮助时也能完成这些任务。在实际生产中我们依然会使用各种函数库，但是我们可以仔细选择，使用更加适合我们需要的库，而不是不分情况的把整个jQuery都加载到页面里。</p>
+		<h4 id="DOM_API_之操作元素">DOM API 之操作元素</h4><p>在上一篇文章里我们讨论了如何在没有jQuery的支持下选择元素，这次我们来聊一聊如何使用DOM API创建新元素、修改已有元素的属性或者移动元素的位置。原生的浏览器API已经给我们提供了DOM操作的所有功能，我们能够不借助jQuery或者其他函数库的帮助就完成这些。<br><a id="more"></a><br>当然有些操作会显得比较冗长，所以我必须再强调一遍，这系列文章的用意不是让开发人员不分情况的彻底丢弃jQuery，而是希望我们能够在没有jQuery的帮助时也能完成这些任务。在实际生产中我们依然会使用各种函数库，但是我们可以仔细选择，使用更加适合我们需要的库，而不是不分情况的把整个jQuery都加载到页面里。</p>
 <ul>
 <li>创建元素</li>
 <li>在元素前/后插入元素</li>
@@ -269,18 +265,18 @@
 <nav class="article-nav clearfix">
  
  <div class="prev" >
- <a href="/2015/06/27/2014-06-27-javascript-callback/" title="深入理解js里的回调函数">
+ <a href="/2015/01/07/2015-01-07-ajax/" title="4.Ajax">
   <strong>上一篇：</strong><br/>
   <span>
-  深入理解js里的回调函数</span>
+  4.Ajax</span>
 </a>
 </div>
 
 
 <div class="next">
-<a href="/2015/01/07/2015-01-07-ajax/"  title="4.Ajax">
+<a href="/2015/01/06/2015-01-06-DOM API 之选择元素/"  title="2.DOM API 之选择元素">
  <strong>下一篇：</strong><br/> 
- <span>4.Ajax
+ <span>2.DOM API 之选择元素
 </span>
 </a>
 </div>

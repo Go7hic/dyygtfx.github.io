@@ -12,79 +12,19 @@
 
     
     <meta name="description" content="本文档翻译自 Arnau Sanchez (tokland)所编译的这份文档 RubyFunctionalProgramming。
-同时也有日文版本。
-目录
-简介
-理论部分
-Ruby的函数式编程
-不要更新变量
-不要重用变量
-用 Blocks 作为高阶函数
-面向对象与函数式编程
-万物皆表达式
-递归
-惰性枚举器
-一个实际的例子
-
-
-结论
-简报
-延伸阅读
-
-简介
-命令式编程比较牛吗？不！不！不！只是比较">
+同时也有日文版本。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Ruby 函数式编程">
-<meta property="og:url" content="http://blog.yongyuan.us/2015/12/31/2014-12-31- Ruby 函数式编程/index.html">
+<meta property="og:url" content="http://blog.yongyuan.us/2014/12/31/2014-12-31- Ruby 函数式编程/index.html">
 <meta property="og:site_name" content="Go7hic">
 <meta property="og:description" content="本文档翻译自 Arnau Sanchez (tokland)所编译的这份文档 RubyFunctionalProgramming。
-同时也有日文版本。
-目录
-简介
-理论部分
-Ruby的函数式编程
-不要更新变量
-不要重用变量
-用 Blocks 作为高阶函数
-面向对象与函数式编程
-万物皆表达式
-递归
-惰性枚举器
-一个实际的例子
-
-
-结论
-简报
-延伸阅读
-
-简介
-命令式编程比较牛吗？不！不！不！只是比较">
+同时也有日文版本。">
 <meta property="og:image" content="http://i.creativecommons.org/l/by/3.0/88x31.png">
-<meta property="og:updated_time" content="2015-07-24T16:01:16.000Z">
+<meta property="og:updated_time" content="2015-07-24T16:09:51.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Ruby 函数式编程">
 <meta name="twitter:description" content="本文档翻译自 Arnau Sanchez (tokland)所编译的这份文档 RubyFunctionalProgramming。
-同时也有日文版本。
-目录
-简介
-理论部分
-Ruby的函数式编程
-不要更新变量
-不要重用变量
-用 Blocks 作为高阶函数
-面向对象与函数式编程
-万物皆表达式
-递归
-惰性枚举器
-一个实际的例子
-
-
-结论
-简报
-延伸阅读
-
-简介
-命令式编程比较牛吗？不！不！不！只是比较">
+同时也有日文版本。">
 
     
     <link rel="alternative" href="/atom.xml" title="Go7hic" type="application/atom+xml">
@@ -147,14 +87,14 @@ Ruby的函数式编程
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2015/12/31/2014-12-31- Ruby 函数式编程/" title="Ruby 函数式编程" itemprop="url">Ruby 函数式编程</a>
+      <a href="/2014/12/31/2014-12-31- Ruby 函数式编程/" title="Ruby 函数式编程" itemprop="url">Ruby 函数式编程</a>
   </h1>
   <p class="article-author">By
        
 		<a href="/about" title="Go7hic" target="_blank" itemprop="author">Go7hic</a>
 		
   <p class="article-time">
-    <time datetime="2015-12-30T16:00:00.000Z" itemprop="datePublished"> 发表于 2015-12-31</time>
+    <time datetime="2014-12-30T16:00:00.000Z" itemprop="datePublished"> 发表于 2014-12-31</time>
     
   </p>
 </header>
@@ -168,7 +108,7 @@ Ruby的函数式编程
 		</div>
 		
 		<p>本文档翻译自 Arnau Sanchez (tokland)所编译的这份文档 <a href="http://code.google.com/p/tokland/wiki/RubyFunctionalProgramming" target="_blank" rel="external">RubyFunctionalProgramming</a>。</p>
-<p>同时也有<a href="http://www.h6.dion.ne.jp/~machan/misc/FPwithRuby.html" target="_blank" rel="external">日文版本</a>。</p>
+<p>同时也有<a href="http://www.h6.dion.ne.jp/~machan/misc/FPwithRuby.html" target="_blank" rel="external">日文版本</a>。<br><a id="more"></a></p>
 <h2 id="目录">目录</h2><ul>
 <li><a href="#简介">简介</a></li>
 <li><a href="#理论部分">理论部分</a></li>
@@ -366,7 +306,7 @@ Ruby的函数式编程
 
 	<div class="article-share" id="share">
 	
-	  <div data-url="http://blog.yongyuan.us/2015/12/31/2014-12-31- Ruby 函数式编程/" data-title="Ruby 函数式编程 | Go7hic" data-tsina="null" class="share clearfix">
+	  <div data-url="http://blog.yongyuan.us/2014/12/31/2014-12-31- Ruby 函数式编程/" data-title="Ruby 函数式编程 | Go7hic" data-tsina="null" class="share clearfix">
 	  </div>
 	
 	</div>
@@ -379,11 +319,19 @@ Ruby的函数式编程
 	
 <nav class="article-nav clearfix">
  
+ <div class="prev" >
+ <a href="/2015/01/05/2015-01-05-为什么抛弃 jQuery/" title="1.为什么抛弃 jQuery?">
+  <strong>上一篇：</strong><br/>
+  <span>
+  1.为什么抛弃 jQuery?</span>
+</a>
+</div>
+
 
 <div class="next">
-<a href="/2015/10/19/2014-10-19-chrome-tools/"  title="Chrome开发者工具使用教程">
+<a href="/2014/11/06/2014-11-6-npm-packge-json/"  title="npm package.json 介绍中文版">
  <strong>下一篇：</strong><br/> 
- <span>Chrome开发者工具使用教程
+ <span>npm package.json 介绍中文版
 </span>
 </a>
 </div>

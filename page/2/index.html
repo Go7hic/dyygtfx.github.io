@@ -84,161 +84,6 @@
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2015/01/06/2015-01-06-DOM API 之选择元素/" title="2.DOM API 之选择元素" itemprop="url">2.DOM API 之选择元素</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="Go7hic" target="_blank" itemprop="author">Go7hic</a>
-		
-  <p class="article-time">
-    <time datetime="2015-01-05T16:00:00.000Z" itemprop="datePublished"> 发表于 2015-01-06</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <h3 id="DOM_API_之选择元素">DOM API 之选择元素</h3><p>jQuery的选择符模块无比优雅，以至于我见过很多Web框架和应用中引用了庞大的jQuery，只是因为它提供了方便的DOM元素选择函数。我已经数不清自己写过多少次 $(#myElement) 或者 $(‘.myElement’) 了，以至于在没有jQuery时经常束手无策。事实上使用DOM API选择元素并没有那么难，它或许没有jQuery的那么简短，不过用起来也足够简单了。</p>
-<ul>
-<li>ID</li>
-<li>CSS Classes</li>
-<li>HTML标签名</li>
-<li>HTML属性</li>
-<li>伪类</li>
-<li>子元素</li>
-<li>后代元素</li>
-<li>排除元素</li>
-<li>多重选择</li>
-<li>仿造jQuery的“$”</li>
-<li>专用的选择符模块</li>
-</ul>
-<h4 id="ID">ID</h4><p>jQuery</p>
-<pre><code><span class="comment">// 返回一个jQuery对象</span>
-$(<span class="string">'#myElement'</span>);
-</code></pre><p>DOM API，我们最常见到的是这样：</p>
-<pre><code><span class="comment">// IE 5.5+</span>
-<span class="built_in">document</span>.getElementById(<span class="string">'myElement'</span>);
-</code></pre><p>IE 8及以上版本的浏览器中可以使用querySelector函数：</p>
-<pre><code><span class="comment">// IE 8+</span>
-<span class="built_in">document</span>.<span class="built_in">querySelector</span>(<span class="string">'#myElement'</span>);
-</code></pre><p>这两种DOM API函数都直接返回一个元素，有测试表明getElementById函数比querySelector函数效率更高一些。</p>
-<p>随着浏览器升级，对querySelector函数的支持越来越好，jQuery的选择函数还有什么决定性的优势么？</p>
-<h4 id="CSS_Classes">CSS Classes</h4><p>jQuery</p>
-<pre><code><span class="comment">// 返回所有匹配元素的jQuery对象</span>
-$(<span class="string">'.myElement'</span>);
-</code></pre><p>DOM API，IE 9及以上版本的浏览器中有专用的getElementsByClassName函数：</p>
-<pre><code><span class="comment">// IE 9+</span>
-<span class="built_in">document</span>.getElementsByClassName(<span class="string">'myElement'</span>);
-</code></pre><p>IE 8及以上版本的浏览器中可以使用querySelectorAll函数：</p>
-<pre><code><span class="comment">// IE 8+</span>
-<span class="built_in">document</span>.<span class="built_in">querySelectorAll</span>(<span class="string">'.myElement'</span>);
-</code></pre><p>两种DOM API中getElementsByClassName的效率最高，返回一个HTMLCollection集合。后一种（querySelectorAll）返回NodeList类型。</p>
-<p>jQuery能做到的，DOM API同样也做到了，不是么？</p>
-<h4 id="HTML_标签名">HTML 标签名</h4><p>假设我们要选择所有的 div 元素：</p>
-<p>jQuery</p>
-<pre><code><span class="variable">$(</span><span class="string">'div'</span>);
-</code></pre><p>DOM API，最常见的函数是这个：</p>
-<pre><code><span class="comment">// IE 5.5+</span>
-<span class="built_in">document</span>.getElementsByTagName(<span class="string">'div'</span>);
-</code></pre><p>IE 8及以上版本的浏览器中依然可以使用querySelectorAll函数：</p>
-<pre><code><span class="comment">// IE 8+</span>
-<span class="built_in">document</span>.<span class="built_in">querySelectorAll</span>(<span class="string">'div'</span>);
-</code></pre><p>两种DOM API相比，getElementsByTagName的效率会稍微高一些。</p>
-<h4 id="HTML_属性">HTML 属性</h4><p>假设我们要选择 data-foo-bar 属性为 someval 的元素：</p>
-<p>jQuery</p>
-<pre><code><span class="variable">$(</span><span class="string">'[data-foo-bar="someval"]'</span>);
-</code></pre><p>DOM API，IE 8及以上版本的浏览器中可以继续使用万能的querySelectorAll函数：</p>
-<pre><code><span class="comment">// IE 8+</span>
-<span class="built_in">document</span>.<span class="built_in">querySelectorAll</span>(<span class="string">'[data-foo-bar="someval"]'</span>);
-</code></pre><h4 id="伪类">伪类</h4><p>假设我们要从 id=myForm 的 from 元素中选择具备 :invalid 伪类的元素：</p>
-<p>jQuery</p>
-<pre><code><span class="variable">$(</span><span class="string">'#myForm :invalid'</span>);
-</code></pre><p>DOM API，IE 8及以上版本的浏览器中可以继续使用万能的querySelectorAll函数：</p>
-<pre><code><span class="comment">// IE 8+</span>
-<span class="built_in">document</span>.<span class="built_in">querySelectorAll</span>(<span class="string">'#myForm :invalid'</span>);
-</code></pre><h4 id="子元素">子元素</h4><p>假设父元素 id=”myParent” ，如果我们只是想简单的选择所有子元素：</p>
-<p>jQuery</p>
-<pre><code>$<span class="params">('#myParent')</span>.<span class="built_in">children</span><span class="params">()</span>;
-</code></pre><p>DOM API，最熟悉的是这个：</p>
-<pre><code><span class="comment">// IE 5.5+</span>
-<span class="comment">// <span class="doctag">NOTE</span>: This will include comment and text nodes as well.</span>
-<span class="built_in">document</span>.getElementById(<span class="string">'myParent'</span>).childNodes;
-</code></pre><p>IE 9及以上版本的浏览器中可以直接使用children来获取：</p>
-<pre><code><span class="comment">// IE 9+</span>
-<span class="comment">// <span class="doctag">NOTE</span>: This ignores comment &amp; text nodes.</span>
-<span class="built_in">document</span>.getElementById(<span class="string">'myParent'</span>).children;
-</code></pre><p>如果只是想获取包含 ng-click 属性的直接子元素呢？</p>
-<p>jQuery</p>
-<pre><code><span class="variable">$(</span><span class="string">'#myParent'</span>).children(<span class="string">'[ng-click]'</span>);
-<span class="regexp">//</span> 或者
-<span class="variable">$(</span><span class="string">'#myParent &gt; [ng-click]'</span>);
-</code></pre><p>DOM API，我是从这时开始发现querySelector比我想象的要强大…</p>
-<pre><code><span class="comment">// IE 8+</span>
-<span class="built_in">document</span>.<span class="built_in">querySelector</span>(<span class="string">'#myParent &gt; [ng-click]'</span>);
-</code></pre><h4 id="后代元素">后代元素</h4><p>假设祖先节点 id=”myParent”，我们希望获取其后代的所有超链接：</p>
-<p>jQuery</p>
-<pre><code>$('<span class="comment">#myParent A');</span>
-</code></pre><p>DOM API，IE 8及以上版本的浏览器里可以这样：</p>
-<pre><code><span class="comment">// IE 8+</span>
-<span class="built_in">document</span>.<span class="built_in">querySelectorAll</span>(<span class="string">'#myParent A'</span>);
-</code></pre><h4 id="排除元素">排除元素</h4><p>假设我们要从 div 元素中获取出不带“ignore” class的元素</p>
-<p>jQuery</p>
-<pre><code><span class="variable">$(</span><span class="string">'DIV'</span>).<span class="keyword">not</span>(<span class="string">'.ignore'</span>);
-<span class="regexp">//</span> 或者
-<span class="variable">$(</span><span class="string">'DIV:not(.ignore)'</span>);
-</code></pre><p>DOM API，IE 8及以上版本的浏览器中可以这样：</p>
-<pre><code><span class="comment">// IE 9+</span>
-<span class="built_in">document</span>.<span class="built_in">querySelectorAll</span>(<span class="string">'DIV:not(.ignore)'</span>);
-</code></pre><h4 id="多重选择">多重选择</h4><p>假设我们要选择所有的 div , a 和 script 元素：</p>
-<p>jQuery</p>
-<pre><code>$('DIV, <span class="keyword">A</span>, SCRIPT')<span class="comment">;</span>
-</code></pre><p>DOM API，IE 8及以上版本的浏览器里可以这样：</p>
-<pre><code><span class="comment">// IE 8+</span>
-<span class="built_in">document</span>.<span class="built_in">querySelectorAll</span>(<span class="string">'DIV, A, SCRIPT'</span>);
-</code></pre><h4 id="仿造_jQuery_的_“$”">仿造 jQuery 的 “$”</h4><p>发现什么规律了么？</p>
-<p>如果我们只考虑IE8及以上的浏览器，我们可以通过简单的代码“仿造”出类似jQuery中“$”选择符的效果：</p>
-<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">window.$ = function(selector) &#123;</span><br><span class="line">  var selectorType = 'querySelectorAll';</span><br><span class="line"></span><br><span class="line">  if (selector.indexOf('#') === 0) &#123;</span><br><span class="line"><span class="code">    selectorType = 'getElementById';</span></span><br><span class="line"><span class="code">    selector = selector.substr(1, selector.length);</span></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  return document[<span class="link_label">selectorType</span>](<span class="link_url">selector</span>);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<p>这段代码之后，你就可以在脚本中使用$来进行大部分选择元素的操作了。</p>
-<h4 id="可以替代_jQuery_的专用选择符模块">可以替代 jQuery 的专用选择符模块</h4><p>对于大部分JavaScript项目来说，原生的浏览器API已经足够进行DOM元素的选择了，但是我们也注意到，这些函数在低版本的IE浏览器中不能很好的工作。为了兼容低版本的浏览器，我们需要引入一些第三方的模块来帮助我们完成选择元素的任务。</p>
-<p>当然直接引入jQuery是最直接的方法，但是我们如果我们只是为了享受选择元素的便利，那jQuery显然大材小用（浪费带宽）了。我们不妨试试Sizzle，这是一个很小的模块，专注于选择DOM元素，事实上jQuery正是使用了Sizzle作为它的一部分。Selectivizr是另一个选择，同样很小，专注于在较早版本的浏览器中支持CSS3选择符，他同样被包含在jQuery, prototype, mootools等框架中。</p>
-
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-	  	<span></span>
-		<a href="/2015/01/06/2015-01-06-DOM API 之选择元素/#disqus_thread" class="comments-count-link">Comments</a>
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
       <a href="/2015/01/05/2015-01-05-为什么抛弃 jQuery/" title="1.为什么抛弃 jQuery?" itemprop="url">1.为什么抛弃 jQuery?</a>
   </h1>
   <p class="article-author">By
@@ -252,27 +97,13 @@ $(<span class="string">'.myElement'</span>);
 </header>
     <div class="article-content">
         
-        <p>PS: 本系列有四篇文章，原文是国外的朋友写的，翻译是国内朋友翻的<a href="http://blog.cabbit.me/you-dont-need-jquery/" target="_blank" rel="external">http://blog.cabbit.me/you-dont-need-jquery/</a> ，转载仅为学习使用，后面几篇就不再声明了</p>
-<h3 id="为什么抛弃_jQuery?">为什么抛弃 jQuery?</h3><p>现在的Web工程师太依赖 jQuery 了，某种意义上说 jQuery 已经成了 JavaScript 的同义词。但是我们真的需要他么？或许我们应该反思一下什么时候才真的需要 jQuery。</p>
-<p>对我个人而言开始使用 jQuery 的理由是他把我的工作变得简单多了，开发Web应用已经几乎离不开它。曾经在不同浏览器里Web API 的实现有很大区别，而 jQuery 帮我抹平了这些，所以我很少再用document.getElementById 这样的原生 JavaScript 函数。依赖 jQuery 衍生出了无数极其优秀的类库，从完美的下拉菜单、复杂的表单验证到这几年流行的瀑布流布局，这些都让我的工作变得简单多了。</p>
-<p>我一直坚信 jQuery 是开发 JavaScript 工程必须的，2012年，当时我需要开发维护一个跨浏览器的大文件上传组件时，我的第一直觉就是我要用  jQuery 重写已有的代码，因为我已经下意识把 jQuery 当做简化工作的一部分标准。但是社区的用户并不希望我这样做——他们不想引入额外的第三方类库，就这样我（被迫/不情愿）的重新开始学习原生浏览器API。出于意料的是，我发现不再依赖jQuery之后的工作比我想象的要简单得多！我曾经以为没有 jQuery 我就不会写 JavaScript 代码了，但是现在我发现 jQuery 并不是必须的！</p>
-<h4 id="拐杖？陷阱？">拐杖？陷阱？</h4><p>曾几何时我第一次使用 JavaScript 开发大型项目，jQuery就同步进入了我的工作，事实上我是从见识了无比强大的 jQuery 选择符系统之后才开始喜欢上Web开发的。我并没有深入学过“真正的”浏览器原生 API（document.getElementById ？那时觉得看着好丑！），在被迫学习原生 API 之前，事实上我也不完全清楚怎么直接访问并操作 DOM 元素——jQuery全都帮我做了。jQuery 已经成了我的拐杖，当初用它是因为他能让我走的更好，但是后来我离开他已经不会走路了。</p>
-<p>我发现我掉进了一个陷阱，一个很多Web开发新手都掉进的陷阱。我本应该先花时间去理解JavaScript本身以及浏览器提供的API，但是我却因为jQuery提供的蜜罐而止步不前。逻辑上我们应该这样系统的学习JavaScript开发：</p>
-<ul>
-<li>学习JavaScript语言</li>
-<li>学习浏览器API</li>
-<li>学习jQuery（或者其他框架、类库，实际项目中会大量用到的）</li>
-</ul>
-<p>译者注：事实上这也是JavaScript的圣经犀牛书（JavaScript: The Definitive Guide）的撰写顺序。可实际上包括译者在内，很多Web开发新手看到”第二部分：客户端Javascript”的时候就直接略过了，毕竟那时觉得和浏览器API比起来，jQuery看上去是那么优雅。</p>
-<p>工程实践中，很多Web开发新手（比如我）是从第3步开始的，完全忽略了1和2的存在，这是完全可以理解的，因为学会了jQuery（或者其他类库）我们就已经可以动手开始写代码了~ 但是如果你不清楚jQuery的背后到底发生了什么，就一定会在未来的开发中遇到问题。你也一定会遇到不能使用jQuery的项目，比如流行的Angular.js这样的框架，初学者就最好删掉jQuery类库，从头开始学JavaScript。</p>
-<h4 id="跨浏览器支持">跨浏览器支持</h4><p>支持jQuery最常见的理由中最常见的一条，就是他修复了“不一致的DOM API”。这没错，但事实上不一致的DOM API只有在IE6/7及更早的版本中才大量存在。浏览器发展到2014年，非现代浏览器的使用比例已经越来越少。jQuery开发组自身也意识到这个问题，逐渐开始削减对这部分浏览器的支持，从jQuery 3.0开始，jQuery 的版本分化为支持所有浏览器的完整版和只支持现代浏览器的精简版。我们需要面对的DOM API已经没有那么糟糕，基本的DOM元素创建、遍历和操作已经统一，至少在所有的现代浏览器中是这样。</p>
-<p>从IE8开始，浏览器 API 开始逐渐标准、稳定，当然从细节上，IE10 及早期的 Safari/WebKit 引擎中的某些实现确实不完全相同，但是这些不同可以逐例分析，并且使用更小、更专用的类库来抹平。重点是：jQuery不是银弹，不能解决脚本中的所有跨浏览器问题，我们可以用更小、更专用且可控的方式来抹平这些浏览器的差异。</p>
-<h4 id="JavaScript">JavaScript</h4><p>另一个支持 jQuery 的常见理由是它弥补了一些 JavaScript 自身的缺陷，比如不方便的循环遍历、复杂的DOM访问等等。使用了第三方类库（jQuery或Underscore等）之后，循环遍历变得比原来容易多了。这个理由曾经是正确的，但是现在 JavaScript 本身也在进化，forEach、Object.keys()等函数的支持也很普遍了。曾经我很依赖 $.inArray() 函数，但是 Array.prototype.indexOf() 函数也早就是ECMA Script 5的一部分。类似的例子还有很多，后面我们可以在专题中慢慢探索。</p>
-<h4 id="需要马上抛弃jQuery么？">需要马上抛弃jQuery么？</h4><p>当然不是，如果jQuery使你的工作变得足够简单，如果你足够熟悉jQuery是如何工作的，接着使用jQuery没有一点儿问题。这个系列的文章是想告诉读者，我们可以使用原生的浏览器API完成需要的工作，而不需要引入庞大且不完全需要的类库。另外多了解jQuery本身是如何工作的总是没有坏处。</p>
-
+        <p>PS: 本系列有四篇文章，原文是国外的朋友写的，翻译是国内朋友翻的<a href="http://blog.cabbit.me/you-dont-need-jquery/">http://blog.cabbit.me/you-dont-need-jquery/</a> ，转载仅为学习使用，后面几篇就不再声明了</p>
+<h3 id="为什么抛弃_jQuery?">为什么抛弃 jQuery?</h3><p>现在的Web工程师太依赖 jQuery 了，某种意义上说 jQuery 已经成了 JavaScript 的同义词。但是我们真的需要他么？或许我们应该反思一下什么时候才真的需要 jQuery。<br>
         
         
         <p class="article-more-link">
+          
+            <a href="/2015/01/05/2015-01-05-为什么抛弃 jQuery/#more">继续阅读</a>
           
        </p>
     </div>
@@ -308,6 +139,61 @@ $(<span class="string">'.myElement'</span>);
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
+      <a href="/2014/12/31/2014-12-31- Ruby 函数式编程/" title="Ruby 函数式编程" itemprop="url">Ruby 函数式编程</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Go7hic" target="_blank" itemprop="author">Go7hic</a>
+		
+  <p class="article-time">
+    <time datetime="2014-12-30T16:00:00.000Z" itemprop="datePublished"> 发表于 2014-12-31</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p>本文档翻译自 Arnau Sanchez (tokland)所编译的这份文档 <a href="http://code.google.com/p/tokland/wiki/RubyFunctionalProgramming">RubyFunctionalProgramming</a>。</p>
+<p>同时也有<a href="http://www.h6.dion.ne.jp/~machan/misc/FPwithRuby.html">日文版本</a>。<br>
+        
+        
+        <p class="article-more-link">
+          
+            <a href="/2014/12/31/2014-12-31- Ruby 函数式编程/#more">继续阅读</a>
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+	  	<span></span>
+		<a href="/2014/12/31/2014-12-31- Ruby 函数式编程/#disqus_thread" class="comments-count-link">Comments</a>
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
       <a href="/2014/11/06/2014-11-6-npm-packge-json/" title="npm package.json 介绍中文版" itemprop="url">npm package.json 介绍中文版</a>
   </h1>
   <p class="article-author">By
@@ -322,178 +208,12 @@ $(<span class="string">'.myElement'</span>);
     <div class="article-content">
         
         <h3 id="简介">简介</h3><p>本文档有所有package.json中必要的配置。它必须是真正的json，而不是js对象。</p>
-<p>本文档中描述的很多行为都受npm-config(7)的影响。</p>
-<h3 id="默认值">默认值</h3><p>npm会根据包内容设置一些默认值。</p>
-<pre><code><span class="string">"scripts"</span>: {<span class="string">"start"</span>: <span class="string">"node server.js"</span>}
-</code></pre><p>如果包的根目录有server.js文件，npm会默认将start命令设置为node server.js。</p>
-<pre><code><span class="string">"scripts"</span>:{<span class="string">"preinstall"</span>: <span class="string">"node-waf clean || true; node-waf configure build"</span>}
-</code></pre><p>如果包的根目录有wscript文件，npm会默认将preinstall命令用node-waf进行编译。</p>
-<pre><code><span class="string">"scripts"</span>:{<span class="string">"preinstall"</span>: <span class="string">"node-gyp rebuild"</span>}
-</code></pre><p>如果包的根目录有binding.gyp文件，npm会默认将preinstall命令用node-gyp进行编译。</p>
-<pre><code><span class="string">"contributors"</span>: <span class="preprocessor">[</span><span class="attribute">...</span><span class="preprocessor">]</span><span class="markup"></span>
-</code></pre><p>如果包的根目录有AUTHORS文件，npm会默认逐行按Name <email> (url)格式处理，邮箱和url是可选的。#号和空格开头的行会被忽略。</email></p>
-<h3 id="name">name</h3><p>在package.json中最重要的就是name和version字段。他们都是必须的，如果没有就无法install。name和version一起组成的标识在假设中是唯一的。改变包应该同时改变version。</p>
-<p>name是这个东西的名字。注意：</p>
-<p>不要把node或者js放在名字中。因为你写了package.json它就被假定成为了js，不过你可以用”engine”字段指定一个引擎（见后文）。<br>这个名字会作为在URL的一部分、命令行的参数或者文件夹的名字。任何non-url-safe的字符都是不能用的。<br>这个名字可能会作为参数被传入require()，所以它应该比较短，但也要意义清晰。<br>在你爱上你的名字之前，你可能要去npm registry查看一下这个名字是否已经被使用了。<a href="http://registry.npmjs.org/" target="_blank" rel="external">http://registry.npmjs.org/</a></p>
-<h3 id="version">version</h3><p>在package.json中最重要的就是name和version字段。他们都是必须的，如果没有就无法install。name和version一起组成的标识在假设中是唯一的。改变包应该同时改变version。</p>
-<p>version必须能被node-semver解析，它被包在npm的依赖中。（要自己用可以执行npm install semver）</p>
-<p>可用的“数字”或者“范围”见semver(7).</p>
-<h3 id="description">description</h3><p>放简介，字符串。方便屌丝们在npm search中搜索。</p>
-<h3 id="keywords">keywords</h3><p>关键字，数组、字符串。还是方便屌丝们在npm search中搜索。</p>
-<h3 id="homepage">homepage</h3><p>项目官网的url。</p>
-<p>注意：这和“url”不一样。如果你放一个“url”字段，registry会以为是一个跳转到你发布在其他地方的地址，然后喊你滚粗。</p>
-<p>嗯，滚粗，没开玩笑。</p>
-<h3 id="bugs">bugs</h3><p>你项目的提交问题的url和（或）邮件地址。这对遇到问题的屌丝很有帮助。</p>
-<p>差不多长这样：</p>
-<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#123; "<span class="attribute">url</span>" : <span class="value"><span class="string">"http://github.com/owner/project/issues"</span></span><br><span class="line"></span>, "<span class="attribute">email</span>" : <span class="value"><span class="string">"project@hostname.com"</span></span><br><span class="line"></span>&#125;</span><br></pre></td></tr></table></figure>
-<p>你可以指定一个或者指定两个。如果你只想提供一个url，那就不用对象了，字符串就行。</p>
-<p>如果提供了url，它会被npm bugs命令使用。</p>
-<h3 id="license">license</h3><p>你应该要指定一个许可证，让人知道使用的权利和限制的。</p>
-<p>最简单的方法是，假如你用一个像BSD或者MIT这样通用的许可证，就只需要指定一个许可证的名字，像这样：</p>
-<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123; "<span class="attribute">license</span>" : <span class="value"><span class="string">"BSD"</span> </span>&#125;</span><br></pre></td></tr></table></figure>
-<p>如果你又更复杂的许可条件，或者想要提供给更多地细节，可以这样:</p>
-<figure class="highlight prolog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">"licenses"</span> : [</span><br><span class="line">  &#123; <span class="string">"type"</span> : <span class="string">"MyLicense"</span></span><br><span class="line">  , <span class="string">"url"</span> : <span class="string">"http://github.com/owner/project/path/to/license"</span></span><br><span class="line">  &#125;</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
-<p>在根目录中提供一个许可证文件也蛮好的。<br><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">people</span> <span class="rule"><span class="attribute">fields</span>:<span class="value"> author, contributors</span></span></span><br></pre></td></tr></table></figure></p>
-<p>author是一个人。contributors是一堆人的数组。person是一个有name字段，可选的有url、email字段的对象，像这样：</p>
-<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#123; "<span class="attribute">name</span>" : <span class="value"><span class="string">"Barney Rubble"</span></span><br><span class="line"></span>, "<span class="attribute">email</span>" : <span class="value"><span class="string">"b@rubble.com"</span></span><br><span class="line"></span>, "<span class="attribute">url</span>" : <span class="value"><span class="string">"http://barnyrubble.tumblr.com/"</span></span><br><span class="line"></span>&#125;</span><br></pre></td></tr></table></figure>
-<p>或者可以把所有的东西都放到一个字符串里，npm会给你解析：</p>
-<p>“Barney Rubble <a href="&#109;&#x61;&#105;&#x6c;&#x74;&#x6f;&#x3a;&#x62;&#x40;&#114;&#x75;&#x62;&#98;&#x6c;&#x65;&#x2e;&#x63;&#x6f;&#x6d;">&#x62;&#x40;&#114;&#x75;&#x62;&#98;&#x6c;&#x65;&#x2e;&#x63;&#x6f;&#x6d;</a> (<a href="http://barnyrubble.tumblr.com/" target="_blank" rel="external">http://barnyrubble.tumblr.com/</a>)<br>email和url在两种形式中都是可选的。</p>
-<p>也可以在你的npm用户信息中设置一个顶级的maintainers字段。</p>
-<h3 id="files">files</h3><p>files是一个包含项目中的文件的数组。如果命名了一个文件夹，那也会包含文件夹中的文件。（除非被其他条件忽略了）</p>
-<p>你也可以提供一个.npmignore文件，让即使被包含在files字段中得文件被留下。其实就像.gitignore一样。</p>
-<h3 id="main">main</h3><p>main字段是一个模块ID，它是一个指向你程序的主要项目。就是说，如果你包的名字叫foo，然后用户安装它，然后require(“foo”)，然后你的main模块的exports对象会被返回。</p>
-<p>这应该是一个相对于根目录的模块ID。</p>
-<p>对于大多数模块，它是非常有意义的，其他的都没啥。</p>
-<h3 id="bin">bin</h3><p>很多包都有一个或多个可执行的文件希望被放到PATH中。npm让妈妈再也不用担心了（实际上，就是这个功能让npm可执行的）。</p>
-<p>要用这个功能，给package.json中的bin字段一个命令名到文件位置的map。初始化的时候npm会将他链接到prefix/bin（全局初始化）或者./node_modules/.bin/（本地初始化）。</p>
-<p>比如，npm有：</p>
-<p><code>{ &quot;bin&quot; : { &quot;npm&quot; : &quot;./cli.js&quot; } }</code></p>
-<p>所以，当你初始化npm，它会创建一个符号链接到cli.js脚本到/usr/local/bin/npm。</p>
-<p>如果你只有一个可执行文件，并且名字和包名一样。那么你可以只用一个字符串，比如：</p>
-<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#123; "<span class="attribute">name</span>": <span class="value"><span class="string">"my-program"</span></span><br><span class="line"></span>, "<span class="attribute">version</span>": <span class="value"><span class="string">"1.2.5"</span></span><br><span class="line"></span>, "<span class="attribute">bin</span>": <span class="value"><span class="string">"./path/to/program"</span> </span>&#125;</span><br></pre></td></tr></table></figure>
-<p>结果和这个一样：</p>
-<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#123; "<span class="attribute">name</span>": <span class="value"><span class="string">"my-program"</span></span><br><span class="line"></span>, "<span class="attribute">version</span>": <span class="value"><span class="string">"1.2.5"</span></span><br><span class="line"></span>, "<span class="attribute">bin</span>" : <span class="value">&#123; "<span class="attribute">my-program</span>" : <span class="value"><span class="string">"./path/to/program"</span> </span>&#125; </span>&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="man">man</h3><p>指定一个单一的文件或者一个文件数组供man程序使用。</p>
-<p>如果只提供一个单一的文件，那么它初始化后就是man <pkgname>的结果，而不管实际的文件名是神马，比如：</pkgname></p>
-<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&#123; "<span class="attribute">name</span>" : <span class="value"><span class="string">"foo"</span></span><br><span class="line"></span>, "<span class="attribute">version</span>" : <span class="value"><span class="string">"1.2.3"</span></span><br><span class="line"></span>, "<span class="attribute">description</span>" : <span class="value"><span class="string">"A packaged foo fooer for fooing foos"</span></span><br><span class="line"></span>, "<span class="attribute">main</span>" : <span class="value"><span class="string">"foo.js"</span></span><br><span class="line"></span>, "<span class="attribute">man</span>" : <span class="value"><span class="string">"./man/doc.1"</span></span><br><span class="line"></span>&#125;</span><br></pre></td></tr></table></figure>
-<p>这样man foo就可以用到./man/doc.1文件了。</p>
-<p>如果文件名不是以包名开头，那么它会被冠以前缀，下面的：</p>
-<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&#123; "<span class="attribute">name</span>" : <span class="value"><span class="string">"foo"</span></span><br><span class="line"></span>, "<span class="attribute">version</span>" : <span class="value"><span class="string">"1.2.3"</span></span><br><span class="line"></span>, "<span class="attribute">description</span>" : <span class="value"><span class="string">"A packaged foo fooer for fooing foos"</span></span><br><span class="line"></span>, "<span class="attribute">main</span>" : <span class="value"><span class="string">"foo.js"</span></span><br><span class="line"></span>, "<span class="attribute">man</span>" : <span class="value">[ <span class="string">"./man/foo.1"</span>, <span class="string">"./man/bar.1"</span> ]</span><br><span class="line"></span>&#125;</span><br></pre></td></tr></table></figure>
-<p>会为man foo和man foo-bar创建文件。</p>
-<p>man文件需要以数字结束，然后可选地压缩后以.gz为后缀。The number dictates which man section the file is installed into.</p>
-<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&#123; "<span class="attribute">name</span>" : <span class="value"><span class="string">"foo"</span></span><br><span class="line"></span>, "<span class="attribute">version</span>" : <span class="value"><span class="string">"1.2.3"</span></span><br><span class="line"></span>, "<span class="attribute">description</span>" : <span class="value"><span class="string">"A packaged foo fooer for fooing foos"</span></span><br><span class="line"></span>, "<span class="attribute">main</span>" : <span class="value"><span class="string">"foo.js"</span></span><br><span class="line"></span>, "<span class="attribute">man</span>" : <span class="value">[ <span class="string">"./man/foo.1"</span>, <span class="string">"./man/foo.2"</span> ]</span><br><span class="line"></span>&#125;</span><br></pre></td></tr></table></figure>
-<p>会为man foo和man 2 foo创建。</p>
-<h3 id="directories">directories</h3><p>CommonJS Packages规范说明了几种方式让你可以用directorieshash标示出包得结构。如果看一下npm’s package.json，你会看到有directories标示出doc, lib, and man。</p>
-<p>在未来，这个信息可能会被用到。</p>
-<h3 id="directories-lib">directories.lib</h3><p>告诉屌丝们你的库文件夹在哪里。目前没有什么特别的东西需要用到lib文件夹，但确实是重要的元信息。</p>
-<h3 id="directories-bin">directories.bin</h3><p>如果你指定一个“bin”目录，然后在那个文件夹中得所有文件都会被当做”bin”字段使用。</p>
-<p>如果你已经指定了“bin”字段，那这个就无效。</p>
-<h3 id="directories-man">directories.man</h3><p>一个放满man页面的文件夹。贴心地创建一个“man”字段。<br>A folder that is full of man pages. Sugar to generate a “man” array by<br>walking the folder.</p>
-<h3 id="directories-doc">directories.doc</h3><p>将markdown文件放在这里。最后，这些会被很好地展示出来，也许，某一天。<br>Put markdown files in here. Eventually, these will be displayed nicely,<br>maybe, someday.</p>
-<h3 id="directories-example">directories.example</h3><p>将事例脚本放在这里。某一天，它可能会以聪明的方式展示出来。</p>
-<h3 id="repository">repository</h3><p>指定你的代码存放的地方。这个对希望贡献的人有帮助。如果git仓库在github上，那么npm docs命令能找到你。</p>
-<p>这样做：</p>
-<figure class="highlight 1c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">"repository"</span> :</span><br><span class="line">  &#123; <span class="string">"type"</span> : <span class="string">"git"</span></span><br><span class="line">  , <span class="string">"url"</span> : <span class="string">"http://github.com/isaacs/npm.git"</span></span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
-<figure class="highlight 1c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">"repository"</span> :</span><br><span class="line">  &#123; <span class="string">"type"</span> : <span class="string">"svn"</span></span><br><span class="line">  , <span class="string">"url"</span> : <span class="string">"http://v8.googlecode.com/svn/trunk/"</span></span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
-<p>URL应该是公开的（即便是只读的）能直接被未经过修改的版本控制程序处理的url。不应该是一个html的项目页面。因为它是给计算机看的。</p>
-<p>scripts</p>
-<p>“scripts”是一个由脚本命令组成的hash对象，他们在包不同的生命周期中被执行。key是生命周期事件，value是要运行的命令。</p>
-<p>参见 npm-scripts(7)</p>
-<h3 id="config">config</h3><p>“config” hash可以用来配置用于包脚本中的跨版本参数。在实例中，如果一个包有下面的配置：</p>
-<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&#123; "<span class="attribute">name</span>" : <span class="value"><span class="string">"foo"</span></span><br><span class="line"></span>, "<span class="attribute">config</span>" : <span class="value">&#123; "<span class="attribute">port</span>" : <span class="value"><span class="string">"8080"</span> </span>&#125; </span>&#125;</span><br></pre></td></tr></table></figure>
-<p>然后有一个“start”命令引用了npm_package_config_port环境变量，用户可以通过npm config set foo:port 8001来重写他。</p>
-<p>参见 npm-config(7) 和 npm-scripts(7)。</p>
-<h3 id="dependencies">dependencies</h3><p>依赖是给一组包名指定版本范围的一个hash。这个版本范围是一个由一个或多个空格分隔的字符串。依赖还可以用tarball或者git URL。</p>
-<p>请不要将测试或过渡性的依赖放在dependencieshash中。见下文的devDependencies。</p>
-<p>详见semver(7).</p>
-<ul>
-<li><code>version</code> 必须完全和<code>version</code>一致</li>
-<li><code>&gt;version</code> 必须比version大</li>
-<li><code>&gt;=version</code> 同上</li>
-<li><code>&lt;version</code> 同上</li>
-<li><code>&lt;=version</code> 同上</li>
-<li><code>~version</code> 大约一样，见semver(7)</li>
-<li>1.2.x 1.2.0, 1.2.1, 等，但不包括1.3.0</li>
-<li>http://… 见下文’依赖URL’</li>
-<li><code>*</code> 所有</li>
-<li><code>&quot;&quot;</code> 空，同<code>*</code></li>
-<li>version1 - version2 同 &gt;=version1 &lt;=version2.</li>
-<li>range1 || range2 二选一。</li>
-<li>git… 见下文’依赖Git URL’</li>
-<li>user/repo 见下文’GitHub URLs’<br>比如下面都是合法的：</li>
-</ul>
-<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&#123; "<span class="attribute">dependencies</span>" :</span><br><span class="line">  <span class="value">&#123; "<span class="attribute">foo</span>" : <span class="value"><span class="string">"1.0.0 - 2.9999.9999"</span></span><br><span class="line">  </span>, "<span class="attribute">bar</span>" : <span class="value"><span class="string">"&gt;=1.0.2 &lt;2.1.2"</span></span><br><span class="line">  </span>, "<span class="attribute">baz</span>" : <span class="value"><span class="string">"&gt;1.0.2 &lt;=2.3.4"</span></span><br><span class="line">  </span>, "<span class="attribute">boo</span>" : <span class="value"><span class="string">"2.0.1"</span></span><br><span class="line">  </span>, "<span class="attribute">qux</span>" : <span class="value"><span class="string">"&lt;1.0.0 || &gt;=2.3.1 &lt;2.4.5 || &gt;=2.5.2 &lt;3.0.0"</span></span><br><span class="line">  </span>, "<span class="attribute">asd</span>" : <span class="value"><span class="string">"http://asdf.com/asdf.tar.gz"</span></span><br><span class="line">  </span>, "<span class="attribute">til</span>" : <span class="value"><span class="string">"~1.2"</span></span><br><span class="line">  </span>, "<span class="attribute">elf</span>" : <span class="value"><span class="string">"~1.2.3"</span></span><br><span class="line">  </span>, "<span class="attribute">two</span>" : <span class="value"><span class="string">"2.x"</span></span><br><span class="line">  </span>, "<span class="attribute">thr</span>" : <span class="value"><span class="string">"3.3.x"</span></span><br><span class="line">  </span>&#125;</span><br><span class="line"></span>&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="依赖URL">依赖URL</h3><p>可以指定一个tarball URL，这个tarball将在包被初始化的时候下载并初始化。</p>
-<h3 id="依赖Git_URL">依赖Git URL</h3><p>Git urls 可以是下面几种形式：</p>
-<figure class="highlight puppet"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">git://github.com/<span class="keyword">user</span>/<span class="literal">project</span>.git<span class="comment">#commit-ish</span></span><br><span class="line">git+ssh://<span class="keyword">user</span>@<span class="built_in">hostname</span>:<span class="literal">project</span>.git<span class="comment">#commit-ish</span></span><br><span class="line">git+ssh://<span class="keyword">user</span>@<span class="built_in">hostname</span>/<span class="literal">project</span>.git<span class="comment">#commit-ish</span></span><br><span class="line">git+http://<span class="keyword">user</span>@<span class="built_in">hostname</span>/<span class="literal">project</span>/blah.git<span class="comment">#commit-ish</span></span><br><span class="line">git+https://<span class="keyword">user</span>@<span class="built_in">hostname</span>/<span class="literal">project</span>/blah.git<span class="comment">#commit-ish</span></span><br></pre></td></tr></table></figure>
-<p>commit-ish是可以被git checkout的任何tag、sha或者branch。默认为master。</p>
-<h3 id="GitHub_URLs">GitHub URLs</h3><p>1.1.65版后，你可以仅仅用“user/foo-project”引用GitHub urls，比如：</p>
-<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  "<span class="attribute">name</span>": <span class="value"><span class="string">"foo"</span></span>,</span><br><span class="line">  "<span class="attribute">version</span>": <span class="value"><span class="string">"0.0.0"</span></span>,</span><br><span class="line">  "<span class="attribute">dependencies</span>": <span class="value">&#123;</span><br><span class="line">    "<span class="attribute">express</span>": <span class="value"><span class="string">"visionmedia/express"</span></span><br><span class="line">  </span>&#125;</span><br><span class="line"></span>&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="devDependencies">devDependencies</h3><p>如果有人计划在他们的程序中下载并使用你的模块，那么他们可能不想或者不需要去下载并构建你使用的外部测试或者文档框架。</p>
-<p>在这种情况下，它最好把这些附属的项目列示在devDependencies hash中。</p>
-<p>这些东西会在根目录执行npm link或者npm install的时候初始化，并可以像其他npm配置参数一样管理。详见npm-config(7)。</p>
-<p>对于非特定平台的构建步骤，比如编译CoffeeScript或者其他语言到Javascript，用prepublish脚本去实现并把他放在devDependency中。</p>
-<p>比如：</p>
-<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&#123; "<span class="attribute">name</span>": <span class="value"><span class="string">"ethopia-waza"</span></span>,</span><br><span class="line">  "<span class="attribute">description</span>": <span class="value"><span class="string">"a delightfully fruity coffee varietal"</span></span>,</span><br><span class="line">  "<span class="attribute">version</span>": <span class="value"><span class="string">"1.2.3"</span></span>,</span><br><span class="line">  "<span class="attribute">devDependencies</span>": <span class="value">&#123;</span><br><span class="line">    "<span class="attribute">coffee-script</span>": <span class="value"><span class="string">"~1.6.3"</span></span><br><span class="line">  </span>&#125;</span>,</span><br><span class="line">  "<span class="attribute">scripts</span>": <span class="value">&#123;</span><br><span class="line">    "<span class="attribute">prepublish</span>": <span class="value"><span class="string">"coffee -o lib/ -c src/waza.coffee"</span></span><br><span class="line">  </span>&#125;</span>,</span><br><span class="line">  "<span class="attribute">main</span>": <span class="value"><span class="string">"lib/waza.js"</span></span><br><span class="line"></span>&#125;</span><br></pre></td></tr></table></figure>
-<p>prepublish脚本会在publishing前运行，这样用户就不用自己去require来编译就能使用。并且在开发模式中（比如本地运行npm install）会运行这个脚本以便更好地测试。</p>
-<h3 id="peerDependencies">peerDependencies</h3><p>在一些场景中，如在一个host中不必须进行require时候，你想表现你的package与一个host工具或者库的兼容关键。这一般用来引用插件。尤其是你的模块可能要暴露一个特定的接口，并由host文档来预期和指定。</p>
-<p>比如：</p>
-<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  "<span class="attribute">name</span>": <span class="value"><span class="string">"tea-latte"</span></span>,</span><br><span class="line">  "<span class="attribute">version</span>": <span class="value"><span class="string">"1.3.5"</span></span><br><span class="line">  <span class="string">"peerDependencies"</span>: &#123;</span><br><span class="line">    "<span class="attribute">tea</span>": <span class="value"><span class="string">"2.x"</span></span><br><span class="line">  </span>&#125;</span><br><span class="line"></span>&#125;</span><br></pre></td></tr></table></figure>
-<p>这能保证你的package可以只和tea的2.x版本一起初始化。npm install tea-latte可能会产生下面的依赖关系</p>
-<figure class="highlight avrasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">â”œâ”€â”€ tea-latte<span class="localvars">@1</span>.3.5</span><br><span class="line">â””â”€â”€ tea<span class="localvars">@2</span>.2.0</span><br></pre></td></tr></table></figure>
-<p>试图初始化另一个有会冲突的依赖的插件将导致一个错误。因此，确保你的插件的需求约束越弱越好，而不要去把它锁定到一个特定的版本。</p>
-<p>假设这个host遵守semver规范，只改变这个package的主版本会打破你的插件。因此，如果你在package中用过每个1.x版本，就用”^1.0”或者”1.x”来表示。如果你依赖于功能介绍1.5.2，用”&gt;= 1.5.2 &lt; 2”。</p>
-<h3 id="bundledDependencies">bundledDependencies</h3><p>一组包名，他们会在发布的时候被打包进去。</p>
-<p>拼成”bundleDependencies”（缺d）也可以。</p>
-<h3 id="optionalDependencies">optionalDependencies</h3><p>如果一个依赖可用，但你希望在它安装错误的时候npm也能继续初始化，那么你可以把它放在optionalDependencies hash中。这是一个包名到版本或者url的map，就像dependencies hash一样。只是它运行错误。</p>
-<p>处理缺乏依赖也是你的程序的责任。比如像这样：</p>
-<figure class="highlight coffeescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">try</span> &#123;</span><br><span class="line">  <span class="reserved">var</span> foo = <span class="built_in">require</span>(<span class="string">'foo'</span>)</span><br><span class="line">  <span class="reserved">var</span> fooVersion = <span class="built_in">require</span>(<span class="string">'foo/package.json'</span>).version</span><br><span class="line">&#125; <span class="keyword">catch</span> (er) &#123;</span><br><span class="line">  foo = <span class="literal">null</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">if</span> ( notGoodFooVersion(fooVersion) ) &#123;</span><br><span class="line">  foo = <span class="literal">null</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="regexp">//</span> .. <span class="keyword">then</span> later <span class="keyword">in</span> your program ..</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> (foo) &#123;</span><br><span class="line">  foo.doFooThings()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>optionalDependencies会覆盖dependencies中同名的项，所以通常比只放在一个地方好。</p>
-<h3 id="engines">engines</h3><p>你可以指定工作的node的版本：</p>
-<pre><code>{ "<span class="attribute">engines</span>" : <span class="value">{ "<span class="attribute">node</span>" : <span class="value"><span class="string">"&gt;=0.10.3 &lt;0.12"</span> </span>} </span>}
-</code></pre><p>并且，像dependensies一样，如果你不指定版本或者指定“*”作为版本，那么所有版本的node都可以。</p>
-<p>如果指定一个“engines”字段，那么npm会需要node在里面，如果“engines”被省略，npm会假定它在node上工作。</p>
-<p>你也可以用“engines”字段来指定哪一个npm版本能更好地初始化你的程序，如：</p>
-<pre><code>{ "<span class="attribute">engines</span>" : <span class="value">{ "<span class="attribute">npm</span>" : <span class="value"><span class="string">"~1.0.20"</span> </span>} </span>}
-</code></pre><p>记住，除非用户设置engine-strict标记，这个字段只是建议值。</p>
-<h3 id="engineStrict">engineStrict</h3><p>如果你确定你的模块一定不会运行在你指定版本之外的node或者npm上，你可以在package.json文件中设置”engineStrict”:true。它会重写用户的engine-strict设置。</p>
-<p>除非你非常非常确定，否则不要这样做。如果你的engines hash过度地限制，很可能轻易让自己陷入窘境。慎重地考虑这个选择。如果大家滥用它，它会再以后的npm版本中被删除。</p>
-<h3 id="os">os</h3><p>你可以指定你的模块要运行在哪些操作系统中：</p>
-<pre><code><span class="string">"os"</span> : [ <span class="string">"darwin"</span>, <span class="string">"linux"</span> ]
-</code></pre><p>你也可以用黑名单代替白名单，在名字前面加上“!”就可以了：</p>
-<pre><code><span class="string">"os"</span> : [ <span class="string">"!win32"</span> ]
-</code></pre><p>操作系统用process.platform来探测。</p>
-<p>虽然没有很好地理由，但它是同时支持黑名单和白名单的。</p>
-<h3 id="cpu">cpu</h3><p>如果你的代码只能运行在特定的cpu架构下，你可以指定一个：</p>
-<pre><code><span class="string">"cpu"</span> : [ <span class="string">"x64"</span>, <span class="string">"ia32"</span> ]
-</code></pre><p>就像os选项，你也可以黑一个架构：</p>
-<pre><code><span class="string">"cpu"</span> : [ <span class="string">"!arm"</span>, <span class="string">"!mips"</span> ]
-</code></pre><p>cpu架构用process.arch探测。</p>
-<h3 id="preferGlobal">preferGlobal</h3><p>如果包主要是需要全局安装的命令行程序，就设置它为true来提供一个warning给只在局部安装的人。</p>
-<p>它不会真正的防止用户在局部安装，但如果它没有按预期工作它会帮助防止产生误会。</p>
-<h3 id="private">private</h3><p>如果你设置”private”: true，npm就不会发布它。</p>
-<p>这是一个防止意外发布私有库的方式。如果你要确定给定的包是只发布在特定registry（如内部registry）的，用publishConfighash的描述来重写registry的publish-time配置参数。</p>
-<h3 id="publishConfig">publishConfig</h3><p>这是一个在publish-time使用的配置集合。当你想设置tag或者registry的时候它非常有用，所以你可以确定一个给定的包没有打上“lastest”的tag或者被默认发布到全局的公开registry。</p>
-<p>任何配置都可以被重写，但当然可能只有“tag”和“registry”与发布的意图有关。</p>
-<p>参见npm-config(7)有可以被重写的列表。</p>
-<p>SEE ALSO</p>
-<ul>
-<li>semver(7)</li>
-<li>npm-init(1)</li>
-<li>npm-version(1)</li>
-<li>npm-config(1)</li>
-<li>npm-config(7)</li>
-<li>npm-help(1)</li>
-<li>npm-faq(7)</li>
-<li>npm-install(1)</li>
-<li>npm-publish(1)</li>
-<li>npm-rm(1)</li>
-</ul>
-<p>原文地址：<a href="https://github.com/ericdum/mujiang.info/issues/6" target="_blank" rel="external">https://github.com/ericdum/mujiang.info/issues/6</a></p>
-
+<p>本文档中描述的很多行为都受npm-config(7)的影响。<br>
         
         
         <p class="article-more-link">
+          
+            <a href="/2014/11/06/2014-11-6-npm-packge-json/#more">继续阅读</a>
           
        </p>
     </div>
@@ -545,182 +265,12 @@ $(<span class="string">'.myElement'</span>);
         <p>Copyright © 2001 by Eric S. Raymond</p>
 <p>翻译：Barret</p>
 <p>翻译水平有限，欢迎来信指教，我的Email是barret（a）ynmail.com， 但请勿问电脑技术问题（反正也不懂）。</p>
-<p>允许未经作者及译者的同意进行非商业目的的转载，但必须保持原文的完整性。</p>
-<p>内容一览</p>
-<ul>
-<li>为什么会有这份文档？</li>
-<li>什么是黑客？</li>
-<li>黑客应有的态度</li>
-<li>黑客的基本技能</li>
-<li>黑客文化中的地位</li>
-<li>黑客和书呆子(Nerd)的联系</li>
-<li>风格的意义</li>
-<li>其它资源</li>
-<li>FAQ（常问问题解答）</li>
-</ul>
-<h3 id="为什么会有这份文档？">为什么会有这份文档？</h3><p>作为 Jargon File 的编辑和 一些其他有名的类似性质文章的作者，我经常收到充满热情的网络新手的email提问（确实如此） “我如何才能成为一名出色的黑客？”非常奇怪的是似乎没有任何的FAQ或者Web形式的文档来说明这个 十分重要的问题，因此我写了一份。</p>
-<p>如果你现在读的是这份文档的离线拷贝，那么请注意当前最新版本（英文版）在 <a href="http://www.tuxedo.org/~esr/faqs/hacker-howto.html可以得到。" target="_blank" rel="external">http://www.tuxedo.org/~esr/faqs/hacker-howto.html可以得到。</a></p>
-<p>注意：在这份文档最后有 FAQ（常问问题解答）。 请在向我提出任何关于这份文档的疑问之前读两遍。</p>
-<p>目前这份文档有很多翻译版本： 保加利亚语， 简体中文， 繁体中文， 丹麦语， 荷兰语， 法语， 德语， 匈牙利语， 印尼语， 日语， 朝鲜语， 葡萄牙语， 俄语及 瑞典语。 注意由于这份文档时有修正，所以以上翻译版本可能有不同程度的过时。</p>
-<h3 id="什么是黑客？">什么是黑客？</h3><p>Jargon File 包含了一大堆关于“hacker”这个词的定义，大部分与技术高超和热衷解决问题 及超越极限有关。但如果你只想知道如何 成为 一名黑客， 那么只有两件事情确实相关。</p>
-<p>这可以追溯到几十年前第一台分时小型电脑诞生, ARPAnet 实验也刚展开的 年代，那时有一个由程序设计专家和网络名人所组成的, 具有分享特点的文化社群。 这种文化的成员创造了 “hacker” 这个名词。黑客们建立了 Internet。 黑客们发明出了现在使用的 UNIX 操作系统。黑客们使 Usenet 运作起来， 黑客们让 WWW 运转起来。如果你是这个文化的一部分，如果你对这种文化有所贡献，而且 这个社群的其它成员也认识你并称你为 hacker, 那么你就是一位黑客。</p>
-<p>黑客精神并不仅仅局限在软件的黑客文化中。 有人用黑客态度对待其它事情，如电子学和音乐—— 事实上，你可以在任何最高级别的科学和艺术活动中发现它。 精于软件的黑客赞赏这些在其他领域的同类并把他们也称作黑客—— 有人宣称黑客天性是绝对独立于他们工作的特定领域的。 但在这份文档中， 我们将注意力集中在软件黑客的技术和态度， 以及发明了“黑客”一词的以共享为特征的文化传统之上。</p>
-<p>有一群人大声嚷嚷着自己是黑客，但他们不是。 他们（主要是正值青春的少年）是一些蓄意破坏计算机和电话系统的人。 真正的黑客把这些人叫做“骇客”(cracker)，并不屑与之为伍。 多数真正的黑客认为骇客们又懒又不负责任，还没什么大本事。 专门以破坏别人安全为目的的行为并不能使你成为一名黑客， 正如 用铁丝偷开走汽车并不能使你成为一个汽车工程师。 不幸的是，很多记者和作家往往错把“骇客”当成黑客； 这种做法一直使真正的黑客感到恼火。</p>
-<p>根本的区别是：黑客搞建设，骇客搞破坏。</p>
-<p>如果你想成为一名黑客，请接着读下去。如果你想做一个骇客，去读 alt.2600 新闻组，并在意识到你并不像自己想象的那么聪明后去坐五到十次监狱。 关于骇客，我只想说这么多。</p>
-<h3 id="黑客应有的态度">黑客应有的态度</h3><p>黑客们解决问题，建设事物，同时他们崇尚自由和无私的双向帮助。 要被他人承认是一名黑客，你的行为得体现出你好像具备了这种态度一般。 而要想做得好象你具备这种态度一般，你就得切切实实坚持它。</p>
-<p>但是如果你认为培养黑客态度只是一条在黑客文化圈中得到承认的路子， 那就大错特错了。成为具备这些特质的这种人对 你自己非常重要——有助于你学习，及给你提供源源不断的动力。 同所有创造性的艺术一样，成为大师的最有效方法就是模仿大师的精神—— 不仅从智力上，也要从感情上进行模仿。</p>
-<p>或许, 下面这首现代的禅诗很好的阐述了这个意思：</p>
-<blockquote>
-<p>To follow the path:（沿着这样一条道路：）</p>
-<p>look to the master,（寻找大师，）</p>
-<p>follow the master,（跟随大师，）</p>
-<p>walk with the master,（与大师通行，）</p>
-<p>see through the master,（洞察大师，）</p>
-<p>become the master.（成为大师。）</p>
-</blockquote>
-<p>嗯，如果你想成为一名黑客，反复读下面的事情直至你相信它们：</p>
-<h4 id="1-_世界充满了待解决的迷人问题。">1. 世界充满了待解决的迷人问题。</h4><p>做一名黑客会有很多乐趣，但却是要费很多气力方能得到的乐趣。 这些努力需要动力。成功的运动员从锻炼身体、超越自我极限的愉悦中得到动力。 同样，做黑客，你得能从解决问题，磨练技术及锻炼智力中得到基本的乐趣。</p>
-<p>如果你还不是天生的这类人又想做黑客，你就要设法成为这样的人。 否则你会发现，你的黑客热情会被其他分心的事物吞噬掉——如金钱、性和社会上的虚名。</p>
-<p>（同样你必须对你自己的学习能力建立信心——相信尽管当你对某问题近乎一无所知， 但只要你一点一点地试验、学习，最终会掌握并解决它。）</p>
-<h4 id="2-_一个问题不应该被解决两次。">2. 一个问题不应该被解决两次。</h4><p>聪明的脑袋是宝贵的有限的资源。当世界还充满非常多有待解决的有趣的新问题时， 它们不应该被浪费在重新发明轮子这类事情上。</p>
-<p>作为一名黑客，你必须相信其他黑客的思考时间是宝贵的——因此共享信息， 解决问题并发布结果给其他黑客几乎是一种道义，这样其他人就可以去解决 新问题而不是不断地忙于对付旧问题。</p>
-<p>(你不必认为一定要把你 所有的发明创造公布出去， 但这样做的黑客是赢得大家极度尊敬的人。卖些钱来养家糊口，租房买计算机 甚至发大财和黑客价值观也是相容的，只要你别忘记你还是个黑客。)</p>
-<h4 id="3-_无聊和乏味的工作是罪恶。">3. 无聊和乏味的工作是罪恶。</h4><p>黑客（泛指具有创造力的人们）应该从来不会被愚蠢的重复性劳动所困扰， 因为当这种事情发生时就意味着他们没有在做只有他们才能做的事情—— 解决新问题。这样的浪费伤害每一个人。因此，无聊和乏味的工作不仅仅是 令人不舒服而已，而且是罪恶。</p>
-<p>作为一个黑客，你必须坚信这点并尽可能多地将乏味的工作自动化， 不仅为你自己，也为了其他人（尤其是其他黑客们）。</p>
-<p>(对此有一个明显的例外。黑客有时也做一些在他人看来是重复性或枯燥的工作 以进行“脑力休息”，或是为了获得某种技能，或是获得一些除此以外无法获得的 特别经验。但这是自愿的——有脑子的人不应该被迫做无聊的活儿。）</p>
-<h4 id="4-_自由万岁。">4. 自由万岁。</h4><p>黑客们是天生的反独裁主义者。 任何能向你发命令的人能够迫使你停止解决令你着迷的问题， 同时，按照独裁者的一般思路，他通常会给出一些极端愚昧的理由。 因此，不论何处，任何独裁主义的作法，只要它压迫你和其他黑客，你就要和它斗到底。</p>
-<p>(这并非向所有权威挑战。儿童需要监护，罪犯要被看管起来。 如果服从命令得到某种东西比起用其他方式得到它更节约时间，黑客可以同意 接受某种形式的权威。但这是一个有限度的，有意的交易； 那种权威想要的个人服从不是你应该同意给予的。)</p>
-<p>权威喜欢审查和保密。他们不信任自愿的合作和信息的共享—— 他们只喜欢由他们控制的所谓“合作”。因此，作为一个黑客， 你得对审查、保密，以及使用武力或欺骗去压迫有行为能力的人们的做法有一种本能的敌意。 同时你要有为此信念斗争的意愿。</p>
-<h4 id="5-_态度不能替代能力。">5. 态度不能替代能力。</h4><p>作为一名黑客，你必须培养起这些态度。 但只具备这些态度并不能使你成为一名黑客，也不能使你成为一个运动健将和摇滚明星。 成为一名黑客需要智力，实践，奉献精神和辛苦工作。</p>
-<p>因此，你必须学会怀疑，并尊重各种各样的能力。 黑客们不会为那些装模做样的人浪费时间，但他们却非常尊重能力—— 尤其是从事黑客工作的能力，不过任何能力总归是好的。 具备很少人能具备的那些方面的能力尤其好，其中具备 涉及脑力、技巧和专注方面能力的当然最好。</p>
-<p>尊敬能力，你就会享受到提高自己能力的乐趣—— 辛苦的工作和奉献会变成一种高度娱乐而非苦差事。 要想成为一名黑客，这一点非常重要。</p>
-<h3 id="黑客的基本技能">黑客的基本技能</h3><p>黑客态度重要，但技术更加重要。 态度无法替代技术，在你被别的黑客称为黑客之前，有一些基本的技术你必须掌握。</p>
-<p>这些基本技术随着新技术的出现和老技术的过时也随时间在缓慢改变。 例如，过去内容包括使用机器语言编程，而直到最近才包括了HTML。 总的来说现在主要包括以下技术：</p>
-<h4 id="1-_学习如何编程。">1. 学习如何编程。</h4><p>这当然是最基本的黑客技能。如果你还不会任何编程语言，我建议你从Python开始。 它设计清晰，文档齐全，合适初学者入门。 它是一门很好的入门语言，并且不仅仅只是个玩具； 它非常强大、灵活，也适合做大型项目。 我有一篇 Python评价详细说明这点。好的 教程 可以在Python网站得到。 （译者：比较好的中文Python站点可能是<a href="http://pythonrecord.51.net。）" target="_blank" rel="external">http://pythonrecord.51.net。）</a></p>
-<p>Java也是好的入门语言。它比Python难得多，但是生成的代码速度也快得多。 它同时也是一种优秀的计算机语言，不止是用来入门。</p>
-<p>但是注意，如果你只会一两门语言，你将不会达到黑客所要求的技术水平， 甚至也不能达到一个程序员的水平——你需要学会如何以抽象的方式思考编程问题， 独立于任何语言。要做一名真正的黑客，你需要学会在几天内通过一些手册， 结合你现在所知，迅速掌握一门新语言。这意味着你应该学会几种截然不同的语言。</p>
-<p>如果要做一些重要的编程工作，你将不得不学习C语言，Unix的核心语言。 C++与C非常其他类似；如果你了解其中一种，学习另一种应该不难。 但这两种都不适合编程入门者学习。而且事实上，你越避免用C编程，你的工作效率会越高。</p>
-<p>C非常有效率，节约你的机器资源。不幸的是，C的高效是通过你手动做很多底层的管理 （如内存）来达到的。底层代码都是复杂极易出现bug的，会使你花极多的时间调试。 如今的机器速度如此之快，这通常是得不偿失——比较明智的做法是使用一种运行较慢、较低 效率，但大幅节省你的时间的语言。因此，选择Python。</p>
-<p>其他对黑客而言比较重要的语言包括 Perl和 LISP。 Perl实用，值得一学；它被广泛用于动态网页和系统管理， 因此即便你从不用Perl写程序，至少也应该学会看。许多人使用Perl的理由和 我建议你使用Python的理由一样，都是为了避免用C完成那些不需要C高效率的工作。 你会需要理解那些工作的代码的。</p>
-<p>LISP值得学习的理由不同——最终掌握了它时你会得到丰富的启迪和经验。 这些经验会使你在以后的日子里成为一个更好的程序员，即使你实际上很少使用LISP本身。</p>
-<p>当然，实际上你最好五种都会（Python，Java，C/C++，Perl和LISP）。 除了是最重要的黑客语言外，它们还代表了截然不同的编程思路和方法，每种都会让你受益非浅。</p>
-<p>这里我无法给你完完全全的指导教会你如何编程——这是个复杂的技能。 但我可以告诉你，书本和上课也不能作到（最好的黑客中，有许多，也许 几乎都是自学成材的）。 你可以从书本上学到语言的特点——只是一些皮毛， 但要使书面知识成为自身技能只能通过实践和虚心向他人学习。 因此要作到 （一）读代码及（二）写代码。</p>
-<p>学习如何编程就象学习用优美的自然语言写作一样。 最好的做法是读一些大师的名著，试着自己写点东西，再读些，再写点，再读些，再写点…… 如此往复，直到你的文章达到你体会到的范文的简洁和力量。</p>
-<p>过去找到适合阅读的好的代码是困难的，因为几乎没有大型程序的源代码能让新手练手。 这种状况已经戏剧性地发生变化；开放源代码软件，编程工具和操作系统（全都由黑客写成）现在已经 随处可见。让我们在下一个话题中继续讨论……</p>
-<h4 id="2-_得到一个开放源代码的Unix并学会使用、运行它。">2. 得到一个开放源代码的Unix并学会使用、运行它。</h4><p>我假设你已经拥有或者能使用一台个人电脑（今天的孩子们真幸福 :-) ）。新手们能够朝学习黑客技能迈出的最基本的一步就是得到 一份Linux或BSD-Unix的一种，安装在个人电脑上，并运行它。</p>
-<p>没错，这世界上除了Unix还有其他操作系统。 但它们都是以二进制形式发布的——你无法读到它的源代码，也不可能修改它。 尝试在运行DOS或Windows或MacOS的机器上学习黑客技术，就象是带着脚镣学跳舞。</p>
-<p>除此之外，Unix还是Internet的操作系统。 你可以学会上网却不知道Unix，但你不了解Unix就无法成为一名Internet黑客。 因此，今天的黑客文化在很大程度上是以Unix为中心的。（这点并不总是真的， 一些很早的黑客对此一直很不高兴，但Unix和Internet之间的联系已是如此之强， 甚至连Microsoft也无可奈何。）</p>
-<p>所以, 安装一套UNIX——我个人喜爱LINUX但还有其他种类的 （是的，你可以同时安装Linux及DOS/Windows在同一电脑上)。 学习它，使用它，配置它。用它在Internet上冲浪。阅读它的源代码。修改它的源代码。 你会得到比在Microsoft操作系统上更好的编程工具（包括C，LISP，Python及Perl）。 你会觉得乐趣无穷，学到在你成为大师之前意识不到的更多的知识。</p>
-<p>想知道更多关于学习Unix的信息，访问 The Loginataka。</p>
-<p>想知道如何得到一份Linux，访问 我在哪里可以获得Linux。 （译者：对于中文读者来讲，最简单的方式未过于前往附近的D版/正版光盘店。）</p>
-<p>你可以在 www.bsd.org找到BSD Unix的求助及其他资源。</p>
-<p>我有写一篇关于 Unix和Internet基础的入门文章。</p>
-<p>（注：如果你是一个新手，我不推荐自己独立安装Linux或者BSD。 安装Linux的话，寻求本地Linux用户组的帮助；或联系 Open Projects Network。 LISC维护着一些 IRC频道， 在那里你可以获得帮助。）</p>
-<h4 id="3-_学会如何使用WWW和写HTML">3. 学会如何使用WWW和写HTML</h4><p>黑客文化建造的大多东西都在你看不见的地方发挥着作用，帮助工厂、办公室和大学正常运转， 表面上很难看到它对非黑客的普通人的生活的影响。Web是一个大大的例外。 即便政客也同意，这个巨大耀眼的黑客玩具正在改变整个世界。 单是这个原因（还有许多其它的），你就需要学习掌握Web。</p>
-<p>这并不是仅仅意味着如何使用浏览器（谁都会），而是要学会如何写HTML， Web的标记语言。如果你不会编程，写HTML会教你一些有助于学习的思考习惯。 因此，先完成一个主页。（网上有很多好的教程； 这是一个。)</p>
-<p>但仅仅拥有一个主页不能使你成为一名黑客。 Web里充满了各种网页。大多数是毫无意义的，零信息量垃圾——界面时髦的垃圾， 注意，垃圾的水准都类似（更多信息访问 The HTML Hell Page）。</p>
-<p>要想有价值，你的网页必须有内容—— 它必须有趣或对其它黑客有帮助。这是下一个话题所涉及的……</p>
-<h4 id="4-_如果你不懂实用性的英语，学习吧。">4. 如果你不懂实用性的英语，学习吧。</h4><p>作为一个美国人和一个以英语为母语的人，我以前很不情愿提到这点，免得成为 一种文化上的帝国主义。但相当多以其他语言为母语的人一直劝我指出这一点，那就是 英语是黑客文化和Internet的工作语言，你需要懂得以便在黑客社区顺利工作。</p>
-<p>这一点千真万确。大概1991年的时候我就了解到许多黑客在技术讨论中使用英语，甚至当他们的母语都 相同，英语对他们而言只是第二语言的时候；据我知道的报导，当前英语有着比其他语言丰富得多的技术词汇， 因此是一个对于工作来说相当好的工具。 基于类似的原因，英文技术书籍的翻译通常不令人满意（如果有翻译的话）。</p>
-<p>Linus Torvalds，一个芬兰人，用英语注释他的代码（很明显这对他来说不是凑巧）。 他流利的英语成为他能够管理全球范围的Linux开发人员社区的重要因素。 这是一个值得学习的例子。</p>
-<h3 id="黑客文化中的地位">黑客文化中的地位</h3><p>象大部分不涉及金钱的文化一样，黑客王国靠声誉运转。 你设法解决有趣的问题，但它们到底多有趣，你的解法有多好， 是要由那些和你具有同样技术水平的人或比你更厉害的人去评判的。</p>
-<p>相应地，当你在玩黑客游戏时，你得认识到你的分数主要靠其他黑客对你的技术的评价给出 （这就是为什么只有在其它黑客称你为黑客时，你才算得上是一名黑客）。 这个事实常会被黑客是一项孤独的工作这一印象所减弱；也会被另一个黑客文化的禁忌所减弱 （现在逐渐减弱但仍强大）：拒绝承认自我或外部评估与一个人的动力有关系。</p>
-<p>特别地，黑客王国被人类学家们称为一种奉献文化。 在这里你不是凭借你对别人的统治来建立地位和名望，也不是靠美貌，或拥有其他人想要的东西， 而是靠你的奉献。尤其是奉献你的时间，你的创造和你的技术成果。</p>
-<p>要获得其他黑客的尊敬，基本上有五种事情你可以干：</p>
-<h4 id="1-_写开放源代码软件">1. 写开放源代码软件</h4><p>第一个（也是最集中的和传统的）是写些被其他黑客认为有趣或有用的程序， 并把程序源代码提供给整个黑客文化使用。</p>
-<p>（过去我们称之为“free software （自由软件）”， 但这却使很多不知 free 的精确含义的人感到困惑。 现在我们很多人，根据搜索引擎网页内容分析至少有2：1的比率，使用“ open-source”software（开放源代码软件）这个词）。</p>
-<p>黑客王国里最受尊敬的偶像是那些写了大型的、好用的、具有广泛用途的软件， 并把它们公布出去，使得每人都在使用他软件的人。</p>
-<h4 id="2-_帮助测试并调试开放源代码软件">2. 帮助测试并调试开放源代码软件</h4><p>黑客也尊敬那些使用、测试开放源代码软件的人。 在这个并非完美的世界上，我们不可避免地要花大多数的开发时间在调试阶段。 这就是为什么任何有头脑的开放源代码的作者都会告诉你好的beta测试员 （知道如何清楚描述出错症状，很好地定位错误，能忍受快速发布中的bug， 并且愿意使用一些简单的诊断工具）象红宝石一样珍贵。 甚至他们中的一个能判断出哪个测试阶段是延长的， 哪个是令人精疲力尽的噩梦，哪个只是一个有益的小麻烦。</p>
-<p>如果你是个新手，试着找一个你感兴趣的正在开发的程序，做一个好的beta测试员。 你会自然地从帮着测试，进步到帮着抓臭虫，到最后帮着改程序。 你会从中学到很多，并且与未来会帮你的人结下友谊。</p>
-<h4 id="3-_公布有用的信息">3. 公布有用的信息</h4><p>另一个好事是收集整理有用有趣的信息做成网页或文档如FAQ列表，且让他们容易获得。</p>
-<p>主要技术FAQ的维护者受到几乎同其他开放源代码的作者一样多的尊敬。</p>
-<h4 id="4-_帮助维护基础设施的运转">4. 帮助维护基础设施的运转</h4><p>黑客文化（还有Internet的工程方面的发展，就此而言）是靠自愿者运转的。 要使Internet能正常工作，就要有大量枯燥的工作不得不去完成——管理mail list，新闻组，维护大型软件库，开发RFC和其它技术标准等等。</p>
-<p>做这类事情的人会得到很多尊敬，因为每人都知道这些事情是十分花时间又不象编程那样好玩。 做这些事情需要奉献精神。</p>
-<h4 id="5-_为黑客文化本身服务">5. 为黑客文化本身服务</h4><p>最后，你可以为这个文化本身做宣传（例如，象我这样，写一个“如何成为黑客”的正面的教程 :-) ） （译者：不知道Barret把它翻成中文算不算？）。 这并非一定要在你已经在这个圈子呆了很久，因以上四点中的某点而出名，有一定声誉后才能去做。</p>
-<p>黑客文化没有领袖。精确地说，它确实有些文化英雄、部落长者、历史学家和发言人。 若你在这圈内呆的够长，你或许成为其中之一。 记住：黑客们不相信他们的部落长者的自夸的炫耀， 因此大举追求这种名誉是危险的。与其奋力追求，不如先摆正自己的位置 等它自己到你的手中——那时则要做到谦虚和优雅。</p>
-<h3 id="黑客和书呆子(Nerd)的联系">黑客和书呆子(Nerd)的联系</h3><p>同流行的迷思相反，做一名黑客并不一定要你是个书呆子。 但它确实有帮助，而且许多黑客事实上是书呆子。 做一个深居简出的人有助于你集中精力进行十分重要的事情，如思考和编程。</p>
-<p>因此，很多黑客都愿意接受“书呆子”这个外号， 更有甚者使用更尖刻的“geek（怪人）”一词并引以为豪—— 这是一种宣布他们独立于主流社会的声明方式。访问 The Geek Page 参加更多的讨论。</p>
-<p>如果你能集中足够的精力做好黑客工作同时还能有正常的生活，这很好。 现在作到这一点比我在1970年代是新手的时候要容易的多； 如今主流文化对技术怪人要友善的多。 甚至有越来越多的人意识到黑客通常是很好的恋人和配偶的材料。</p>
-<p>如果你因为生活上不如意而迷上做黑客，那也没什么——至少你不会分神了。 或许以后你会找到自己的另一半。</p>
-<h3 id="风格的意义">风格的意义</h3><p>重申一下，作为一名黑客，你必须进入黑客精神之中。 当你不在计算机边上时，你仍然有很多对黑客工作有帮助的事情可做。 它们并不能替代真正的编程（没有什么能），但很多黑客都那么做， 并感到它们与黑客的本质存在某些基本的连系。</p>
-<p>学会流畅地用母语写作。尽管程序员不能写好文章的错误看法相当普遍， 但是有令人惊讶数目的黑客（包括所有我知道的最棒的）都是不错的作家。</p>
-<p>阅读科幻小说。参加科幻小说讨论会。（一个碰到黑客和未来会成为黑客的人的好方法）</p>
-<p>学禅，并且/或者练功习武。（精神修炼看来是惊人相似。）</p>
-<p>练就能分析音乐的听觉，学会鉴赏特别的音乐。学会玩某种乐器，或唱歌。</p>
-<p>提高对双关语、文字游戏的鉴赏能力。</p>
-<p>这些事情，你已经做的越多，你就越是天生做黑客的材料。 至于为什么偏偏是这些事情，原因并不完全清楚， 但它们都涉及用到左－右脑能力的综合，这似乎是关键所在 （黑客们既需要清晰的逻辑思维，有时又需要偏离逻辑跳出问题的表象）。</p>
-<p>最后，还有一些不要去做的事情。</p>
-<p>不要使用愚蠢的，哗众取宠的ID或昵称。</p>
-<p>不要卷入Usenet（或其他地方的论坛）的骂战。</p>
-<p>不要自称为“cyberpunk（网络叛客）”，也不要浪费时间和那些人打交道。</p>
-<p>不要让你寄出的Email或张贴的帖子充满错误的拼写和乱七八糟的语法。</p>
-<p>做以上的事情，只会招来嘲笑。黑客们个个记忆超群—— 你将需要数年的时间让他们忘记你犯下的错误。</p>
-<p>网名的问题值得深思。将身份隐藏在虚假的名字后是骇客、解密者、d00dz 及其他低等生物幼稚愚蠢的行为特点。黑客不会做这些事； 他们对他们所作的感到骄傲，而且乐于人们将作品与他们的 真名相联系。 因此, 若你现在用假名，放弃它。在黑客文化里它会令你你失败的。</p>
-<h3 id="其它资源">其它资源</h3><p>Peter Seebach 维护着一个非常好的 <a href="http://www.plethora.net/~seebs/faqs/hacker.html" target="_blank" rel="external"> Hacker FAQ</a>， 专给那些不懂如何与黑客打交道的经理看的。如果Peter的站点不能访问，下面这个 Excite搜索应该有一份拷贝。</p>
-<p>我也著有 <a href="http://www.kerneltravel.net/~esr/writings/hacker-history/hacker-history.html" target="_blank" rel="external">黑客文化简史</a>。</p>
-<p>我写了一份 <a href="http://www.kerneltravel.net/writings/cathedral-bazaar/index.html" target="_blank" rel="external">大教堂与市集</a>，对于Linux及开放源代码文化现象有详细的解释。 我也在这个话题上进一步阐述导致的结局—— 开拓智域。</p>
-<p>Rick Moen写了一份很好的关于 <a href="http://linuxmafia.com/~rick/essays/newlug.html" target="_blank" rel="external">如何运转一个Linux用户组</a>的文档。</p>
-<p>我和Rick Moen合作完成了另一份关于 <a href="http://www.tuxedo.org/~esr/faqs/smart-questions.html" target="_blank" rel="external">提问的智慧</a>的文章，可以让你事半功倍的获得帮助。</p>
-<p>如果你想知道PC、UNIX及Internet基本概念和工作原理，参考 <a href="http://linuxdoc.org/HOWTO/Unix-and-Internet-Fundamentals-HOWTO/" target="_blank" rel="external">The Unix and Internet Fundamentals HOWTO</a>。</p>
-<p>当你释放出一个软件或为其打补丁，试着按 <a href="http://linuxdoc.org/HOWTO/Software-Release-Practice-HOWTO/index.html" target="_blank" rel="external">软件发行惯例</a> HOWTO去做。 （以上的提到的文章的中文版大多都可以在www.aka.org.cn和www.linuxforum.net找到。）</p>
-<h3 id="FAQ（常问问题解答）">FAQ（常问问题解答）</h3><ul>
-<li>问：你能教我做黑客吗？</li>
-<li>问：那么，我要如何开始？</li>
-<li>问：我得什么时候开始学？现在会不会太迟了？</li>
-<li>问：要学多久才能学会黑客道？</li>
-<li>问：Visual Basic及Delphi是好的入门语言吗？</li>
-<li>问：你能帮我“黑”掉一个站点吗？或者教我怎么黑它？</li>
-<li>问：我怎么样才能得到别人帐号的密码？</li>
-<li>问：我如何入侵/查看/监视别人的Email？</li>
-<li>问：我如何才能在IRC聊天室里偷到频道op的特权？</li>
-<li>问：我被黑了。你能帮我避免以后再被攻击吗？</li>
-<li>问：我的Windows软件出现问题了。你能帮我吗？</li>
-<li>问：我在哪里能找到可以与之交流的真正的黑客？</li>
-<li>问：你能推荐一些有关黑客的好书吗？</li>
-<li>问：成为一名黑客我需要擅长数学吗？</li>
-<li>问：我该从那种语言学起？</li>
-<li>问：我需要什么样的机器配置？</li>
-<li>问：我得因此憎恨和反对Microsoft吗？</li>
-<li>问：但开放源代码软件不会使程序员丢饭碗吗？</li>
-<li>问：我要如何开始？哪里有免费的Unix？</li>
-</ul>
-<h4 id="问：你能教我做黑客吗？">问：你能教我做黑客吗？</h4><p>答：自从第一次发布这份文档，我每周都会收到一些请求， （频繁的话一天几封）要我“教会他们做黑客”。遗憾的是，我 没有时间和精力来做这个；我自己的黑客项目，及我作为一个开放源代码倡导者 的四处奔波已经占用了我110%的时间。</p>
-<p>即便我想教你，黑客也依然基本上是一项自行修炼的的态度和技术。 当真正的黑客想帮助你的时候，如果你乞求他们一汤匙一汤匙“喂”你的话， 你会发现他们不会尊重你。</p>
-<p>先去学一些东西。显示你在尝试，你能靠自己去学习。然后再去向你遇到的黑客请教特殊的问题。</p>
-<p>如果你发E-mail给一位黑客寻求他的帮助，这是两件首要记住的事情。 第一，写出来的文字显得懒且粗心的人通常非常懒于思考且非常马大哈，不能成为好黑客—— 因此注意拼写正确，使用正确的语法及发音，否则你可能会无人理睬。 第二，不要试图要求回复到一个ISP帐号，而那个帐号与你 的发信地址不同。这样做的人一般是使用盗用帐号，不会有人有兴趣为虎作伥帮助窃贼的。</p>
-<h4 id="问：那么，我要如何开始？">问：那么，我要如何开始？</h4><p>答：对你而言最佳的入门方式也许是去参加LUG（Linux用户组）的聚会。 你可以找到在 LDP的综合Linux信息页面上找到类似的组织；也许有一个在你家附近的， 而且非常有可能与一所大学或学校挂钩。如果你提出要求，LUG成员兴许会给你一套Linux， 当然此后会帮你安装并带你入门。</p>
-<h4 id="问：我得什么时候开始学？现在会不会太迟了？">问：我得什么时候开始学？现在会不会太迟了？</h4><p>答：你有动力学习的时候就是好时候。大多数人看来都是在15－20岁之间开始感兴趣的，但 据我所知，在此年龄段之外的例外也是有的。</p>
-<h4 id="问：要学多久才能学会黑客道？">问：要学多久才能学会黑客道？</h4><p>答：这取决于你的聪明程度和努力程度。大多数人只要他们专注， 就能在18个月到2年之间学会一套令人尊敬的技能。但是，不要以为就此结束了； 如果你是一个真正的黑客，你要用你的余生来学习和完善你的技术。</p>
-<h4 id="问：Visual_Basic及Delphi是好的入门语言吗？">问：Visual Basic及Delphi是好的入门语言吗？</h4><p>答：不，因为他们不是可移植的。他们不是那些语言的开放源代码实现， 所以你被限制在厂商选择支持的那些平台里。接受这样一种垄断局面不是黑客的态度。</p>
-<p>Visual Basic特别糟糕。它是Microsoft的私有语言这个事实就足够让它脸面全无， 不像其他的Basic，它是一种设计糟糕的语言会教给你坏的编程习惯。</p>
-<p>其中一个坏习惯是会依赖于单一厂商的函数库、控件及开发工具。 一般而言，任何不能够支持至少Linux或者一种BSD，或其他第三方操作系统的语言，都是 一种不适合应付黑客工作的语言。</p>
-<h4 id="问：你能帮我“黑”掉一个站点吗？或者教我怎么黑它？">问：你能帮我“黑”掉一个站点吗？或者教我怎么黑它？</h4><p>答：No。任何读完这份FAQ后还问这个问题的人，都是无可救药的蠢材， 即使有时间指教我也不会理睬。任何发给我的此类E-mail都会被忽略或被痛骂一顿。</p>
-<h4 id="问：我怎么样才能得到别人帐号的密码？">问：我怎么样才能得到别人帐号的密码？</h4><p>答：这是骇客行为。滚得远远的，白痴。</p>
-<h4 id="问：我如何入侵/查看/监视别人的Email？">问：我如何入侵/查看/监视别人的Email？</h4><p>答：这是骇客行为。在我面前消失，混蛋。</p>
-<h4 id="问：我如何才能在IRC聊天室里偷到频道op的特权？">问：我如何才能在IRC聊天室里偷到频道op的特权？</h4><p>答：这是骇客行为。去S吧，冥顽不灵的家伙。</p>
-<h4 id="问：我被黑了。你能帮我避免以后再被攻击吗？">问：我被黑了。你能帮我避免以后再被攻击吗？</h4><p>答：不行。目前为止，每次问我这个问题的，都是一些运行Microsoft Windows的菜鸟。 不可能有效的保护Windows系统免受骇客攻击；太多缺陷的代码和架构使保护Windows的努力有如 隔靴搔痒。唯一可靠的预防来自转移到Linux或其他设计得至少足够安全的系统。</p>
-<h4 id="问：我的Windows软件出现问题了。你能帮我吗？">问：我的Windows软件出现问题了。你能帮我吗？</h4><p>答：当然。进入DOS方式，然后键入“format c:”。你遇到的任何问题将会在几分钟之内消失。</p>
-<h4 id="问：我在哪里能找到可以与之交流的真正的黑客？">问：我在哪里能找到可以与之交流的真正的黑客？</h4><p>答：最佳办法是在你附近找一个Unix或Linux的用户组，参加他们的聚会。 （你可以在Metalab的LDP站点 找到一些指向用户组的链接。）</p>
-<p>我过去曾说过不能在IRC上找到真正的黑客，但我发觉现在情况有所改变。 显然一些真正的黑客的社区像GIMP及Perl，也有IRC频道了。）</p>
-<h4 id="问：你能推荐一些有关黑客的好书吗？">问：你能推荐一些有关黑客的好书吗？</h4><p>答：我维护着一份Linux Reading List HOWTO，也许你会觉得有用。 Loginataka也很有意思。</p>
-<p>关于Python的介绍，请访问在Python站点上的 入门资料。</p>
-<h4 id="问：成为一名黑客我需要擅长数学吗？">问：成为一名黑客我需要擅长数学吗？</h4><p>答：不用。黑客道很少使用常规的数学或算术，不过你绝对需要能逻辑性地思考和进行精密的推理。</p>
-<p>尤其是你不会用到微积分或电路分析（我们把这些留给电子工程师们 :-)）。 一些有限数学（包括布尔代数，集合论，组合数学，图论）的背景知识会有帮助。</p>
-<h4 id="问：我该从那种语言学起？">问：我该从那种语言学起？</h4><p>答：HTML——如果你还不懂的话。市面上有一大堆的封面精美，宣传得天花乱坠的 糟糕的 HTML书籍，不幸的是很少有好的。我最喜欢的是 HTML: The Definitive Guide。</p>
-<p>但 HTML 不完全是一种编程语言。当你准备开始编程时，我推荐从 Python起步。 你会听到一大群人推荐 Perl，并且 Perl 依然比 Python 流行得多，但是 难学得多且（以我之见）设计得不是很好。</p>
-<p>C 确实重要，但它要比 Python 或 Perl 难多了。不要尝试先学 C。</p>
-<p>Windows用户不要满足于 Visual Basic。 它会教给你坏习惯，而且它不可以移植，只能在Windows下运行。避免它。</p>
-<h4 id="问：我需要什么样的机器配置？">问：我需要什么样的机器配置？</h4><p>答：过去个人电脑能力相当不够并且内存小，结果给黑客的学习过程设置 了人为的障碍。不过一段时间以前开始就不是这样了；任何配置比一台 Intel 486DX50 好的 机器都有足够的能力进行开发工作，X，及 Internet 通讯，同时你现在买的最小的磁盘 都大得富足了。（依Barret之见，现在要至少Pentium 166MMX才够。）</p>
-<p>选择用来学习的机器时重要的一点是注意配件是否是Linux兼容的（或BSD兼容，如果你选择学 BSD）。同刚才提到的一样，大多数现在的机器都是符合的；唯一的值得注意的区域在于 modem和打印机；有些具备为Windows设计的配件的机器不会在Linux下工作。</p>
-<p>关于硬件兼容性有一个FAQ；最新版本在 这里。</p>
-<h4 id="问：我得因此憎恨和反对Microsoft吗？">问：我得因此憎恨和反对Microsoft吗？</h4><p>答：不，你不必如此。不是因为Microsoft不令人讨厌，而是因为黑客文化早在 Microsoft出现之前就存在了，且将在Microsoft成为历史后依然存在。 你耗费在憎恨Microsoft的任何力气不如花在爱你的技术上。写好的代码—— 那会相当有效地打击Microsoft又不会让你得到恶报应。</p>
-<h4 id="问：但开放源代码软件不会使程序员丢饭碗吗？">问：但开放源代码软件不会使程序员丢饭碗吗？</h4><p>答：看起来不太可能——目前为止，开放源代码软件产业似乎创造了更多的就业机会而不是 减少就业机会。如果写一个程序比起不写来是纯经济收益的话，那么在写完后， 程序员应该得到报酬不管程序是否是开放源代码。 并且，无论写出多么“免费自由”的软件，都存在更多对新的，定制的软件的需求。 我有这方面更多的论述，放在开放源代码 网站资料中。</p>
-<h4 id="问：我要如何开始？哪里有免费的Unix？">问：我要如何开始？哪里有免费的Unix？</h4><p>答：在本份文档的某个地方我已经提到过何处可以得到最常用的免费Unix。 要做一名黑客，你需要自立自强，以及自学能力。现在开始吧……</p>
-
+<p>允许未经作者及译者的同意进行非商业目的的转载，但必须保持原文的完整性。<br>
         
         
         <p class="article-more-link">
+          
+            <a href="/2014/10/25/2014-10-25-hack/#more">继续阅读</a>
           
        </p>
     </div>
@@ -778,196 +328,12 @@ $(<span class="string">'.myElement'</span>);
 <li>闭包的优点</li>
 <li>函数表达式与代码模块化模型</li>
 <li>运用闭包在循环内找到当前索引值</li>
-<li>闭包引发的内存泄露问题及解决方案</li>
-</ul>
-<p>1:闭包特点：函数嵌套函数，内部函数可以应用外部函数的参数和质量。</p>
-<p>函数嵌套</p>
-<pre><code><span class="function"><span class="keyword">function</span> <span class="title">aaa</span><span class="params">()</span> </span>{
-    <span class="function"><span class="keyword">function</span> <span class="title">bbb</span><span class="params">()</span> </span>{
-
-    }
-}
-</code></pre><p>内部函数可以应用外部函数的参数和变量</p>
-<pre><code><span class="function"><span class="keyword">function</span> <span class="title">aaa</span><span class="params">()</span> {</span>
-    var b = <span class="number">5</span>;
-    <span class="function"><span class="keyword">function</span> <span class="title">bbb</span><span class="params">()</span> {</span>
-    alert<span class="params">(a)</span>;
-    alert<span class="params">(b)</span>;
-    }
-}
-</code></pre><p>变量和参数不会被垃圾回收机制回收。<br>比如： </p>
-<pre><code><span class="function"><span class="keyword">function</span> <span class="title">aaa</span><span class="params">()</span> </span>{
-
-    <span class="keyword">var</span> a = <span class="number">1</span>;
-}
-aaa()
-</code></pre><p>上面函数 aaa() 执行完后，变量a 就会被垃圾回收机制回收。(主要在js中为了节省内存设计的)</p>
-<p>但是如果是上面那个闭包函数那样：</p>
-<pre><code><span class="function"><span class="keyword">function</span> <span class="title">aaa</span><span class="params">()</span> {</span>
-    var b = <span class="number">5</span>;
-    <span class="function"><span class="keyword">function</span> <span class="title">bbb</span><span class="params">()</span> {</span>
-    alert<span class="params">(a)</span>;
-    alert<span class="params">(b)</span>;
-    }
-}
-aaa<span class="params">()</span>;
-</code></pre><p>这个闭包函数里 aaa() 执行完之后变量 b 不会被垃圾回收机制收回，因为内部的函数还在继续引用它们。</p>
-<p>再看：</p>
-<pre><code><span class="function"><span class="keyword">function</span> <span class="title">aaa</span><span class="params">()</span> </span>{
-    <span class="keyword">var</span> a =<span class="number">5</span>;
-    <span class="function"><span class="keyword">function</span> <span class="title">bbb</span><span class="params">()</span> </span>{
-    alert(a);
-
-    }<span class="keyword">return</span> bbb;
-}
-<span class="keyword">var</span> c =aaa();<span class="comment">//此时aaa()已经执行</span>
-c();<span class="comment">// 这里实际执行的是bbb()</span>
-</code></pre><p><strong>闭包有啥好处。
-</strong></p>
-<ul>
-<li>1.希望一个变量长期驻扎在内存中;(上面已经讲了)</li>
-<li>2.可以避免全局变量的污染。</li>
-<li>3.私有成员的存在。</li>
-</ul>
-<p><strong>用到的场景:</strong></p>
-<ul>
-<li>1.模块化代码</li>
-<li>2.在循环中直接找到对应元素的索引</li>
-</ul>
-<p>看个例子：</p>
-<pre><code><span class="keyword">var</span> a = <span class="number">1</span>;
-<span class="function"><span class="keyword">function</span> <span class="title">aaa</span><span class="params">()</span> <span class="comment">{
-    a++;
-    alert(a);
-}</span>
-<span class="title">aaa</span><span class="params">()</span>;</span> <span class="comment">//2</span>
-aaa(); <span class="comment">//3</span>
-alert(a); <span class="comment">//1 ，因为a 是全局变量</span>
-</code></pre><p>把a设为局部变量试试</p>
-<pre><code><span class="function"><span class="keyword">function</span> <span class="title">aaa</span><span class="params">()</span> <span class="comment">{
-    var a = 1;
-    a++;
-    alert(a);
-}</span>
-<span class="title">aaa</span><span class="params">()</span>;</span><span class="comment">//执行函数 ，弹出2</span>
-aaa();<span class="comment">//再次执行还是弹出2，a并没有累加，因为a执行完之后就被垃圾回收了</span>
-</code></pre><p>怎么才能把a 设为局部变量，又能将a累加呢，这就可以利用闭包了，看例子：</p>
-<pre><code><span class="function"><span class="keyword">function</span> <span class="title">aaa</span><span class="params">()</span> {</span>
-    var a = <span class="number">1</span>;
-    return <span class="function"><span class="keyword">function</span><span class="params">()</span> {</span>
-    a++;
-    alert<span class="params">(a)</span>;
-    }
-}
-var b = aaa<span class="params">()</span>;
-b<span class="params">()</span>; <span class="comment">//2</span>
-b<span class="params">()</span>; <span class="comment">//3</span>
-alert<span class="params">(a)</span>; <span class="comment">//这里会报错，因为这里a已经是局部变量，外部调用不到了。</span>
-</code></pre><p><strong>函数声明改成函数表达式：</strong></p>
-<pre><code><span class="function"><span class="keyword">function</span> <span class="title">aaa</span><span class="params">()</span> {</span>
-    alert<span class="params">(<span class="number">1</span>)</span>
-}
-aaa<span class="params">()</span>;
-</code></pre><p>上面就是一个简单的函数声明，可以改写成函数表达式的格式</p>
-<pre><code><span class="list">(<span class="keyword">function</span> aaa<span class="list">()</span> <span class="collection">{
-    alert<span class="list">(<span class="number">1</span>)</span>
-}</span>)</span><span class="list">()</span>
-</code></pre><p>这个函数弹出的也是1.<br>后面这个括号就是立即调用运行的意思，因为调用的就是前面括号里的函数，所以前面函数也可以改写为：</p>
-<pre><code><span class="list">(<span class="keyword">function</span> <span class="list">()</span> <span class="collection">{
-    alert<span class="list">(<span class="number">1</span>)</span>
-}</span>)</span><span class="list">()</span>
-</code></pre><p>我们用表达式再重写下前面那个函数：</p>
-<pre><code><span class="keyword">var</span> aaa = (<span class="function"><span class="keyword">function</span> <span class="title">aaa</span><span class="params">()</span> </span>{
-    <span class="keyword">var</span> a = <span class="number">1</span>;
-    <span class="keyword">return</span> <span class="function"><span class="keyword">function</span><span class="params">()</span> </span>{
-    a++;
-    alert(a);
-    }
-})();
-aaa(); <span class="comment">//2</span>
-aaa(); <span class="comment">//3</span>
-</code></pre><p>这其实就是js里的一种模块化代码写法</p>
-<p>上面提到可以有私有成员的存在，我们这里可以用闭包把函数私有化，也是js模块化可用到的场景实例:</p>
-<pre><code><span class="keyword">var</span> aaa = (<span class="function"><span class="keyword">function</span> <span class="params">()</span> </span>{
-    vara = <span class="number">1</span>;
-    <span class="function"><span class="keyword">function</span> <span class="title">bbb</span><span class="params">()</span> </span>{
-    a++;
-    alert(a);
-    }
-    <span class="function"><span class="keyword">function</span> <span class="title">ccc</span><span class="params">()</span> </span>{
-    a++;
-    alert(a);
-    }
-    <span class="keyword">return</span> {
-    <span class="comment">// 返回json 格式</span>
-    b : bbb,
-    c : ccc
-    }
-})
-aaa.b();<span class="comment">//2;</span>
-aaa.c();<span class="comment">//3</span>
-alert(a); <span class="comment">//报错</span>
-alert(bbb);<span class="comment">//报错</span>
-alert(ccc);<span class="comment">//报错</span>
-</code></pre><p>再看循环在闭包里的应用：</p>
-<p>js:</p>
-<pre><code><span class="built_in">window</span>.onload = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>{
-    <span class="built_in">document</span>.getElementByTagName(<span class="string">'li'</span>);
-    <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>;i&lt;aLi.length;i++) {
-        aLi[i].onclick = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>{
-        alert(i);
-    }
-    }
-}
-</code></pre><p>html:    </p>
-<pre><code><span class="tag">&lt;ul&gt;</span>
-    <span class="tag">&lt;li&gt;</span><span class="tag">&lt;/li&gt;</span>
-    <span class="tag">&lt;li&gt;</span><span class="tag">&lt;/li&gt;</span>
-    <span class="tag">&lt;li&gt;</span><span class="tag">&lt;/li&gt;</span>
-<span class="tag">&lt;/ul&gt;</span>
-</code></pre><p><strong>闭包需要注意的地方：</strong></p>
-<p>1.ie下会引发内存的泄露(这里内存泄露大概意思就是指当页面跳转的时候这个变量不会释放，一直存在内存中，最后会导致电脑CPU增高，只有当浏览器关闭的时候才会释放。)</p>
-<p>看个例子:</p>
-<p>js:</p>
-<pre><code><span class="built_in">window</span>.onload = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>{
-    <span class="keyword">var</span> oDiv = <span class="built_in">document</span>.getElementById(<span class="string">'div1'</span>);
-    <span class="comment">//添加点击事件</span>
-    oDiv.onclick = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>{
-    alert(oDiv.id);
-    };
-
-}
-</code></pre><p>html:</p>
-<pre><code>&lt;<span class="keyword">div</span> <span class="property">id</span>=<span class="string">"div1"</span>&gt;aaaaaa&lt;/<span class="keyword">div</span>&gt;
-</code></pre><p>首先我们看下IE什么情况下会导致内存泄露，如上所示：</p>
-<p>就是当一个变量(是获取到的dom节点或一个对象数组)的属性(上面就是onclick)去引用一个内部函数，而这个内部函数的对象又去引用外部的那个变量，这时候就会导致ie内存泄露。</p>
-<p><strong>那么如何解决这个问题呢？</strong></p>
-<p>我们可以改善上面那个js代码:</p>
-<pre><code><span class="built_in">window</span>.onload = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>{
-    <span class="keyword">var</span> oDiv = <span class="built_in">document</span>.getElementById(<span class="string">"div1"</span>);
-    oDiv.onclick = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>{
-    alert(oDiv.id);
-    };
-    <span class="comment">// 当跳出页面的时候取消这个点击事件</span>
-    <span class="built_in">window</span>.onunload = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>{
-    oDiv.onclick = <span class="literal">null</span>;
-    };
-}
-</code></pre><p>还有一种办法:</p>
-<pre><code><span class="built_in">window</span>.onload = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>{
-    <span class="keyword">var</span> oDiv = <span class="built_in">document</span>.getElementById(<span class="string">"div1"</span>);
-    <span class="comment">// 提前声明一个变量</span>
-    <span class="keyword">var</span> id = oDiv.id;
-    oDiv.onclick = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>{
-    alert(oDiv.id);
-    };
-    <span class="comment">// 当跳出页面的时候取消这个点击事件</span>
-    oDiv = <span class="literal">null</span>;
-}
-</code></pre>
+<li>闭包引发的内存泄露问题及解决方案
         
         
         <p class="article-more-link">
+          
+            <a href="/2014/08/26/2014-08-26-Closure/#more">继续阅读</a>
           
        </p>
     </div>
@@ -1022,45 +388,12 @@ alert(ccc);<span class="comment">//报错</span>
 <ul>
 <li>David T. Freeman</li>
 </ul>
-<p>懂得越多，就会发现其实自己知道的事物宛如沧海一栗；懂得越少，就会产生自己什么都懂的错觉。<br>-David T. Freeman</p>
-</blockquote>
-<p>几乎每一天，我都会发现某些我从来未知的事物。<br>今天，我坦白讲，我特么的压根不知道什么 rails plugins ，面对 Rails ，我根本像个三岁小孩。 </p>
-<h4 id="每个人都是从一无所知开始的。">每个人都是从一无所知开始的。</h4><p>如果插根线，就能自动灌输某些科目的知识到我们的脑子里,那真的是再好不过了。但是现实并非这样的啊骚年，我们要为此付出心血，勤勉努力才能牢牢掌握知识，而这些，我们却始终全然无知。 </p>
-<p>所以，习惯这些事吧，別想当天生神马都知道的上帝。 </p>
-<p>最初的定期自由职业对我很难熬，我的骄傲咽不下无知的感受，我的自尊又让我无法低头，打了一场场看似胜利的仗，我信奉了「装逼装久了就是你的」这句名言，即使不懂，还是要装懂。 </p>
-<p>但是有一天，我装逼装累了，我对自己的无知妥协了。从此之后，如果有人问我不懂的问题，我会努力压抑自尊，马上承认「我不懂」，一般接下来我还会说「但是我确定我可以试着解决」。</p>
-<h4 id="对自己诚实">对自己诚实</h4><p>对于我「其实知道的不多」这个事实，我开始采取了新的态度。后来，我发现自己的学习速度正在加速前进。 </p>
-<p>我不再去盲目追赶学习那些我本来应该要知道的东西，现在我才意识到我越经常说「我不是很清楚，但是我确定我可以试着解决」，我就越能真正明白本来不知道的事物。 </p>
-<h4 id="这远比你预期收获的要多">这远比你预期收获的要多</h4><p>我的建站生涯开始于1998年，我从其他网站收集资源，尝试去理解 HTML，粘贴复制成一个看起来能运行的网站。</p>
-<p>不信？有图有真相 </p>
-<p><img src="http://alexparker.me/content/images/2014/Jul/IMG_0408.JPG" alt="图"></p>
-<p>看到没，那就是我14岁的时候，我正在搭建任天堂游戏Zelda 64的粉丝网站。我从各种网站拷贝过关秘籍，从 cooltext.com 复制酷炫屌咱天的字体（15 年了，上面的字一直没变）、黑色背景、闪烁的绿色文字，一堆乱七八糟的东西。 </p>
-<h4 id="如果我打算从今天开始写代码，我该从哪里开始_?">如果我打算从今天开始写代码，我该从哪里开始 ?</h4><p>很多人问过我这个问题，有兴趣的可以订阅我的网站，以后我会提供更多的教程。</p>
-<p>我现在想分享的是，我刚开始学习写代码额岁月里，我所做出的正确与错误的事情。</p>
-<p>正确的：</p>
-<ul>
-<li>我从来不和那些比我强的人比较，或者强逼自己跟上他们。我专心在那些我已知道的知识上，我可以怎么运用我的知识，以及我想知道的新技能。</li>
-<li>我想办法在现在的项目里运用新的知识，或者用我的新的知识创建一个项目</li>
-<li>我总是尝试去解决问题，这些问题难度都是稍微超出我目前的能力，但是又处于可以掌控的范围之内。</li>
-<li>我享受学习的过程，学无止境</li>
-<li>我学着爱上学习的过程（注孤生啊）</li>
-</ul>
-<p>错误的:</p>
-<ul>
-<li>错误多的数不清。</li>
-<li>我没找到志同道合的朋友。</li>
-<li>我没找到可以一同学习的基友或基友团</li>
-<li>我没有为开源贡献一点点力量 </li>
-</ul>
-<h3 id="总结">总结</h3><p>首先，你要承认并且意识到自己不是什么都知道，拥抱它们(无知)就像掌握机会一样，而不是错误。</p>
-<p>从简单有趣的事情开始，将他们培养成一种爱好，别想太多，别做不切实际的计划，学着喜欢并享受过程。</p>
-<p>设置项目目标时不要好高骛远，但是也要保持一定的难度。</p>
-<p>这个项目也许简单到用html输出hello world，也可能复杂到为一个网站建一个负载测试的系统。</p>
-<p>原文： <a href="http://alexparker.me/you-know-nothing-about-code/" target="_blank" rel="external">http://alexparker.me/you-know-nothing-about-code/</a></p>
-
+<p>懂得越多，就会发现其实自己知道的事物宛如沧海一栗；懂得越少，就会产生自己什么都懂的错觉。<br>-David T. Freeman<br>
         
         
         <p class="article-more-link">
+          
+            <a href="/2014/08/14/2014-08-14-you-know-nothing-about-code/#more">继续阅读</a>
           
        </p>
     </div>
@@ -1110,26 +443,12 @@ alert(ccc);<span class="comment">//报错</span>
     <div class="article-content">
         
         <p>首先这是篇读书笔记，《Javascript启示录》这本书虽然薄但写得真好，翻译的也不错。本书个人觉得作者是围绕JavaScript一切皆为对象来展开写的，只有一两章没有过多的涉及到对象，其中就包括这个知识点，我就先从这章记起吧。</p>
-<p>首先我们要知道在js里作用域是用来执行代码的上下文，有三种类型分别为全局作用域、局部作用域、eVal作用域。</p>
-<p>看一段代码展示各种作用域的用法：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> foo = <span class="number">0</span>;<span class="comment">// 全局作用域</span></span><br><span class="line"><span class="built_in">console</span>.log(foo); <span class="comment">//输出0</span></span><br><span class="line"><span class="keyword">var</span> myFunction = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">	<span class="keyword">var</span> foo = <span class="number">1</span>; <span class="comment">//局部作用域</span></span><br><span class="line">	<span class="built_in">console</span>.log(foo); <span class="comment">// 输出1</span></span><br><span class="line">	<span class="keyword">var</span> myNestedFunction = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">		<span class="keyword">var</span> foo = <span class="number">2</span>; <span class="comment">//局部作用域</span></span><br><span class="line">		<span class="built_in">console</span>.log = <span class="number">2</span>; <span class="comment">// 输出2</span></span><br><span class="line"></span><br><span class="line">	&#125;()</span><br><span class="line">&#125;()</span><br><span class="line"><span class="built_in">eval</span>(<span class="string">'var foo = 3; console.log(foo);'</span>); <span class="comment">//eval()作用域</span></span><br></pre></td></tr></table></figure></p>
-<h4 id="JavaScript没有块作用域">JavaScript没有块作用域</h4><p>因为逻辑语句(if)和循环语句(while)无法创建作用域，所以变量可以互相覆盖。看代码:<br><figure class="highlight openscad"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">var foo = <span class="number">1</span>;</span><br><span class="line"><span class="keyword">if</span><span class="params">(<span class="literal">true</span>)</span> &#123;</span><br><span class="line">	foo = <span class="number">2</span>; <span class="comment">//foo等于2</span></span><br><span class="line">	<span class="keyword">for</span> <span class="params">(var i = <span class="number">3</span>;i &lt;= <span class="number">5</span>;i++)</span> &#123;</span><br><span class="line">	foo = i; <span class="comment">//foo 等于3,4,5</span></span><br><span class="line">	console.<span class="built_in">log</span><span class="params">(foo)</span>; <span class="comment">//输出3,4,5</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>可以看到整个代码在运行时foo是变化的，因为JavaScript没有作用域。</p>
-<h4 id="避免作用域陷阱">避免作用域陷阱</h4><p>我们总说在声明变量的时候要是用var。因为不用var，变量将会在全局作用域中，那么本该在局部作用域中定义的变量跑到全局作用域里去了。看代码:</p>
-<figure class="highlight openscad"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">var foo = <span class="function"><span class="keyword">function</span> <span class="params">()</span> &#123;</span></span><br><span class="line">	var boo = <span class="function"><span class="keyword">function</span><span class="params">()</span> &#123;</span></span><br><span class="line">	bar = <span class="number">2</span>; <span class="comment">// 没有使用var 定义，所以bar是在全局作用域里</span></span><br><span class="line">	&#125;<span class="params">()</span></span><br><span class="line">&#125;<span class="params">()</span></span><br><span class="line">console.<span class="built_in">log</span><span class="params">()</span> <span class="comment">// 输出2，因为bar等同于在全局定义的一个变量，相当于window.bar</span></span><br><span class="line"></span><br><span class="line">var foo = <span class="function"><span class="keyword">function</span> <span class="params">()</span> &#123;</span></span><br><span class="line">	var boo = <span class="function"><span class="keyword">function</span><span class="params">()</span> &#123;</span></span><br><span class="line">		var doo = <span class="number">2</span> <span class="comment">//在局部作用域定义的</span></span><br><span class="line">	&#125;<span class="params">()</span>;</span><br><span class="line">&#125;<span class="params">()</span>;</span><br><span class="line">console.<span class="built_in">log</span><span class="params">(doo)</span> <span class="comment">//输出undefined，因为doo只能在boo函数作用域才有用。</span></span><br></pre></td></tr></table></figure>
-<h4 id="作用域链">作用域链</h4><p>我们知道当JavaScript查找变量时，会遵循一个基于作用域的层次结构形成的一个查找链。看代码:<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> name = <span class="string">'gothic'</span>;</span><br><span class="line"><span class="keyword">var</span> func1 = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">	<span class="keyword">var</span> func2 = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">	<span class="built_in">console</span>.log(name); <span class="comment">//虽然在func2作用域，但在全局作用域里查找到了name</span></span><br><span class="line">	&#125;();</span><br><span class="line">&#125;();</span><br></pre></td></tr></table></figure></p>
-<p>在func2函数没找到name变量，就会继续在func2的父函数func1查找，如果func1也没找到就会继续往上全局作用域里查找，这种层次查找结构就形成了一条作用域链。如果都没找到就返回undefined。<br>再看一个例子:<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> x = <span class="number">10</span>;</span><br><span class="line"><span class="keyword">var</span> foo = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">	<span class="keyword">var</span> y = <span class="number">20</span>;</span><br><span class="line">	<span class="keyword">var</span> bar = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">	<span class="keyword">var</span> z = <span class="number">30</span>;</span><br><span class="line">	<span class="built_in">console</span>.log(x+y+z);</span><br><span class="line">	&#125;()</span><br><span class="line">&#125;()</span><br><span class="line">foo(); <span class="comment">//输出60</span></span><br></pre></td></tr></table></figure></p>
-<p>你可能会发现上面作用域链上的三个变量是不同的，要是换成一样的还会往上循着作用域链查找变量吗。</p>
-<p>看看:<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> x = <span class="literal">false</span>;</span><br><span class="line"><span class="keyword">var</span> foo = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">	<span class="keyword">var</span> x = <span class="literal">false</span>;</span><br><span class="line">	bar = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">		<span class="keyword">var</span> x = <span class="literal">true</span>;</span><br><span class="line">		<span class="built_in">console</span>.log(x);</span><br><span class="line">	&#125;()</span><br><span class="line">&#125;()</span><br></pre></td></tr></table></figure></p>
-<p>你会发现在作用域链内最近的地方找到变量就会停止查找，不管作用域链顶部是不是还有相同的变量。</p>
-<p>So,我们可以看出其实是函数决定作用域的，作用链是根据函数定义时的位置确定的，而不是在调用的时候确定的。也就是说作用域链是在函数调用之前创建的，正因如此才会产生接下来介绍的闭包。</p>
-<h4 id="闭包是由作用域链引起的">闭包是由作用域链引起的</h4><p>讨论Js似乎永远离不开闭包这个话题，而且似乎也很受面试老师的欢迎，我也不知道为什么有的面试官喜欢问这个问题，有的或许是真的出于技术面试，有的或许只是为了跟风，说不定他自己也不能解释好闭包这个问题。</p>
-<p>看下面代码:<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> pFunction = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">	<span class="keyword">var</span> foo = <span class="string">'foo'</span>;</span><br><span class="line">	<span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;  <span class="comment">// 返回i一个匿名函数</span></span><br><span class="line">	<span class="built_in">console</span>.log(foo); <span class="comment">//输出'foo'</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> nextFunction = pFunction();</span><br><span class="line">nextFunction(); <span class="comment">//输出foo，因为返回的函数的可以通过作用域链访问foo;</span></span><br></pre></td></tr></table></figure></p>
-<p>停，这个还不是给你重点说闭包的，这个代码段主要是想说 作用域链是在定义时确定的，在函数内部传递代码不会改变作用域链。<br>下面再来看段闭包(当然上面那个也是闭包)的代码：<br><figure class="highlight openscad"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">var countUpFromZero = <span class="function"><span class="keyword">function</span><span class="params">()</span> &#123;</span></span><br><span class="line">	var count = <span class="number">0</span>;</span><br><span class="line">	return <span class="function"><span class="keyword">function</span><span class="params">()</span> &#123;</span></span><br><span class="line">	return ++count; <span class="comment">//count在作用域内定义，父函数里</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;<span class="params">()</span> <span class="comment">//立即调用，返回嵌套函数</span></span><br><span class="line">console.<span class="built_in">log</span><span class="params">(countUpFromZero<span class="params">()</span>)</span>;<span class="comment">//输出1;</span></span><br><span class="line">console.<span class="built_in">log</span><span class="params">(countUpFromZero<span class="params">()</span>)</span>;<span class="comment">//输出2;</span></span><br><span class="line">console.<span class="built_in">log</span><span class="params">(countUpFromZero<span class="params">()</span>)</span>;<span class="comment">//输出3;</span></span><br></pre></td></tr></table></figure></p>
-<p>我们可以看到每次调用countUpFromZero函数时，包含在他里面的匿名函数仍可以访问父函数的作用域。这种就是闭包的一个示例。当然这里没有过得分析闭包，因为这里已经有了一篇这样的文章<a href="http://blog.yongyuan.us/js-scop">http://blog.yongyuan.us/js-scop</a></p>
-
+<p>首先我们要知道在js里作用域是用来执行代码的上下文，有三种类型分别为全局作用域、局部作用域、eVal作用域。<br>
         
         
         <p class="article-more-link">
+          
+            <a href="/2014/07/20/2014-07-20-scope/#more">继续阅读</a>
           
        </p>
     </div>
@@ -1183,198 +502,12 @@ alert(ccc);<span class="comment">//报错</span>
 <blockquote>
 <p>‘5’ - ‘2’<br>3<br>‘5’ * ‘2’<br>10</p>
 </blockquote>
-<p>自动转换为布尔值通常不会引起问题，而且往往很有用（译注：比如在C语言里，根本就没有布尔类型。by @justjavac）。 即使如此，这些隐式转换也会引起怪癖（quirks）。 但是当自动转换为字符串时，可能会引起问题。</p>
-<p><strong>(1)：隐式转换为布尔：“truthy”和“falsy”</strong></p>
-<p>当 JavaScript 需要一个布尔值时（例如：if 语句），任何值都可以被使用。 最终这些值将被转换为 true 或 false。</p>
-<p>下面的值被转换为 false：</p>
-<p>undefined, null<br>Boolean: false<br>Number: -0, +0, NaN<br>String: ‘’</p>
-<p>所有其他值都认为是 true。 被转换成 ‘false’ 的值我们成之为 falsy，被转换成 ‘true’ 的值我们成之为 truthy。 您可以使用 Boolean 来测试一个值到底被转换成了什么。</p>
-<p>Boolean 将其参数转换为布尔值（boolean）：</p>
-<blockquote>
-<p>Boolean(undefined)<br>false<br>Boolean(0)<br>false<br>Boolean(3)<br>true</p>
-</blockquote>
-<p><strong>(2)、字符串的隐式转换</strong></p>
-<p>在 Web 开发中，我们经常得到字符串值，实际上我们期望的却是数字或者布尔值。 例如，用户输入的表单中的数据。 如果你忘了对这些字符串进行显式的转换，那么 JavaScript 会令你感到惊讶，主要体现在两个方面：</p>
-<p>首先，系统不会有任何警告。<br>其次，这些值将被自动转换，但确实错误的。<br>例如，加运算符（+），就有这方面的问题，因为只要其中一个操作数是字符串，那么它就执行连接字符串的操作（而不是加法操作，即使它们是数字）。</p>
-<p>在下面的 JavaScript 代码中，我们本来预期是把 1 和 5 相加。 但是，我们使用了字符串 ‘5’ 和 ‘1’ 。</p>
-<blockquote>
-<p>var x = ‘5’;  // 错误的假设：x 是一个数字</p>
-<p>x + 1<br>‘51’<br>此外，还有一些看似是 false 的值，如果转换成字符串，却成了 ‘true’。</p>
-</blockquote>
-<p>例如：false。</p>
-<blockquote>
-<p>Boolean(false)<br>false<br>String(false)<br>‘false’<br>Boolean(‘false’)  // ！！<br>true<br>例如： undefined.</p>
-<p>Boolean(undefined)<br>false<br>String(undefined)<br>‘undefined’<br>Boolean(‘undefined’)  // ！！<br>true</p>
-</blockquote>
-<p><strong>(3)、对象的隐式转换</strong></p>
-<p>只有在 JavaScript 表达式或语句中需要用到数字或字符串时，对象才被隐式转换。 当需要将对象转换成数字时，需要以下三个步骤：</p>
-<p>调用 valueOf()。如果结果是原始值（不是一个对象），则将其转换为一个数字。<br>否则，调用 toString() 方法。如果结果是原始值，则将其转换为一个数字。<br>否则，抛出一个类型错误。<br>第一步示例:</p>
-<blockquote>
-<p>3 * { valueOf: function () { return 5 } }<br>15<br>第三步示例:</p>
-<p>function returnObject() { return {} }<br>3 * { valueOf: returnObject, toString: returnObject }<br>TypeError: Cannot convert object to primitive value</p>
-</blockquote>
-<p>如果把对象转换成字符串时，则转换操作的第一步和第二步的顺序会调换： 先尝试 toString() 进行转换，如果不是原始值，则再尝试使用 valueOf()。</p>
-<h3 id="二：两个「空值」：undefined_和_null">二：两个「空值」：undefined 和 null</h3><p>对于“空值”或“空引用”，大多数编程语言只有一个值。比如，在 Java 中用的是 null。 但是在 Javascript 中却有两个特殊的值: undefined 和 null。 他们基本上是相同，但用法上却略有些不同。 在这个 系列教程 的最后，我会解释一下在 ECMAScript 6 中的一些变化。</p>
-<p>undefined 是被语言本身所分配的。 如果一个变量还没有被初始化，那么它的值就是 undefined:</p>
-<blockquote>
-<p>var foo;<br>foo<br>undefined</p>
-</blockquote>
-<p>同理，当缺失参数时 JavaScript 会分配一个 undefined：</p>
-<blockquote>
-<p>function id(x) { return x }<br>id()<br>undefined</p>
-</blockquote>
-<p><code>null</code> 是被开发者用来明确指出某个值是缺失的， 例如，对于 JSON.stringify():</p>
-<blockquote>
-<p>console.log(JSON.stringify({ first: ‘Jane’ }, null, 4))<br>{<br>    “first”: “Jane”<br>}</p>
-</blockquote>
-<p>校检：一个变量是否有值？</p>
-<p>如果你想知道变量 v 是否有值，正常情况下，你需要同时检验 undefined 与 null。 幸运的是两个值都是 false 型。 因此，只用一个判断，就可以同时检验这两项是否为真:</p>
-<figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">if</span> (v) &#123;</span><br><span class="line">    <span class="comment">// v 有值</span></span><br><span class="line">&#125; <span class="tag">else</span> &#123;</span><br><span class="line">    <span class="comment">// v 没有值</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>在本 系列 的第 5 部分——关于函数参数的处理——你将会看到更多的上面校检例子。 有一点要注意的是：这个检查也会把 false, -0, +0, NaN 与 ‘’ 当成“空值”。 如果这不是你想要的，那么就不能使用上面的校检方法了。</p>
-<p>你有两个选择。</p>
-<p>有些人提倡使用不等于（!=）来校检 v 既不是 undefined 或 null:</p>
-<figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (v != <span class="literal">null</span>) &#123;</span><br><span class="line">    <span class="comment">// v 有值</span></span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="comment">// v 没有值</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>不过，这要求你要明白 <code>!=</code>认为 <code>null</code> 只等于它自己或是<code>undefined</code>。 我喜欢用更有可读性的<code>!==</code>:</p>
-<figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (v !== <span class="literal">undefined</span> &amp;&amp; v !== <span class="literal">null</span>) &#123;</span><br><span class="line">    <span class="comment">// v 有值</span></span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="comment">// v 没有值</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>性能方面，所有在这个章节中提到的这三个校检基本是相同的。 所以，最后用哪个取决于你的需求还有你的品味。 一些压缩工具甚至用 != 重写了最后一条校检。</p>
-<h3 id="三：标准的等号_(==)">三：标准的等号 (==)</h3><p>让我们先看一个简单的例子： 由于一般的等于符号 <code>==</code>、<code>!=</code>经常会出现问题，以至于我们不得不使用严格等于(===、!==)。 当然有人说这些规则也有例外，我不同意这个观点2。 怀揣的这个问题，我们现在就来看一下这个奇怪的现象：== 是不必要。</p>
-<p>这个“正常”的等号（==）有很多怪癖。 虽然他很宽容（非严格比较），当与真值或者假值比较时，它会忽略类型（详见怪癖1）：</p>
-<blockquote>
-<p>0 == false  // OK<br>true<br>1 == true  // OK<br>true<br>2 == true  // not OK<br>false</p>
-<p>‘’ == false  // OK<br>true<br>‘1’ == true  // OK<br>true<br>‘2’ == true  // not OK<br>false</p>
-</blockquote>
-<p>除了这些，我们设置可以把那些明显不能比较的值进行比较（我勒个去～～比较的结果居然还是 true）：</p>
-<blockquote>
-<p>‘’ == 0<br>true<br>‘\n  123  \t’ == 123<br>true</p>
-</blockquote>
-<p>最后一次比较返回是 true，因为在 javascript 中把字符串转换数字类型时，会过滤掉首尾空白字符。 如果你仍然对关于 == 怎么工作感兴趣，你可以读读这篇文章。 对于严格比较符（===），不同类型的值比较是不相等的 1。也就是说试用严格比较符号，上诉的问题都不复存在。</p>
-<h3 id="四：未知变量名创建全局变量">四：未知变量名创建全局变量</h3><p>此文是 javascript 的 12 个怪癖（quirks） 系列的第四篇。</p>
-<p>当你使用了一个未知的变量名，通常 JavaScript 会自动创建全局变量：</p>
-<p><code>function f() { foo = 123 } f() foo 123</code></p>
-<p>好在你会在 ECMAScript5 的严谨模式得到警告[1]：</p>
-<p><code>function f() { &#39;use strict&#39;; foo = 123 } f() ReferenceError: foo is not defined</code></p>
-<h3 id="五：参数的处理">五：参数的处理</h3><p>1、参数处理的基本原理</p>
-<p>JavaScript 的参数处理包括两个要点</p>
-<p>1.1、要点：你可以传递任意数量的参数</p>
-<p>当调用一个 function 时，你想传递多少参数都可以，这与该函数声明了多少个正式的参数无关。 缺失参数的值是 undefined，多出来的参数则直接被忽略掉。</p>
-<p>我们用以下的函数做个示范：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">f</span>(<span class="params">x, y</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'x: '</span>+x);</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'y: '</span>+y);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>你可以用任意数量的参数调用这个 function：</p>
-<blockquote>
-<p>f()<br>x: undefined<br>y: undefined</p>
-<p>f(‘a’)<br>x: a<br>y: undefined</p>
-<p>f(‘a’, ‘b’)<br>x: a<br>y: b</p>
-<p>f(‘a’, ‘b’, ‘c’)<br>x: a<br>y: b</p>
-</blockquote>
-<p>1.2要点：所有传递的参数都储存在 arguments 中</p>
-<p>所有传递的参数都储存在一个很特别、很像 Array（继续看就能知道为什么了）的变量里，arguments。 通过下面的 function 我们来看下这个变量怎么用的：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">g</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'Length: '</span>+<span class="built_in">arguments</span>.length);</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'Elements: '</span>+fromArray(<span class="built_in">arguments</span>));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>下面是 fromArray 函数，它把 arguments 转换成 array 这样就能存入数据了，调用 g()：</p>
-<blockquote>
-<p>g()<br>Length: 0<br>Elements:<br>g(‘a’)<br>Length: 1<br>Elements: a<br>g(‘a’, ‘b’)<br>Length: 2<br>Elements: a,b</p>
-</blockquote>
-<p>无论明确声明了多少个参数，arguments 是永远在那里的，它总是包含所有实际的参数。</p>
-<p><strong>2、参数传递了吗？</strong></p>
-<p>如果调用者没有提供参数，那么 undefined 就会传递给 function。 因为 undefined 是一个虚拟值[1]，你可以用一个 if 条件语句来检验它是否存在：</p>
-<figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">hasParameter</span><span class="params">(param)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (param) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">'yes'</span>;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">'no'</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>这样，你不传参数与传入 undefined 获得的结果是一样的：</p>
-<p>‘no’</p>
-<blockquote>
-<p>hasParameter(undefined)<br>‘no’</p>
-</blockquote>
-<p>测试代码对真实值(truthy)同样有效：</p>
-<blockquote>
-<p>hasParameter([ ‘a’, ‘b’ ])<br>‘yes’<br>hasParameter({ name: ‘Jane’ })<br>‘yes’<br>hasParameter(‘Hello’)<br>‘yes’</p>
-</blockquote>
-<p>而对于虚拟值(falsy)的会用是需要多加小心的。 比如 false、0 以及空字符串都被解析为缺失参数：</p>
-<blockquote>
-<p>hasParameter(false)<br>‘no’<br>hasParameter(0)<br>‘no’<br>hasParameter(‘’)<br>‘no’</p>
-</blockquote>
-<p>这段代码足以证明。 你必须要多加注意，因为代码变得更加紧凑与调用者是否忽略了一个参数还是传递了 undefined 或者 null 都无关。</p>
-<p><strong>3、参数的默认值</strong></p>
-<p>以下的 function 可以传入 0 或者其他参数，x 和 y 如果未传参数则会是 0，以下是一种表现方式：</p>
-<figure class="highlight openscad"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">add</span><span class="params">(x, y)</span> &#123;</span></span><br><span class="line">    <span class="keyword">if</span> <span class="params">(!x)</span> x = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">if</span> <span class="params">(!y)</span> y = <span class="number">0</span>;</span><br><span class="line">    return x + y;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>交互后：</p>
-<blockquote>
-<p>add()<br>0<br>add(5)<br>5<br>add(2, 7)<br>9</p>
-</blockquote>
-<p>你可以用 or 运算符（||）使 add() 更简洁。 如果为真这个运算符会返回第一个值否则返回第二个。</p>
-<p>例如：</p>
-<blockquote>
-<p>‘abc’ || ‘def’<br>‘abc’<br>‘’ || ‘def’<br>‘def’<br>undefined || { foo: 123 }<br>{ foo: 123 }<br>{ foo: 123 } || ‘def’<br>{ foo: 123 }</p>
-</blockquote>
-<p>我们用 || 来指定参数默认值：</p>
-<figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">add</span><span class="params">(x, y)</span> </span>&#123;</span><br><span class="line">    x = x || <span class="number">0</span>;</span><br><span class="line">    y = y || <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">return</span> x + y;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><strong>4、任意数量的参数</strong></p>
-<p>你也可以用 arguments 来接收任意数量的参数，其中一个例子是以下的函数 format()，它在 C 函数 sprintf 之后输出语句：</p>
-<blockquote>
-<p>format(‘Hello %s! You have %s new message(s).’, ‘Jane’, 5)<br>‘Hello Jane! You have 5 new message(s).</p>
-</blockquote>
-<p>第一个参数是一个样式，由 %s 标记空白，后面的参数则填入这些标记，简单的 format 函数实现如下：</p>
-<figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">format</span><span class="params">(pattern)</span> &#123;</span></span><br><span class="line">    <span class="keyword">for</span>(var <span class="built_in">i</span>=<span class="number">1</span>; <span class="built_in">i</span> &lt; arguments.<span class="built_in">length</span>; <span class="built_in">i</span>++) <span class="cell">&#123;</span><br><span class="line">        pattern = pattern.replace(<span class="string">'%s'</span>, arguments[i]);</span><br><span class="line">    &#125;</span></span><br><span class="line">    <span class="keyword">return</span> pattern;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>注意：循环跳过了第一个参数(arguments[0]) 并且忽略了 pattern。</p>
-<p><strong>5、强制执行一定数量的参数</strong></p>
-<p>如果你想要强制调用者执行一定数量的参数，你就要在运行阶段检查 arguments.length：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">add</span>(<span class="params">x, y</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="built_in">arguments</span>.length &gt; <span class="number">2</span>) &#123;</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">'Need at most 2 parameters'</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> x + y;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><strong>6、arguments 不是 array</strong></p>
-<p>arguments 并不是 array，它只是很像 array，你可以获取第 i 个参数比如 arguments[i]， 你也可以检查它有多少个参数比如 arguments.length。 但是你不能用 Array 的方法如 forEach 或者 indexOf。 更多详情与解答会在「怪癖8（未翻译）」中进行讨论，作为一个预习，以下函数能将一个类似 array 的值转换为 array：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">fromArray</span>(<span class="params">arrayLikeValue</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">Array</span>.prototype.slice.call(arrayLikeValue);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><strong>7、参考</strong></p>
-<p>[1] JavaScript quirk 1: implicit conversion of values [解释了“真实值(truthy)”与“虚拟值(falsy)”]</p>
-<h3 id="六：变量的作用范围">六：变量的作用范围</h3><p>此文是 javascript 的 12 个怪癖（quirks） 系列的第六篇。</p>
-<p>在大多数编程语言中，变量的生命周期是“定义此变量的块（block）”。 但是在 JavaScript 中，变量的作用域却和函数息息相关，而不是大括号：</p>
-<figure class="highlight openscad"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">func</span><span class="params">(x)</span> &#123;</span></span><br><span class="line">    console.<span class="built_in">log</span><span class="params">(tmp)</span>; <span class="comment">// undefined</span></span><br><span class="line">    <span class="keyword">if</span> <span class="params">(x &lt; <span class="number">0</span>)</span> &#123;</span><br><span class="line">        var tmp = <span class="number">100</span> - x;  <span class="comment">// (*)</span></span><br><span class="line">        ...</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>（译注：很多程序员会觉得 tmp 变量的作用于是 if 块，其实不然，javascript 根本没有块作用域。）</p>
-<p>上述代码引发的行为是：函数内部，在（*）处声明的变量 tmp 被移动到了函数的开头（赋值语句依然保留在原处）。 也就是说，实际上此段代码在 JavaScript 引擎中的运行时，看起来像这样：</p>
-<figure class="highlight openscad"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">func</span><span class="params">(x)</span> &#123;</span></span><br><span class="line">    var tmp;</span><br><span class="line">    console.<span class="built_in">log</span><span class="params">(tmp)</span>; <span class="comment">// undefined</span></span><br><span class="line">    <span class="keyword">if</span> <span class="params">(x &lt; <span class="number">0</span>)</span> &#123;</span><br><span class="line">        tmp = <span class="number">100</span> - x;</span><br><span class="line">        ...</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>但是，有一招可以把一个变量限制在一个块作用域，它被称为立即函数表达式（IIFE，发音为“iffy”）。</p>
-<p>立即函数表达式：<code>Immediately Invoked Function Expression。</code></p>
-<p>下面，我们使用一个 IIFE，将 tmp 的作用域限制在包含它的 if 语句块中。</p>
-<figure class="highlight"><figcaption><span>func(x) &#123;</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">    console.log(tmp); // ReferenceError: tmp is not defined&#10;    if (x &#60; 0) &#123;&#10;        (function () &#123;  // open IIFE&#10;            var tmp = 100 - x;&#10;            ...&#10;        &#125;());  // close IIFE&#10;    &#125;&#10;&#125;</span><br></pre></td></tr></table></figure>
-<p>我们在内部块的外面，写了一个函数，创建了一个新的作用域。 （译注：javascript 没有块作用域，OMG！。只有函数作用域，因此我们必须使用一个匿名函数，而且是立即执行的匿名函数创建了一个新的作用域。） 然后我们立即执行此函数。 tmp 仅仅存在于 IIFE 中。 需要注意的是围绕此 IIFE 的小括号是必须的。</p>
-<p>如果没有环绕 IIFE 的小括号，函数成了：</p>
-<figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> tmp = <span class="number">100</span> - x;</span><br><span class="line">&#125;();</span><br></pre></td></tr></table></figure>
-<p>执行结果：</p>
-<figure class="highlight"><figcaption><span>Unexpected token (```</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#10;&#65288;why&#65311;&#65289;&#10;&#10;&#10;&#20316;&#32773;&#20889;&#36947;&#65292;&#10;&#10;&#62; They lead to the function being interpreted as an expression, which is&#10;&#62; the only form in which it can be be immediately invoked.&#10;&#10;&#25105;&#20204;&#38656;&#35201;&#22312; IIFE &#30340;&#24320;&#22987;&#21644;&#32467;&#26463;&#30340;&#22320;&#26041;&#65292;&#20889;&#19978;&#23567;&#25324;&#21495;&#65292;&#25226;&#20989;&#25968;&#35299;&#26512;&#25104;&#19968;&#20010;&#34920;&#36798;&#24335;&#12290; &#36825;&#26159;&#25226;&#20989;&#25968;&#21464;&#25104;&#31435;&#21363;&#35843;&#29992;&#30340;&#21807;&#19968;&#24418;&#24335;&#12290;&#10;&#21040;&#24213;&#26159;&#19981;&#26159;&#21807;&#19968;&#24418;&#24335;&#21602;&#65311;&#10;&#10;&#10;      1. (function () &#123;&#10;            var tmp = 100 - x; &#10;      &#125;());&#10;  &#10;  &#10;      2. (function () &#123;&#10;            var tmp = 100 - x; &#10;      &#125;)(); &#10;      &#10;&#65288;and why&#65311;&#65289;&#10;&#10;&#10;&#30041;&#19979;&#20102;&#20960;&#20010;&#30097;&#38382;&#65292;&#21407;&#20316;&#32773;&#27809;&#26377;&#20889;&#26126;&#65292;&#30001;&#20110;&#31687;&#24133;&#20851;&#31995;&#65292;&#25105;&#20250;&#22312;&#38543;&#21518;&#30340;&#21338;&#25991;&#20013;&#35299;&#37322;&#12290;&#10;&#10;&#19981;&#36807;&#20851;&#20110;&#34920;&#36798;&#24335;&#30340;&#30097;&#38382;&#21487;&#20197;&#21435;&#30475;&#25105;&#20889;&#30340;&#12302;&#20195;&#30721;&#20043;&#35868;&#12303;&#31995;&#21015;&#20043;&#35821;&#21477;&#19982;&#34920;&#36798;&#24335;&#12290; &#26368;&#21518;&#19968;&#20010;&#30097;&#38382;&#21487;&#20197;&#35835;&#19968;&#19979; &#21629;&#21517;&#20989;&#25968;&#34920;&#36798;&#24335;&#25506;&#31192;&#10;&#10;###&#19971;:&#21464;&#37327;&#38381;&#21253;&#20043;&#21518;&#30340;&#26080;&#24847;&#35782;&#20849;&#20139; &#10;&#27492;&#25991;&#26159; javascript &#30340; 12 &#20010;&#24618;&#30294;&#65288;quirks&#65289; &#31995;&#21015;&#30340;&#31532;&#19971;&#31687;&#12290;&#10;&#10;&#38381;&#21253;&#26159; JavaScript &#19968;&#20010;&#24378;&#22823;&#30340;&#29305;&#24615;&#65306;&#24403;&#20989;&#25968;&#31163;&#24320;&#20102;&#21019;&#24314;&#23427;&#30340;&#20301;&#32622;&#65292;&#20173;&#28982;&#21487;&#20197;&#33719;&#21462;&#21040;&#35813;&#20301;&#32622;&#19978;&#23384;&#22312;&#30340;&#25152;&#26377;&#21464;&#37327;&#12290; &#26412;&#25991;&#20027;&#35201;&#35299;&#37322;&#38381;&#21253;&#30340;&#24037;&#20316;&#26041;&#24335;&#20197;&#21450;&#25105;&#20204;&#20026;&#20160;&#20040;&#35201;&#23545;&#20110;&#21464;&#37327;&#30340;&#26080;&#24847;&#35782;&#20849;&#20139;&#22810;&#21152;&#23567;&#24515;&#12290;&#10;&#10;**1&#12289;&#38381;&#21253;**&#10;&#10;&#25105;&#20204;&#20174;&#19968;&#20010;&#38381;&#21253;&#30340;&#20363;&#23376;&#24320;&#22987;&#21543;&#65306;</span><br></pre></td></tr></table></figure>
-<p>function incrementorFactory(start, step) {<br>    return function () {  // (*)<br>        start += step;<br>        return start;<br>    }<br>}<br><figure class="highlight puppet"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">下面调用 incrementorFactory：</span><br><span class="line"></span><br><span class="line">&gt; var inc = incrementorFactory(<span class="number">20</span>, <span class="number">2</span>);</span><br><span class="line">&gt; inc()</span><br><span class="line"><span class="number">22</span></span><br><span class="line">&gt; inc()</span><br><span class="line"><span class="number">24</span></span><br><span class="line"></span><br><span class="line">在运行阶段，内部函数(*)能获取到外部函数 incrementorFactory 的变量 <span class="literal">start</span> 与 step，而且 incrementorFactory 不只返回函数， 也连带返回了变量 <span class="literal">start</span> 与 step。 存储这两个变量的数据结构叫做 <span class="literal">environment</span>，<span class="literal">environment</span> 与 object 非常相似——它将键名映射到键值。 以上返回的函数包含了 <span class="literal">environment</span> 的引用，它在父级即外部的 <span class="literal">environment</span> 时就已经激活。 组合函数 + <span class="literal">environment</span> 就叫做闭包。 这名称来源于当 <span class="literal">environment</span> “关闭”函数时：它为变量提供了可声明在函数外的值（这就是所谓的自由变量）。</span><br><span class="line"></span><br><span class="line">当函数被请求，就会为它的参数和局部变量创建一个新的 <span class="literal">environment</span>。 所以总会有一连串的<span class="literal">environment</span>：</span><br><span class="line"></span><br><span class="line">f 的 <span class="literal">environment</span></span><br><span class="line">f 的外部 <span class="literal">environment</span></span><br><span class="line">f 外的 <span class="literal">environment</span> 外部的 <span class="literal">environment</span></span><br><span class="line">......</span><br><span class="line"></span><br><span class="line">全局变量的 <span class="literal">environment</span>（全局 <span class="literal">environment</span>）</span><br><span class="line">以上是从 f 的 <span class="literal">environment</span>开始，完全搜索 <span class="literal">environment</span> 链查看的所有变量值。</span><br><span class="line"></span><br><span class="line">**<span class="number">2</span>、怪癖：无意识共享**</span><br><span class="line"></span><br><span class="line">闭包并不是在特定的时间点获得快照，它是获取动态的变量，以下是这个问题的例子：</span><br></pre></td></tr></table></figure></p>
-<p>var result = [];<br>for (var i=0; i &lt; 5; i++) {<br>    result.push(function () { return i });  // (*)<br>}<br>console.log(result<a href="">3</a>); // 5 (not 3)<br><figure class="highlight nimrod"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">当函数在这里(*)创建的时候，变量 i 有一个确定的值，你可能会觉得那个函数返回的会一直是那个值。 相反，它与动态的i是一直关联着的，就是说所有 <span class="literal">result</span> 数组中的函数都是通过它们的外部 environment 关联同一个 i，当循环结束时，i 的值就是 <span class="number">5</span>。</span><br><span class="line"></span><br><span class="line">一种可行的解决方案就是通过一个返回值(<span class="type">Immediately</span> <span class="type">Invoked</span> <span class="type">Function</span> <span class="type">Expression</span>)<span class="number">1</span>来复制 i 的当前值：</span><br></pre></td></tr></table></figure></p>
-<p>for (var i=0; i &lt; 5; i++) {<br>   (function (i2) {  // snaphot of i<br>       result.push(function () { return i2 });<br>   }(i));<br>}<br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">你也可以用 <span class="function"><span class="title">bind</span><span class="params">()</span></span> 函数，也有相似的效果：</span><br></pre></td></tr></table></figure></p>
-<p>for (var i=0; i &lt; 5; i++) {<br>    result.push(function (i2) { return i2 }.bind(null, i));<br>}<br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">用 forEach 和 Underscore<span class="class">.js</span> 库中的 <span class="function"><span class="title">range</span><span class="params">()</span></span> 函数也可以办到：</span><br></pre></td></tr></table></figure></p>
-<p>_.range(5).forEach(function (i) {<br>    result.push(function () { return i });<br>});<br><figure class="highlight gherkin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">以上的代码都可行，因为每次请求参数时，forEach 都创建了一个新的i变量。</span><br><span class="line"></span><br><span class="line"><span class="keyword">*</span><span class="keyword">*</span>2.1 一个实际应用的例子<span class="keyword">*</span><span class="keyword">*</span></span><br><span class="line"></span><br><span class="line">下面我们用一个更加实用的例子来总结下。 两天前，我做了一 个Connect Four 游戏的 UI 来作为 DOM 的示例，它包含了以下的代码片段， 添加了事件侦听来连接到游戏板的行列上。</span><br></pre></td></tr></table></figure></p>
-<p>for(var col=0; col &lt; board4.DIM_X; col++) {<br>    document.getElementById(‘columnClick’+col)<br>            .addEventListener(‘click’, function (col) {<br>                currentState.columnClick(col);<br>                event.preventDefault();<br>            }.bind(null, col));<br>}<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">另一种方式是用 CSS 类来代替 ID，重写以上代码：</span><br></pre></td></tr></table></figure></p>
-<p>Array.prototype.forEach.call(<br>  document.getElementsByClassName(‘columnClick’),<br>  function (elem, col) {  // (*)<br>      elem.addEventListener(‘click’, function () {<br>          currentState.columnClick(col);<br>          event.preventDefault();<br>      });<br>  });<br><figure class="highlight gherkin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">  </span><br><span class="line">这样，函数(<span class="keyword">*</span>)的每次调用都会创建一个新的变量 col，而且不会有无意识共享发现。</span><br><span class="line"></span><br><span class="line">本系列的最后一篇文章会讲解用 ECMAScript6 来处理无意识共享的问题。</span><br><span class="line"></span><br><span class="line">3、引用</span><br><span class="line"></span><br><span class="line">[1] JavaScript quirk 6: the scope of variables</span><br><span class="line"></span><br><span class="line"><span class="comment">###八：“类数组对象”  </span></span><br><span class="line"></span><br><span class="line">JavaScript中有一些看起来像却又不是数组的对象，唤作类数组。 本文旨在探究类数组的确切含义和高效的使用方式。</span><br><span class="line"></span><br><span class="line"><span class="keyword">*</span><span class="keyword">*</span>类数组<span class="keyword">*</span><span class="keyword">*</span></span><br><span class="line"></span><br><span class="line">一个类数组对象：</span><br><span class="line"></span><br><span class="line">具有：指向对象元素的数字索引下标以及 length 属性告诉我们对象的元素个数</span><br><span class="line">不具有：诸如 push 、 forEach 以及 indexOf 等数组对象具有的方法</span><br><span class="line">两个典型的类数组的例子是：DOM方法 document.getElementsByClassName() 的返回结果（实际上许多DOM方法的返回值都是类数组）以及特殊变量 arguments [1]。</span><br><span class="line">例如你可以通过以下方法确定函数参数的个数</span><br><span class="line"></span><br><span class="line">`arguments.length`</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">你也可以获取单个参数值，例如读取第一个参数：</span><br><span class="line"></span><br><span class="line">`arguments[0]`</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">如果这些对象想使用数组的方法，就必须要用某种方式“借用”。由于大部分的数组方法都是通用的，因此我们可以这样做。</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">*</span><span class="keyword">*</span>通用方法<span class="keyword">*</span><span class="keyword">*</span></span><br><span class="line"></span><br><span class="line">所谓的通用方法就是不强制要求函数的调用对象 this 必须为数组，仅需要其拥有 length 属性和数字索引下标即可。 通常来讲，你可以用如下的方式在数组 arr 上调用方法 m ：</span><br><span class="line"></span><br><span class="line">```arr.m(arg0, arg1, ...)</span><br></pre></td></tr></table></figure></p>
-<p>所有的函数都拥有一个 call 方法来让我们用这样一种方式进行上述调用：</p>
-<p><code>Array.prototype.m.call(arr, arg0, arg1, ...)</code></p>
-<p>call 方法的第一个参数就是函数 m 的调用对象 this 的值（在这个例子里就是 arr）。 因为我们直接调用方法 m ，而非通过数组对象 arr ，因此我们可以为本方法更改任意的 this 值。</p>
-<p>例如改为 arguments :</p>
-<p><code>Array.prototype.m.call(arguments, arg0, arg1, ...)</code></p>
-<p>例子</p>
-<p>让我们来看一个具体的例子。 下面的 printArgs 列出了函数的全部参数值。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">printArgs</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">Array</span>.prototype.forEach.call(<span class="built_in">arguments</span>,</span><br><span class="line">        <span class="function"><span class="keyword">function</span> (<span class="params">arg, i</span>) </span>&#123;</span><br><span class="line">            <span class="built_in">console</span>.log(i+<span class="string">'. '</span>+arg);</span><br><span class="line">        &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>我们“通用地”使用了方法 forEach。 printArgs 的运行结果如下：</p>
-<pre><code>&gt; <span class="function"><span class="title">printArgs</span><span class="params">()</span></span>
-&gt; <span class="function"><span class="title">printArgs</span><span class="params">(<span class="string">'a'</span>)</span></span>
-<span class="number">0</span>. <span class="tag">a</span>
-&gt; <span class="function"><span class="title">printArgs</span><span class="params">(<span class="string">'a'</span>, <span class="string">'b'</span>)</span></span>
-<span class="number">0</span>. <span class="tag">a</span>
-<span class="number">1</span>. b
-</code></pre><p>你甚至可以应用通用方法给普通的对象：</p>
-<pre><code>&gt; var obj = {};
-&gt; Array.<span class="keyword">prototype</span>.<span class="keyword">push</span>.call(obj, <span class="string">'a'</span>);
-<span class="number">1</span>
-&gt; obj
-{ <span class="string">'0'</span>: <span class="string">'a'</span>, <span class="keyword">length</span>: <span class="number">1</span> }
-</code></pre><p>在上述例子中，length 属性原本不存在并以0为初始值自动创建。</p>
-<p>将类数组对象转化为数组</p>
-<p>有时候处理类数组对象的最好方法是将其转化为数组。 这项工作也可以使用通用方法来完成：</p>
-<p><code>Array.prototype.slice.call(arguments)</code></p>
-<p>对于正常复制数组对象而言，我们额外使用了 call 的方法。</p>
-<p><code>arr.slice()</code></p>
-<p>未完待续:<br>转自<a href="https://github.com/justjavac/12-javascript-quirks" target="_blank" rel="external">https://github.com/justjavac/12-javascript-quirks</a></p>
-
+<p>自动转换为布尔值通常不会引起问题，而且往往很有用（译注：比如在C语言里，根本就没有布尔类型。by @justjavac）。 即使如此，这些隐式转换也会引起怪癖（quirks）。 但是当自动转换为字符串时，可能会引起问题。<br>
         
         
         <p class="article-more-link">
+          
+            <a href="/2014/07/17/2014-07-17-js-12-guaipi/#more">继续阅读</a>
           
        </p>
     </div>

@@ -27,7 +27,7 @@ JavaScript 是非常宽容的，「来者不拒」，不在乎什么类型。 �
 ‘5’ - ‘2’3‘5’ * ‘2’10
 
 自动转换为布尔值通常不会引起问题，而且往往很有用（译注：比如在C语言里，根本就没有布尔类型。by @justjavac）。 即使如此，这些隐式转换也会引起怪癖（quirks）。">
-<meta property="og:updated_time" content="2015-07-24T16:04:14.000Z">
+<meta property="og:updated_time" content="2015-07-24T16:08:38.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="JavaScript的12个怪癖">
 <meta name="twitter:description" content="一：隐式类型转换（0）：提要
@@ -123,8 +123,7 @@ JavaScript 是非常宽容的，「来者不拒」，不在乎什么类型。 �
 <blockquote>
 <p>‘5’ - ‘2’<br>3<br>‘5’ * ‘2’<br>10</p>
 </blockquote>
-<p>自动转换为布尔值通常不会引起问题，而且往往很有用（译注：比如在C语言里，根本就没有布尔类型。by @justjavac）。 即使如此，这些隐式转换也会引起怪癖（quirks）。 但是当自动转换为字符串时，可能会引起问题。</p>
-<p><strong>(1)：隐式转换为布尔：“truthy”和“falsy”</strong></p>
+<p>自动转换为布尔值通常不会引起问题，而且往往很有用（译注：比如在C语言里，根本就没有布尔类型。by @justjavac）。 即使如此，这些隐式转换也会引起怪癖（quirks）。 但是当自动转换为字符串时，可能会引起问题。<br><a id="more"></a><br><strong>(1)：隐式转换为布尔：“truthy”和“falsy”</strong></p>
 <p>当 JavaScript 需要一个布尔值时（例如：if 语句），任何值都可以被使用。 最终这些值将被转换为 true 或 false。</p>
 <p>下面的值被转换为 false：</p>
 <p>undefined, null<br>Boolean: false<br>Number: -0, +0, NaN<br>String: ‘’</p>
