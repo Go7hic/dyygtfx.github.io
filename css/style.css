@@ -91,7 +91,7 @@ a img {
 }
 /* custom Font*/
 @font-face {
-  font-family: "monospace";
+  font-family: monospace;
   font-weight: normal;
   font-style: normal;
   src: url("../font/coveredbyyourgrace-webfont.eot");
@@ -436,7 +436,7 @@ body >header a {
 }
 #textlogo h1.site-name {
   width: 86%;
-  font-family: "monospace";
+  font-family: monospace;
   font-size: 200%;
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
@@ -1932,7 +1932,7 @@ footer {
   }
 }
 .info {
-  font-family: "monospace";
+  font-family: monospace;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   font-size: 150%;
@@ -2034,7 +2034,7 @@ footer {
 .copyright {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  font-family: "monospace";
+  font-family: monospace;
   width: 100%;
   color: #fff;
   text-align: center;
