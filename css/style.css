@@ -437,7 +437,6 @@ body >header a {
 #textlogo h1.site-name {
   width: 86%;
   font-family: Roboto, sans-serif;
-  font-size: 100%;
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -470,7 +469,7 @@ body >header a {
   position: absolute;
   width: 2em;
   right: 0em;
-  top: 1em;
+  top: 0em;
   padding: 0.5em;
 }
 @media only screen and (min-width: 1024px) {
