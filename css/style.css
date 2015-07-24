@@ -91,11 +91,11 @@ a img {
 }
 /* custom Font*/
 @font-face {
-  font-family: "covered_by_your_graceregular";
+  font-family: "monospace";
   font-weight: normal;
   font-style: normal;
   src: url("../font/coveredbyyourgrace-webfont.eot");
-  src: url("../font/coveredbyyourgrace-webfont.eot?#iefix") format('embedded-opentype'), url("../font/coveredbyyourgrace-webfont.svg#covered_by_your_graceregular") format('svg'), url("../font/coveredbyyourgrace-webfont.woff") format('woff'), url("../font/coveredbyyourgrace-webfont.ttf") format('truetype');
+  src: url("../font/coveredbyyourgrace-webfont.eot?#iefix") format('embedded-opentype'), url("../font/coveredbyyourgrace-webfont.svg#monospace") format('svg'), url("../font/coveredbyyourgrace-webfont.woff") format('woff'), url("../font/coveredbyyourgrace-webfont.ttf") format('truetype');
 }
 /* icon Font */
 @font-face {
@@ -118,7 +118,7 @@ a img {
   -webkit-margin-after: 0;
 }
 body {
-  background: #ddd;
+  background: #fff;
   font-family: "Helvetica Neue", "Helvetica", "Microsoft YaHei", "WenQuanYi Micro Hei", Arial, sans-serif;
   font-size: 100%;
   color: #817c7c;
@@ -431,12 +431,12 @@ body >header a {
 }
 #textlogo {
   float: left;
-  width: 75%;
+  width: auto;
   margin-left: 0.5em;
 }
 #textlogo h1.site-name {
   width: 86%;
-  font-family: "covered_by_your_graceregular";
+  font-family: "monospace";
   font-size: 200%;
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
@@ -668,7 +668,7 @@ header nav ul li a:hover {
   padding: 6px 15px;
   -webkit-border-radius: 15px;
   border-radius: 15px;
-  background: #ddd;
+  background: #fff;
   color: #817c7c;
   text-decoration: none;
 }
@@ -1932,7 +1932,7 @@ footer {
   }
 }
 .info {
-  font-family: "covered_by_your_graceregular";
+  font-family: "monospace";
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   font-size: 150%;
@@ -2034,7 +2034,7 @@ footer {
 .copyright {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  font-family: "covered_by_your_graceregular";
+  font-family: "monospace";
   width: 100%;
   color: #fff;
   text-align: center;
