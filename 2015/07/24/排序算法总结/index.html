@@ -4,22 +4,26 @@
 <head>
   <meta charset="UTF-8">
   
-    <title>Go7hic</title>
+    <title>排序算法总结 | Go7hic</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="Go7hic">
     
 
     
-    <meta name="description">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Go7hic">
-<meta property="og:url" content="http://yoursite.com/index.html">
+    <meta name="description" content="JavaScript 排序算法总结在业务里有时候需要对一些数据进行排序操作，虽然现在用 lodash 比较多，但还是从网上总结了这几个排序方法，更具体的内容可以参考《数据结构与算法 javascript描述》http://www.ituring.com.cn/tupubarticle/1325#
+1.冒泡排序简介冒泡排序（Bubble Sort）是最易懂的排序算法，但是效率较低，生产环境中很少使用">
+<meta property="og:type" content="article">
+<meta property="og:title" content="排序算法总结">
+<meta property="og:url" content="http://yoursite.com/2015/07/24/排序算法总结/index.html">
 <meta property="og:site_name" content="Go7hic">
-<meta property="og:description">
+<meta property="og:description" content="JavaScript 排序算法总结在业务里有时候需要对一些数据进行排序操作，虽然现在用 lodash 比较多，但还是从网上总结了这几个排序方法，更具体的内容可以参考《数据结构与算法 javascript描述》http://www.ituring.com.cn/tupubarticle/1325#
+1.冒泡排序简介冒泡排序（Bubble Sort）是最易懂的排序算法，但是效率较低，生产环境中很少使用">
+<meta property="og:updated_time" content="2015-07-24T03:21:37.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Go7hic">
-<meta name="twitter:description">
+<meta name="twitter:title" content="排序算法总结">
+<meta name="twitter:description" content="JavaScript 排序算法总结在业务里有时候需要对一些数据进行排序操作，虽然现在用 lodash 比较多，但还是从网上总结了这几个排序方法，更具体的内容可以参考《数据结构与算法 javascript描述》http://www.ituring.com.cn/tupubarticle/1325#
+1.冒泡排序简介冒泡排序（Bubble Sort）是最易懂的排序算法，但是效率较低，生产环境中很少使用">
 
     
     <link rel="alternative" href="/atom.xml" title="Go7hic" type="application/atom+xml">
@@ -73,12 +77,10 @@
 </div>
     </header>
     <div id="container">
-      <div id="main">
-
-   
-    
-    <article class="post-expand javascript" itemprop="articleBody"> 
-        <header class="article-info clearfix">
+      <div id="main" class="javascript" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
   <h1 itemprop="name">
     
       <a href="/2015/07/24/排序算法总结/" title="排序算法总结" itemprop="url">排序算法总结</a>
@@ -92,9 +94,16 @@
     
   </p>
 </header>
-    <div class="article-content">
-        
-        <p>JavaScript 排序算法总结<br>在业务里有时候需要对一些数据进行排序操作，虽然现在用 lodash 比较多，但还是从网上总结了这几个排序方法，更具体的内容可以参考《数据结构与算法 javascript描述》<a href="http://www.ituring.com.cn/tupubarticle/1325#" target="_blank" rel="external">http://www.ituring.com.cn/tupubarticle/1325#</a></p>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-冒泡排序"><span class="toc-number">1.</span> <span class="toc-text">1.冒泡排序</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#简介"><span class="toc-number">1.1.</span> <span class="toc-text">简介</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#它的基本思想是："><span class="toc-number">1.2.</span> <span class="toc-text">它的基本思想是：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#算法实现"><span class="toc-number">1.3.</span> <span class="toc-text">算法实现</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-选择排序"><span class="toc-number">2.</span> <span class="toc-text">2.选择排序</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#简介-1"><span class="toc-number">2.1.</span> <span class="toc-text">简介</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#算法实现-1"><span class="toc-number">2.2.</span> <span class="toc-text">算法实现</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-插入排序"><span class="toc-number">3.</span> <span class="toc-text">3.插入排序</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#简介-2"><span class="toc-number">3.1.</span> <span class="toc-text">简介</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#算法实现-2"><span class="toc-number">3.2.</span> <span class="toc-text">算法实现</span></a></li></ol></li></ol>
+		
+		</div>
+		
+		<p>JavaScript 排序算法总结<br>在业务里有时候需要对一些数据进行排序操作，虽然现在用 lodash 比较多，但还是从网上总结了这几个排序方法，更具体的内容可以参考《数据结构与算法 javascript描述》<a href="http://www.ituring.com.cn/tupubarticle/1325#" target="_blank" rel="external">http://www.ituring.com.cn/tupubarticle/1325#</a></p>
 <h3 id="1-冒泡排序">1.冒泡排序</h3><h4 id="简介">简介</h4><p>冒泡排序（Bubble Sort）是最易懂的排序算法，但是效率较低，生产环境中很少使用。</p>
 <h4 id="它的基本思想是：">它的基本思想是：</h4><p>依次比较相邻的两个数，如果不符合排序规则，则调换两个数的位置。这样一遍比较下来，能够保证最大（或最小）的数排在最后一位。</p>
 <p>再对最后一位以外的数组，重复前面的过程，直至全部排序完成。</p>
@@ -135,14 +144,9 @@
 <p>function swap(myArray, firstIndex, secondIndex){<br>    var temp = myArray[firstIndex];<br>    myArray[firstIndex] = myArray[secondIndex];<br>    myArray[secondIndex] = temp;<br>}<br><figure class="highlight mel"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">然后，部署一个<span class="keyword">partition</span>函数，用于完成一轮排序。</span><br></pre></td></tr></table></figure></p>
 <p>function partition(myArray, left, right) {<br>    var pivot   = myArray[Math.floor((right + left) / 2)],<br>        i       = left,<br>        j       = right;<br>    while (i &lt;= j) {<br>        while (myArray[i] &lt; pivot) {<br>            i++;<br>        }<br>        while (myArray[j] &gt; pivot) {<br>            j—;<br>        }<br>        if (i &lt;= j) {<br>            swap(myArray, i, j);<br>            i++;<br>            j—;<br>        }<br>    }<br>    return i;<br>}<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">接下来，就是递归上面的过程，完成整个排序。</span><br></pre></td></tr></table></figure></p>
 <p>function quickSort(myArray, left, right) {<br>    if (myArray.length &lt; 2) return myArray;<br>    left = (typeof left !== “number” ? 0 : left);<br>    right = (typeof right !== “number” ? myArray.length - 1 : right);<br>    var index  = partition(myArray, left, right);<br>     if (left &lt; index - 1) {<br>            quickSort(myArray, left, index - 1);<br>     }<br>     if (index &lt; right) {<br>            quickSort(myArray, index, right);<br>      }<br>     return myArray;<br>}<br>```</p>
-
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
+  
+	</div>
+		<footer class="article-footer clearfix">
 <div class="article-catetags">
 
 
@@ -150,87 +154,41 @@
 
 
 
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://yoursite.com/2015/07/24/排序算法总结/" data-title="排序算法总结 | Go7hic" data-tsina="null" class="share clearfix">
+	  </div>
+	
+	</div>
 
-<div class="comments-count">
-	
-	  	<span></span>
-		<a href="/2015/07/24/排序算法总结/#disqus_thread" class="comments-count-link">Comments</a>
-	
-</div>
 
 </footer>
 
-
-    </article>
-
-
-
-
-
-
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2015/07/23/hello-world/" title="Hello World" itemprop="url">Hello World</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="Go7hic" target="_blank" itemprop="author">Go7hic</a>
-		
-  <p class="article-time">
-    <time datetime="2015-07-23T15:36:45.000Z" itemprop="datePublished"> 发表于 2015-07-23</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <p>Welcome to <a href="http://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="http://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="http://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
-<h2 id="Quick_Start">Quick Start</h2><h3 id="Create_a_new_post">Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a href="http://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
-<h3 id="Run_server">Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="http://hexo.io/docs/server.html" target="_blank" rel="external">Server</a></p>
-<h3 id="Generate_static_files">Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="http://hexo.io/docs/generating.html" target="_blank" rel="external">Generating</a></p>
-<h3 id="Deploy_to_remote_sites">Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="http://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
-
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-
-</div>
-
-
-
-
-<div class="comments-count">
+   	       
+	</article>
 	
-	  	<span></span>
-		<a href="/2015/07/23/hello-world/#disqus_thread" class="comments-count-link">Comments</a>
+<nav class="article-nav clearfix">
+ 
+
+<div class="next">
+<a href="/2015/07/23/hello-world/"  title="Hello World">
+ <strong>下一篇：</strong><br/> 
+ <span>Hello World
+</span>
+</a>
+</div>
+
+</nav>
+
 	
-</div>
 
-</footer>
+<section id="comments" class="comment">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
 
-
-    </article>
-
-
-
-
-
-
-
-</div>
+</div>  
       <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
 
 <div id="asidepart">
@@ -345,8 +303,36 @@ $(document).ready(function(){
       m.removeClass('moveMain');
       a.css('display', 'block').removeClass('fadeOut');
       o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
         
     }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
   });
 });
 </script>
