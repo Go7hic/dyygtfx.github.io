@@ -778,14 +778,14 @@ header nav ul li a:hover {
 }
 .archive-title {
   margin: 1em 0;
-  padding: 2em;
+  padding: 2em 0;
   background: #fff;
   border-left: 0.5em solid #ccc;
 }
 @media only screen and (min-width: 1024px) {
   .archive-title {
     margin: 2em 0;
-    width: 18.5%;
+    width: 10%;
     padding-left: 0.5%;
     float: left;
   }
