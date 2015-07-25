@@ -118,7 +118,7 @@ a img {
   -webkit-margin-after: 0;
 }
 body {
-  background: #fff;
+  background: #f1f1f1;
   font-family: "Helvetica Neue", "Helvetica", "Microsoft YaHei", "WenQuanYi Micro Hei", Arial, sans-serif;
   font-size: 100%;
   color: #817c7c;
@@ -603,7 +603,7 @@ header nav ul li a:hover {
   }
 }
 #main section.post {
-  background: #fafafa;
+  background: #fff;
   margin-bottom: 0.125em;
 }
 #main section.post a {
@@ -638,7 +638,7 @@ header nav ul li a:hover {
   font-size: 0.9em;
 }
 #main article.post-expand {
-  background: #fafafa;
+  background: #fff;
   margin-bottom: 3.5em;
 }
 #main article.post-expand .img-logo {
@@ -667,7 +667,7 @@ header nav ul li a:hover {
   padding: 6px 15px;
   -webkit-border-radius: 15px;
   border-radius: 15px;
-  background: #fff;
+  background: #f1f1f1;
   color: #817c7c;
   text-decoration: none;
 }
@@ -695,7 +695,7 @@ header nav ul li a:hover {
   border-left: 0.5em solid #2ca6cb;
 }
 #page-nav {
-  background: #fafafa;
+  background: #fff;
   text-align: center;
   overflow: hidden;
 }
@@ -775,7 +775,7 @@ header nav ul li a:hover {
 .archive-title {
   margin: 1em 0;
   padding: 2em;
-  background: #fafafa;
+  background: #fff;
   border-left: 0.5em solid #ccc;
 }
 @media only screen and (min-width: 1024px) {
@@ -853,7 +853,7 @@ header nav ul li a:hover {
 .page,
 .link,
 .photo {
-  background: #fafafa;
+  background: #fff;
 }
 .post a,
 .page a,
@@ -1004,7 +1004,7 @@ article .article-content blockquote {
   color: #808080;
 }
 article .article-content blockquote footer {
-  background: #fafafa;
+  background: #fff;
   padding: 0;
   margin: 0;
   font-size: 80%;
@@ -1160,7 +1160,7 @@ article .article-content .right {
   float: right;
 }
 footer.article-footer {
-  background: #fafafa;
+  background: #fff;
   padding: 0 4%;
   margin: 0;
   border-top: 1px solid #dbdbdb;
@@ -1590,7 +1590,7 @@ section.comment {
   }
 }
 #asidepart {
-  background: #fafafa;
+  background: #fff;
   margin: 1em 0 0;
   padding: 0.5em 2% 1em;
 }
@@ -1702,7 +1702,7 @@ section.comment {
 }
 .rsspart a:hover {
   color: #2ca6cb;
-  background: #fafafa;
+  background: #fff;
 }
 .rsspart a::before {
   font-family: "FontAwesome";
