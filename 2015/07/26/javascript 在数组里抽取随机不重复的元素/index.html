@@ -4,22 +4,26 @@
 <head>
   <meta charset="UTF-8">
   
-    <title>Go7hic</title>
+    <title>javascript 在数组里抽取随机不重复的元素 | Go7hic</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="Go7hic">
     
 
     
-    <meta name="description">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Go7hic">
-<meta property="og:url" content="http://blog.yongyuan.us/index.html">
+    <meta name="description" content="我们在业务里可能经常有这养的需求，在页面上随机显示几个不重复的东西，还有肯能随机抽奖的时候也需要用到。所以今天就总结一下这个用法。方法一：这个是我在项目里写的方法，
+12345678910111213141516171819202122232425262728293031/** * 从数组里随机取几个不重复的元素 * @param  &amp;#123;Array&amp;#125; arr [descripti">
+<meta property="og:type" content="article">
+<meta property="og:title" content="javascript 在数组里抽取随机不重复的元素">
+<meta property="og:url" content="http://blog.yongyuan.us/2015/07/26/javascript 在数组里抽取随机不重复的元素/index.html">
 <meta property="og:site_name" content="Go7hic">
-<meta property="og:description">
+<meta property="og:description" content="我们在业务里可能经常有这养的需求，在页面上随机显示几个不重复的东西，还有肯能随机抽奖的时候也需要用到。所以今天就总结一下这个用法。方法一：这个是我在项目里写的方法，
+12345678910111213141516171819202122232425262728293031/** * 从数组里随机取几个不重复的元素 * @param  &amp;#123;Array&amp;#125; arr [descripti">
+<meta property="og:updated_time" content="2015-07-27T15:11:59.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Go7hic">
-<meta name="twitter:description">
+<meta name="twitter:title" content="javascript 在数组里抽取随机不重复的元素">
+<meta name="twitter:description" content="我们在业务里可能经常有这养的需求，在页面上随机显示几个不重复的东西，还有肯能随机抽奖的时候也需要用到。所以今天就总结一下这个用法。方法一：这个是我在项目里写的方法，
+12345678910111213141516171819202122232425262728293031/** * 从数组里随机取几个不重复的元素 * @param  &amp;#123;Array&amp;#125; arr [descripti">
 
     
     <link rel="alternative" href="/atom.xml" title="Go7hic" type="application/atom+xml">
@@ -76,12 +80,10 @@
 
     </header>
     <div id="container">
-      <div id="main">
-
+      <div id="main" class="post" itemscope itemprop="blogPost">
   
-    
-    <article class="post-expand post" itemprop="articleBody">
-        <header class="article-info clearfix">
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
   <h1 itemprop="name">
     
       <a href="/2015/07/26/javascript 在数组里抽取随机不重复的元素/" title="javascript 在数组里抽取随机不重复的元素" itemprop="url">javascript 在数组里抽取随机不重复的元素</a>
@@ -95,9 +97,16 @@
     
   </p>
 </header>
-    <div class="article-content">
-        
-        <p>我们在业务里可能经常有这养的需求，在页面上随机显示几个不重复的东西，还有肯能随机抽奖的时候也需要用到。所以今天就总结一下这个用法。<br>方法一：<br>这个是我在项目里写的方法，</p>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+		
+			
+		
+		</div>
+		
+		<p>我们在业务里可能经常有这养的需求，在页面上随机显示几个不重复的东西，还有肯能随机抽奖的时候也需要用到。所以今天就总结一下这个用法。<br>方法一：<br>这个是我在项目里写的方法，</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span><br><span class="line"> * 从数组里随机取几个不重复的元素</span><br><span class="line"> * @param  &#123;Array&#125; arr [description]</span><br><span class="line"> * @param  &#123;Number&#125; num [description]</span><br><span class="line"> * @return &#123;[type]&#125;     返回新的数组</span><br><span class="line"> */</span></span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getArrayItems</span> (<span class="params">arr, num</span>) </span>&#123;</span><br><span class="line">    <span class="comment">//新建一个数组,将传入的数组复制过来,用于运算,而不直接操作传入的数组;</span></span><br><span class="line">    <span class="keyword">var</span> copyArr = [];</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">var</span> index <span class="keyword">in</span> arr) &#123;</span><br><span class="line">        copyArr.push(arr[index]);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//取出的数值项,保存在此数组返回</span></span><br><span class="line">    <span class="keyword">var</span> resultArr = [];</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i&lt;num; i++) &#123;</span><br><span class="line">        <span class="comment">//判断如果数组还有可以取出的元素,以防下标越界</span></span><br><span class="line">        <span class="keyword">if</span> (copyArr.length&gt;<span class="number">0</span>) &#123;</span><br><span class="line">            <span class="comment">//在数组中产生一个随机索引</span></span><br><span class="line">            <span class="keyword">var</span> arrIndex = <span class="built_in">Math</span>.floor(<span class="built_in">Math</span>.random()*copyArr.length);</span><br><span class="line">            <span class="comment">//将此随机索引的对应的数组元素值复制出来</span></span><br><span class="line">            resultArr[i] = copyArr[arrIndex];</span><br><span class="line">            <span class="comment">//然后删掉此索引的数组元素,这时候 copyArr 变为新的数组</span></span><br><span class="line">            copyArr.splice(arrIndex, <span class="number">1</span>);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="comment">//数组中数据项取完后,退出循环,比如数组本来只有10项,但要求取出20项.</span></span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> resultArr;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>然后我用的时候，比如后端传给我的是一系列视频 Arr，我需要随机在页面显示 3 个，就这样 调用 <figure class="highlight"><figcaption><span>(Arr, 3)```.</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#22312;&#36825;&#37324;&#26377;&#30340;&#20154;&#21487;&#33021;&#26159;&#30452;&#25509;&#25805;&#20316;&#20256;&#20837;&#30340;&#25968;&#32452;&#65292;&#19968;&#33324;&#20063;&#19981;&#20250;&#26377;&#20160;&#20040;&#38382;&#39064;&#65292;&#20294;&#26159;&#20026;&#20102;&#35880;&#24910;&#36215;&#35265;&#65292;&#36824;&#26159;&#25805;&#20316;&#19968;&#20010;&#26032;&#30340;&#25968;&#32452;.&#10;&#10;&#26041;&#27861;&#20108;&#65306;</span><br></pre></td></tr></table></figure></p>
 <p>function getArrayItems ( arr, num ){<br>     var copyArr = []<br>     for (var index in arr) {<br>        copyArr.push(arr[index]);<br>   }</p>
@@ -108,64 +117,9 @@
 <span class="keyword">return</span> copyArr.slice( <span class="number">0</span>,  num );
 </code></pre><p>};<br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">调用： ```<span class="function"><span class="title">getArrayItems</span><span class="params">(arr,<span class="number">3</span>)</span></span></span><br></pre></td></tr></table></figure></p>
 <p>第二个方法代码比第一个方法还简单，为什么我会用第一个方法呢，因为第二个方法看似简单，但是却也很暴力，只要数组长度一长性能损耗更大。</p>
-
-        
-
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-
-</div>
-
-
-
-
-	<p class="article-more-link">
-          
-    </p>
-<div class="comments-count">
-
-	
-	  	<span></span>
-		<a href="/2015/07/26/javascript 在数组里抽取随机不重复的元素/#disqus_thread" class="comments-count-link">Comments</a>
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
   
-    
-    <article class="post-expand post" itemprop="articleBody">
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2015/07/24/javascript 排序算法总结/" title="javascript 排序算法总结" itemprop="url">javascript 排序算法总结</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="Go7hic" target="_blank" itemprop="author">Go7hic</a>
-		
-  <p class="article-time">
-    <time datetime="2015-07-24T03:21:04.000Z" itemprop="datePublished"> 发表于 2015-07-24</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <p>JavaScript 排序算法总结<br>在业务里有时候需要对一些数据进行排序操作，虽然现在用 lodash 比较多，但还是从网上总结了这几个排序方法，更具体的内容可以参考《数据结构与算法 javascript描述》<a href="http://www.ituring.com.cn/tupubarticle/1325#">http://www.ituring.com.cn/tupubarticle/1325#</a><br>
-        
-
-    </div>
-    <footer class="article-footer clearfix">
+	</div>
+		<footer class="article-footer clearfix">
 <div class="article-catetags">
 
 
@@ -173,370 +127,49 @@
 
 
 
-
-	<p class="article-more-link">
-          
-            <a href="/2015/07/24/javascript 排序算法总结/#more">继续阅读</a>
-          
-    </p>
-<div class="comments-count">
-
+	<div class="article-share" id="share">
 	
-	  	<span></span>
-		<a href="/2015/07/24/javascript 排序算法总结/#disqus_thread" class="comments-count-link">Comments</a>
+	  <div data-url="http://blog.yongyuan.us/2015/07/26/javascript 在数组里抽取随机不重复的元素/" data-title="javascript 在数组里抽取随机不重复的元素 | Go7hic" data-tsina="null" class="share clearfix">
+	  </div>
 	
-</div>
+	</div>
+
 
 </footer>
 
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
 
-    </article>
-
-
-
-
-
-
-  
-    
-    <article class="post-expand post" itemprop="articleBody">
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2015/01/08/2015-01-07-ajax/" title="4.Ajax" itemprop="url">4.Ajax</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="Go7hic" target="_blank" itemprop="author">Go7hic</a>
-		
-  <p class="article-time">
-    <time datetime="2015-01-07T16:00:00.000Z" itemprop="datePublished"> 发表于 2015-01-08</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <h2 id="Ajax">Ajax</h2><p>大部分人开发者在学习jQuery的时候，看到 $.ajax() 函数都会觉得这真是太棒了！是的，它魔法般的把 ajax 请求变得极其容易，同时提供了足够多的控制项。在浏览器API层面这些请求都是由 XMLHttpRequest 对象完成的，$.ajax() 函数对它做了包装，这篇文章里快速浏览一下如何通过浏览器API提交ajax请求，包括跨域的ajax请求，试过之后可以发现这其实也不是很复杂。<br>
-        
-
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-
+<div class="next">
+<a href="/2015/07/24/javascript 排序算法总结/"  title="javascript 排序算法总结">
+ <strong>下一篇：</strong><br/> 
+ <span>javascript 排序算法总结
+</span>
+</a>
 </div>
 
-
-
-
-	<p class="article-more-link">
-          
-            <a href="/2015/01/08/2015-01-07-ajax/#more">继续阅读</a>
-          
-    </p>
-<div class="comments-count">
+</nav>
 
 	
-	  	<span></span>
-		<a href="/2015/01/08/2015-01-07-ajax/#disqus_thread" class="comments-count-link">Comments</a>
-	
-</div>
 
-</footer>
-
-
-    </article>
-
-
-
-
-
-
-  
-    
-    <article class="post-expand post" itemprop="articleBody">
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2015/01/07/2015-01-07-DOM API 之操作元素/" title="3.DOM API 之操作元素" itemprop="url">3.DOM API 之操作元素</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="Go7hic" target="_blank" itemprop="author">Go7hic</a>
-		
-  <p class="article-time">
-    <time datetime="2015-01-06T16:00:00.000Z" itemprop="datePublished"> 发表于 2015-01-07</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <h4 id="DOM_API_之操作元素">DOM API 之操作元素</h4><p>在上一篇文章里我们讨论了如何在没有jQuery的支持下选择元素，这次我们来聊一聊如何使用DOM API创建新元素、修改已有元素的属性或者移动元素的位置。原生的浏览器API已经给我们提供了DOM操作的所有功能，我们能够不借助jQuery或者其他函数库的帮助就完成这些。<br>
-        
-
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-
-</div>
-
-
-
-
-	<p class="article-more-link">
-          
-            <a href="/2015/01/07/2015-01-07-DOM API 之操作元素/#more">继续阅读</a>
-          
-    </p>
-<div class="comments-count">
-
-	
-	  	<span></span>
-		<a href="/2015/01/07/2015-01-07-DOM API 之操作元素/#disqus_thread" class="comments-count-link">Comments</a>
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
-  
-    
-    <article class="post-expand post" itemprop="articleBody">
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2015/01/06/2015-01-06-DOM API 之选择元素/" title="2.DOM API 之选择元素" itemprop="url">2.DOM API 之选择元素</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="Go7hic" target="_blank" itemprop="author">Go7hic</a>
-		
-  <p class="article-time">
-    <time datetime="2015-01-05T16:00:00.000Z" itemprop="datePublished"> 发表于 2015-01-06</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <h3 id="DOM_API_之选择元素">DOM API 之选择元素</h3><p>jQuery的选择符模块无比优雅，以至于我见过很多Web框架和应用中引用了庞大的jQuery，只是因为它提供了方便的DOM元素选择函数。我已经数不清自己写过多少次 $(#myElement) 或者 $(‘.myElement’) 了，以至于在没有jQuery时经常束手无策。事实上使用DOM API选择元素并没有那么难，它或许没有jQuery的那么简短，不过用起来也足够简单了。<br>
-        
-
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-
-</div>
-
-
-
-
-	<p class="article-more-link">
-          
-            <a href="/2015/01/06/2015-01-06-DOM API 之选择元素/#more">继续阅读</a>
-          
-    </p>
-<div class="comments-count">
-
-	
-	  	<span></span>
-		<a href="/2015/01/06/2015-01-06-DOM API 之选择元素/#disqus_thread" class="comments-count-link">Comments</a>
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
-  
-    
-    <article class="post-expand post" itemprop="articleBody">
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2015/01/05/2015-01-05-为什么抛弃 jQuery/" title="1.为什么抛弃 jQuery?" itemprop="url">1.为什么抛弃 jQuery?</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="Go7hic" target="_blank" itemprop="author">Go7hic</a>
-		
-  <p class="article-time">
-    <time datetime="2015-01-04T16:00:00.000Z" itemprop="datePublished"> 发表于 2015-01-05</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <p>PS: 本系列有四篇文章，原文是国外的朋友写的，翻译是国内朋友翻的<a href="http://blog.cabbit.me/you-dont-need-jquery/">http://blog.cabbit.me/you-dont-need-jquery/</a> ，转载仅为学习使用，后面几篇就不再声明了</p>
-<h3 id="为什么抛弃_jQuery?">为什么抛弃 jQuery?</h3><p>现在的Web工程师太依赖 jQuery 了，某种意义上说 jQuery 已经成了 JavaScript 的同义词。但是我们真的需要他么？或许我们应该反思一下什么时候才真的需要 jQuery。<br>
-        
-
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-
-</div>
-
-
-
-
-	<p class="article-more-link">
-          
-            <a href="/2015/01/05/2015-01-05-为什么抛弃 jQuery/#more">继续阅读</a>
-          
-    </p>
-<div class="comments-count">
-
-	
-	  	<span></span>
-		<a href="/2015/01/05/2015-01-05-为什么抛弃 jQuery/#disqus_thread" class="comments-count-link">Comments</a>
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
-  
-    
-    <article class="post-expand post" itemprop="articleBody">
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2014/12/31/2014-12-31- Ruby 函数式编程/" title="Ruby 函数式编程" itemprop="url">Ruby 函数式编程</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="Go7hic" target="_blank" itemprop="author">Go7hic</a>
-		
-  <p class="article-time">
-    <time datetime="2014-12-30T16:00:00.000Z" itemprop="datePublished"> 发表于 2014-12-31</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <p>本文档翻译自 Arnau Sanchez (tokland)所编译的这份文档 <a href="http://code.google.com/p/tokland/wiki/RubyFunctionalProgramming">RubyFunctionalProgramming</a>。</p>
-<p>同时也有<a href="http://www.h6.dion.ne.jp/~machan/misc/FPwithRuby.html">日文版本</a>。<br>
-        
-
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-
-</div>
-
-
-
-
-	<p class="article-more-link">
-          
-            <a href="/2014/12/31/2014-12-31- Ruby 函数式编程/#more">继续阅读</a>
-          
-    </p>
-<div class="comments-count">
-
-	
-	  	<span></span>
-		<a href="/2014/12/31/2014-12-31- Ruby 函数式编程/#disqus_thread" class="comments-count-link">Comments</a>
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
-  
-    
-    <article class="post-expand post" itemprop="articleBody">
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2014/11/06/2014-11-6-npm-packge-json/" title="npm package.json 介绍中文版" itemprop="url">npm package.json 介绍中文版</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="Go7hic" target="_blank" itemprop="author">Go7hic</a>
-		
-  <p class="article-time">
-    <time datetime="2014-11-05T16:00:00.000Z" itemprop="datePublished"> 发表于 2014-11-06</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <h3 id="简介">简介</h3><p>本文档有所有package.json中必要的配置。它必须是真正的json，而不是js对象。</p>
-<p>本文档中描述的很多行为都受npm-config(7)的影响。<br>
-        
-
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-
-</div>
-
-
-
-
-	<p class="article-more-link">
-          
-            <a href="/2014/11/06/2014-11-6-npm-packge-json/#more">继续阅读</a>
-          
-    </p>
-<div class="comments-count">
-
-	
-	  	<span></span>
-		<a href="/2014/11/06/2014-11-6-npm-packge-json/#disqus_thread" class="comments-count-link">Comments</a>
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
-
-  <nav id="page-nav" class="clearfix">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/">Next<span></span></a>
-  </nav>
-
-</div>
-     <!-- <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+<section id="comments" class="comment">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+
+</div>  
+      <!-- <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目录</strong>
+ 
+ 
+ 
+  </div>
 
 <div id="asidepart">
 <div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
@@ -657,12 +290,89 @@ $(document).ready(function(){
       m.removeClass('moveMain');
       a.css('display', 'block').removeClass('fadeOut');
       o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
         
     }
   });
 });
 </script>
 
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      $('.hoverqrcode').hide();
+  });
+});   
+</script>
 
 
 
@@ -743,5 +453,5 @@ $(document).ready(function(){
 <!-- Tiny_search End -->
 
   </body>
- </html>
+</html>
 
