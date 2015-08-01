@@ -11,15 +11,34 @@
     
 
     
-    <meta name="description">
-<meta property="og:type" content="website">
+    <meta name="description" content="各种语言快速启动 webServe 的方法
+
+from https://gist.github.com/willurd/5720255
+
+Python 2.x1$ python -m SimpleHTTPServer 8000
+Python 3.x1$ python -m http.server 8000
+Twisted (Python)1$ twistd -n web -p 8000 --pat">
+<meta property="og:type" content="article">
 <meta property="og:title" content="Go7hic">
-<meta property="og:url" content="http://blog.yongyuan.us/index.html">
+<meta property="og:url" content="http://blog.yongyuan.us/2015/08/01/各种语言快速启动 webServe 的方法/index.html">
 <meta property="og:site_name" content="Go7hic">
-<meta property="og:description">
+<meta property="og:description" content="各种语言快速启动 webServe 的方法
+
+from https://gist.github.com/willurd/5720255
+
+Python 2.x1$ python -m SimpleHTTPServer 8000
+Python 3.x1$ python -m http.server 8000
+Twisted (Python)1$ twistd -n web -p 8000 --pat">
+<meta property="og:updated_time" content="2015-08-01T06:31:54.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Go7hic">
-<meta name="twitter:description">
+<meta name="twitter:description" content="各种语言快速启动 webServe 的方法
+
+from https://gist.github.com/willurd/5720255
+
+Python 2.x1$ python -m SimpleHTTPServer 8000
+Python 3.x1$ python -m http.server 8000
+Twisted (Python)1$ twistd -n web -p 8000 --pat">
 
     
     <link rel="alternative" href="/atom.xml" title="Go7hic" type="application/atom+xml">
@@ -76,12 +95,10 @@
 
     </header>
     <div id="container">
-      <div id="main">
-
+      <div id="main" class="post" itemscope itemprop="blogPost">
   
-    
-    <article class="post-expand post" itemprop="articleBody">
-        <header class="article-info clearfix">
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
   <h1 itemprop="name">
     
       <a href="/2015/08/01/各种语言快速启动 webServe 的方法/" title="" itemprop="url"></a>
@@ -95,9 +112,16 @@
     
   </p>
 </header>
-    <div class="article-content">
-        
-        <p>各种语言快速启动 webServe 的方法</p>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#Python_2-x"><span class="toc-number">1.</span> <span class="toc-text">Python 2.x</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Python_3-x"><span class="toc-number">2.</span> <span class="toc-text">Python 3.x</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Twisted_(Python)"><span class="toc-number">3.</span> <span class="toc-text">Twisted (Python)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Ruby"><span class="toc-number">4.</span> <span class="toc-text">Ruby</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Ruby_1-9-2+"><span class="toc-number">5.</span> <span class="toc-text">Ruby 1.9.2+</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#adsf_(Ruby)"><span class="toc-number">6.</span> <span class="toc-text">adsf (Ruby)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Sinatra_(Ruby)"><span class="toc-number">7.</span> <span class="toc-text">Sinatra (Ruby)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Perl"><span class="toc-number">8.</span> <span class="toc-text">Perl</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Plack_(Perl)"><span class="toc-number">9.</span> <span class="toc-text">Plack (Perl)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Mojolicious_(Perl)"><span class="toc-number">10.</span> <span class="toc-text">Mojolicious (Perl)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#http-server_(Node-js)"><span class="toc-number">11.</span> <span class="toc-text">http-server (Node.js)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#node-static_(Node-js)"><span class="toc-number">12.</span> <span class="toc-text">node-static (Node.js)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#PHP_(>=_5-4)"><span class="toc-number">13.</span> <span class="toc-text">PHP (>= 5.4)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Erlang"><span class="toc-number">14.</span> <span class="toc-text">Erlang</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#busybox_httpd"><span class="toc-number">15.</span> <span class="toc-text">busybox httpd</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#webfs"><span class="toc-number">16.</span> <span class="toc-text">webfs</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#IIS_Express"><span class="toc-number">17.</span> <span class="toc-text">IIS Express</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Meta"><span class="toc-number"></span> <span class="toc-text">Meta</span></a>
+		
+		</div>
+		
+		<p>各种语言快速启动 webServe 的方法</p>
 <blockquote>
 <p>from <a href="https://gist.github.com/willurd/5720255" target="_blank" rel="external">https://gist.github.com/willurd/5720255</a></p>
 </blockquote>
@@ -148,64 +172,9 @@
 <li>require no configuration (from files or otherwise) beyond the command itself (no framework-specific servers, etc)</li>
 <li>must run, or have a mode where it can run, in the foreground (i.e. no daemons)</li>
 </ol>
-
-        
-
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-
-</div>
-
-
-
-
-	<p class="article-more-link">
-          
-    </p>
-<div class="comments-count">
-
-	
-	  	<span></span>
-		<a href="/2015/08/01/各种语言快速启动 webServe 的方法/#disqus_thread" class="comments-count-link">Comments</a>
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
   
-    
-    <article class="post-expand post" itemprop="articleBody">
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2015/07/26/javascript 在数组里抽取随机不重复的元素/" title="javascript 在数组里抽取随机不重复的元素" itemprop="url">javascript 在数组里抽取随机不重复的元素</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="Go7hic" target="_blank" itemprop="author">Go7hic</a>
-		
-  <p class="article-time">
-    <time datetime="2015-07-26T03:21:04.000Z" itemprop="datePublished"> 发表于 2015-07-26</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <p>我们在业务里可能经常有这养的需求，在页面上随机显示几个不重复的东西，还有肯能随机抽奖的时候也需要用到。所以今天就总结一下这个用法。<br>方法一：<br>这个是我在项目里写的方法，<br>
-        
-
-    </div>
-    <footer class="article-footer clearfix">
+	</div>
+		<footer class="article-footer clearfix">
 <div class="article-catetags">
 
 
@@ -213,369 +182,49 @@
 
 
 
-
-	<p class="article-more-link">
-          
-            <a href="/2015/07/26/javascript 在数组里抽取随机不重复的元素/#more">继续阅读</a>
-          
-    </p>
-<div class="comments-count">
-
+	<div class="article-share" id="share">
 	
-	  	<span></span>
-		<a href="/2015/07/26/javascript 在数组里抽取随机不重复的元素/#disqus_thread" class="comments-count-link">Comments</a>
+	  <div data-url="http://blog.yongyuan.us/2015/08/01/各种语言快速启动 webServe 的方法/" data-title="Go7hic" data-tsina="null" class="share clearfix">
+	  </div>
 	
-</div>
+	</div>
+
 
 </footer>
 
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
 
-    </article>
-
-
-
-
-
-
-  
-    
-    <article class="post-expand post" itemprop="articleBody">
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2015/07/24/javascript 排序算法总结/" title="javascript 排序算法总结" itemprop="url">javascript 排序算法总结</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="Go7hic" target="_blank" itemprop="author">Go7hic</a>
-		
-  <p class="article-time">
-    <time datetime="2015-07-24T03:21:04.000Z" itemprop="datePublished"> 发表于 2015-07-24</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <p>JavaScript 排序算法总结<br>在业务里有时候需要对一些数据进行排序操作，虽然现在用 lodash 比较多，但还是从网上总结了这几个排序方法，更具体的内容可以参考《数据结构与算法 javascript描述》<a href="http://www.ituring.com.cn/tupubarticle/1325#">http://www.ituring.com.cn/tupubarticle/1325#</a><br>
-        
-
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-
+<div class="next">
+<a href="/2015/07/26/javascript 在数组里抽取随机不重复的元素/"  title="javascript 在数组里抽取随机不重复的元素">
+ <strong>下一篇：</strong><br/> 
+ <span>javascript 在数组里抽取随机不重复的元素
+</span>
+</a>
 </div>
 
-
-
-
-	<p class="article-more-link">
-          
-            <a href="/2015/07/24/javascript 排序算法总结/#more">继续阅读</a>
-          
-    </p>
-<div class="comments-count">
+</nav>
 
 	
-	  	<span></span>
-		<a href="/2015/07/24/javascript 排序算法总结/#disqus_thread" class="comments-count-link">Comments</a>
-	
-</div>
 
-</footer>
-
-
-    </article>
-
-
-
-
-
-
-  
-    
-    <article class="post-expand post" itemprop="articleBody">
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2015/01/08/2015-01-07-ajax/" title="4.Ajax" itemprop="url">4.Ajax</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="Go7hic" target="_blank" itemprop="author">Go7hic</a>
-		
-  <p class="article-time">
-    <time datetime="2015-01-07T16:00:00.000Z" itemprop="datePublished"> 发表于 2015-01-08</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <h2 id="Ajax">Ajax</h2><p>大部分人开发者在学习jQuery的时候，看到 $.ajax() 函数都会觉得这真是太棒了！是的，它魔法般的把 ajax 请求变得极其容易，同时提供了足够多的控制项。在浏览器API层面这些请求都是由 XMLHttpRequest 对象完成的，$.ajax() 函数对它做了包装，这篇文章里快速浏览一下如何通过浏览器API提交ajax请求，包括跨域的ajax请求，试过之后可以发现这其实也不是很复杂。<br>
-        
-
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-
-</div>
-
-
-
-
-	<p class="article-more-link">
-          
-            <a href="/2015/01/08/2015-01-07-ajax/#more">继续阅读</a>
-          
-    </p>
-<div class="comments-count">
-
-	
-	  	<span></span>
-		<a href="/2015/01/08/2015-01-07-ajax/#disqus_thread" class="comments-count-link">Comments</a>
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
-  
-    
-    <article class="post-expand post" itemprop="articleBody">
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2015/01/07/2015-01-07-DOM API 之操作元素/" title="3.DOM API 之操作元素" itemprop="url">3.DOM API 之操作元素</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="Go7hic" target="_blank" itemprop="author">Go7hic</a>
-		
-  <p class="article-time">
-    <time datetime="2015-01-06T16:00:00.000Z" itemprop="datePublished"> 发表于 2015-01-07</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <h4 id="DOM_API_之操作元素">DOM API 之操作元素</h4><p>在上一篇文章里我们讨论了如何在没有jQuery的支持下选择元素，这次我们来聊一聊如何使用DOM API创建新元素、修改已有元素的属性或者移动元素的位置。原生的浏览器API已经给我们提供了DOM操作的所有功能，我们能够不借助jQuery或者其他函数库的帮助就完成这些。<br>
-        
-
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-
-</div>
-
-
-
-
-	<p class="article-more-link">
-          
-            <a href="/2015/01/07/2015-01-07-DOM API 之操作元素/#more">继续阅读</a>
-          
-    </p>
-<div class="comments-count">
-
-	
-	  	<span></span>
-		<a href="/2015/01/07/2015-01-07-DOM API 之操作元素/#disqus_thread" class="comments-count-link">Comments</a>
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
-  
-    
-    <article class="post-expand post" itemprop="articleBody">
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2015/01/06/2015-01-06-DOM API 之选择元素/" title="2.DOM API 之选择元素" itemprop="url">2.DOM API 之选择元素</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="Go7hic" target="_blank" itemprop="author">Go7hic</a>
-		
-  <p class="article-time">
-    <time datetime="2015-01-05T16:00:00.000Z" itemprop="datePublished"> 发表于 2015-01-06</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <h3 id="DOM_API_之选择元素">DOM API 之选择元素</h3><p>jQuery的选择符模块无比优雅，以至于我见过很多Web框架和应用中引用了庞大的jQuery，只是因为它提供了方便的DOM元素选择函数。我已经数不清自己写过多少次 $(#myElement) 或者 $(‘.myElement’) 了，以至于在没有jQuery时经常束手无策。事实上使用DOM API选择元素并没有那么难，它或许没有jQuery的那么简短，不过用起来也足够简单了。<br>
-        
-
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-
-</div>
-
-
-
-
-	<p class="article-more-link">
-          
-            <a href="/2015/01/06/2015-01-06-DOM API 之选择元素/#more">继续阅读</a>
-          
-    </p>
-<div class="comments-count">
-
-	
-	  	<span></span>
-		<a href="/2015/01/06/2015-01-06-DOM API 之选择元素/#disqus_thread" class="comments-count-link">Comments</a>
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
-  
-    
-    <article class="post-expand post" itemprop="articleBody">
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2015/01/05/2015-01-05-为什么抛弃 jQuery/" title="1.为什么抛弃 jQuery?" itemprop="url">1.为什么抛弃 jQuery?</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="Go7hic" target="_blank" itemprop="author">Go7hic</a>
-		
-  <p class="article-time">
-    <time datetime="2015-01-04T16:00:00.000Z" itemprop="datePublished"> 发表于 2015-01-05</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <p>PS: 本系列有四篇文章，原文是国外的朋友写的，翻译是国内朋友翻的<a href="http://blog.cabbit.me/you-dont-need-jquery/">http://blog.cabbit.me/you-dont-need-jquery/</a> ，转载仅为学习使用，后面几篇就不再声明了</p>
-<h3 id="为什么抛弃_jQuery?">为什么抛弃 jQuery?</h3><p>现在的Web工程师太依赖 jQuery 了，某种意义上说 jQuery 已经成了 JavaScript 的同义词。但是我们真的需要他么？或许我们应该反思一下什么时候才真的需要 jQuery。<br>
-        
-
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-
-</div>
-
-
-
-
-	<p class="article-more-link">
-          
-            <a href="/2015/01/05/2015-01-05-为什么抛弃 jQuery/#more">继续阅读</a>
-          
-    </p>
-<div class="comments-count">
-
-	
-	  	<span></span>
-		<a href="/2015/01/05/2015-01-05-为什么抛弃 jQuery/#disqus_thread" class="comments-count-link">Comments</a>
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
-  
-    
-    <article class="post-expand post" itemprop="articleBody">
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2014/12/31/2014-12-31- Ruby 函数式编程/" title="Ruby 函数式编程" itemprop="url">Ruby 函数式编程</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="Go7hic" target="_blank" itemprop="author">Go7hic</a>
-		
-  <p class="article-time">
-    <time datetime="2014-12-30T16:00:00.000Z" itemprop="datePublished"> 发表于 2014-12-31</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <p>本文档翻译自 Arnau Sanchez (tokland)所编译的这份文档 <a href="http://code.google.com/p/tokland/wiki/RubyFunctionalProgramming">RubyFunctionalProgramming</a>。</p>
-<p>同时也有<a href="http://www.h6.dion.ne.jp/~machan/misc/FPwithRuby.html">日文版本</a>。<br>
-        
-
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-
-</div>
-
-
-
-
-	<p class="article-more-link">
-          
-            <a href="/2014/12/31/2014-12-31- Ruby 函数式编程/#more">继续阅读</a>
-          
-    </p>
-<div class="comments-count">
-
-	
-	  	<span></span>
-		<a href="/2014/12/31/2014-12-31- Ruby 函数式编程/#disqus_thread" class="comments-count-link">Comments</a>
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
-
-  <nav id="page-nav" class="clearfix">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/">Next<span></span></a>
-  </nav>
-
-</div>
-     <!-- <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+<section id="comments" class="comment">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+
+</div>  
+      <!-- <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目录</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#Python_2-x"><span class="toc-number">1.</span> <span class="toc-text">Python 2.x</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Python_3-x"><span class="toc-number">2.</span> <span class="toc-text">Python 3.x</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Twisted_(Python)"><span class="toc-number">3.</span> <span class="toc-text">Twisted (Python)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Ruby"><span class="toc-number">4.</span> <span class="toc-text">Ruby</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Ruby_1-9-2+"><span class="toc-number">5.</span> <span class="toc-text">Ruby 1.9.2+</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#adsf_(Ruby)"><span class="toc-number">6.</span> <span class="toc-text">adsf (Ruby)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Sinatra_(Ruby)"><span class="toc-number">7.</span> <span class="toc-text">Sinatra (Ruby)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Perl"><span class="toc-number">8.</span> <span class="toc-text">Perl</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Plack_(Perl)"><span class="toc-number">9.</span> <span class="toc-text">Plack (Perl)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Mojolicious_(Perl)"><span class="toc-number">10.</span> <span class="toc-text">Mojolicious (Perl)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#http-server_(Node-js)"><span class="toc-number">11.</span> <span class="toc-text">http-server (Node.js)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#node-static_(Node-js)"><span class="toc-number">12.</span> <span class="toc-text">node-static (Node.js)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#PHP_(>=_5-4)"><span class="toc-number">13.</span> <span class="toc-text">PHP (>= 5.4)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Erlang"><span class="toc-number">14.</span> <span class="toc-text">Erlang</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#busybox_httpd"><span class="toc-number">15.</span> <span class="toc-text">busybox httpd</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#webfs"><span class="toc-number">16.</span> <span class="toc-text">webfs</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#IIS_Express"><span class="toc-number">17.</span> <span class="toc-text">IIS Express</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Meta"><span class="toc-number"></span> <span class="toc-text">Meta</span></a>
+ 
+  </div>
 
 <div id="asidepart">
 <div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
@@ -696,12 +345,89 @@ $(document).ready(function(){
       m.removeClass('moveMain');
       a.css('display', 'block').removeClass('fadeOut');
       o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
         
     }
   });
 });
 </script>
 
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      $('.hoverqrcode').hide();
+  });
+});   
+</script>
 
 
 
@@ -782,5 +508,5 @@ $(document).ready(function(){
 <!-- Tiny_search End -->
 
   </body>
- </html>
+</html>
 
