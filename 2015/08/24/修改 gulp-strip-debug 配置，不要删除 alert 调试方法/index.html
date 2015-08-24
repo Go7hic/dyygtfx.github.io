@@ -37,43 +37,16 @@
   <link rel="shorticon icon" type="image/x-icon" href="/favicon.ico?v=0.4.5.1" />
 
 
-<meta name="description" content="本文涉及到的知识点：
-
-什么是闭包
-垃圾回收机制
-闭包与垃圾回收机制
-闭包测试
-闭包的优点
-函数表达式与代码模块化模型
-运用闭包在循环内找到当前索引值
-闭包引发的内存泄露问题及解决方案">
+<meta name="description" content="事情起因是这样的，公司一项目在 ie9 下面有点问题，但是打开控制台调试的时候又好了。调查发现原来 ie9 不支持代码里写一些 console 对象的方法，只有打开控制台才能触发。而我们平时开发的时候喜欢写一些 console 这样的调试代码，我们以为用 Grunt 压缩后会去掉这些调试代码，但是同事发现只会去除 console.log 这个方法，而其他的 console.error 这些方法不能">
 <meta property="og:type" content="article">
-<meta property="og:title" content="结合代码例子再谈谈闭包">
-<meta property="og:url" content="http://blog.yongyuan.us/2014/08/26/2014-08-26-Closure/index.html">
+<meta property="og:title" content="修改 gulp-strip-debug 配置，不要删除 alert 调试方法">
+<meta property="og:url" content="http://blog.yongyuan.us/2015/08/24/修改 gulp-strip-debug 配置，不要删除 alert 调试方法/index.html">
 <meta property="og:site_name" content="Go7hic">
-<meta property="og:description" content="本文涉及到的知识点：
-
-什么是闭包
-垃圾回收机制
-闭包与垃圾回收机制
-闭包测试
-闭包的优点
-函数表达式与代码模块化模型
-运用闭包在循环内找到当前索引值
-闭包引发的内存泄露问题及解决方案">
-<meta property="og:updated_time" content="2015-07-24T16:08:54.000Z">
+<meta property="og:description" content="事情起因是这样的，公司一项目在 ie9 下面有点问题，但是打开控制台调试的时候又好了。调查发现原来 ie9 不支持代码里写一些 console 对象的方法，只有打开控制台才能触发。而我们平时开发的时候喜欢写一些 console 这样的调试代码，我们以为用 Grunt 压缩后会去掉这些调试代码，但是同事发现只会去除 console.log 这个方法，而其他的 console.error 这些方法不能">
+<meta property="og:updated_time" content="2015-08-24T14:57:37.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="结合代码例子再谈谈闭包">
-<meta name="twitter:description" content="本文涉及到的知识点：
-
-什么是闭包
-垃圾回收机制
-闭包与垃圾回收机制
-闭包测试
-闭包的优点
-函数表达式与代码模块化模型
-运用闭包在循环内找到当前索引值
-闭包引发的内存泄露问题及解决方案">
+<meta name="twitter:title" content="修改 gulp-strip-debug 配置，不要删除 alert 调试方法">
+<meta name="twitter:description" content="事情起因是这样的，公司一项目在 ie9 下面有点问题，但是打开控制台调试的时候又好了。调查发现原来 ie9 不支持代码里写一些 console 对象的方法，只有打开控制台才能触发。而我们平时开发的时候喜欢写一些 console 这样的调试代码，我们以为用 Grunt 压缩后会去掉这些调试代码，但是同事发现只会去除 console.log 这个方法，而其他的 console.error 这些方法不能">
 
 
 <script type="text/javascript" id="hexo.configuration">
@@ -83,7 +56,7 @@
   };
 </script>
 
-  <title> 结合代码例子再谈谈闭包 | Go7hic </title>
+  <title> 修改 gulp-strip-debug 配置，不要删除 alert 调试方法 | Go7hic </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -182,7 +155,7 @@
           
           
             
-              结合代码例子再谈谈闭包
+              修改 gulp-strip-debug 配置，不要删除 alert 调试方法
             
           
         </h1>
@@ -191,8 +164,8 @@
       <div class="post-meta">
         <span class="post-time">
           发表于
-          <time itemprop="dateCreated" datetime="2014-08-26T00:00:00+08:00" content="2014-08-26">
-            2014-08-26
+          <time itemprop="dateCreated" datetime="2015-08-24T00:00:00+08:00" content="2015-08-24">
+            2015-08-24
           </time>
         </span>
 
@@ -210,202 +183,15 @@
       
 
       
-        <span itemprop="articleBody"><p>本文涉及到的知识点：</p>
-<ul>
-<li>什么是闭包</li>
-<li>垃圾回收机制</li>
-<li>闭包与垃圾回收机制</li>
-<li>闭包测试</li>
-<li>闭包的优点</li>
-<li>函数表达式与代码模块化模型</li>
-<li>运用闭包在循环内找到当前索引值</li>
-<li>闭包引发的内存泄露问题及解决方案<a id="more"></a>
-1:闭包特点：函数嵌套函数，内部函数可以应用外部函数的参数和质量。</li>
-</ul>
-<p>函数嵌套</p>
-<pre><code><span class="function"><span class="keyword">function</span> <span class="title">aaa</span><span class="params">()</span> </span>{
-    <span class="function"><span class="keyword">function</span> <span class="title">bbb</span><span class="params">()</span> </span>{
-
-    }
-}
-</code></pre><p>内部函数可以应用外部函数的参数和变量</p>
-<pre><code><span class="function"><span class="keyword">function</span> <span class="title">aaa</span><span class="params">()</span> {</span>
-    var b = <span class="number">5</span>;
-    <span class="function"><span class="keyword">function</span> <span class="title">bbb</span><span class="params">()</span> {</span>
-    alert<span class="params">(a)</span>;
-    alert<span class="params">(b)</span>;
-    }
-}
-</code></pre><p>变量和参数不会被垃圾回收机制回收。<br>比如： </p>
-<pre><code><span class="function"><span class="keyword">function</span> <span class="title">aaa</span><span class="params">()</span> </span>{
-
-    <span class="keyword">var</span> a = <span class="number">1</span>;
-}
-aaa()
-</code></pre><p>上面函数 aaa() 执行完后，变量a 就会被垃圾回收机制回收。(主要在js中为了节省内存设计的)</p>
-<p>但是如果是上面那个闭包函数那样：</p>
-<pre><code><span class="function"><span class="keyword">function</span> <span class="title">aaa</span><span class="params">()</span> {</span>
-    var b = <span class="number">5</span>;
-    <span class="function"><span class="keyword">function</span> <span class="title">bbb</span><span class="params">()</span> {</span>
-    alert<span class="params">(a)</span>;
-    alert<span class="params">(b)</span>;
-    }
-}
-aaa<span class="params">()</span>;
-</code></pre><p>这个闭包函数里 aaa() 执行完之后变量 b 不会被垃圾回收机制收回，因为内部的函数还在继续引用它们。</p>
-<p>再看：</p>
-<pre><code><span class="function"><span class="keyword">function</span> <span class="title">aaa</span><span class="params">()</span> </span>{
-    <span class="keyword">var</span> a =<span class="number">5</span>;
-    <span class="function"><span class="keyword">function</span> <span class="title">bbb</span><span class="params">()</span> </span>{
-    alert(a);
-
-    }<span class="keyword">return</span> bbb;
-}
-<span class="keyword">var</span> c =aaa();<span class="comment">//此时aaa()已经执行</span>
-c();<span class="comment">// 这里实际执行的是bbb()</span>
-</code></pre><p><strong>闭包有啥好处。
-</strong></p>
-<ul>
-<li>1.希望一个变量长期驻扎在内存中;(上面已经讲了)</li>
-<li>2.可以避免全局变量的污染。</li>
-<li>3.私有成员的存在。</li>
-</ul>
-<p><strong>用到的场景:</strong></p>
-<ul>
-<li>1.模块化代码</li>
-<li>2.在循环中直接找到对应元素的索引</li>
-</ul>
-<p>看个例子：</p>
-<pre><code><span class="keyword">var</span> a = <span class="number">1</span>;
-<span class="function"><span class="keyword">function</span> <span class="title">aaa</span><span class="params">()</span> <span class="comment">{
-    a++;
-    alert(a);
-}</span>
-<span class="title">aaa</span><span class="params">()</span>;</span> <span class="comment">//2</span>
-aaa(); <span class="comment">//3</span>
-alert(a); <span class="comment">//1 ，因为a 是全局变量</span>
-</code></pre><p>把a设为局部变量试试</p>
-<pre><code><span class="function"><span class="keyword">function</span> <span class="title">aaa</span><span class="params">()</span> <span class="comment">{
-    var a = 1;
-    a++;
-    alert(a);
-}</span>
-<span class="title">aaa</span><span class="params">()</span>;</span><span class="comment">//执行函数 ，弹出2</span>
-aaa();<span class="comment">//再次执行还是弹出2，a并没有累加，因为a执行完之后就被垃圾回收了</span>
-</code></pre><p>怎么才能把a 设为局部变量，又能将a累加呢，这就可以利用闭包了，看例子：</p>
-<pre><code><span class="function"><span class="keyword">function</span> <span class="title">aaa</span><span class="params">()</span> {</span>
-    var a = <span class="number">1</span>;
-    return <span class="function"><span class="keyword">function</span><span class="params">()</span> {</span>
-    a++;
-    alert<span class="params">(a)</span>;
-    }
-}
-var b = aaa<span class="params">()</span>;
-b<span class="params">()</span>; <span class="comment">//2</span>
-b<span class="params">()</span>; <span class="comment">//3</span>
-alert<span class="params">(a)</span>; <span class="comment">//这里会报错，因为这里a已经是局部变量，外部调用不到了。</span>
-</code></pre><p><strong>函数声明改成函数表达式：</strong></p>
-<pre><code><span class="function"><span class="keyword">function</span> <span class="title">aaa</span><span class="params">()</span> {</span>
-    alert<span class="params">(<span class="number">1</span>)</span>
-}
-aaa<span class="params">()</span>;
-</code></pre><p>上面就是一个简单的函数声明，可以改写成函数表达式的格式</p>
-<pre><code><span class="list">(<span class="keyword">function</span> aaa<span class="list">()</span> <span class="collection">{
-    alert<span class="list">(<span class="number">1</span>)</span>
-}</span>)</span><span class="list">()</span>
-</code></pre><p>这个函数弹出的也是1.<br>后面这个括号就是立即调用运行的意思，因为调用的就是前面括号里的函数，所以前面函数也可以改写为：</p>
-<pre><code><span class="list">(<span class="keyword">function</span> <span class="list">()</span> <span class="collection">{
-    alert<span class="list">(<span class="number">1</span>)</span>
-}</span>)</span><span class="list">()</span>
-</code></pre><p>我们用表达式再重写下前面那个函数：</p>
-<pre><code><span class="keyword">var</span> aaa = (<span class="function"><span class="keyword">function</span> <span class="title">aaa</span><span class="params">()</span> </span>{
-    <span class="keyword">var</span> a = <span class="number">1</span>;
-    <span class="keyword">return</span> <span class="function"><span class="keyword">function</span><span class="params">()</span> </span>{
-    a++;
-    alert(a);
-    }
-})();
-aaa(); <span class="comment">//2</span>
-aaa(); <span class="comment">//3</span>
-</code></pre><p>这其实就是js里的一种模块化代码写法</p>
-<p>上面提到可以有私有成员的存在，我们这里可以用闭包把函数私有化，也是js模块化可用到的场景实例:</p>
-<pre><code><span class="keyword">var</span> aaa = (<span class="function"><span class="keyword">function</span> <span class="params">()</span> </span>{
-    vara = <span class="number">1</span>;
-    <span class="function"><span class="keyword">function</span> <span class="title">bbb</span><span class="params">()</span> </span>{
-    a++;
-    alert(a);
-    }
-    <span class="function"><span class="keyword">function</span> <span class="title">ccc</span><span class="params">()</span> </span>{
-    a++;
-    alert(a);
-    }
-    <span class="keyword">return</span> {
-    <span class="comment">// 返回json 格式</span>
-    b : bbb,
-    c : ccc
-    }
-})
-aaa.b();<span class="comment">//2;</span>
-aaa.c();<span class="comment">//3</span>
-alert(a); <span class="comment">//报错</span>
-alert(bbb);<span class="comment">//报错</span>
-alert(ccc);<span class="comment">//报错</span>
-</code></pre><p>再看循环在闭包里的应用：</p>
-<p>js:</p>
-<pre><code><span class="built_in">window</span>.onload = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>{
-    <span class="built_in">document</span>.getElementByTagName(<span class="string">'li'</span>);
-    <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>;i&lt;aLi.length;i++) {
-        aLi[i].onclick = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>{
-        alert(i);
-    }
-    }
-}
-</code></pre><p>html:    </p>
-<pre><code><span class="tag">&lt;ul&gt;</span>
-    <span class="tag">&lt;li&gt;</span><span class="tag">&lt;/li&gt;</span>
-    <span class="tag">&lt;li&gt;</span><span class="tag">&lt;/li&gt;</span>
-    <span class="tag">&lt;li&gt;</span><span class="tag">&lt;/li&gt;</span>
-<span class="tag">&lt;/ul&gt;</span>
-</code></pre><p><strong>闭包需要注意的地方：</strong></p>
-<p>1.ie下会引发内存的泄露(这里内存泄露大概意思就是指当页面跳转的时候这个变量不会释放，一直存在内存中，最后会导致电脑CPU增高，只有当浏览器关闭的时候才会释放。)</p>
-<p>看个例子:</p>
-<p>js:</p>
-<pre><code><span class="built_in">window</span>.onload = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>{
-    <span class="keyword">var</span> oDiv = <span class="built_in">document</span>.getElementById(<span class="string">'div1'</span>);
-    <span class="comment">//添加点击事件</span>
-    oDiv.onclick = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>{
-    alert(oDiv.id);
-    };
-
-}
-</code></pre><p>html:</p>
-<pre><code>&lt;<span class="keyword">div</span> <span class="property">id</span>=<span class="string">"div1"</span>&gt;aaaaaa&lt;/<span class="keyword">div</span>&gt;
-</code></pre><p>首先我们看下IE什么情况下会导致内存泄露，如上所示：</p>
-<p>就是当一个变量(是获取到的dom节点或一个对象数组)的属性(上面就是onclick)去引用一个内部函数，而这个内部函数的对象又去引用外部的那个变量，这时候就会导致ie内存泄露。</p>
-<p><strong>那么如何解决这个问题呢？</strong></p>
-<p>我们可以改善上面那个js代码:</p>
-<pre><code><span class="built_in">window</span>.onload = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>{
-    <span class="keyword">var</span> oDiv = <span class="built_in">document</span>.getElementById(<span class="string">"div1"</span>);
-    oDiv.onclick = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>{
-    alert(oDiv.id);
-    };
-    <span class="comment">// 当跳出页面的时候取消这个点击事件</span>
-    <span class="built_in">window</span>.onunload = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>{
-    oDiv.onclick = <span class="literal">null</span>;
-    };
-}
-</code></pre><p>还有一种办法:</p>
-<pre><code><span class="built_in">window</span>.onload = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>{
-    <span class="keyword">var</span> oDiv = <span class="built_in">document</span>.getElementById(<span class="string">"div1"</span>);
-    <span class="comment">// 提前声明一个变量</span>
-    <span class="keyword">var</span> id = oDiv.id;
-    oDiv.onclick = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>{
-    alert(oDiv.id);
-    };
-    <span class="comment">// 当跳出页面的时候取消这个点击事件</span>
-    oDiv = <span class="literal">null</span>;
-}
-</code></pre></span>
+        <span itemprop="articleBody"><p>事情起因是这样的，公司一项目在 ie9 下面有点问题，但是打开控制台调试的时候又好了。调查发现原来 ie9 不支持代码里写一些 console 对象的方法，只有打开控制台才能触发。而我们平时开发的时候喜欢写一些 console 这样的调试代码，我们以为用 Grunt 压缩后会去掉这些调试代码，但是同事发现只会去除 console.log 这个方法，而其他的 console.error 这些方法不能去掉。<br><a id="more"></a><br>遇到这个情况后，我看了下自己的项目，发现压缩后 console 的调式代码也没有清除干净，于是又找了一个插件，因为我用的是 gulp 构建，所以找到了 gulp-strip-debug 这个 gulp 插件。压缩后查了一下，嗯，果然把 console 的代码全清理了，果然很吊。但是后来我又发现一个问题，这个插件有三个模块console,alert,debuger，也就是说这个插件还会把代码里的 alert 方法也删掉。这个我可不想要，因为有时候我还是想弹个框给提示啥的，虽然不主张直接弹框给用户，但是也有例外嘛。所以我想看下怎么才可以在使用插件的时候配置一下不要 删除 alert 这个功能。配置了一下还是有效的，简单修改如下：</p>
+<p>使用的时候这样写</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">stripDebug(&#123;<span class="string">debugger:</span> <span class="literal">true</span>, <span class="string">console:</span> <span class="literal">true</span>, <span class="string">alert:</span> <span class="literal">false</span>&#125;);</span><br></pre></td></tr></table></figure>
+<p>然后打开  gulp-strip-debug/index.js 换成下面的，其实就是加了个 options 参数</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="pi">'use strict'</span>;</span><br><span class="line"><span class="keyword">var</span> gutil = <span class="built_in">require</span>(<span class="string">'gulp-util'</span>);</span><br><span class="line"><span class="keyword">var</span> through = <span class="built_in">require</span>(<span class="string">'through2'</span>);</span><br><span class="line"><span class="keyword">var</span> stripDebug = <span class="built_in">require</span>(<span class="string">'strip-debug'</span>);</span><br><span class="line"></span><br><span class="line"><span class="built_in">module</span>.exports = <span class="function"><span class="keyword">function</span> (<span class="params">options</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> through.obj(<span class="function"><span class="keyword">function</span> (<span class="params">file, enc, cb</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (file.isNull()) &#123;</span><br><span class="line">            cb(<span class="literal">null</span>, file);</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (file.isStream()) &#123;</span><br><span class="line">            cb(<span class="keyword">new</span> gutil.PluginError(<span class="string">'gulp-strip-debug'</span>, <span class="string">'Streaming not supported'</span>));</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            file.contents = <span class="keyword">new</span> Buffer(stripDebug(file.contents.toString(), options).toString());</span><br><span class="line">            <span class="keyword">this</span>.push(file);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (err) &#123;</span><br><span class="line">            <span class="keyword">this</span>.emit(<span class="string">'error'</span>, <span class="keyword">new</span> gutil.PluginError(<span class="string">'gulp-strip-debug'</span>, err, &#123;fileName: file.path&#125;));</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        cb();</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>然后打开 gulp-strip-debug/node_modules/strip-debug/index.js ，换成下面的，也是加了个参数，然后判断参数进行运算</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="pi">'use strict'</span>;</span><br><span class="line"><span class="keyword">var</span> rocambole = <span class="built_in">require</span>(<span class="string">'rocambole'</span>);</span><br><span class="line"><span class="keyword">var</span> stripDebugger = <span class="built_in">require</span>(<span class="string">'rocambole-strip-debugger'</span>);</span><br><span class="line"><span class="keyword">var</span> stripConsole = <span class="built_in">require</span>(<span class="string">'rocambole-strip-console'</span>);</span><br><span class="line"><span class="keyword">var</span> stripAlert = <span class="built_in">require</span>(<span class="string">'rocambole-strip-alert'</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// esprima@2.1 introduces a "handler" property on TryStatement, so we would</span></span><br><span class="line"><span class="comment">// loop the same node twice (see jquery/esprima/issues/1031 and #264)</span></span><br><span class="line">rocambole.BYPASS_RECURSION.handler = <span class="literal">true</span>;</span><br><span class="line"></span><br><span class="line"><span class="built_in">module</span>.exports = <span class="function"><span class="keyword">function</span> (<span class="params">src, options</span>) </span>&#123;</span><br><span class="line">    options = options || &#123;&#125;;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> rocambole.moonwalk(src, <span class="function"><span class="keyword">function</span> (<span class="params">node</span>) </span>&#123;</span><br><span class="line">        options.debugger !== <span class="literal">false</span> &amp;&amp; stripDebugger(node);</span><br><span class="line">        options.console !== <span class="literal">false</span> &amp;&amp; stripConsole(node);</span><br><span class="line">        options.alert !== <span class="literal">false</span> &amp;&amp; stripAlert(node);</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p> 修改完之后就可以放心用了，你可以自由的配置你想删除哪个 调式代码的方法。</p>
+</span>
       
     </div>
 
@@ -416,13 +202,11 @@ alert(ccc);<span class="comment">//报错</span>
         <div class="post-nav">
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2014/09/03/2014-09-03-weituo/" rel="prev">理解JavaScript事件委托的技术原理</a>
-            
           </div>
 
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2014/08/14/2014-08-14-you-know-nothing-about-code/" rel="next">You know nothing about code</a>
+              <a href="/2015/08/01/各种语言快速启动 webServe 的方法/" rel="next">各种语言快速启动 webServe 的方法</a>
             
           </div>
         </div>

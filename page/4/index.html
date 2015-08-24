@@ -40,7 +40,7 @@
 <meta name="description">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Go7hic">
-<meta property="og:url" content="http://blog.yongyuan.us/archives/2014/12/index.html">
+<meta property="og:url" content="http://blog.yongyuan.us/page/4/index.html">
 <meta property="og:site_name" content="Go7hic">
 <meta property="og:description">
 <meta name="twitter:card" content="summary">
@@ -55,7 +55,7 @@
   };
 </script>
 
-  <title> 归档 | Go7hic </title>
+  <title> Go7hic </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -73,7 +73,9 @@
 
 
 
-  <div class="container one-column  page-archive ">
+  <div class="container one-column 
+   page-home 
+">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -141,60 +143,84 @@
     <main id="main" class="main">
       <div class="main-inner">
         <div id="content" class="content"> 
-
-  <section id="posts" class="posts-collapse">
-    <span class="archive-move-on"></span>
-
-    <span class="archive-page-counter">
-      
-      
-      
-        
-      
-      嗯..! 目前共计 25 篇日志。 继续努力。
-    </span>
-
+  <section id="posts" class="posts-expand">
     
-
-      
-      
       
 
-      
-        
-        <div class="collection-title">
-          <h2 class="archive-year motion-element" id="archive-year-2014">2014</h2>
-        </div>
-      
-      
-
-      
-
-  <article class="post post-type-normal"itemscope itemtype="http://schema.org/Article">
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <header class="post-header">
 
-      <h1 class="post-title">
-        
-            <a class="post-title-link" href="/2014/12/31/2014-12-31- Ruby 函数式编程/" itemprop="url">
-              <span itemprop="name">Ruby 函数式编程</span>
-            </a>
-        
-      </h1>
+      
+      
+        <h1 class="post-title" itemprop="name headline">
+          
+          
+            
+              <a class="post-title-link" href="/2014/04/26/2014-04-26-javascript-prototype/" itemprop="url">
+                谈谈JavaScript中的原型继承
+              </a>
+            
+          
+        </h1>
+      
 
       <div class="post-meta">
-        <time class="post-time" datetime="2014-12-30T16:00:00.000Z" itemprop="dateCreated" content="2014-12-30"> 12-31 </time>
-      </div>
+        <span class="post-time">
+          发表于
+          <time itemprop="dateCreated" datetime="2014-04-26T00:00:00+08:00" content="2014-04-26">
+            2014-04-26
+          </time>
+        </span>
 
+        
+
+        
+          
+        
+      </div>
     </header>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <h3 id="谈谈JavaScript中的原型继承">谈谈JavaScript中的原型继承</h3><p>在Javascript面向对象编程中，原型继承不仅是一个重点也是一个不容易掌握的点。在本文中，我们将对Javascript中的原型继承进行一些探索。</p>
+<p>基本形式</p>
+<p>我们先来看下面一段代码：</p>
+<p>//构造器函数<br>function Shape(){<br>    this.x = 0;<br>    this.y = 0;<br>}</p>
+<p>//一个shape实例<br>var s = new Shape();<br>虽然这个例子非常简单，但是有四个“非常重要”的点需要在此阐明：<br>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2014/04/26/2014-04-26-javascript-prototype/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
   </article>
 
 
-
     
-
   </section>
 
   
+  <nav class="pagination">
+    <a class="extend prev" rel="prev" href="/page/3/">&laquo;</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span>
+  </nav>
 
  </div>
 
@@ -312,12 +338,6 @@
   
   
   
-    <script type="text/javascript">
-      postMotionOptions = {stagger: 100, drag: true};
-    </script>
-  
-
-  
     
     
 
@@ -345,12 +365,6 @@
   <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
 
   
-  
-    <script type="text/javascript" id="motion.page.archive">
-      $('.archive-year').velocity('transition.slideLeftIn');
-    </script>
-  
-
 
   <script type="text/javascript">
     $(document).ready(function () {
