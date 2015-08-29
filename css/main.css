@@ -982,6 +982,7 @@ body {
   height: auto;
   border: 2px solid #333;
   padding: 2px;
+  border-radius: 50%;
 }
 .site-author-name {
   margin: 5px 0 0;
@@ -1055,7 +1056,7 @@ body {
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background: #ffb1b9;
+  background: #b97863;
 }
 .sidebar-nav {
   margin: 0;
@@ -1372,7 +1373,7 @@ body {
 }
 .posts-expand .post-eof {
   display: block;
-  margin: 160px auto 120px;
+  margin: 100px auto 100px;
   width: 8%;
   height: 1px;
   background: #ccc;
