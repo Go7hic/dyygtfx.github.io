@@ -28,7 +28,7 @@
 
 
 
-  <meta name="keywords" content="gulp," />
+  <meta name="keywords" content="css," />
 
 
 
@@ -39,16 +39,19 @@
   <link rel="shorticon icon" type="image/x-icon" href="/favicon.ico?v=0.4.5.1" />
 
 
-<meta name="description" content="事情起因是这样的，公司一项目在 ie9 下面有点问题，但是打开控制台调试的时候又好了。调查发现原来 ie9 不支持代码里写一些 console 对象的方法，只有打开控制台才能触发。而我们平时开发的时候喜欢写一些 console 这样的调试代码，我们以为用 Grunt 压缩后会去掉这些调试代码，但是同事发现只会去除 console.log 这个方法，而其他的 console.error 这些方法不能">
+<meta name="description" content="前端发展越来越快，很多前端人员也越来越忽视 css 重要性， 我相信很多前端新手都不敢说熟悉 css 的全部概念，甚至包括几年的前端也不一定了解，所以最近花时间做了一次 css 巡礼，把 一些不熟的东西再去看了一遍，今天来看看 css 置换元素。
+ CSS 里，可替换元素是这样一些元素， 其展现不是由CSS来控制的。这些外部元素的展现不依赖于CSS规范。 典型的可替换元素有 、 、  以及 、">
 <meta property="og:type" content="article">
-<meta property="og:title" content="修改 gulp-strip-debug 配置，不要删除 alert 调试方法">
-<meta property="og:url" content="http://blog.yongyuan.us/2015/08/24/修改 gulp-strip-debug 配置，不要删除 alert 调试方法/index.html">
+<meta property="og:title" content="CSS Replaced Element">
+<meta property="og:url" content="http://blog.yongyuan.us/2015/08/30/2015-08-30置换元素/index.html">
 <meta property="og:site_name" content="Go7hic">
-<meta property="og:description" content="事情起因是这样的，公司一项目在 ie9 下面有点问题，但是打开控制台调试的时候又好了。调查发现原来 ie9 不支持代码里写一些 console 对象的方法，只有打开控制台才能触发。而我们平时开发的时候喜欢写一些 console 这样的调试代码，我们以为用 Grunt 压缩后会去掉这些调试代码，但是同事发现只会去除 console.log 这个方法，而其他的 console.error 这些方法不能">
-<meta property="og:updated_time" content="2015-08-29T10:01:57.000Z">
+<meta property="og:description" content="前端发展越来越快，很多前端人员也越来越忽视 css 重要性， 我相信很多前端新手都不敢说熟悉 css 的全部概念，甚至包括几年的前端也不一定了解，所以最近花时间做了一次 css 巡礼，把 一些不熟的东西再去看了一遍，今天来看看 css 置换元素。
+ CSS 里，可替换元素是这样一些元素， 其展现不是由CSS来控制的。这些外部元素的展现不依赖于CSS规范。 典型的可替换元素有 、 、  以及 、">
+<meta property="og:updated_time" content="2015-08-30T16:43:34.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="修改 gulp-strip-debug 配置，不要删除 alert 调试方法">
-<meta name="twitter:description" content="事情起因是这样的，公司一项目在 ie9 下面有点问题，但是打开控制台调试的时候又好了。调查发现原来 ie9 不支持代码里写一些 console 对象的方法，只有打开控制台才能触发。而我们平时开发的时候喜欢写一些 console 这样的调试代码，我们以为用 Grunt 压缩后会去掉这些调试代码，但是同事发现只会去除 console.log 这个方法，而其他的 console.error 这些方法不能">
+<meta name="twitter:title" content="CSS Replaced Element">
+<meta name="twitter:description" content="前端发展越来越快，很多前端人员也越来越忽视 css 重要性， 我相信很多前端新手都不敢说熟悉 css 的全部概念，甚至包括几年的前端也不一定了解，所以最近花时间做了一次 css 巡礼，把 一些不熟的东西再去看了一遍，今天来看看 css 置换元素。
+ CSS 里，可替换元素是这样一些元素， 其展现不是由CSS来控制的。这些外部元素的展现不依赖于CSS规范。 典型的可替换元素有 、 、  以及 、">
 
 
 <script type="text/javascript" id="hexo.configuration">
@@ -58,7 +61,7 @@
   };
 </script>
 
-  <title> 修改 gulp-strip-debug 配置，不要删除 alert 调试方法 | Go7hic </title>
+  <title> CSS Replaced Element | Go7hic </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -165,7 +168,7 @@
           
           
             
-              修改 gulp-strip-debug 配置，不要删除 alert 调试方法
+              CSS Replaced Element
             
           
         </h1>
@@ -174,8 +177,8 @@
       <div class="post-meta">
         <span class="post-time">
           发表于
-          <time itemprop="dateCreated" datetime="2015-08-24T00:00:00+08:00" content="2015-08-24">
-            2015-08-24
+          <time itemprop="dateCreated" datetime="2015-08-30T11:21:04+08:00" content="2015-08-30">
+            2015-08-30
           </time>
         </span>
 
@@ -193,14 +196,30 @@
       
 
       
-        <span itemprop="articleBody"><p>事情起因是这样的，公司一项目在 ie9 下面有点问题，但是打开控制台调试的时候又好了。调查发现原来 ie9 不支持代码里写一些 console 对象的方法，只有打开控制台才能触发。而我们平时开发的时候喜欢写一些 console 这样的调试代码，我们以为用 Grunt 压缩后会去掉这些调试代码，但是同事发现只会去除 console.log 这个方法，而其他的 console.error 这些方法不能去掉。<br><a id="more"></a><br>遇到这个情况后，我看了下自己的项目，发现压缩后 console 的调式代码也没有清除干净，于是又找了一个插件，因为我用的是 gulp 构建，所以找到了 gulp-strip-debug 这个 gulp 插件。压缩后查了一下，嗯，果然把 console 的代码全清理了，果然很吊。但是后来我又发现一个问题，这个插件有三个模块console,alert,debuger，也就是说这个插件还会把代码里的 alert 方法也删掉。这个我可不想要，因为有时候我还是想弹个框给提示啥的，虽然不主张直接弹框给用户，但是也有例外嘛。所以我想看下怎么才可以在使用插件的时候配置一下不要 删除 alert 这个功能。配置了一下还是有效的，简单修改如下：</p>
-<p>使用的时候这样写</p>
-<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">stripDebug(&#123;<span class="string">debugger:</span> <span class="literal">true</span>, <span class="string">console:</span> <span class="literal">true</span>, <span class="string">alert:</span> <span class="literal">false</span>&#125;);</span><br></pre></td></tr></table></figure>
-<p>然后打开  gulp-strip-debug/index.js 换成下面的，其实就是加了个 options 参数</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="pi">'use strict'</span>;</span><br><span class="line"><span class="keyword">var</span> gutil = <span class="built_in">require</span>(<span class="string">'gulp-util'</span>);</span><br><span class="line"><span class="keyword">var</span> through = <span class="built_in">require</span>(<span class="string">'through2'</span>);</span><br><span class="line"><span class="keyword">var</span> stripDebug = <span class="built_in">require</span>(<span class="string">'strip-debug'</span>);</span><br><span class="line"></span><br><span class="line"><span class="built_in">module</span>.exports = <span class="function"><span class="keyword">function</span> (<span class="params">options</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> through.obj(<span class="function"><span class="keyword">function</span> (<span class="params">file, enc, cb</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (file.isNull()) &#123;</span><br><span class="line">            cb(<span class="literal">null</span>, file);</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (file.isStream()) &#123;</span><br><span class="line">            cb(<span class="keyword">new</span> gutil.PluginError(<span class="string">'gulp-strip-debug'</span>, <span class="string">'Streaming not supported'</span>));</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            file.contents = <span class="keyword">new</span> Buffer(stripDebug(file.contents.toString(), options).toString());</span><br><span class="line">            <span class="keyword">this</span>.push(file);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (err) &#123;</span><br><span class="line">            <span class="keyword">this</span>.emit(<span class="string">'error'</span>, <span class="keyword">new</span> gutil.PluginError(<span class="string">'gulp-strip-debug'</span>, err, &#123;fileName: file.path&#125;));</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        cb();</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<p>然后打开 gulp-strip-debug/node_modules/strip-debug/index.js ，换成下面的，也是加了个参数，然后判断参数进行运算</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="pi">'use strict'</span>;</span><br><span class="line"><span class="keyword">var</span> rocambole = <span class="built_in">require</span>(<span class="string">'rocambole'</span>);</span><br><span class="line"><span class="keyword">var</span> stripDebugger = <span class="built_in">require</span>(<span class="string">'rocambole-strip-debugger'</span>);</span><br><span class="line"><span class="keyword">var</span> stripConsole = <span class="built_in">require</span>(<span class="string">'rocambole-strip-console'</span>);</span><br><span class="line"><span class="keyword">var</span> stripAlert = <span class="built_in">require</span>(<span class="string">'rocambole-strip-alert'</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// esprima@2.1 introduces a "handler" property on TryStatement, so we would</span></span><br><span class="line"><span class="comment">// loop the same node twice (see jquery/esprima/issues/1031 and #264)</span></span><br><span class="line">rocambole.BYPASS_RECURSION.handler = <span class="literal">true</span>;</span><br><span class="line"></span><br><span class="line"><span class="built_in">module</span>.exports = <span class="function"><span class="keyword">function</span> (<span class="params">src, options</span>) </span>&#123;</span><br><span class="line">    options = options || &#123;&#125;;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> rocambole.moonwalk(src, <span class="function"><span class="keyword">function</span> (<span class="params">node</span>) </span>&#123;</span><br><span class="line">        options.debugger !== <span class="literal">false</span> &amp;&amp; stripDebugger(node);</span><br><span class="line">        options.console !== <span class="literal">false</span> &amp;&amp; stripConsole(node);</span><br><span class="line">        options.alert !== <span class="literal">false</span> &amp;&amp; stripAlert(node);</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<p> 修改完之后就可以放心用了，你可以自由的配置你想删除哪个 调式代码的方法。</p>
+        <span itemprop="articleBody"><p> 前端发展越来越快，很多前端人员也越来越忽视 css 重要性， 我相信很多前端新手都不敢说熟悉 css 的全部概念，甚至包括几年的前端也不一定了解，所以最近花时间做了一次 css 巡礼，把 一些不熟的东西再去看了一遍，今天来看看 css 置换元素。</p>
+<p> CSS 里，可替换元素是这样一些元素， 其展现不是由CSS来控制的。这些外部元素的展现不依赖于CSS规范。 典型的可替换元素有 <img>、 <object>、 <video> 以及 <textarea>、 </textarea><input> 这样的表单元素。 一些元素，比如 <audio> 和 <canvas> ，只在一些特殊情况下是可替换元素。 使用了 CSS content 属性插入的对象被称作匿名的可替换元素。</canvas></audio></video></object></p>
+<p>CSS在某些情况下会对可替换元素做特殊处理，比如计算外边距和处理值为 auto 的情况。</p>
+<p>需要注意的是，一部分（并非全部）可替换元素，本身具有尺寸和基线，会被一些 CSS 属性用到，比如 vertical-align。</p>
+<p>上面是 MDN 的介绍了。我们仔细看可以发现，上面那些可置换元素是有规律的，他们分为媒体标签元素（img,video 等）和输入标签元素(input)。而且除了 input 和 textarea 两个是 inline-block 级元素，其余的几个媒体标签都为 行内级元素，也就是 display 属性为 inline 的。</p>
+<p>那么问题来了，在很多人的心里，认为的是行内级元素是不可以设置宽高的，但是很明显直接给 img 和 video 这些元素设置宽高我们都做过，这不是打脸嘛。这里面主要原因就是因为 img,video 这些是不仅是行内元素还是置换元素，对于行内级置换元素来说，其宽度的设置需遵循以下几点：</p>
+<ul>
+<li>若宽高的计算值都为 auto 且元素有固有宽度，则 width 的使用值为该固有宽度；</li>
+<li>典型的例子是：拥有默认宽高的 input 当宽度的计算值为auto时，则宽度使用值为其默认的固有宽度</li>
+<li>若宽度的计算值为 auto 且元素有固有宽度，则 width 的使用值为该固有宽度；<br>例子同上</li>
+<li>若宽度的计算值为 auto 且高度有 非auto 的计算值，并且元素有固有宽高比，则 width 的使用值为 高度使用值 * 固有宽高比；</li>
+<li>典型的例子：img 当只定义了其高度值时，其宽度将会根据固有宽高比进行等比设置</li>
+<li>除此之外，当 width 的计算值为 auto 时，则宽度的使用值为 300px<br>典型的例子：比如iframe, canvas</li>
+<li>其它类型的置换元素，其宽度的定义都参照行内置换元素的定义。</li>
+</ul>
+<p>对于行内级置换元素来说，其高度的设置需遵循以下几点：</p>
+<ul>
+<li>若宽高的计算值都为 auto 且元素有固有高度，则 height 的使用值为该固有高度；</li>
+<li>若高度的计算值为 auto 且元素有固有高度，则 height 的使用值为该固有高度；</li>
+<li>若高度的计算值为 auto 且宽度有 非auto 的计算值，并且元素有固有宽高比，则 height 的使用值为：宽度使用值 / 固有宽高比；</li>
+<li>若高度的计算值为 auto 且上述条件完全不符，则 height 的使用值 不能大于150px，且宽度不能大于长方形高度的2倍。</li>
+<li>其它类型的置换元素，其高度的定义都参照行内置换元素的定义。</li>
+</ul>
+<p>所以把这个概念搞清楚了，也把另一个坑给避免了，下次别人问的时候千万别直接说行内元素不可以设置宽高，这里面还有可置换元素这些特殊的元素是可以设置宽高的。</p>
 </span>
       
     </div>
@@ -209,7 +228,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/gulp/" rel="tag">#gulp</a>
+            <a href="/tags/css/" rel="tag">#css</a>
           
         </div>
       
@@ -218,13 +237,11 @@
         <div class="post-nav">
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2015/08/30/2015-08-30置换元素/" rel="prev">CSS Replaced Element</a>
-            
           </div>
 
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2015/08/01/各种语言快速启动 webServe 的方法/" rel="next">各种语言快速启动 webServe 的方法</a>
+              <a href="/2015/08/24/修改 gulp-strip-debug 配置，不要删除 alert 调试方法/" rel="next">修改 gulp-strip-debug 配置，不要删除 alert 调试方法</a>
             
           </div>
         </div>
