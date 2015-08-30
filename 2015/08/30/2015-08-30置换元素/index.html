@@ -40,18 +40,18 @@
 
 
 <meta name="description" content="前端发展越来越快，很多前端人员也越来越忽视 css 重要性， 我相信很多前端新手都不敢说熟悉 css 的全部概念，甚至包括几年的前端也不一定了解，所以最近花时间做了一次 css 巡礼，把 一些不熟的东西再去看了一遍，今天来看看 css 置换元素。
- CSS 里，可替换元素是这样一些元素， 其展现不是由CSS来控制的。这些外部元素的展现不依赖于CSS规范。 典型的可替换元素有 、 、  以及 、">
+ CSS 里，可替换元素是这样一些元素， 其展现不是由CSS来控制的。这些外部元素的展现不依赖于CSS规范。 典型的可替换元素有 &amp;lt;img&amp;gt;">
 <meta property="og:type" content="article">
 <meta property="og:title" content="CSS Replaced Element">
 <meta property="og:url" content="http://blog.yongyuan.us/2015/08/30/2015-08-30置换元素/index.html">
 <meta property="og:site_name" content="Go7hic">
 <meta property="og:description" content="前端发展越来越快，很多前端人员也越来越忽视 css 重要性， 我相信很多前端新手都不敢说熟悉 css 的全部概念，甚至包括几年的前端也不一定了解，所以最近花时间做了一次 css 巡礼，把 一些不熟的东西再去看了一遍，今天来看看 css 置换元素。
- CSS 里，可替换元素是这样一些元素， 其展现不是由CSS来控制的。这些外部元素的展现不依赖于CSS规范。 典型的可替换元素有 、 、  以及 、">
-<meta property="og:updated_time" content="2015-08-30T16:43:34.000Z">
+ CSS 里，可替换元素是这样一些元素， 其展现不是由CSS来控制的。这些外部元素的展现不依赖于CSS规范。 典型的可替换元素有 &amp;lt;img&amp;gt;">
+<meta property="og:updated_time" content="2015-08-30T16:45:55.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="CSS Replaced Element">
 <meta name="twitter:description" content="前端发展越来越快，很多前端人员也越来越忽视 css 重要性， 我相信很多前端新手都不敢说熟悉 css 的全部概念，甚至包括几年的前端也不一定了解，所以最近花时间做了一次 css 巡礼，把 一些不熟的东西再去看了一遍，今天来看看 css 置换元素。
- CSS 里，可替换元素是这样一些元素， 其展现不是由CSS来控制的。这些外部元素的展现不依赖于CSS规范。 典型的可替换元素有 、 、  以及 、">
+ CSS 里，可替换元素是这样一些元素， 其展现不是由CSS来控制的。这些外部元素的展现不依赖于CSS规范。 典型的可替换元素有 &amp;lt;img&amp;gt;">
 
 
 <script type="text/javascript" id="hexo.configuration">
@@ -197,7 +197,7 @@
 
       
         <span itemprop="articleBody"><p> 前端发展越来越快，很多前端人员也越来越忽视 css 重要性， 我相信很多前端新手都不敢说熟悉 css 的全部概念，甚至包括几年的前端也不一定了解，所以最近花时间做了一次 css 巡礼，把 一些不熟的东西再去看了一遍，今天来看看 css 置换元素。</p>
-<p> CSS 里，可替换元素是这样一些元素， 其展现不是由CSS来控制的。这些外部元素的展现不依赖于CSS规范。 典型的可替换元素有 <img>、 <object>、 <video> 以及 <textarea>、 </textarea><input> 这样的表单元素。 一些元素，比如 <audio> 和 <canvas> ，只在一些特殊情况下是可替换元素。 使用了 CSS content 属性插入的对象被称作匿名的可替换元素。</canvas></audio></video></object></p>
+<p> CSS 里，可替换元素是这样一些元素， 其展现不是由CSS来控制的。这些外部元素的展现不依赖于CSS规范。 典型的可替换元素有 <code>&lt;img&gt;</code>、 <code>&lt;object&gt;</code>、 <code>&lt;video&gt;</code> 以及 <code>&lt;textarea&gt;</code>、 <code>&lt;input&gt;</code> 这样的表单元素。 一些元素，比如 <code>&lt;audio&gt;</code> 和 <code>&lt;canvas&gt;</code> ，只在一些特殊情况下是可替换元素。 使用了 CSS content 属性插入的对象被称作匿名的可替换元素。</p>
 <p>CSS在某些情况下会对可替换元素做特殊处理，比如计算外边距和处理值为 auto 的情况。</p>
 <p>需要注意的是，一部分（并非全部）可替换元素，本身具有尺寸和基线，会被一些 CSS 属性用到，比如 vertical-align。</p>
 <p>上面是 MDN 的介绍了。我们仔细看可以发现，上面那些可置换元素是有规律的，他们分为媒体标签元素（img,video 等）和输入标签元素(input)。而且除了 input 和 textarea 两个是 inline-block 级元素，其余的几个媒体标签都为 行内级元素，也就是 display 属性为 inline 的。</p>
