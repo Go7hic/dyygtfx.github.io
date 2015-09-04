@@ -1,0 +1,609 @@
+<!doctype html>
+<html class="theme-next use-motion ">
+<head>
+  
+
+<meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+  <link rel="stylesheet" type="text/css" href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5"/>
+
+
+
+
+<link rel="stylesheet" type="text/css" href="/css/main.css?v=0.4.5.1"/>
+
+
+    <meta name="description" content="jsut 4 fun" />
+
+
+
+  <meta name="keywords" content="JavaScript," />
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Go7hic" type="application/atom+xml" />
+
+
+
+  <link rel="shorticon icon" type="image/x-icon" href="/favicon.ico?v=0.4.5.1" />
+
+
+<meta name="description" content="我们在手机上经常会看到这种效果，下拉屏幕，网页会刷新加载新的元素。今天就来分析下有几个方法实现这种效果。
+一：原生 Js 实现html:
+123456789101112&amp;lt;h1&amp;gt;下拉刷新&amp;lt;/h1&amp;gt;    &amp;lt;div class=&quot;list&quot;&amp;gt;        &amp;lt;div id=&quot;touchloader&quot; style=&quot;text-align: center;disp">
+<meta property="og:type" content="article">
+<meta property="og:title" content="实现页面下拉刷新的几个方法">
+<meta property="og:url" content="http://blog.yongyuan.us/2014/12/28/实现页面下拉刷新的几个方法/index.html">
+<meta property="og:site_name" content="Go7hic">
+<meta property="og:description" content="我们在手机上经常会看到这种效果，下拉屏幕，网页会刷新加载新的元素。今天就来分析下有几个方法实现这种效果。
+一：原生 Js 实现html:
+123456789101112&amp;lt;h1&amp;gt;下拉刷新&amp;lt;/h1&amp;gt;    &amp;lt;div class=&quot;list&quot;&amp;gt;        &amp;lt;div id=&quot;touchloader&quot; style=&quot;text-align: center;disp">
+<meta property="og:updated_time" content="2015-09-04T17:32:41.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="实现页面下拉刷新的几个方法">
+<meta name="twitter:description" content="我们在手机上经常会看到这种效果，下拉屏幕，网页会刷新加载新的元素。今天就来分析下有几个方法实现这种效果。
+一：原生 Js 实现html:
+123456789101112&amp;lt;h1&amp;gt;下拉刷新&amp;lt;/h1&amp;gt;    &amp;lt;div class=&quot;list&quot;&amp;gt;        &amp;lt;div id=&quot;touchloader&quot; style=&quot;text-align: center;disp">
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var CONFIG = {
+    scheme: '',
+    sidebar: 'post'
+  };
+</script>
+
+  <title> 实现页面下拉刷新的几个方法 | Go7hic </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  <!--[if lte IE 8]>
+  <div style=' clear: both; height: 59px; padding:0 0 0 15px; position: relative;margin:0 auto;'>
+    <a href="http://windows.microsoft.com/en-US/internet-explorer/products/ie/home?ocid=ie6_countdown_bannercode">
+      <img src="http://7u2nvr.com1.z0.glb.clouddn.com/picouterie.jpg" border="0" height="42" width="820"
+           alt="You are using an outdated browser. For a faster, safer browsing experience, upgrade for free today or use other browser ,like chrome firefox safari."
+           style='margin-left:auto;margin-right:auto;display: block;'/>
+    </a>
+  </div>
+<![endif]-->
+  
+
+
+
+  <div class="container one-column page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><h1 class="site-meta">
+  <span class="logo-line-before"><i></i></span>
+  <a href="/" class="brand" rel="start">
+      <span class="logo">
+        <i class="icon-next-logo"></i>
+      </span>
+      <span class="site-title">Go7hic</span>
+  </a>
+  <span class="logo-line-after"><i></i></span>
+</h1>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu ">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            <i class="menu-item-icon icon-next-home"></i> <br />
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            <i class="menu-item-icon icon-next-archives"></i> <br />
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            <i class="menu-item-icon icon-next-tags"></i> <br />
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            <i class="menu-item-icon icon-next-about"></i> <br />
+            关于
+          </a>
+        </li>
+      
+
+      
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div id="content" class="content"> 
+
+  <div id="posts" class="posts-expand">
+    
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      
+      
+        <h1 class="post-title" itemprop="name headline">
+          
+          
+            
+              实现页面下拉刷新的几个方法
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于
+          <time itemprop="dateCreated" datetime="2014-12-28T11:21:04+08:00" content="2014-12-28">
+            2014-12-28
+          </time>
+        </span>
+
+        
+
+        
+          
+        
+      </div>
+    </header>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        <span itemprop="articleBody"><p>我们在手机上经常会看到这种效果，下拉屏幕，网页会刷新加载新的元素。今天就来分析下有几个方法实现这种效果。</p>
+<h3 id="一：原生_Js_实现">一：原生 Js 实现</h3><p>html:</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">h1</span>&gt;</span>下拉刷新<span class="tag">&lt;/<span class="title">h1</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"list"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="title">div</span> <span class="attribute">id</span>=<span class="value">"touchloader"</span> <span class="attribute">style</span>=<span class="value">"text-align: center;display: none;"</span>&gt;</span>Loading.....<span class="tag">&lt;/<span class="title">div</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="title">ul</span> <span class="attribute">id</span>=<span class="value">"touchlist"</span> <span class="attribute">style</span>=<span class="value">"position: relative;top:0px;"</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="title">li</span>&gt;</span>111111111<span class="tag">&lt;/<span class="title">li</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="title">li</span>&gt;</span>222222222<span class="tag">&lt;/<span class="title">li</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="title">li</span>&gt;</span>333333333<span class="tag">&lt;/<span class="title">li</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="title">li</span>&gt;</span>44444444<span class="tag">&lt;/<span class="title">li</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="title">li</span>&gt;</span>555555555<span class="tag">&lt;/<span class="title">li</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="title">ul</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="title">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>css:</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="class">.list</span> <span class="tag">li</span> <span class="rules">&#123;</span><br><span class="line">      <span class="rule"><span class="attribute">list-style-type</span>:<span class="value">none</span></span>;</span><br><span class="line">      <span class="rule"><span class="attribute">line-height</span>:<span class="value"><span class="number">50px</span></span></span>;</span><br><span class="line">      <span class="rule"><span class="attribute">height</span>:<span class="value"><span class="number">50px</span></span></span>;</span><br><span class="line">      <span class="rule"><span class="attribute">font-size</span>:<span class="value"><span class="number">1.5em</span></span></span>;</span><br><span class="line">      <span class="rule"><span class="attribute">border-bottom</span>:<span class="value"><span class="number">1px</span> solid <span class="hexcolor">#6BA5E7</span></span></span>;</span><br><span class="line">  &#125;</span></span><br><span class="line">  <span class="class">.list</span> <span class="rule"><span class="attribute">ul</span>:<span class="value">hover&#123;</span><br><span class="line">     cursor:pointer</span></span>;</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+<p>Js:</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> <span class="keyword">list</span> = document.getElementById(<span class="string">"touchlist"</span>),</span><br><span class="line"></span><br><span class="line">           loader = document.getElementById(<span class="string">"touchloader"</span>),</span><br><span class="line"></span><br><span class="line">           isTouched = <span class="keyword">false</span>,</span><br><span class="line"></span><br><span class="line">           isMoved = <span class="keyword">false</span>;</span><br><span class="line">       <span class="comment">// list列表距离body的距离</span></span><br><span class="line">       <span class="keyword">var</span> prevY = parseInt(<span class="keyword">list</span>.offsetTop);</span><br><span class="line">       <span class="comment">// list绝对定位的高度</span></span><br><span class="line">       <span class="keyword">var</span> cssY = <span class="keyword">list</span>.style.top;</span><br><span class="line">       cssY = parseInt(cssY.substring(<span class="number">0</span>, cssY.length - <span class="number">2</span>));</span><br><span class="line"></span><br><span class="line">       <span class="comment">//添加手机触摸事件</span></span><br><span class="line">       <span class="keyword">list</span>.addEventListener(<span class="string">"touchstart"</span>, <span class="function"><span class="keyword">function</span> <span class="params">(e)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">           isTouched = <span class="keyword">true</span>;</span><br><span class="line">           <span class="comment">//初始化触摸的位置</span></span><br><span class="line">           prevY = e.changedTouches[<span class="number">0</span>].clientY;</span><br><span class="line">           <span class="comment">//添加 css3 效果</span></span><br><span class="line">           <span class="keyword">list</span>.style.transition = <span class="string">""</span>;</span><br><span class="line">           e.preventDefault();</span><br><span class="line">       &#125;, <span class="keyword">false</span>);</span><br><span class="line">       <span class="keyword">list</span>.addEventListener(<span class="string">"touchend"</span>, <span class="function"><span class="keyword">function</span> <span class="params">(e)</span> </span>&#123;</span><br><span class="line">           <span class="comment">// 取消向上划屏是的触摸事件</span></span><br><span class="line">           isTouched = <span class="keyword">false</span>;</span><br><span class="line">           <span class="comment">// 如果列表向下拉了，向上放回去有个css3的过渡效果</span></span><br><span class="line">           <span class="keyword">list</span>.style.transition = <span class="string">"top 1s"</span>;</span><br><span class="line">           <span class="keyword">if</span> (isMoved) &#123;</span><br><span class="line">               <span class="comment">//显示加载的元素</span></span><br><span class="line">               loader.style.display = <span class="string">"block"</span>;</span><br><span class="line">               loadNewData();</span><br><span class="line">           &#125;</span><br><span class="line">           <span class="keyword">list</span>.style.top = cssY + <span class="string">'px'</span>;</span><br><span class="line">           isMoved = <span class="keyword">false</span>;</span><br><span class="line"></span><br><span class="line">           e.preventDefault();</span><br><span class="line">       &#125;, <span class="keyword">false</span>);</span><br><span class="line"></span><br><span class="line">       <span class="keyword">list</span>.addEventListener(<span class="string">"touchmove"</span>, <span class="function"><span class="keyword">function</span> <span class="params">(e)</span> </span>&#123;</span><br><span class="line">           <span class="keyword">if</span> (isTouched) &#123;</span><br><span class="line">               <span class="keyword">if</span> (e.changedTouches[<span class="number">0</span>].clientY &gt; prevY) &#123;</span><br><span class="line"></span><br><span class="line">                   <span class="keyword">var</span> change = e.changedTouches[<span class="number">0</span>].clientY - prevY;</span><br><span class="line">                   <span class="keyword">list</span>.style.top = cssY + change + <span class="string">'px'</span>;</span><br><span class="line">                   isMoved = <span class="keyword">true</span>;</span><br><span class="line">               &#125;</span><br><span class="line">           &#125;</span><br><span class="line">           e.preventDefault();</span><br><span class="line">       &#125;, <span class="keyword">false</span>);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">       <span class="comment">//绑定鼠标事件让在电脑浏览器里也能用</span></span><br><span class="line">       <span class="keyword">list</span>.addEventListener(<span class="string">"mousedown"</span>, <span class="function"><span class="keyword">function</span> <span class="params">(e)</span> </span>&#123;</span><br><span class="line">           isTouched = <span class="keyword">true</span>;</span><br><span class="line">           prevY = e.clientY;</span><br><span class="line">           <span class="keyword">list</span>.style.transition = <span class="string">""</span>;</span><br><span class="line">           e.preventDefault();</span><br><span class="line">       &#125;, <span class="keyword">false</span>);</span><br><span class="line">       <span class="keyword">list</span>.addEventListener(<span class="string">"mouseup"</span>, <span class="function"><span class="keyword">function</span> <span class="params">(e)</span> </span>&#123;</span><br><span class="line">           isTouched = <span class="keyword">false</span>;</span><br><span class="line"></span><br><span class="line">           <span class="keyword">list</span>.style.transition = <span class="string">"top 1s"</span>;</span><br><span class="line">           <span class="keyword">if</span> (isMoved) &#123;</span><br><span class="line">               loader.style.display = <span class="string">"block"</span>;</span><br><span class="line">               loadNewData();</span><br><span class="line">           &#125;</span><br><span class="line">           <span class="keyword">list</span>.style.top = cssY + <span class="string">'px'</span>;</span><br><span class="line">           isMoved = <span class="keyword">false</span>;</span><br><span class="line">           e.preventDefault();</span><br><span class="line">       &#125;, <span class="keyword">false</span>);</span><br><span class="line">       <span class="keyword">list</span>.addEventListener(<span class="string">"mousemove"</span>, <span class="function"><span class="keyword">function</span> <span class="params">(e)</span> </span>&#123;</span><br><span class="line">           <span class="keyword">if</span> (isTouched) &#123;</span><br><span class="line">               <span class="keyword">if</span> (e.clientY &gt; prevY) &#123;</span><br><span class="line">                   <span class="keyword">var</span> change = e.clientY - prevY;</span><br><span class="line">                   <span class="keyword">list</span>.style.top = cssY + change + <span class="string">'px'</span>;</span><br><span class="line">                   isMoved = <span class="keyword">true</span>;</span><br><span class="line">               &#125;</span><br><span class="line">           &#125;</span><br><span class="line">           e.preventDefault();</span><br><span class="line">       &#125;, <span class="keyword">false</span>);</span><br><span class="line"></span><br><span class="line">       <span class="function"><span class="keyword">function</span> <span class="title">loadNewData</span><span class="params">()</span> </span>&#123;</span><br><span class="line">           setTimeout(<span class="function"><span class="keyword">function</span> <span class="params">()</span> </span>&#123;</span><br><span class="line">               <span class="keyword">list</span>.innerHTML = <span class="string">'&lt;li&gt;新加的元素&lt;/li&gt;&lt;li&gt;new user 2&lt;/li&gt;'</span> + <span class="keyword">list</span>.innerHTML;</span><br><span class="line">               loader.style.display = <span class="string">"none"</span>;</span><br><span class="line">           &#125;, <span class="number">1000</span>);</span><br><span class="line">           <span class="comment">/**</span><br><span class="line">           * do what ever to get data here</span><br><span class="line">           */</span></span><br><span class="line">       &#125;</span><br></pre></td></tr></table></figure>
+<h3 id="二：jQuery_Mobile_+_iScroll">二：jQuery Mobile + iScroll</h3><p><a href="http://iiunknown.gitbooks.io/iscroll-5-api-cn/content/" target="_blank" rel="external">http://iiunknown.gitbooks.io/iscroll-5-api-cn/content/</a> iScroll 中文Api</p>
+<p>因为在手机上，可以通过 jQuery mobile 这个移动端的框架再加上 iSroll 这个插件，可以实现这个效果</p>
+<p>这里就直接放个 demo 的链接：<br><a href="http://www.wglong.com/index/demos/pullDownRefresh/cubiq-iscroll/index.html" target="_blank" rel="external">http://www.wglong.com/index/demos/pullDownRefresh/cubiq-iscroll/index.html</a></p>
+<h3 id="三：jQuery_+_swiper">三：jQuery + swiper</h3><p>swiper 是一个强大的用于手机端的插件 <a href="https://github.com/nolimits4web/Swiper" target="_blank" rel="external">https://github.com/nolimits4web/Swiper</a></p>
+<p>demo:</p>
+<p><a href="http://www.idangero.us/sliders/swiper/demos/main-demos/18-pull-to-refresh.html" target="_blank" rel="external">http://www.idangero.us/sliders/swiper/demos/main-demos/18-pull-to-refresh.html</a></p>
+<p>以上几个都是用于手机上的下拉刷新效果，当然在电脑上也同样有效，不过有个插件可以在 pc 网页上实现这种手机上的效果，那就是 hook.js <a href="http://usehook.com/" target="_blank" rel="external">http://usehook.com/</a><br><a href="https://github.com/jordansinger/hook.js/" target="_blank" rel="external">https://github.com/jordansinger/hook.js/</a></p>
+<p>使用很简单:</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">script</span> <span class="attribute">src</span>=<span class="value">"http://code.jquery.com/jquery-latest.js"</span> <span class="attribute">type</span>=<span class="value">"text/javascript"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="title">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">link</span> <span class="attribute">rel</span>=<span class="value">"stylesheet"</span> <span class="attribute">href</span>=<span class="value">"hook/hook.css"</span> <span class="attribute">type</span>=<span class="value">"text/css"</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">script</span> <span class="attribute">src</span>=<span class="value">"hook/hook.js"</span> <span class="attribute">type</span>=<span class="value">"text/javascript"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="title">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>html:</p>
+<figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;<span class="keyword">div</span> <span class="property">id</span>=<span class="string">"hook"</span>&gt;</span><br><span class="line">    &lt;<span class="keyword">div</span> <span class="property">id</span>=<span class="string">"loader"</span>&gt;</span><br><span class="line">        &lt;<span class="keyword">div</span> <span class="type">class</span>=<span class="string">"spinner"</span>&gt;&lt;/<span class="keyword">div</span>&gt;</span><br><span class="line">    &lt;/<span class="keyword">div</span>&gt;</span><br><span class="line">    &lt;span <span class="property">id</span>=<span class="string">"hook-text"</span>&gt;Reloading...&lt;/span&gt;</span><br><span class="line">&lt;/<span class="keyword">div</span>&gt;</span><br></pre></td></tr></table></figure>
+<p>js:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">$(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">window</span>.loadheight = $(<span class="string">'#hook'</span>).height();</span><br><span class="line">    <span class="built_in">window</span>.hidden = $(<span class="string">"#hook"</span>).animate(<span class="string">"marginTop"</span>, <span class="string">"-"</span> + loadheight + <span class="string">"px"</span>);</span><br><span class="line">    <span class="built_in">window</span>.visible = $(<span class="string">"#hook"</span>).animate(<span class="string">"marginTop"</span>, <span class="string">"0px"</span>);</span><br><span class="line">    $(<span class="string">"#hook"</span>).css(<span class="string">"marginTop"</span>, <span class="string">"-"</span> + loadheight + <span class="string">"px"</span>)</span><br><span class="line">&#125;);</span><br><span class="line">$(<span class="function"><span class="keyword">function</span> <span class="title">hook</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> loadheight = $(<span class="string">'#hook'</span>).height();</span><br><span class="line">    $(<span class="built_in">window</span>).scroll(<span class="function"><span class="keyword">function</span> (<span class="params">event</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">var</span> st = $(<span class="built_in">window</span>).scrollTop();</span><br><span class="line">        <span class="keyword">if</span> (st &lt;= <span class="number">0</span>) &#123;</span><br><span class="line">            $(<span class="string">"#hook"</span>).animate(&#123;</span><br><span class="line">                <span class="string">"marginTop"</span>: <span class="string">"0px"</span></span><br><span class="line">            &#125;, <span class="number">200</span>);</span><br><span class="line">            $(<span class="string">"#hook"</span>).delay(<span class="number">500</span>).slideUp(<span class="number">200</span>, <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">                <span class="built_in">window</span>.location.reload()</span><br><span class="line">            &#125;)</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> ($.browser.webkit) &#123;</span><br><span class="line">            <span class="keyword">if</span> (st == <span class="number">0</span>) &#123;</span><br><span class="line">                $(<span class="string">'body'</span>).css(<span class="string">'overflow'</span>, <span class="string">'hidden'</span>)</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+</span>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/JavaScript/" rel="tag">#JavaScript</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2014/12/31/2014-12-31- Ruby 函数式编程/" rel="prev">Ruby 函数式编程</a>
+            
+          </div>
+
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2014/12/09/跨终端 web 开发/" rel="next">跨终端 web 开发</a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+ </div>
+
+        
+
+        
+          <div class="comments" id="comments">
+            
+          </div>
+        
+      </div>
+
+      
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" src="/images/tx.jpg" alt="Go7hic" itemprop="image"/>
+          <p class="site-author-name" itemprop="name">Go7hic</p>
+        </div>
+        <p class="site-description motion-element" itemprop="description">jsut 4 fun</p>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">72</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          <div class="site-state-item site-state-categories">
+            
+              <span class="site-state-item-count">0</span>
+              <span class="site-state-item-name">分类</span>
+              
+          </div>
+
+          <div class="site-state-item site-state-tags">
+            <a href="/tags">
+              <span class="site-state-item-count">18</span>
+              <span class="site-state-item-name">标签</span>
+              </a>
+          </div>
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="menu-item-icon icon-next-feed"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+      </section>
+
+      
+        <section class="post-toc-wrap sidebar-panel-active">
+          <div class="post-toc-indicator-top post-toc-indicator"></div>
+          <div class="post-toc">
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#一：原生_Js_实现"><span class="nav-number">1.</span> <span class="nav-text">一：原生 Js 实现</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#二：jQuery_Mobile_+_iScroll"><span class="nav-number">2.</span> <span class="nav-text">二：jQuery Mobile + iScroll</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#三：jQuery_+_swiper"><span class="nav-number">3.</span> <span class="nav-text">三：jQuery + swiper</span></a></li></ol></div>
+            
+          </div>
+          <div class="post-toc-indicator-bottom post-toc-indicator"></div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner"> <div class="copyright" >
+  
+  &copy; &nbsp; 
+  <span itemprop="copyrightYear">2015</span>
+  <span class="with-love">
+    <i class="icon-next-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Go7hic</span>
+</div>
+
+<div class="">
+  「万物之中，希望至美；至美之物，永不凋零」
+</div>
+
+ </div>
+    </footer>
+
+    <div class="back-to-top"></div>
+  </div>
+
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  
+  
+    
+    
+
+  
+
+
+  
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js"></script>
+  <script type="text/javascript" src="/js/fancy-box.js?v=0.4.5.1"></script>
+
+
+  <script type="text/javascript" src="/js/helpers.js?v=0.4.5.1"></script>
+  
+
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js"></script>
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js"></script>
+
+  <script type="text/javascript" src="/js/motion_global.js?v=0.4.5.1" id="motion.global"></script>
+
+
+
+
+  <script type="text/javascript" src="/js/nav-toggle.js?v=0.4.5.1"></script>
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  
+<script type="text/javascript" src="/js/bootstrap.scrollspy.js?v=0.4.5.1" id="bootstrap.scrollspy.custom"></script>
+
+
+<script type="text/javascript" id="sidebar.toc.highlight">
+  $(document).ready(function () {
+    var tocSelector = '.post-toc';
+    var $tocSelector = $(tocSelector);
+    var activeCurrentSelector = '.active-current';
+
+    $tocSelector
+      .on('activate.bs.scrollspy', function () {
+        var $currentActiveElement = $(tocSelector + ' .active').last();
+
+        removeCurrentActiveClass();
+        $currentActiveElement.addClass('active-current');
+
+        $tocSelector[0].scrollTop = $currentActiveElement.position().top;
+      })
+      .on('clear.bs.scrollspy', function () {
+        removeCurrentActiveClass();
+      });
+
+    function removeCurrentActiveClass () {
+      $(tocSelector + ' ' + activeCurrentSelector)
+        .removeClass(activeCurrentSelector.substring(1));
+    }
+
+    function processTOC () {
+      getTOCMaxHeight();
+      toggleTOCOverflowIndicators();
+    }
+
+    function getTOCMaxHeight () {
+      var height = $('.sidebar').height() -
+                   $tocSelector.position().top -
+                   $('.post-toc-indicator-bottom').height();
+
+      $tocSelector.css('height', height);
+
+      return height;
+    }
+
+    function toggleTOCOverflowIndicators () {
+      tocOverflowIndicator(
+        '.post-toc-indicator-top',
+        $tocSelector.scrollTop() > 0 ? 'show' : 'hide'
+      );
+
+      tocOverflowIndicator(
+        '.post-toc-indicator-bottom',
+        $tocSelector.scrollTop() >= $tocSelector.find('ol').height() - $tocSelector.height() ? 'hide' : 'show'
+      )
+    }
+
+    $(document).on('sidebar.motion.complete', function () {
+      processTOC();
+    });
+
+    $('body').scrollspy({ target: tocSelector });
+    $(window).on('resize', function () {
+      if ( $('.sidebar').hasClass('sidebar-active') ) {
+        processTOC();
+      }
+    });
+
+    onScroll($tocSelector);
+
+    function onScroll (element) {
+      element.on('mousewheel DOMMouseScroll', function (event) {
+          var oe = event.originalEvent;
+          var delta = oe.wheelDelta || -oe.detail;
+
+          this.scrollTop += ( delta < 0 ? 1 : -1 ) * 30;
+          event.preventDefault();
+
+          toggleTOCOverflowIndicators();
+      });
+    }
+
+    function tocOverflowIndicator (indicator, action) {
+      var $indicator = $(indicator);
+      var opacity = action === 'show' ? 0.4 : 0;
+      $indicator.velocity ?
+        $indicator.velocity('stop').velocity({
+          opacity: opacity
+        }, { duration: 100 }) :
+        $indicator.stop().animate({
+          opacity: opacity
+        }, 100);
+    }
+
+  });
+</script>
+
+<script type="text/javascript" id="sidebar.nav">
+  $(document).ready(function () {
+    var html = $('html');
+    var TAB_ANIMATE_DURATION = 200;
+    var hasVelocity = $.isFunction(html.velocity);
+
+    $('.sidebar-nav li').on('click', function () {
+      var item = $(this);
+      var activeTabClassName = 'sidebar-nav-active';
+      var activePanelClassName = 'sidebar-panel-active';
+      if (item.hasClass(activeTabClassName)) {
+        return;
+      }
+
+      var currentTarget = $('.' + activePanelClassName);
+      var target = $('.' + item.data('target'));
+
+      hasVelocity ?
+        currentTarget.velocity('transition.slideUpOut', TAB_ANIMATE_DURATION, function () {
+          target
+            .velocity('stop')
+            .velocity('transition.slideDownIn', TAB_ANIMATE_DURATION)
+            .addClass(activePanelClassName);
+        }) :
+        currentTarget.animate({ opacity: 0 }, TAB_ANIMATE_DURATION, function () {
+          currentTarget.hide();
+          target
+            .stop()
+            .css({'opacity': 0, 'display': 'block'})
+            .animate({ opacity: 1 }, TAB_ANIMATE_DURATION, function () {
+              currentTarget.removeClass(activePanelClassName);
+              target.addClass(activePanelClassName);
+            });
+        });
+
+      item.siblings().removeClass(activeTabClassName);
+      item.addClass(activeTabClassName);
+    });
+
+    $('.post-toc a').on('click', function (e) {
+      e.preventDefault();
+      var targetSelector = escapeSelector(this.getAttribute('href'));
+      var offset = $(targetSelector).offset().top;
+      hasVelocity ?
+        html.velocity('stop').velocity('scroll', {
+          offset: offset  + 'px',
+          mobileHA: false
+        }) :
+        $('html, body').stop().animate({
+          scrollTop: offset
+        }, 500);
+    });
+
+    // Expand sidebar on post detail page by default, when post has a toc.
+    var $tocContent = $('.post-toc-content');
+    if (isDesktop() && CONFIG.sidebar === 'post') {
+      if ($tocContent.length > 0 && $tocContent.html().trim().length > 0) {
+        displaySidebar();
+      }
+    }
+  });
+</script>
+
+
+
+  <script type="text/javascript">
+    $(document).ready(function () {
+      if (CONFIG.sidebar === 'always') {
+        displaySidebar();
+      }
+      if (isMobile()) {
+        FastClick.attach(document.body);
+      }
+    });
+  </script>
+
+  
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/lazyload.js"></script>
+  <script type="text/javascript">
+    $(function () {
+      $("#posts").find('img').lazyload({
+        placeholder: "/images/loading.gif",
+        effect: "fadeIn"
+      });
+    });
+  </script>
+</body>
+</html>

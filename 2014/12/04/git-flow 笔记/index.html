@@ -1,0 +1,632 @@
+<!doctype html>
+<html class="theme-next use-motion ">
+<head>
+  
+
+<meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+  <link rel="stylesheet" type="text/css" href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5"/>
+
+
+
+
+<link rel="stylesheet" type="text/css" href="/css/main.css?v=0.4.5.1"/>
+
+
+    <meta name="description" content="jsut 4 fun" />
+
+
+
+  <meta name="keywords" content="Git," />
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Go7hic" type="application/atom+xml" />
+
+
+
+  <link rel="shorticon icon" type="image/x-icon" href="/favicon.ico?v=0.4.5.1" />
+
+
+<meta name="description" content="git-flow 是一个 git 扩展集，按照 Vincent Driessen 的分支模型提供高层次的库操作，git-flow 提供了出色的命令帮忙以及输出提示。gt-flow 是一个基于归并的解决方案，他并没有提供重置特性分支的能力。
+像我想在在 Mac 上用的 Sourcetree 是一个不错的 git 客户端，已经集成了 git-flow 的功能，向大家推荐这个客户端，看 diff 还是不">
+<meta property="og:type" content="article">
+<meta property="og:title" content="git-flow 笔记">
+<meta property="og:url" content="http://blog.yongyuan.us/2014/12/04/git-flow 笔记/index.html">
+<meta property="og:site_name" content="Go7hic">
+<meta property="og:description" content="git-flow 是一个 git 扩展集，按照 Vincent Driessen 的分支模型提供高层次的库操作，git-flow 提供了出色的命令帮忙以及输出提示。gt-flow 是一个基于归并的解决方案，他并没有提供重置特性分支的能力。
+像我想在在 Mac 上用的 Sourcetree 是一个不错的 git 客户端，已经集成了 git-flow 的功能，向大家推荐这个客户端，看 diff 还是不">
+<meta property="og:image" content="http://dyy.im/wp-content/uploads/2014/12/git-flow-commands.png">
+<meta property="og:updated_time" content="2015-09-04T17:03:54.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="git-flow 笔记">
+<meta name="twitter:description" content="git-flow 是一个 git 扩展集，按照 Vincent Driessen 的分支模型提供高层次的库操作，git-flow 提供了出色的命令帮忙以及输出提示。gt-flow 是一个基于归并的解决方案，他并没有提供重置特性分支的能力。
+像我想在在 Mac 上用的 Sourcetree 是一个不错的 git 客户端，已经集成了 git-flow 的功能，向大家推荐这个客户端，看 diff 还是不">
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var CONFIG = {
+    scheme: '',
+    sidebar: 'post'
+  };
+</script>
+
+  <title> git-flow 笔记 | Go7hic </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  <!--[if lte IE 8]>
+  <div style=' clear: both; height: 59px; padding:0 0 0 15px; position: relative;margin:0 auto;'>
+    <a href="http://windows.microsoft.com/en-US/internet-explorer/products/ie/home?ocid=ie6_countdown_bannercode">
+      <img src="http://7u2nvr.com1.z0.glb.clouddn.com/picouterie.jpg" border="0" height="42" width="820"
+           alt="You are using an outdated browser. For a faster, safer browsing experience, upgrade for free today or use other browser ,like chrome firefox safari."
+           style='margin-left:auto;margin-right:auto;display: block;'/>
+    </a>
+  </div>
+<![endif]-->
+  
+
+
+
+  <div class="container one-column page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><h1 class="site-meta">
+  <span class="logo-line-before"><i></i></span>
+  <a href="/" class="brand" rel="start">
+      <span class="logo">
+        <i class="icon-next-logo"></i>
+      </span>
+      <span class="site-title">Go7hic</span>
+  </a>
+  <span class="logo-line-after"><i></i></span>
+</h1>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu ">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            <i class="menu-item-icon icon-next-home"></i> <br />
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            <i class="menu-item-icon icon-next-archives"></i> <br />
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            <i class="menu-item-icon icon-next-tags"></i> <br />
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            <i class="menu-item-icon icon-next-about"></i> <br />
+            关于
+          </a>
+        </li>
+      
+
+      
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div id="content" class="content"> 
+
+  <div id="posts" class="posts-expand">
+    
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      
+      
+        <h1 class="post-title" itemprop="name headline">
+          
+          
+            
+              git-flow 笔记
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于
+          <time itemprop="dateCreated" datetime="2014-12-04T11:21:04+08:00" content="2014-12-04">
+            2014-12-04
+          </time>
+        </span>
+
+        
+
+        
+          
+        
+      </div>
+    </header>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        <span itemprop="articleBody"><p>git-flow 是一个 git 扩展集，按照 Vincent Driessen 的分支模型提供高层次的库操作，git-flow 提供了出色的命令帮忙以及输出提示。gt-flow 是一个基于归并的解决方案，他并没有提供重置特性分支的能力。</p>
+<p>像我想在在 Mac 上用的 Sourcetree 是一个不错的 git 客户端，已经集成了 git-flow 的功能，向大家推荐这个客户端，看 diff 还是不错的。</p>
+<h2 id="安装">安装</h2><p>前提是你已经安装好了 git 。</p>
+<ul>
+<li><p>OSX 安装：$ brew install git-flow</p>
+</li>
+<li><p>Linux安装：$ apt-get install git-flow</p>
+</li>
+<li><p>windows(cygwin)：$ wget -q -0 - —no-check-certificate <a href="https://github.com/nvie/gitflow/raw/develop/contrib/gitflow-install.sh" target="_blank" rel="external">https://github.com/nvie/gitflow/raw/develop/contrib/gitflow-install.sh</a> | bash</p>
+</li>
+</ul>
+<h2 id="安装完了就开始吧">安装完了就开始吧</h2><h3 id="初始化">初始化</h3><figure class="highlight mel"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git <span class="keyword">flow</span> init</span><br></pre></td></tr></table></figure>
+<p>期间要写一些命名什么的，全部用默认值吧</p>
+<h3 id="开发新特性">开发新特性</h3><p>一般为我们在 develop 库的分支里开发新功能特性，也就是说新特性的开发基于 develop 分支的，通过下面的命令开始开发新特性</p>
+<p><code>git flow feature start MYFEATURE</code> 这个操作创建了一个基于 ‘develop’的特性分支，并且换到这个分支下。</p>
+<h3 id="完成新特性">完成新特性</h3><p>完成新特性包含的工作有：</p>
+<ul>
+<li>合并 MYFEATURE 分支到 ‘develop’</li>
+<li>删除这个新特性分支</li>
+<li>切换回 ‘develop’ 分支</li>
+</ul>
+<h3 id="发布新特性">发布新特性</h3><p>有时候你也许是和别人一起合作开发这个新特性，发布新特性分支到远程服务器，其他的成员也可以使用这个分支。可以使用下面的命令行</p>
+<p>git flow feature publish MYFEATURE</p>
+<h3 id="拉取一个已经发布的特性分支">拉取一个已经发布的特性分支</h3><p>如果你要拉取一个其他队友发布的新特性分支，并签出远程的变更，可以使用下面的命令行</p>
+<p>git flow feature pull MYFEATURE</p>
+<h2 id="开发一个_release_版本">开发一个 release 版本</h2><p>这个版本应该支持一个新的用于生产环境的发布版本，允许修正小问题，病危发布版本准备元数据</p>
+<h3 id="开始准备_release_版本">开始准备 release 版本</h3><p>开始准备 release 版本，使用 git flow release 命令，它从‘develop’分支开始创建一个 release分支</p>
+<p>git flow release start RELEASE [BASE]</p>
+<p>你可以选择提供一个 [BASE] 参数，即提交记录的 sha-1 hash 值，来启动 release 分支。这个 提交记录的sha-1 hash 值必须是 develop 分支下的</p>
+<p>创建 release 分支后立即发布允许其他用户向这个 release 分支提交内容是个明智的做法。<br>  <code>git flow release publish RELEASE</code>命令发布新特性，<code>git flow release track RELEASE</code>命令签出 release 版本的远程变更</p>
+<h3 id="完成_release_版本">完成 release 版本</h3><p>完成 release 版本是一个 git 分支操作，他执行下面几个动作</p>
+<ul>
+<li>归并 release 分支到 master 分支</li>
+<li>用 release 分支名做 Tag</li>
+<li>归并 release 分支到 develop </li>
+<li>移除 release 分支</li>
+</ul>
+<p>通过命令行 <code>git flow release finish RELEASE</code> 执行</p>
+<h3 id="开始_gitflow_热点修复">开始 gitflow 热点修复</h3><p>像其他 git flow 命令一样，热点修复分支开始自：</p>
+<p><code>git flow hotfix start VERSION [BASENAME]</code></p>
+<p>VERSION 参数标记着修正版本。<br>你可以从 [BASENAME] 开始，<code>[BASENAME]</code>为 finish release 时填写的版本号</p>
+<h3 id="完成热点修复">完成热点修复</h3><p>当完成热点分支，代码归并回 develop 和 master 分支。相应的 master 分支打上修正版本的 TAG.</p>
+<p><code>git flow hotfix finsh VERSION</code></p>
+<p>整体的命令结构流程如下图：<br><img src="http://dyy.im/wp-content/uploads/2014/12/git-flow-commands.png" alt=""></p>
+<p>以上也只是 git flow 比较重要的命令，其他你常用的 git 命令也可照用。</p>
+</span>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Git/" rel="tag">#Git</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2014/12/09/跨终端 web 开发/" rel="prev">跨终端 web 开发</a>
+            
+          </div>
+
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2014/11/27/JavaScript 权威指南(3)：函数--JavaScript 世界里的一等公民/" rel="next">JavaScript 权威指南(3)：函数--JavaScript 世界里的一等公民</a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+ </div>
+
+        
+
+        
+          <div class="comments" id="comments">
+            
+          </div>
+        
+      </div>
+
+      
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" src="/images/tx.jpg" alt="Go7hic" itemprop="image"/>
+          <p class="site-author-name" itemprop="name">Go7hic</p>
+        </div>
+        <p class="site-description motion-element" itemprop="description">jsut 4 fun</p>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">72</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          <div class="site-state-item site-state-categories">
+            
+              <span class="site-state-item-count">0</span>
+              <span class="site-state-item-name">分类</span>
+              
+          </div>
+
+          <div class="site-state-item site-state-tags">
+            <a href="/tags">
+              <span class="site-state-item-count">18</span>
+              <span class="site-state-item-name">标签</span>
+              </a>
+          </div>
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="menu-item-icon icon-next-feed"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+      </section>
+
+      
+        <section class="post-toc-wrap sidebar-panel-active">
+          <div class="post-toc-indicator-top post-toc-indicator"></div>
+          <div class="post-toc">
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#安装"><span class="nav-number">1.</span> <span class="nav-text">安装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装完了就开始吧"><span class="nav-number">2.</span> <span class="nav-text">安装完了就开始吧</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#初始化"><span class="nav-number">2.1.</span> <span class="nav-text">初始化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#开发新特性"><span class="nav-number">2.2.</span> <span class="nav-text">开发新特性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#完成新特性"><span class="nav-number">2.3.</span> <span class="nav-text">完成新特性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#发布新特性"><span class="nav-number">2.4.</span> <span class="nav-text">发布新特性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#拉取一个已经发布的特性分支"><span class="nav-number">2.5.</span> <span class="nav-text">拉取一个已经发布的特性分支</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#开发一个_release_版本"><span class="nav-number">3.</span> <span class="nav-text">开发一个 release 版本</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#开始准备_release_版本"><span class="nav-number">3.1.</span> <span class="nav-text">开始准备 release 版本</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#完成_release_版本"><span class="nav-number">3.2.</span> <span class="nav-text">完成 release 版本</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#开始_gitflow_热点修复"><span class="nav-number">3.3.</span> <span class="nav-text">开始 gitflow 热点修复</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#完成热点修复"><span class="nav-number">3.4.</span> <span class="nav-text">完成热点修复</span></a></li></ol></li></ol></div>
+            
+          </div>
+          <div class="post-toc-indicator-bottom post-toc-indicator"></div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner"> <div class="copyright" >
+  
+  &copy; &nbsp; 
+  <span itemprop="copyrightYear">2015</span>
+  <span class="with-love">
+    <i class="icon-next-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Go7hic</span>
+</div>
+
+<div class="">
+  「万物之中，希望至美；至美之物，永不凋零」
+</div>
+
+ </div>
+    </footer>
+
+    <div class="back-to-top"></div>
+  </div>
+
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  
+  
+    
+    
+
+  
+
+
+  
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js"></script>
+  <script type="text/javascript" src="/js/fancy-box.js?v=0.4.5.1"></script>
+
+
+  <script type="text/javascript" src="/js/helpers.js?v=0.4.5.1"></script>
+  
+
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js"></script>
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js"></script>
+
+  <script type="text/javascript" src="/js/motion_global.js?v=0.4.5.1" id="motion.global"></script>
+
+
+
+
+  <script type="text/javascript" src="/js/nav-toggle.js?v=0.4.5.1"></script>
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  
+<script type="text/javascript" src="/js/bootstrap.scrollspy.js?v=0.4.5.1" id="bootstrap.scrollspy.custom"></script>
+
+
+<script type="text/javascript" id="sidebar.toc.highlight">
+  $(document).ready(function () {
+    var tocSelector = '.post-toc';
+    var $tocSelector = $(tocSelector);
+    var activeCurrentSelector = '.active-current';
+
+    $tocSelector
+      .on('activate.bs.scrollspy', function () {
+        var $currentActiveElement = $(tocSelector + ' .active').last();
+
+        removeCurrentActiveClass();
+        $currentActiveElement.addClass('active-current');
+
+        $tocSelector[0].scrollTop = $currentActiveElement.position().top;
+      })
+      .on('clear.bs.scrollspy', function () {
+        removeCurrentActiveClass();
+      });
+
+    function removeCurrentActiveClass () {
+      $(tocSelector + ' ' + activeCurrentSelector)
+        .removeClass(activeCurrentSelector.substring(1));
+    }
+
+    function processTOC () {
+      getTOCMaxHeight();
+      toggleTOCOverflowIndicators();
+    }
+
+    function getTOCMaxHeight () {
+      var height = $('.sidebar').height() -
+                   $tocSelector.position().top -
+                   $('.post-toc-indicator-bottom').height();
+
+      $tocSelector.css('height', height);
+
+      return height;
+    }
+
+    function toggleTOCOverflowIndicators () {
+      tocOverflowIndicator(
+        '.post-toc-indicator-top',
+        $tocSelector.scrollTop() > 0 ? 'show' : 'hide'
+      );
+
+      tocOverflowIndicator(
+        '.post-toc-indicator-bottom',
+        $tocSelector.scrollTop() >= $tocSelector.find('ol').height() - $tocSelector.height() ? 'hide' : 'show'
+      )
+    }
+
+    $(document).on('sidebar.motion.complete', function () {
+      processTOC();
+    });
+
+    $('body').scrollspy({ target: tocSelector });
+    $(window).on('resize', function () {
+      if ( $('.sidebar').hasClass('sidebar-active') ) {
+        processTOC();
+      }
+    });
+
+    onScroll($tocSelector);
+
+    function onScroll (element) {
+      element.on('mousewheel DOMMouseScroll', function (event) {
+          var oe = event.originalEvent;
+          var delta = oe.wheelDelta || -oe.detail;
+
+          this.scrollTop += ( delta < 0 ? 1 : -1 ) * 30;
+          event.preventDefault();
+
+          toggleTOCOverflowIndicators();
+      });
+    }
+
+    function tocOverflowIndicator (indicator, action) {
+      var $indicator = $(indicator);
+      var opacity = action === 'show' ? 0.4 : 0;
+      $indicator.velocity ?
+        $indicator.velocity('stop').velocity({
+          opacity: opacity
+        }, { duration: 100 }) :
+        $indicator.stop().animate({
+          opacity: opacity
+        }, 100);
+    }
+
+  });
+</script>
+
+<script type="text/javascript" id="sidebar.nav">
+  $(document).ready(function () {
+    var html = $('html');
+    var TAB_ANIMATE_DURATION = 200;
+    var hasVelocity = $.isFunction(html.velocity);
+
+    $('.sidebar-nav li').on('click', function () {
+      var item = $(this);
+      var activeTabClassName = 'sidebar-nav-active';
+      var activePanelClassName = 'sidebar-panel-active';
+      if (item.hasClass(activeTabClassName)) {
+        return;
+      }
+
+      var currentTarget = $('.' + activePanelClassName);
+      var target = $('.' + item.data('target'));
+
+      hasVelocity ?
+        currentTarget.velocity('transition.slideUpOut', TAB_ANIMATE_DURATION, function () {
+          target
+            .velocity('stop')
+            .velocity('transition.slideDownIn', TAB_ANIMATE_DURATION)
+            .addClass(activePanelClassName);
+        }) :
+        currentTarget.animate({ opacity: 0 }, TAB_ANIMATE_DURATION, function () {
+          currentTarget.hide();
+          target
+            .stop()
+            .css({'opacity': 0, 'display': 'block'})
+            .animate({ opacity: 1 }, TAB_ANIMATE_DURATION, function () {
+              currentTarget.removeClass(activePanelClassName);
+              target.addClass(activePanelClassName);
+            });
+        });
+
+      item.siblings().removeClass(activeTabClassName);
+      item.addClass(activeTabClassName);
+    });
+
+    $('.post-toc a').on('click', function (e) {
+      e.preventDefault();
+      var targetSelector = escapeSelector(this.getAttribute('href'));
+      var offset = $(targetSelector).offset().top;
+      hasVelocity ?
+        html.velocity('stop').velocity('scroll', {
+          offset: offset  + 'px',
+          mobileHA: false
+        }) :
+        $('html, body').stop().animate({
+          scrollTop: offset
+        }, 500);
+    });
+
+    // Expand sidebar on post detail page by default, when post has a toc.
+    var $tocContent = $('.post-toc-content');
+    if (isDesktop() && CONFIG.sidebar === 'post') {
+      if ($tocContent.length > 0 && $tocContent.html().trim().length > 0) {
+        displaySidebar();
+      }
+    }
+  });
+</script>
+
+
+
+  <script type="text/javascript">
+    $(document).ready(function () {
+      if (CONFIG.sidebar === 'always') {
+        displaySidebar();
+      }
+      if (isMobile()) {
+        FastClick.attach(document.body);
+      }
+    });
+  </script>
+
+  
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/lazyload.js"></script>
+  <script type="text/javascript">
+    $(function () {
+      $("#posts").find('img').lazyload({
+        placeholder: "/images/loading.gif",
+        effect: "fadeIn"
+      });
+    });
+  </script>
+</body>
+</html>
