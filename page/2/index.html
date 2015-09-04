@@ -166,150 +166,6 @@
           
           
             
-              <a class="post-title-link" href="/2015/07/09/Array.prototype.slice.call() 这个东西/" itemprop="url">
-                Array.prototype.slice.call() 这个东西
-              </a>
-            
-          
-        </h1>
-      
-
-      <div class="post-meta">
-        <span class="post-time">
-          发表于
-          <time itemprop="dateCreated" datetime="2015-07-09T11:21:04+08:00" content="2015-07-09">
-            2015-07-09
-          </time>
-        </span>
-
-        
-
-        
-          
-        
-      </div>
-    </header>
-
-    <div class="post-body">
-
-      
-      
-
-      
-        
-          <span itemprop="articleBody">
-            
-            今天在 mdn 上看文档，看到一个陌生的东西，仔细看了一下感觉还是不错的，这个东西就是 Array.prototype.slice.call()。这个东西有啥用呢？一句话概括就是把类数组转成真的数组，怎么说呢，具体例子就是把 arguments 转成真正的数组。
-我们知道 argument 对象是函数内部的本地变量，并且已经不是函数的属性了。他并不是一个真正的数组，他是一个类数组，没有数组特有的方
-            ...
-          </span>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2015/07/09/Array.prototype.slice.call() 这个东西/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      
-      
-        <h1 class="post-title" itemprop="name headline">
-          
-          
-            
-              <a class="post-title-link" href="/2015/07/05/JS 尾调用/" itemprop="url">
-                JS 尾调用
-              </a>
-            
-          
-        </h1>
-      
-
-      <div class="post-meta">
-        <span class="post-time">
-          发表于
-          <time itemprop="dateCreated" datetime="2015-07-05T11:21:04+08:00" content="2015-07-05">
-            2015-07-05
-          </time>
-        </span>
-
-        
-
-        
-          
-        
-      </div>
-    </header>
-
-    <div class="post-body">
-
-      
-      
-
-      
-        
-          <span itemprop="articleBody">
-            
-            
-在计算机科学里，尾调用是指一个函数里的最后一个动作是一个函数调用的情形：即这个调用的返回值直接被当前函数返回的情形。这种情形下称该调用位置为尾位置。若这个函数在尾位置调用本身（或是一个尾调用本身的其他函数等等），则称这种情况为尾递归，是递归的一种特殊情形。尾调用不一定是递归调用，但是尾递归特别有用，也比较容易实现。
-
-尾调用的重要性在于它可以不在调用栈上面添加一个新的堆栈帧——而是更新它，如同迭
-            ...
-          </span>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2015/07/05/JS 尾调用/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      
-      
-        <h1 class="post-title" itemprop="name headline">
-          
-          
-            
               <a class="post-title-link" href="/2015/07/05/attribute 和 property 的区别/" itemprop="url">
                 attribute 和 property 的区别
               </a>
@@ -736,11 +592,143 @@ demo: http://jsfiddle.net/gothic/aoqkqdyd/1/light/
 
 
     
+      
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      
+      
+        <h1 class="post-title" itemprop="name headline">
+          
+          
+            
+              <a class="post-title-link" href="/2015/01/08/2015-01-07-ajax/" itemprop="url">
+                4.Ajax
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于
+          <time itemprop="dateCreated" datetime="2015-01-08T00:00:00+08:00" content="2015-01-08">
+            2015-01-08
+          </time>
+        </span>
+
+        
+
+        
+          
+        
+      </div>
+    </header>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <h2 id="Ajax">Ajax</h2><p>大部分人开发者在学习jQuery的时候，看到 $.ajax() 函数都会觉得这真是太棒了！是的，它魔法般的把 ajax 请求变得极其容易，同时提供了足够多的控制项。在浏览器API层面这些请求都是由 XMLHttpRequest 对象完成的，$.ajax() 函数对它做了包装，这篇文章里快速浏览一下如何通过浏览器API提交ajax请求，包括跨域的ajax请求，试过之后可以发现这其实也不是很复杂。<br>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2015/01/08/2015-01-07-ajax/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      
+      
+        <h1 class="post-title" itemprop="name headline">
+          
+          
+            
+              <a class="post-title-link" href="/2015/01/07/2015-01-07-DOM API 之操作元素/" itemprop="url">
+                3.DOM API 之操作元素
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于
+          <time itemprop="dateCreated" datetime="2015-01-07T00:00:00+08:00" content="2015-01-07">
+            2015-01-07
+          </time>
+        </span>
+
+        
+
+        
+          
+        
+      </div>
+    </header>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <h4 id="DOM_API_之操作元素">DOM API 之操作元素</h4><p>在上一篇文章里我们讨论了如何在没有jQuery的支持下选择元素，这次我们来聊一聊如何使用DOM API创建新元素、修改已有元素的属性或者移动元素的位置。原生的浏览器API已经给我们提供了DOM操作的所有功能，我们能够不借助jQuery或者其他函数库的帮助就完成这些。<br>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2015/01/07/2015-01-07-DOM API 之操作元素/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
   </section>
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/">&laquo;</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/9/">9</a><a class="extend next" rel="next" href="/page/3/">&raquo;</a>
+    <a class="extend prev" rel="prev" href="/">&laquo;</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/10/">10</a><a class="extend next" rel="next" href="/page/3/">&raquo;</a>
   </nav>
 
  </div>
@@ -774,7 +762,7 @@ demo: http://jsfiddle.net/gothic/aoqkqdyd/1/light/
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">72</span>
+              <span class="site-state-item-count">73</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
