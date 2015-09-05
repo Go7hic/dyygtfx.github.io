@@ -199,17 +199,11 @@
         
           <span itemprop="articleBody">
             
-            
-
-之前很早用 jQuery 的时候就遇到这个问题，想写篇文章来研究一下这两个的区别。但是只在印象笔记里开了个头就没继续了。刚好前段时间看到 winter 在微博上写了篇短文，我就直接参考啦。
-
+            之前很早用 jQuery 的时候就遇到这个问题，想写篇文章来研究一下这两个的区别。但是只在印象笔记里开了个头就没继续了。刚好前段时间看到 winter 在微博上写了篇短文，我就直接参考啦。
 一、概述
-
 attribute和property是常常被弄混的两个概念。
-
 简单来说，property则是JS代码里访问的：
-
-    document.getElementByTagName('my-e
+document.getElementByTagName('my-element').p
             ...
           </span>
           <div class="post-more-link text-center">
@@ -279,11 +273,7 @@ attribute和property是常常被弄混的两个概念。
         
           <span itemprop="articleBody">
             
-            
-很久没写文章了，今天写一篇来充数。
-在公司前端群里看到有人发了一张某同事写的 css 代码截图，看完后真的是醉了，我暂且不敢说那样写不好，但是我肯定是写不出那样的 css 的。
-
-醉就醉了，过了一会看了一下他写的代码，发现里面一个问题。就是 当我们对某元素使用绝对定位 position: absolute;时，它已经脱了常规文章流，这时候对他设置 display 属性是无效的，应为它总是默认显示
+            很久没写文章了，今天写一篇来充数。在公司前端群里看到有人发了一张某同事写的 css 代码截图，看完后真的是醉了，我暂且不敢说那样写不好，但是我肯定是写不出那样的 css 的。醉就醉了，过了一会看了一下他写的代码，发现里面一个问题。就是 当我们对某元素使用绝对定位 position: absolute;时，它已经脱了常规文章流，这时候对他设置 display 属性是无效的，应为它总是默认显示为 di
             ...
           </span>
           <div class="post-more-link text-center">
@@ -353,17 +343,11 @@ attribute和property是常常被弄混的两个概念。
         
           <span itemprop="articleBody">
             
-            
-语法参考：
-https://developer.mozilla.org/en-US/docs/Web/CSS/object-fit#HTML_Content
-
+            语法参考：https://developer.mozilla.org/en-US/docs/Web/CSS/object-fit#HTML_Content
 https://developer.mozilla.org/en-US/docs/Web/CSS/object-position
-
 demo: http://jsfiddle.net/gothic/aoqkqdyd/1/light/
 
-
-
-            ...
+            
           </span>
           <div class="post-more-link text-center">
             <a class="btn" href="/2015/03/04/css 新属性 object-fit 和 object-position 可用于 css sprite/#more" rel="contents">
@@ -432,20 +416,11 @@ demo: http://jsfiddle.net/gothic/aoqkqdyd/1/light/
         
           <span itemprop="articleBody">
             
-            
-我用的是 brew 安装的，简单记录一下安装过。
-
-1.`brew update`
-
-2.`brew install mongodb`
-
-3.安装好之后创建一个放数据库的地方
-  `mkdir -p /data/db`
-
-4.添加到环境变量里
-  `subl ~/.bash_profile`
-我是直接在终端通过命令来打开 sublimeText 来编辑这个文件打开之后把
-  `export PA
+            我用的是 brew 安装的，简单记录一下安装过。
+1.brew update
+2.brew install mongodb
+3.安装好之后创建一个放数据库的地方  mkdir -p /data/db
+4.添加到环境变量里  subl ~/.bash_profile我是直接在终端通过命令来打开 sublimeText 来编辑这个文件打开之后把  export PATH=/usr/local/Cell
             ...
           </span>
           <div class="post-more-link text-center">
@@ -515,17 +490,11 @@ demo: http://jsfiddle.net/gothic/aoqkqdyd/1/light/
         
           <span itemprop="articleBody">
             
-            
-参考 http://css-tricks.com/line-clampin/
-
-不是一行，所以 
-123overflow:hidden;white-space: nowrap;text-overflow: ellipsis;
-
+            参考 http://css-tricks.com/line-clampin/
+不是一行，所以123overflow:hidden;white-space: nowrap;text-overflow: ellipsis;
 这个没用。
-
 我也只介绍上面那篇文章里看到的几种方法，具体看 demo ，里面有说明
-
-1234&lt;p class="box1"&gt;Lorem ipsum dol
+1234&lt;p class="box1"&gt;Lorem ipsum dolor sit 
             ...
           </span>
           <div class="post-more-link text-center">
@@ -596,11 +565,8 @@ demo: http://jsfiddle.net/gothic/aoqkqdyd/1/light/
           <span itemprop="articleBody">
             
             wordprss 后台登录页面的登录框有个人性化效果，就是当你的登录信息填错了，登录框有个简单的震动效果。这个效果可以在我们平时用到的，觉得挺人性化的。具体怎么实现呢，我看了一下网上的方法，有用 jQuery 的，也有 jQuery UI的，也有原生 Js 实现的震动效果。
-
 ###1. jQuery 实现
-
-html
-1&lt;div id="shaking"&gt;Click Me&lt;/d
+html1&lt;div id="shaking"&gt;Click Me&lt;/div&
             ...
           </span>
           <div class="post-more-link text-center">
@@ -668,8 +634,7 @@ html
 
       
         
-          ##Ajax
-大部分人开发者在学习jQuery的时候，看到 $.ajax() 函数都会觉得这真是太棒了！是的，它魔法般的把 ajax 请求变得极其容易，同时提供了足够多的控制项。在浏览器API层面这些请求都是由 XMLHttpRequest 对象完成的，$.ajax() 函数对它做了包装，这篇文章里快速浏览一下如何通过浏览器API提交ajax请求，包括跨域的ajax请求，试过之后可以发现这其实也不是很复杂。
+          <p>##Ajax<br>大部分人开发者在学习jQuery的时候，看到 $.ajax() 函数都会觉得这真是太棒了！是的，它魔法般的把 ajax 请求变得极其容易，同时提供了足够多的控制项。在浏览器API层面这些请求都是由 XMLHttpRequest 对象完成的，$.ajax() 函数对它做了包装，这篇文章里快速浏览一下如何通过浏览器API提交ajax请求，包括跨域的ajax请求，试过之后可以发现这其实也不是很复杂。<br>
           <div class="post-more-link text-center">
             <a class="btn" href="/2015/01/08/2015-01-07-ajax/#more" rel="contents">
               阅读全文 &raquo;
@@ -735,8 +700,7 @@ html
 
       
         
-          ####DOM API 之操作元素
-在上一篇文章里我们讨论了如何在没有jQuery的支持下选择元素，这次我们来聊一聊如何使用DOM API创建新元素、修改已有元素的属性或者移动元素的位置。原生的浏览器API已经给我们提供了DOM操作的所有功能，我们能够不借助jQuery或者其他函数库的帮助就完成这些。
+          <p>####DOM API 之操作元素<br>在上一篇文章里我们讨论了如何在没有jQuery的支持下选择元素，这次我们来聊一聊如何使用DOM API创建新元素、修改已有元素的属性或者移动元素的位置。原生的浏览器API已经给我们提供了DOM操作的所有功能，我们能够不借助jQuery或者其他函数库的帮助就完成这些。<br>
           <div class="post-more-link text-center">
             <a class="btn" href="/2015/01/07/2015-01-07-DOM API 之操作元素/#more" rel="contents">
               阅读全文 &raquo;

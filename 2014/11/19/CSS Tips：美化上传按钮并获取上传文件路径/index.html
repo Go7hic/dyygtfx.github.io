@@ -40,27 +40,21 @@
 
 
 <meta name="description" content="上传功能很常见了，就是一个 input file 功能。
-
 但是默认的上传很丑啊有没有，所以网上也有很多美化的 css 文章，但是很多也只是美化以下按钮而已，今天遇到一个问题就是还要显示上传文件的路径，一般默认的都会在后面显示上传文件名，但是按照网上的教程美化之后，就把文件名这些东西看不到了，这也是很郁闷的。所以这里等于有两个需求，一个是按钮要美化，另一个就是还要显示上传文件的路径。
-
-首先我们来">
+首先我们来看一">
 <meta property="og:type" content="article">
 <meta property="og:title" content="CSS Tips：美化上传按钮并获取上传文件路径">
 <meta property="og:url" content="http://blog.yongyuan.us/2014/11/19/CSS Tips：美化上传按钮并获取上传文件路径/index.html">
 <meta property="og:site_name" content="Go7hic">
 <meta property="og:description" content="上传功能很常见了，就是一个 input file 功能。
-
 但是默认的上传很丑啊有没有，所以网上也有很多美化的 css 文章，但是很多也只是美化以下按钮而已，今天遇到一个问题就是还要显示上传文件的路径，一般默认的都会在后面显示上传文件名，但是按照网上的教程美化之后，就把文件名这些东西看不到了，这也是很郁闷的。所以这里等于有两个需求，一个是按钮要美化，另一个就是还要显示上传文件的路径。
-
-首先我们来">
+首先我们来看一">
 <meta property="og:updated_time" content="2015-09-04T17:55:30.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="CSS Tips：美化上传按钮并获取上传文件路径">
 <meta name="twitter:description" content="上传功能很常见了，就是一个 input file 功能。
-
 但是默认的上传很丑啊有没有，所以网上也有很多美化的 css 文章，但是很多也只是美化以下按钮而已，今天遇到一个问题就是还要显示上传文件的路径，一般默认的都会在后面显示上传文件名，但是按照网上的教程美化之后，就把文件名这些东西看不到了，这也是很郁闷的。所以这里等于有两个需求，一个是按钮要美化，另一个就是还要显示上传文件的路径。
-
-首先我们来">
+首先我们来看一">
 
 
 <script type="text/javascript" id="hexo.configuration">
@@ -205,26 +199,15 @@
       
 
       
-        <span itemprop="articleBody">上传功能很常见了，就是一个 input file 功能。
-
-但是默认的上传很丑啊有没有，所以网上也有很多美化的 css 文章，但是很多也只是美化以下按钮而已，今天遇到一个问题就是还要显示上传文件的路径，一般默认的都会在后面显示上传文件名，但是按照网上的教程美化之后，就把文件名这些东西看不到了，这也是很郁闷的。所以这里等于有两个需求，一个是按钮要美化，另一个就是还要显示上传文件的路径。
-
-首先我们来看一下默认的上传样式
- 
+        <span itemprop="articleBody"><p>上传功能很常见了，就是一个 input file 功能。</p>
+<p>但是默认的上传很丑啊有没有，所以网上也有很多美化的 css 文章，但是很多也只是美化以下按钮而已，今天遇到一个问题就是还要显示上传文件的路径，一般默认的都会在后面显示上传文件名，但是按照网上的教程美化之后，就把文件名这些东西看不到了，这也是很郁闷的。所以这里等于有两个需求，一个是按钮要美化，另一个就是还要显示上传文件的路径。</p>
+<p>首先我们来看一下默认的上传样式</p>
  <figure class="highlight fsharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;input <span class="class"><span class="keyword">type</span></span>=<span class="string">"file"</span> &gt;</span><br></pre></td></tr></table></figure>
-
-选择上传文件后，后面会显示文件的名字，但是很多按钮美化的方法都把这个名字也隐藏掉了，所以这是不符合需求的。看一下美化后的
-
+<p>选择上传文件后，后面会显示文件的名字，但是很多按钮美化的方法都把这个名字也隐藏掉了，所以这是不符合需求的。看一下美化后的</p>
 <figure class="highlight nix"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;div <span class="variable">class=</span><span class="string">"report-file"</span>&gt;</span><br><span class="line">     &lt;span&gt;上传文件&lt;/span&gt;&lt;input <span class="variable">tabindex=</span><span class="string">"3"</span> <span class="variable">size=</span><span class="string">"3"</span> <span class="variable">name=</span><span class="string">"report"</span> <span class="variable">class=</span><span class="string">"file-prew"</span> <span class="variable">type=</span><span class="string">"file"</span> <span class="variable">onchange=</span><span class="string">"document.getElementById('textName').value=this.value"</span>&gt;</span><br><span class="line">&lt;/div&gt;</span><br><span class="line">&lt;input <span class="variable">type=</span><span class="string">"text"</span> <span class="variable">id=</span><span class="string">"textName"</span> <span class="variable">style=</span><span class="string">"height: 28px;border:1px solid #f1f1f1"</span> /&gt;</span><br></pre></td></tr></table></figure>
-
- 
 <figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="class">.report-file</span> <span class="rules">&#123;</span><br><span class="line">           <span class="rule"><span class="attribute">display</span>:<span class="value"> block</span></span>;</span><br><span class="line">           <span class="rule"><span class="attribute">position</span>:<span class="value"> relative</span></span>;</span><br><span class="line">           <span class="rule"><span class="attribute">width</span>:<span class="value"> <span class="number">120px</span></span></span>;</span><br><span class="line">           <span class="rule"><span class="attribute">height</span>:<span class="value"> <span class="number">28px</span></span></span>;</span><br><span class="line">           <span class="rule"><span class="attribute">overflow</span>:<span class="value"> hidden</span></span>;</span><br><span class="line">           <span class="rule"><span class="attribute">border</span>:<span class="value"> <span class="number">1px</span> solid <span class="hexcolor">#428bca</span></span></span>;</span><br><span class="line">           <span class="rule"><span class="attribute">background</span>:<span class="value"> none repeat scroll <span class="number">0</span> <span class="number">0</span> <span class="hexcolor">#428bca</span></span></span>;</span><br><span class="line">           <span class="rule"><span class="attribute">color</span>:<span class="value"> <span class="hexcolor">#fff</span></span></span>;</span><br><span class="line">           <span class="rule"><span class="attribute">cursor</span>:<span class="value"> pointer</span></span>;</span><br><span class="line">           <span class="rule"><span class="attribute">text-align</span>:<span class="value"> center</span></span>;</span><br><span class="line">           <span class="rule"><span class="attribute">float</span>:<span class="value"> left</span></span>;</span><br><span class="line">           <span class="rule"><span class="attribute">margin-right</span>:<span class="value"><span class="number">5px</span></span></span>;</span><br><span class="line">&#125;</span></span><br><span class="line"><span class="class">.report-file</span> <span class="tag">span</span> <span class="rules">&#123;</span><br><span class="line">           <span class="rule"><span class="attribute">cursor</span>:<span class="value"> pointer</span></span>;</span><br><span class="line">           <span class="rule"><span class="attribute">display</span>:<span class="value"> block</span></span>;</span><br><span class="line">           <span class="rule"><span class="attribute">line-height</span>:<span class="value"> <span class="number">28px</span></span></span>;</span><br><span class="line">&#125;</span></span><br><span class="line"><span class="class">.file-prew</span> <span class="rules">&#123;</span><br><span class="line">           <span class="rule"><span class="attribute">position</span>:<span class="value"> absolute</span></span>;</span><br><span class="line">           <span class="rule"><span class="attribute">top</span>:<span class="value"> <span class="number">0</span></span></span>;</span><br><span class="line">           <span class="rule"><span class="attribute">left</span>:<span class="value"><span class="number">0</span></span></span>;</span><br><span class="line">           <span class="rule"><span class="attribute">width</span>:<span class="value"> <span class="number">120px</span></span></span>;</span><br><span class="line">           <span class="rule"><span class="attribute">height</span>:<span class="value"> <span class="number">30px</span></span></span>;</span><br><span class="line">           <span class="rule"><span class="attribute">font-size</span>:<span class="value"> <span class="number">100px</span></span></span>; </span><br><span class="line">           <span class="rule"><span class="attribute">opacity</span>:<span class="value"> <span class="number">0</span></span></span>; </span><br><span class="line">           <span class="rule"><span class="attribute">filter</span>:<span class="value"> <span class="function">alpha</span>(opacity=<span class="number">0</span>)</span></span>;</span><br><span class="line">           <span class="rule"><span class="attribute">cursor</span>:<span class="value"> pointer</span></span>;</span><br><span class="line">&#125;</span></span><br></pre></td></tr></table></figure>
-
- 
- DEMO 
- 
- 可以看到每当我们上传一个文件后都会显示文件的路径，感觉这样会给用户一种更好的体验吧，相对那种直接一个上传按钮。
- 
+<p> DEMO </p>
+<p> 可以看到每当我们上传一个文件后都会显示文件的路径，感觉这样会给用户一种更好的体验吧，相对那种直接一个上传按钮。</p>
  <iframe width="100%" height="300" src="http://jsfiddle.net/gothic/ah62jejz/2/embedded/" allowfullscreen="allowfullscreen" frameborder="0"></iframe>
 
 

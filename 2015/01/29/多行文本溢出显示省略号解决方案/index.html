@@ -40,42 +40,27 @@
 
 
 <meta name="description" content="参考 http://css-tricks.com/line-clampin/
-
-不是一行，所以 
-123overflow:hidden;white-space: nowrap;text-overflow: ellipsis;
-
+不是一行，所以123overflow:hidden;white-space: nowrap;text-overflow: ellipsis;
 这个没用。
-
 我也只介绍上面那篇文章里看到的几种方法，具体看 demo ，里面有说明
-
-1234&amp;lt;p class=&quot;box1&quot;&amp;gt;Lorem ipsum dolo">
+1234&amp;lt;p class=&quot;box1&quot;&amp;gt;Lorem ipsum dolor sit">
 <meta property="og:type" content="article">
 <meta property="og:title" content="多行文本溢出显示省略号解决方案">
 <meta property="og:url" content="http://blog.yongyuan.us/2015/01/29/多行文本溢出显示省略号解决方案/index.html">
 <meta property="og:site_name" content="Go7hic">
 <meta property="og:description" content="参考 http://css-tricks.com/line-clampin/
-
-不是一行，所以 
-123overflow:hidden;white-space: nowrap;text-overflow: ellipsis;
-
+不是一行，所以123overflow:hidden;white-space: nowrap;text-overflow: ellipsis;
 这个没用。
-
 我也只介绍上面那篇文章里看到的几种方法，具体看 demo ，里面有说明
-
-1234&amp;lt;p class=&quot;box1&quot;&amp;gt;Lorem ipsum dolo">
+1234&amp;lt;p class=&quot;box1&quot;&amp;gt;Lorem ipsum dolor sit">
 <meta property="og:updated_time" content="2015-09-04T17:41:41.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="多行文本溢出显示省略号解决方案">
 <meta name="twitter:description" content="参考 http://css-tricks.com/line-clampin/
-
-不是一行，所以 
-123overflow:hidden;white-space: nowrap;text-overflow: ellipsis;
-
+不是一行，所以123overflow:hidden;white-space: nowrap;text-overflow: ellipsis;
 这个没用。
-
 我也只介绍上面那篇文章里看到的几种方法，具体看 demo ，里面有说明
-
-1234&amp;lt;p class=&quot;box1&quot;&amp;gt;Lorem ipsum dolo">
+1234&amp;lt;p class=&quot;box1&quot;&amp;gt;Lorem ipsum dolor sit">
 
 
 <script type="text/javascript" id="hexo.configuration">
@@ -220,36 +205,22 @@
       
 
       
-        <span itemprop="articleBody">
-参考 http://css-tricks.com/line-clampin/
-
-不是一行，所以 
-<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="rule"><span class="attribute">overflow</span>:<span class="value">hidden</span></span>;</span><br><span class="line"><span class="rule"><span class="attribute">white-space</span>:<span class="value"> nowrap</span></span>;</span><br><span class="line"><span class="rule"><span class="attribute">text-overflow</span>:<span class="value"> ellipsis</span></span>;</span><br></pre></td></tr></table></figure>
-
-这个没用。
-
-我也只介绍上面那篇文章里看到的几种方法，具体看 demo ，里面有说明
-
+        <span itemprop="articleBody"><p>参考 <a href="http://css-tricks.com/line-clampin/" target="_blank" rel="external">http://css-tricks.com/line-clampin/</a></p>
+<p>不是一行，所以<br><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="rule"><span class="attribute">overflow</span>:<span class="value">hidden</span></span>;</span><br><span class="line"><span class="rule"><span class="attribute">white-space</span>:<span class="value"> nowrap</span></span>;</span><br><span class="line"><span class="rule"><span class="attribute">text-overflow</span>:<span class="value"> ellipsis</span></span>;</span><br></pre></td></tr></table></figure></p>
+<p>这个没用。</p>
+<p>我也只介绍上面那篇文章里看到的几种方法，具体看 demo ，里面有说明</p>
 <figure class="highlight dos"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;p class="box1"&gt;Lo<span class="comment">rem ipsum dolor sit amet, consectetur adipisicing elit. Deserunt ex, magnam quidem sint cum fuga vero, pariatur ratione reprehenderit laboriosam reiciendis id, numquam sit. Possimus natus tempora suscipit, totam omnis.Lorem ipsum dolor sit amet, consectetur adipisicing elit. Deserunt ex, magnam quidem sint cum fuga vero, pariatur ratione reprehenderit laboriosam reiciendis id, numquam sit. Possimus natus tempora suscipit, totam omni&lt;/p&gt;</span></span><br><span class="line">    &lt;p class="box2"&gt;WebKit Browsers will clamp the number of lines <span class="flow">in</span> this paragraph to <span class="number">2</span>. Lo<span class="comment">rem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum&lt;/p&gt;</span></span><br><span class="line">&lt;div class="box3"&gt;&lt;p&gt;Lo<span class="comment">rem ipsum dolor sit amet, consectetur adipisicing elit. Placeat dolore commodi perferendis inventore corporis modi quia maxime repellat iure, atque ullam incidunLorem ipsum dolor sit amet, consectetur adipisicing elit. Placeat dolore commodi perferendis inventore corporis modi quia maxime repellat iure, atque ullam incidun&lt;/p&gt;&lt;/div&gt;</span></span><br><span class="line">  &lt;div class="box3"&gt;&lt;p&gt;Lo<span class="comment">rem ipsum dolor sit amet, consectetur adipisicing elit. Placeat dolore commodi perferendis inventore corporis modi quia maxime repellat iure, atque ullam incidunLorem ipsum dolor sit amet, consectetur adipisicing elit. Placeat dolore commodi perferendis inventore corporis modi quia maxime repellat iure, atque ullam incidun&lt;/p&gt;&lt;/div&gt;&lt;div class="box3"&gt;&lt;p&gt;Lorem ipsum dolor sit amet, consectetur adipisicing elit. Placeat dolore commodi perferendis inventore corporis modi quia maxime repellat iure, atque ullam incidunLorem ipsum dolor sit amet, consectetur adipisicing elit. Placeat dolore commodi perferendis inventore corporis modi quia maxime repellat iure, atque ullam incidun&lt;/p&gt;&lt;/div&gt;</span></span><br></pre></td></tr></table></figure>
-
- css：
- <figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">   <span class="tag">p</span> <span class="rules">&#123;<span class="rule"><span class="attribute">width</span>:<span class="value"> <span class="number">550px</span></span></span>;<span class="rule"><span class="attribute">overflow</span>:<span class="value"> hidden</span></span>;<span class="rule"><span class="attribute">border</span>:<span class="value"> <span class="number">1px</span> solid <span class="hexcolor">#f00</span></span></span>;&#125;</span></span><br><span class="line"><span class="comment">/*方法1*/</span></span><br><span class="line">        <span class="class">.box1</span> <span class="rules">&#123;  <span class="rule"><span class="attribute">display</span>:<span class="value"> -webkit-box</span></span>;</span><br><span class="line">          <span class="rule"><span class="attribute">-webkit-line-clamp</span>:<span class="value"> <span class="number">3</span></span></span>;</span><br><span class="line">          <span class="rule"><span class="attribute">-webkit-box-orient</span>:<span class="value"> vertical</span></span>;</span><br><span class="line">      &#125;</span></span><br><span class="line"><span class="comment">/*方法2*/</span></span><br><span class="line">      <span class="class">.box2</span> <span class="rules">&#123;</span><br><span class="line"></span><br><span class="line">        <span class="rule"><span class="attribute">position</span>:<span class="value">relative</span></span>;</span><br><span class="line">        <span class="rule"><span class="attribute">line-height</span>:<span class="value"><span class="number">1.4em</span></span></span>;</span><br><span class="line">        <span class="comment">/* 3 times the line-height to show 3 lines */</span></span><br><span class="line">        <span class="rule"><span class="attribute">height</span>:<span class="value"><span class="number">4.2em</span></span></span>;</span><br><span class="line">        <span class="rule"><span class="attribute">overflow</span>:<span class="value">hidden</span></span>;</span><br><span class="line">    &#125;</span></span><br><span class="line">    <span class="class">.box2</span><span class="pseudo">::after</span> <span class="rules">&#123;</span><br><span class="line">        <span class="rule"><span class="attribute">content</span>:<span class="value"><span class="string">"..."</span></span></span>;</span><br><span class="line">        <span class="rule"><span class="attribute">font-weight</span>:<span class="value">bold</span></span>;</span><br><span class="line">        <span class="rule"><span class="attribute">position</span>:<span class="value">absolute</span></span>;</span><br><span class="line">        <span class="rule"><span class="attribute">bottom</span>:<span class="value"><span class="number">0</span></span></span>;</span><br><span class="line">        <span class="rule"><span class="attribute">right</span>:<span class="value"><span class="number">0</span></span></span>;</span><br><span class="line">        <span class="rule"><span class="attribute">padding</span>:<span class="value"><span class="number">0</span> <span class="number">20px</span> <span class="number">1px</span> <span class="number">45px</span></span></span>;</span><br><span class="line">        <span class="rule"><span class="attribute">background</span>:<span class="value"><span class="function">url</span>(http://css88.b0.upaiyun.com/css88/<span class="number">2014</span>/<span class="number">09</span>/ellipsis_bg.png) repeat-y</span></span>;</span><br><span class="line">    &#125;</span></span><br><span class="line"></span><br><span class="line"><span class="class">.box3</span> <span class="rules">&#123;<span class="rule"><span class="attribute">height</span>:<span class="value"><span class="number">4em</span></span></span>;&#125;</span></span><br><span class="line"><span class="class">.box3</span> <span class="tag">p</span> <span class="rules">&#123;<span class="rule"><span class="attribute">line-height</span>:<span class="value"> <span class="number">1.5em</span></span></span>;&#125;</span></span><br></pre></td></tr></table></figure>
-
-JS:
-```
-// jquery方法
-$(".box3").each(function(i){
+<p> css：<br> <figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">   <span class="tag">p</span> <span class="rules">&#123;<span class="rule"><span class="attribute">width</span>:<span class="value"> <span class="number">550px</span></span></span>;<span class="rule"><span class="attribute">overflow</span>:<span class="value"> hidden</span></span>;<span class="rule"><span class="attribute">border</span>:<span class="value"> <span class="number">1px</span> solid <span class="hexcolor">#f00</span></span></span>;&#125;</span></span><br><span class="line"><span class="comment">/*方法1*/</span></span><br><span class="line">        <span class="class">.box1</span> <span class="rules">&#123;  <span class="rule"><span class="attribute">display</span>:<span class="value"> -webkit-box</span></span>;</span><br><span class="line">          <span class="rule"><span class="attribute">-webkit-line-clamp</span>:<span class="value"> <span class="number">3</span></span></span>;</span><br><span class="line">          <span class="rule"><span class="attribute">-webkit-box-orient</span>:<span class="value"> vertical</span></span>;</span><br><span class="line">      &#125;</span></span><br><span class="line"><span class="comment">/*方法2*/</span></span><br><span class="line">      <span class="class">.box2</span> <span class="rules">&#123;</span><br><span class="line"></span><br><span class="line">        <span class="rule"><span class="attribute">position</span>:<span class="value">relative</span></span>;</span><br><span class="line">        <span class="rule"><span class="attribute">line-height</span>:<span class="value"><span class="number">1.4em</span></span></span>;</span><br><span class="line">        <span class="comment">/* 3 times the line-height to show 3 lines */</span></span><br><span class="line">        <span class="rule"><span class="attribute">height</span>:<span class="value"><span class="number">4.2em</span></span></span>;</span><br><span class="line">        <span class="rule"><span class="attribute">overflow</span>:<span class="value">hidden</span></span>;</span><br><span class="line">    &#125;</span></span><br><span class="line">    <span class="class">.box2</span><span class="pseudo">::after</span> <span class="rules">&#123;</span><br><span class="line">        <span class="rule"><span class="attribute">content</span>:<span class="value"><span class="string">"..."</span></span></span>;</span><br><span class="line">        <span class="rule"><span class="attribute">font-weight</span>:<span class="value">bold</span></span>;</span><br><span class="line">        <span class="rule"><span class="attribute">position</span>:<span class="value">absolute</span></span>;</span><br><span class="line">        <span class="rule"><span class="attribute">bottom</span>:<span class="value"><span class="number">0</span></span></span>;</span><br><span class="line">        <span class="rule"><span class="attribute">right</span>:<span class="value"><span class="number">0</span></span></span>;</span><br><span class="line">        <span class="rule"><span class="attribute">padding</span>:<span class="value"><span class="number">0</span> <span class="number">20px</span> <span class="number">1px</span> <span class="number">45px</span></span></span>;</span><br><span class="line">        <span class="rule"><span class="attribute">background</span>:<span class="value"><span class="function">url</span>(http://css88.b0.upaiyun.com/css88/<span class="number">2014</span>/<span class="number">09</span>/ellipsis_bg.png) repeat-y</span></span>;</span><br><span class="line">    &#125;</span></span><br><span class="line"></span><br><span class="line"><span class="class">.box3</span> <span class="rules">&#123;<span class="rule"><span class="attribute">height</span>:<span class="value"><span class="number">4em</span></span></span>;&#125;</span></span><br><span class="line"><span class="class">.box3</span> <span class="tag">p</span> <span class="rules">&#123;<span class="rule"><span class="attribute">line-height</span>:<span class="value"> <span class="number">1.5em</span></span></span>;&#125;</span></span><br></pre></td></tr></table></figure></p>
+<p>JS:</p>
+<pre><code>// jquery方法
+$(<span class="string">".box3"</span>).each(<span class="keyword">function</span>(i){
     var divH = $(this).height();
-    var $p = $("p", $(this)).eq(0);
-    while ($p.outerHeight() > divH) {
-        $p.text($p.text().replace(/(\s)*([a-zA-Z0-9]+|\W)(\.\.\.)?$/, "..."));
+    var <span class="variable">$p</span> = $(<span class="string">"p"</span>, $(this)).eq(<span class="number">0</span>);
+    while (<span class="variable">$p</span>.outerHeight() &gt; divH) {
+        <span class="variable">$p</span>.text(<span class="variable">$p</span>.text().replace(/(\s)*([a-zA-Z<span class="number">0</span>-<span class="number">9</span>]+|\W)(\.\.\.)?$/, <span class="string">"..."</span>));
     };
 });
-``` 
-上面那篇文章还介绍了一个 js Clamp.js 的方法，有兴趣的可以看下，个人觉得咩必要为了这个小功能用这么复杂。
-
-
-
+</code></pre><p>上面那篇文章还介绍了一个 js Clamp.js 的方法，有兴趣的可以看下，个人觉得咩必要为了这个小功能用这么复杂。</p>
 </span>
       
     </div>

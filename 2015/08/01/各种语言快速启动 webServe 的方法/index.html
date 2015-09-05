@@ -39,40 +39,25 @@
   <link rel="shorticon icon" type="image/x-icon" href="/favicon.ico?v=0.4.5.1" />
 
 
-<meta name="description" content="&amp;gt;from https://gist.github.com/willurd/5720255
+<meta name="description" content="from https://gist.github.com/willurd/5720255
 
-### Python 2.x
-
-1$ python -m SimpleHTTPServer 8000
-
-### Python 3.x
-
-1$ python -m http.server 8000">
+Python 2.x1$ python -m SimpleHTTPServer 8000
+Python 3.x1$ python -m http.server 8000">
 <meta property="og:type" content="article">
 <meta property="og:title" content="各种语言快速启动 webServe 的方法">
 <meta property="og:url" content="http://blog.yongyuan.us/2015/08/01/各种语言快速启动 webServe 的方法/index.html">
 <meta property="og:site_name" content="Go7hic">
-<meta property="og:description" content="&amp;gt;from https://gist.github.com/willurd/5720255
+<meta property="og:description" content="from https://gist.github.com/willurd/5720255
 
-### Python 2.x
-
-1$ python -m SimpleHTTPServer 8000
-
-### Python 3.x
-
-1$ python -m http.server 8000">
+Python 2.x1$ python -m SimpleHTTPServer 8000
+Python 3.x1$ python -m http.server 8000">
 <meta property="og:updated_time" content="2015-09-02T12:55:54.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="各种语言快速启动 webServe 的方法">
-<meta name="twitter:description" content="&amp;gt;from https://gist.github.com/willurd/5720255
+<meta name="twitter:description" content="from https://gist.github.com/willurd/5720255
 
-### Python 2.x
-
-1$ python -m SimpleHTTPServer 8000
-
-### Python 3.x
-
-1$ python -m http.server 8000">
+Python 2.x1$ python -m SimpleHTTPServer 8000
+Python 3.x1$ python -m http.server 8000">
 
 
 <script type="text/javascript" id="hexo.configuration">
@@ -217,136 +202,57 @@
       
 
       
-        <span itemprop="articleBody">
-
->from https://gist.github.com/willurd/5720255
-
-### Python 2.x
-
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ python -m SimpleHTTPServer 8000</span><br></pre></td></tr></table></figure>
-
-### Python 3.x
-
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ python -m http.server 8000</span><br></pre></td></tr></table></figure>
-
+        <span itemprop="articleBody"><blockquote>
+<p>from <a href="https://gist.github.com/willurd/5720255" target="_blank" rel="external">https://gist.github.com/willurd/5720255</a></p>
+</blockquote>
+<h3 id="Python_2-x">Python 2.x</h3><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ python -m SimpleHTTPServer 8000</span><br></pre></td></tr></table></figure>
+<h3 id="Python_3-x">Python 3.x</h3><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ python -m http.server 8000</span><br></pre></td></tr></table></figure>
 <a id="more"></a>
-
-### Twisted <sub><sup>(Python)</sup></sub>
-
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ twistd -n web -p 8000 --path .</span><br></pre></td></tr></table></figure>
-
-Or:
-
+<h3 id="Twisted_(Python)">Twisted <sub><sup>(Python)</sup></sub></h3><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ twistd -n web -p 8000 --path .</span><br></pre></td></tr></table></figure>
+<p>Or:</p>
 <figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ python -c &#39;from twisted.web.server import Site; from twisted.web.static import File; from twisted.internet import reactor; reactor.listenTCP(8000, Site(File(&#34;.&#34;))); reactor.run()&#39;</span><br></pre></td></tr></table></figure>
-
-Depends on [Twisted](http://twistedmatrix.com/trac/wiki/Downloads).
-
-### Ruby
-
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ ruby -rwebrick -e&#39;WEBrick::HTTPServer.new(:Port =&#62; 8000, :DocumentRoot =&#62; Dir.pwd).start&#39;</span><br></pre></td></tr></table></figure>
-
-Credit: [Barking Iguana](http://barkingiguana.com/2010/04/11/a-one-line-web-server-in-ruby/)
-
-### Ruby 1.9.2+
-
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ ruby -run -ehttpd . -p8000</span><br></pre></td></tr></table></figure>
-
-Credit: [nobu](https://gist.github.com/willurd/5720255#comment-855952)
-
-### adsf <sub><sup>(Ruby)</sup></sub>
-
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ gem install adsf   # install dependency&#10;$ adsf -p 8000</span><br></pre></td></tr></table></figure>
-
-Credit: [twome](https://gist.github.com/willurd/5720255/#comment-841393)
-
-*No directory listings.*
-
-### Sinatra <sub><sup>(Ruby)</sup></sub>
-
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ gem install sinatra   # install dependency&#10;$ ruby -rsinatra -e&#39;set :public_folder, &#34;.&#34;; set :port, 8000&#39;</span><br></pre></td></tr></table></figure>
-
-*No directory listings.*
-
-### Perl
-
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ cpan HTTP::Server::Brick   # install dependency&#10;$ perl -MHTTP::Server::Brick -e &#39;$s=HTTP::Server::Brick-&#62;new(port=&#62;8000); $s-&#62;mount(&#34;/&#34;=&#62;&#123;path=&#62;&#34;.&#34;&#125;); $s-&#62;start&#39;</span><br></pre></td></tr></table></figure>
-
-Credit: [Anonymous Monk](http://www.perlmonks.org/?node_id=865239)
-
-### Plack <sub><sup>(Perl)</sup></sub>
-
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ cpan Plack   # install dependency&#10;$ plackup -MPlack::App::Directory -e &#39;Plack::App::Directory-&#62;new(root=&#62;&#34;.&#34;);&#39; -p 8000</span><br></pre></td></tr></table></figure>
-
-Credit: [miyagawa](http://advent.plackperl.org/2009/12/day-5-run-a-static-file-web-server-with-plack.html)
-
-### Mojolicious <sub><sup>(Perl)</sup></sub>
-
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ cpan Mojolicious::Lite   # install dependency&#10;$ perl -MMojolicious::Lite -MCwd -e &#39;app-&#62;static-&#62;paths-&#62;[0]=getcwd; app-&#62;start&#39; daemon -l http://*:8000</span><br></pre></td></tr></table></figure>
-
-*No directory listings.*
-
-### http-server <sub><sup>(Node.js)</sup></sub>
-
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ npm install -g http-server   # install dependency&#10;$ http-server -p 8000</span><br></pre></td></tr></table></figure>
-
-*Note: This server does funky things with relative paths. For example, if you have a file `/tests/index.html`, it will load `index.html` if you go to `/test`, but will treat relative paths as if they were coming from `/`.*
-
-### node-static <sub><sup>(Node.js)</sup></sub>
-
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ npm install -g node-static   # install dependency&#10;$ static -p 8000</span><br></pre></td></tr></table></figure>
-
-*No directory listings.*
-
-### PHP <sub><sup>(>= 5.4)</sup></sub>
-
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ php -S 127.0.0.1:8000</span><br></pre></td></tr></table></figure>
-
-Credit: [/u/prawnsalad](http://www.reddit.com/r/webdev/comments/1fs45z/list_of_ad_hoc_http_server_oneliners/cad9ew3) and [MattLicense](https://gist.github.com/willurd/5720255#comment-841131)
-
-*No directory listings.*
-
-### Erlang
-
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ erl -s inets -eval &#39;inets:start(httpd,[&#123;server_name,&#34;NAME&#34;&#125;,&#123;document_root, &#34;.&#34;&#125;,&#123;server_root, &#34;.&#34;&#125;,&#123;port, 8000&#125;,&#123;mime_types,[&#123;&#34;html&#34;,&#34;text/html&#34;&#125;,&#123;&#34;htm&#34;,&#34;text/html&#34;&#125;,&#123;&#34;js&#34;,&#34;text/javascript&#34;&#125;,&#123;&#34;css&#34;,&#34;text/css&#34;&#125;,&#123;&#34;gif&#34;,&#34;image/gif&#34;&#125;,&#123;&#34;jpg&#34;,&#34;image/jpeg&#34;&#125;,&#123;&#34;jpeg&#34;,&#34;image/jpeg&#34;&#125;,&#123;&#34;png&#34;,&#34;image/png&#34;&#125;]&#125;]).&#39;</span><br></pre></td></tr></table></figure>
-
-Credit: [nivertech](https://gist.github.com/willurd/5720255/#comment-841166) (with the addition of some basic mime types)
-
-*No directory listings.*
-
-### busybox httpd
-
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ busybox httpd -f -p 8000</span><br></pre></td></tr></table></figure>
-
-Credit: [lvm](https://gist.github.com/willurd/5720255#comment-841915)
-
-### webfs
-
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ webfsd -F -p 8000</span><br></pre></td></tr></table></figure>
-
-Depends on [webfs](http://linux.bytesex.org/misc/webfs.html).
-
-### IIS Express
-
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">C:\&#62; &#34;C:\Program Files (x86)\IIS Express\iisexpress.exe&#34; /path:C:\MyWeb /port:8000</span><br></pre></td></tr></table></figure>
-
-Depends on [IIS Express](http://www.iis.net/learn/extensions/introduction-to-iis-express/iis-express-overview).
-
-Credit: [/u/fjantomen](http://www.reddit.com/r/webdev/comments/1fs45z/list_of_ad_hoc_http_server_oneliners/cada8no)
-
-*No directory listings. `/path` must be an absolute path.*
-
-# Meta
-
-If you have any suggestions, drop them in the comments below or on the reddit discussion. To get on this list, a solution must:
-
-1. serve static files using your current directory (or a specified directory) as the server root,
-2. be able to be run with a single, one line command (dependencies are fine if they're a one-time thing),
-3. serve basic file types (html, css, js, images) with proper mime types,
-4. require no configuration (from files or otherwise) beyond the command itself (no framework-specific servers, etc)
-5. must run, or have a mode where it can run, in the foreground (i.e. no daemons)
-
-
-
+<p>Depends on <a href="http://twistedmatrix.com/trac/wiki/Downloads" target="_blank" rel="external">Twisted</a>.</p>
+<h3 id="Ruby">Ruby</h3><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ ruby -rwebrick -e&#39;WEBrick::HTTPServer.new(:Port =&#62; 8000, :DocumentRoot =&#62; Dir.pwd).start&#39;</span><br></pre></td></tr></table></figure>
+<p>Credit: <a href="http://barkingiguana.com/2010/04/11/a-one-line-web-server-in-ruby/" target="_blank" rel="external">Barking Iguana</a></p>
+<h3 id="Ruby_1-9-2+">Ruby 1.9.2+</h3><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ ruby -run -ehttpd . -p8000</span><br></pre></td></tr></table></figure>
+<p>Credit: <a href="https://gist.github.com/willurd/5720255#comment-855952" target="_blank" rel="external">nobu</a></p>
+<h3 id="adsf_(Ruby)">adsf <sub><sup>(Ruby)</sup></sub></h3><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ gem install adsf   # install dependency&#10;$ adsf -p 8000</span><br></pre></td></tr></table></figure>
+<p>Credit: <a href="https://gist.github.com/willurd/5720255/#comment-841393" target="_blank" rel="external">twome</a></p>
+<p><em>No directory listings.</em></p>
+<h3 id="Sinatra_(Ruby)">Sinatra <sub><sup>(Ruby)</sup></sub></h3><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ gem install sinatra   # install dependency&#10;$ ruby -rsinatra -e&#39;set :public_folder, &#34;.&#34;; set :port, 8000&#39;</span><br></pre></td></tr></table></figure>
+<p><em>No directory listings.</em></p>
+<h3 id="Perl">Perl</h3><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ cpan HTTP::Server::Brick   # install dependency&#10;$ perl -MHTTP::Server::Brick -e &#39;$s=HTTP::Server::Brick-&#62;new(port=&#62;8000); $s-&#62;mount(&#34;/&#34;=&#62;&#123;path=&#62;&#34;.&#34;&#125;); $s-&#62;start&#39;</span><br></pre></td></tr></table></figure>
+<p>Credit: <a href="http://www.perlmonks.org/?node_id=865239" target="_blank" rel="external">Anonymous Monk</a></p>
+<h3 id="Plack_(Perl)">Plack <sub><sup>(Perl)</sup></sub></h3><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ cpan Plack   # install dependency&#10;$ plackup -MPlack::App::Directory -e &#39;Plack::App::Directory-&#62;new(root=&#62;&#34;.&#34;);&#39; -p 8000</span><br></pre></td></tr></table></figure>
+<p>Credit: <a href="http://advent.plackperl.org/2009/12/day-5-run-a-static-file-web-server-with-plack.html" target="_blank" rel="external">miyagawa</a></p>
+<h3 id="Mojolicious_(Perl)">Mojolicious <sub><sup>(Perl)</sup></sub></h3><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ cpan Mojolicious::Lite   # install dependency&#10;$ perl -MMojolicious::Lite -MCwd -e &#39;app-&#62;static-&#62;paths-&#62;[0]=getcwd; app-&#62;start&#39; daemon -l http://*:8000</span><br></pre></td></tr></table></figure>
+<p><em>No directory listings.</em></p>
+<h3 id="http-server_(Node-js)">http-server <sub><sup>(Node.js)</sup></sub></h3><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ npm install -g http-server   # install dependency&#10;$ http-server -p 8000</span><br></pre></td></tr></table></figure>
+<p><em>Note: This server does funky things with relative paths. For example, if you have a file <code>/tests/index.html</code>, it will load <code>index.html</code> if you go to <code>/test</code>, but will treat relative paths as if they were coming from <code>/</code>.</em></p>
+<h3 id="node-static_(Node-js)">node-static <sub><sup>(Node.js)</sup></sub></h3><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ npm install -g node-static   # install dependency&#10;$ static -p 8000</span><br></pre></td></tr></table></figure>
+<p><em>No directory listings.</em></p>
+<h3 id="PHP_(&gt;=_5-4)">PHP <sub><sup>(&gt;= 5.4)</sup></sub></h3><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ php -S 127.0.0.1:8000</span><br></pre></td></tr></table></figure>
+<p>Credit: <a href="http://www.reddit.com/r/webdev/comments/1fs45z/list_of_ad_hoc_http_server_oneliners/cad9ew3" target="_blank" rel="external">/u/prawnsalad</a> and <a href="https://gist.github.com/willurd/5720255#comment-841131" target="_blank" rel="external">MattLicense</a></p>
+<p><em>No directory listings.</em></p>
+<h3 id="Erlang">Erlang</h3><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ erl -s inets -eval &#39;inets:start(httpd,[&#123;server_name,&#34;NAME&#34;&#125;,&#123;document_root, &#34;.&#34;&#125;,&#123;server_root, &#34;.&#34;&#125;,&#123;port, 8000&#125;,&#123;mime_types,[&#123;&#34;html&#34;,&#34;text/html&#34;&#125;,&#123;&#34;htm&#34;,&#34;text/html&#34;&#125;,&#123;&#34;js&#34;,&#34;text/javascript&#34;&#125;,&#123;&#34;css&#34;,&#34;text/css&#34;&#125;,&#123;&#34;gif&#34;,&#34;image/gif&#34;&#125;,&#123;&#34;jpg&#34;,&#34;image/jpeg&#34;&#125;,&#123;&#34;jpeg&#34;,&#34;image/jpeg&#34;&#125;,&#123;&#34;png&#34;,&#34;image/png&#34;&#125;]&#125;]).&#39;</span><br></pre></td></tr></table></figure>
+<p>Credit: <a href="https://gist.github.com/willurd/5720255/#comment-841166" target="_blank" rel="external">nivertech</a> (with the addition of some basic mime types)</p>
+<p><em>No directory listings.</em></p>
+<h3 id="busybox_httpd">busybox httpd</h3><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ busybox httpd -f -p 8000</span><br></pre></td></tr></table></figure>
+<p>Credit: <a href="https://gist.github.com/willurd/5720255#comment-841915" target="_blank" rel="external">lvm</a></p>
+<h3 id="webfs">webfs</h3><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ webfsd -F -p 8000</span><br></pre></td></tr></table></figure>
+<p>Depends on <a href="http://linux.bytesex.org/misc/webfs.html" target="_blank" rel="external">webfs</a>.</p>
+<h3 id="IIS_Express">IIS Express</h3><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">C:\&#62; &#34;C:\Program Files (x86)\IIS Express\iisexpress.exe&#34; /path:C:\MyWeb /port:8000</span><br></pre></td></tr></table></figure>
+<p>Depends on <a href="http://www.iis.net/learn/extensions/introduction-to-iis-express/iis-express-overview" target="_blank" rel="external">IIS Express</a>.</p>
+<p>Credit: <a href="http://www.reddit.com/r/webdev/comments/1fs45z/list_of_ad_hoc_http_server_oneliners/cada8no" target="_blank" rel="external">/u/fjantomen</a></p>
+<p><em>No directory listings. <code>/path</code> must be an absolute path.</em></p>
+<h1 id="Meta">Meta</h1><p>If you have any suggestions, drop them in the comments below or on the reddit discussion. To get on this list, a solution must:</p>
+<ol>
+<li>serve static files using your current directory (or a specified directory) as the server root,</li>
+<li>be able to be run with a single, one line command (dependencies are fine if they’re a one-time thing),</li>
+<li>serve basic file types (html, css, js, images) with proper mime types,</li>
+<li>require no configuration (from files or otherwise) beyond the command itself (no framework-specific servers, etc)</li>
+<li>must run, or have a mode where it can run, in the foreground (i.e. no daemons)</li>
+</ol>
 </span>
       
     </div>
@@ -481,7 +387,7 @@ If you have any suggestions, drop them in the comments below or on the reddit di
           <div class="post-toc">
             
             
-              <p class="post-toc-empty">此文章未包含目录</p>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Python_2-x"><span class="nav-number">1.</span> <span class="nav-text">Python 2.x</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Python_3-x"><span class="nav-number">2.</span> <span class="nav-text">Python 3.x</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Twisted_(Python)"><span class="nav-number">3.</span> <span class="nav-text">Twisted (Python)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Ruby"><span class="nav-number">4.</span> <span class="nav-text">Ruby</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Ruby_1-9-2+"><span class="nav-number">5.</span> <span class="nav-text">Ruby 1.9.2+</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#adsf_(Ruby)"><span class="nav-number">6.</span> <span class="nav-text">adsf (Ruby)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Sinatra_(Ruby)"><span class="nav-number">7.</span> <span class="nav-text">Sinatra (Ruby)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Perl"><span class="nav-number">8.</span> <span class="nav-text">Perl</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Plack_(Perl)"><span class="nav-number">9.</span> <span class="nav-text">Plack (Perl)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Mojolicious_(Perl)"><span class="nav-number">10.</span> <span class="nav-text">Mojolicious (Perl)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#http-server_(Node-js)"><span class="nav-number">11.</span> <span class="nav-text">http-server (Node.js)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#node-static_(Node-js)"><span class="nav-number">12.</span> <span class="nav-text">node-static (Node.js)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#PHP_(>=_5-4)"><span class="nav-number">13.</span> <span class="nav-text">PHP (>= 5.4)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Erlang"><span class="nav-number">14.</span> <span class="nav-text">Erlang</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#busybox_httpd"><span class="nav-number">15.</span> <span class="nav-text">busybox httpd</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#webfs"><span class="nav-number">16.</span> <span class="nav-text">webfs</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#IIS_Express"><span class="nav-number">17.</span> <span class="nav-text">IIS Express</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Meta"><span class="nav-number"></span> <span class="nav-text">Meta</span></a></div>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator"></div>

@@ -199,16 +199,12 @@
         
           <span itemprop="articleBody">
             
-            
-http://javascript-puzzlers.herokuapp.com/  题目地址。感觉很难，很多错了，边做边参考了一些资料。顺便参考网上答案自己整理一份答案在此。
-
+            http://javascript-puzzlers.herokuapp.com/  题目地址。感觉很难，很多错了，边做边参考了一些资料。顺便参考网上答案自己整理一份答案在此。
 第一题
-
 What is the result of this expression? (or multiple ones)
-
 1["1", "2", "3"].map(parseInt)
+A：[“1”, “2”, “3”]
 
-A：["1", "2", 
             ...
           </span>
           <div class="post-more-link text-center">
@@ -278,12 +274,9 @@ A：["1", "2",
         
           <span itemprop="articleBody">
             
-            
-首先这是篇读书笔记，《Javascript启示录》这本书虽然薄但写得真好，翻译的也不错。本书个人觉得作者是围绕JavaScript一切皆为对象来展开写的，只有一两章没有过多的涉及到对象，其中就包括这个知识点，虽然简单，但是再次读来还是有新的体会，我就先从这章记起吧。
-
+            首先这是篇读书笔记，《Javascript启示录》这本书虽然薄但写得真好，翻译的也不错。本书个人觉得作者是围绕JavaScript一切皆为对象来展开写的，只有一两章没有过多的涉及到对象，其中就包括这个知识点，虽然简单，但是再次读来还是有新的体会，我就先从这章记起吧。
 首先我们要知道在js里作用域是用来执行代码的上下文，有三种类型分别为全局作用域、局部作用域、eVal作用域。
-
-看一段代码展示各
+看一段代码展示各种作用
             ...
           </span>
           <div class="post-more-link text-center">
@@ -351,9 +344,8 @@ A：["1", "2",
 
       
         
-          首先这是篇读书笔记，《Javascript启示录》这本书虽然薄但写得真好，翻译的也不错。本书个人觉得作者是围绕JavaScript一切皆为对象来展开写的，只有一两章没有过多的涉及到对象，其中就包括这个知识点，我就先从这章记起吧。
-
-首先我们要知道在js里作用域是用来执行代码的上下文，有三种类型分别为全局作用域、局部作用域、eVal作用域。
+          <p>首先这是篇读书笔记，《Javascript启示录》这本书虽然薄但写得真好，翻译的也不错。本书个人觉得作者是围绕JavaScript一切皆为对象来展开写的，只有一两章没有过多的涉及到对象，其中就包括这个知识点，我就先从这章记起吧。</p>
+<p>首先我们要知道在js里作用域是用来执行代码的上下文，有三种类型分别为全局作用域、局部作用域、eVal作用域。<br>
           <div class="post-more-link text-center">
             <a class="btn" href="/2014/07/20/2014-07-20-scope/#more" rel="contents">
               阅读全文 &raquo;
@@ -419,17 +411,12 @@ A：["1", "2",
 
       
         
-          ###一：隐式类型转换
-**（0）：提要**
-
-JavaScript 是非常宽容的，「来者不拒」，不在乎什么类型。 例如，它如果想要接受数字，它并不拒绝其他类型的值，而是试图把它们转换成数字：
-
-> '5' - '2'
-3
-> '5' * '2'
-10
-
-自动转换为布尔值通常不会引起问题，而且往往很有用（译注：比如在C语言里，根本就没有布尔类型。by @justjavac）。 即使如此，这些隐式转换也会引起怪癖（quirks）。 但是当自动转换为字符串时，可能会引起问题。
+          <p>###一：隐式类型转换<br><strong>（0）：提要</strong></p>
+<p>JavaScript 是非常宽容的，「来者不拒」，不在乎什么类型。 例如，它如果想要接受数字，它并不拒绝其他类型的值，而是试图把它们转换成数字：</p>
+<blockquote>
+<p>‘5’ - ‘2’<br>3<br>‘5’ * ‘2’<br>10</p>
+</blockquote>
+<p>自动转换为布尔值通常不会引起问题，而且往往很有用（译注：比如在C语言里，根本就没有布尔类型。by @justjavac）。 即使如此，这些隐式转换也会引起怪癖（quirks）。 但是当自动转换为字符串时，可能会引起问题。<br>
           <div class="post-more-link text-center">
             <a class="btn" href="/2014/07/17/2014-07-17-js-12-guaipi/#more" rel="contents">
               阅读全文 &raquo;
@@ -495,9 +482,7 @@ JavaScript 是非常宽容的，「来者不拒」，不在乎什么类型。 �
 
       
         
-          ###一、概述
-除了正常运行模式，ECMAscript 5添加了第二种运行模式："严格模式"（strict mode）。顾名思义，这种模式使得Javascript在更严格的条件下运行。
-设立"严格模式"的目的，主要有以下几个：
+          <p>###一、概述<br>除了正常运行模式，ECMAscript 5添加了第二种运行模式：”严格模式”（strict mode）。顾名思义，这种模式使得Javascript在更严格的条件下运行。<br>设立”严格模式”的目的，主要有以下几个：<br>
           <div class="post-more-link text-center">
             <a class="btn" href="/2014/07/14/2014-07-14-javascript_strict_mode/#more" rel="contents">
               阅读全文 &raquo;
@@ -563,9 +548,8 @@ JavaScript 是非常宽容的，「来者不拒」，不在乎什么类型。 �
 
       
         
-          ###Navigation Timing测试页面加载速度
-
-Navigation Timing 是一个可以在web中精确测量性能的javascript API。这个API提供了一个简单的方法来获得页面导航、加载事件的精确而又详细的时间状态。目前在 IE9、Chrome、Firefox nightly builds 中可用。
+          <p>###Navigation Timing测试页面加载速度</p>
+<p>Navigation Timing 是一个可以在web中精确测量性能的javascript API。这个API提供了一个简单的方法来获得页面导航、加载事件的精确而又详细的时间状态。目前在 IE9、Chrome、Firefox nightly builds 中可用。<br>
           <div class="post-more-link text-center">
             <a class="btn" href="/2014/07/10/2014-07-10-performance/#more" rel="contents">
               阅读全文 &raquo;
@@ -631,9 +615,8 @@ Navigation Timing 是一个可以在web中精确测量性能的javascript API。
 
       
         
-          在Javascript中，函数是第一类对象，这意味着函数可以像对象一样按照第一类管理被使用。既然函数实际上是对象：它们能被“存储”在变量中，能作为函数参数被传递，能在函数中被创建，能从函数中返回。
-
-因为函数是第一类对象，我们可以在Javascript使用回调函数。在下面的文章中，我们将学到关于回调函数的方方面面。回调函数可能是在Javascript中使用最多的函数式编程技巧，虽然在字面上看起来它们一直一小段Javascript或者jQuery代码，但是对于许多开发者来说它任然是一个谜。在阅读本文之后你能了解怎样使用回调函数。
+          <p>在Javascript中，函数是第一类对象，这意味着函数可以像对象一样按照第一类管理被使用。既然函数实际上是对象：它们能被“存储”在变量中，能作为函数参数被传递，能在函数中被创建，能从函数中返回。</p>
+<p>因为函数是第一类对象，我们可以在Javascript使用回调函数。在下面的文章中，我们将学到关于回调函数的方方面面。回调函数可能是在Javascript中使用最多的函数式编程技巧，虽然在字面上看起来它们一直一小段Javascript或者jQuery代码，但是对于许多开发者来说它任然是一个谜。在阅读本文之后你能了解怎样使用回调函数。<br>
           <div class="post-more-link text-center">
             <a class="btn" href="/2014/06/27/2014-06-27-javascript-callback/#more" rel="contents">
               阅读全文 &raquo;
@@ -701,11 +684,7 @@ Navigation Timing 是一个可以在web中精确测量性能的javascript API。
         
           <span itemprop="articleBody">
             
-            
-在stackoverflow上看到的问题怎么给半个字符设置样式，很多大神给出了答案。我就等就来学习围观吧。
-一：基本解决方案：
-html:
-1234&lt;span class=”halfStyle” data-content=”X”&gt;X&lt;/span&gt;&lt;span class=”halfStyle” data-content=”Y”&gt;Y&lt;/span&gt;&lt
+            在stackoverflow上看到的问题怎么给半个字符设置样式，很多大神给出了答案。我就等就来学习围观吧。一：基本解决方案：html:1234&lt;span class=”halfStyle” data-content=”X”&gt;X&lt;/span&gt;&lt;span class=”halfStyle” data-content=”Y”&gt;Y&lt;/span&gt;&lt;spa
             ...
           </span>
           <div class="post-more-link text-center">
