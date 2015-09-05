@@ -166,8 +166,8 @@
           
           
             
-              <a class="post-title-link" href="/2015/07/05/JS 尾调用/" itemprop="url">
-                JS 尾调用
+              <a class="post-title-link" href="/2015/07/05/attribute 和 property 的区别/" itemprop="url">
+                attribute 和 property 的区别
               </a>
             
           
@@ -199,14 +199,15 @@
         
           <span itemprop="articleBody">
             
-            
-在计算机科学里，尾调用是指一个函数里的最后一个动作是一个函数调用的情形：即这个调用的返回值直接被当前函数返回的情形。这种情形下称该调用位置为尾位置。若这个函数在尾位置调用本身（或是一个尾调用本身的其他函数等等），则称这种情况为尾递归，是递归的一种特殊情形。尾调用不一定是递归调用，但是尾递归特别有用，也比较容易实现。
-
-尾调用的重要性在于它可以不在调用栈上面添加一个新的堆栈帧——而是更新它，如同迭
+            之前很早用 jQuery 的时候就遇到这个问题，想写篇文章来研究一下这两个的区别。但是只在印象笔记里开了个头就没继续了。刚好前段时间看到 winter 在微博上写了篇短文，我就直接参考啦。
+一、概述
+attribute和property是常常被弄混的两个概念。
+简单来说，property则是JS代码里访问的：
+document.getElementByTagName('my-element').p
             ...
           </span>
           <div class="post-more-link text-center">
-            <a class="btn" href="/2015/07/05/JS 尾调用/#more" rel="contents">
+            <a class="btn" href="/2015/07/05/attribute 和 property 的区别/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -382,80 +383,6 @@ demo: http://jsfiddle.net/gothic/aoqkqdyd/1/light/
           
           
             
-              <a class="post-title-link" href="/2015/01/29/多行文本溢出显示省略号解决方案/" itemprop="url">
-                多行文本溢出显示省略号解决方案
-              </a>
-            
-          
-        </h1>
-      
-
-      <div class="post-meta">
-        <span class="post-time">
-          发表于
-          <time itemprop="dateCreated" datetime="2015-01-29T11:21:04+08:00" content="2015-01-29">
-            2015-01-29
-          </time>
-        </span>
-
-        
-
-        
-          
-        
-      </div>
-    </header>
-
-    <div class="post-body">
-
-      
-      
-
-      
-        
-          <span itemprop="articleBody">
-            
-            参考 http://css-tricks.com/line-clampin/
-不是一行，所以123overflow:hidden;white-space: nowrap;text-overflow: ellipsis;
-这个没用。
-我也只介绍上面那篇文章里看到的几种方法，具体看 demo ，里面有说明
-1234&lt;p class="box1"&gt;Lorem ipsum dolor sit 
-            ...
-          </span>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2015/01/29/多行文本溢出显示省略号解决方案/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      
-      
-        <h1 class="post-title" itemprop="name headline">
-          
-          
-            
               <a class="post-title-link" href="/2015/01/29/Mac 下安装 mongodb/" itemprop="url">
                 Mac 下安装 mongodb
               </a>
@@ -498,6 +425,80 @@ demo: http://jsfiddle.net/gothic/aoqkqdyd/1/light/
           </span>
           <div class="post-more-link text-center">
             <a class="btn" href="/2015/01/29/Mac 下安装 mongodb/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      
+      
+        <h1 class="post-title" itemprop="name headline">
+          
+          
+            
+              <a class="post-title-link" href="/2015/01/29/多行文本溢出显示省略号解决方案/" itemprop="url">
+                多行文本溢出显示省略号解决方案
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于
+          <time itemprop="dateCreated" datetime="2015-01-29T11:21:04+08:00" content="2015-01-29">
+            2015-01-29
+          </time>
+        </span>
+
+        
+
+        
+          
+        
+      </div>
+    </header>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <span itemprop="articleBody">
+            
+            参考 http://css-tricks.com/line-clampin/
+不是一行，所以123overflow:hidden;white-space: nowrap;text-overflow: ellipsis;
+这个没用。
+我也只介绍上面那篇文章里看到的几种方法，具体看 demo ，里面有说明
+1234&lt;p class="box1"&gt;Lorem ipsum dolor sit 
+            ...
+          </span>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2015/01/29/多行文本溢出显示省略号解决方案/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -727,7 +728,7 @@ demo: http://jsfiddle.net/gothic/aoqkqdyd/1/light/
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/">&laquo;</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/10/">10</a><a class="extend next" rel="next" href="/page/3/">&raquo;</a>
+    <a class="extend prev" rel="prev" href="/">&laquo;</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/11/">11</a><a class="extend next" rel="next" href="/page/3/">&raquo;</a>
   </nav>
 
  </div>
@@ -761,7 +762,7 @@ demo: http://jsfiddle.net/gothic/aoqkqdyd/1/light/
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">76</span>
+              <span class="site-state-item-count">86</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -775,7 +776,7 @@ demo: http://jsfiddle.net/gothic/aoqkqdyd/1/light/
 
           <div class="site-state-item site-state-tags">
             <a href="/tags">
-              <span class="site-state-item-count">19</span>
+              <span class="site-state-item-count">21</span>
               <span class="site-state-item-name">标签</span>
               </a>
           </div>
