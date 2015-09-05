@@ -1,0 +1,636 @@
+<!doctype html>
+<html class="theme-next use-motion ">
+<head>
+  
+
+<meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+  <link rel="stylesheet" type="text/css" href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5"/>
+
+
+
+
+<link rel="stylesheet" type="text/css" href="/css/main.css?v=0.4.5.1"/>
+
+
+    <meta name="description" content="jsut 4 fun" />
+
+
+
+  <meta name="keywords" content="JavaScript," />
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Go7hic" type="application/atom+xml" />
+
+
+
+  <link rel="shorticon icon" type="image/x-icon" href="/favicon.ico?v=0.4.5.1" />
+
+
+<meta name="description" content="你知道下面的 JavaScript 程序执行时会输出什么值吗？
+12345678var foo = 1;function bar() &amp;#123;    if (!foo) &amp;#123;        var foo = 10;    &amp;#125;    alert(foo);&amp;#125;bar();
+答案是“10”，吃惊吗？那么下面的可能会真的让你大吃一惊：
+12345678var a = 1;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="4.JavaScript 的作用域和提升">
+<meta property="og:url" content="http://blog.yongyuan.us/2014/11/29/4.JavaScript 的作用域和提升/index.html">
+<meta property="og:site_name" content="Go7hic">
+<meta property="og:description" content="你知道下面的 JavaScript 程序执行时会输出什么值吗？
+12345678var foo = 1;function bar() &amp;#123;    if (!foo) &amp;#123;        var foo = 10;    &amp;#125;    alert(foo);&amp;#125;bar();
+答案是“10”，吃惊吗？那么下面的可能会真的让你大吃一惊：
+12345678var a = 1;">
+<meta property="og:updated_time" content="2015-09-05T08:05:41.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="4.JavaScript 的作用域和提升">
+<meta name="twitter:description" content="你知道下面的 JavaScript 程序执行时会输出什么值吗？
+12345678var foo = 1;function bar() &amp;#123;    if (!foo) &amp;#123;        var foo = 10;    &amp;#125;    alert(foo);&amp;#125;bar();
+答案是“10”，吃惊吗？那么下面的可能会真的让你大吃一惊：
+12345678var a = 1;">
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var CONFIG = {
+    scheme: '',
+    sidebar: 'post'
+  };
+</script>
+
+  <title> 4.JavaScript 的作用域和提升 | Go7hic </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  <!--[if lte IE 8]>
+  <div style=' clear: both; height: 59px; padding:0 0 0 15px; position: relative;margin:0 auto;'>
+    <a href="http://windows.microsoft.com/en-US/internet-explorer/products/ie/home?ocid=ie6_countdown_bannercode">
+      <img src="http://7u2nvr.com1.z0.glb.clouddn.com/picouterie.jpg" border="0" height="42" width="820"
+           alt="You are using an outdated browser. For a faster, safer browsing experience, upgrade for free today or use other browser ,like chrome firefox safari."
+           style='margin-left:auto;margin-right:auto;display: block;'/>
+    </a>
+  </div>
+<![endif]-->
+  
+
+
+
+  <div class="container one-column page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><h1 class="site-meta">
+  <span class="logo-line-before"><i></i></span>
+  <a href="/" class="brand" rel="start">
+      <span class="logo">
+        <i class="icon-next-logo"></i>
+      </span>
+      <span class="site-title">Go7hic</span>
+  </a>
+  <span class="logo-line-after"><i></i></span>
+</h1>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu ">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            <i class="menu-item-icon icon-next-home"></i> <br />
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            <i class="menu-item-icon icon-next-archives"></i> <br />
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            <i class="menu-item-icon icon-next-tags"></i> <br />
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            <i class="menu-item-icon icon-next-about"></i> <br />
+            关于
+          </a>
+        </li>
+      
+
+      
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div id="content" class="content"> 
+
+  <div id="posts" class="posts-expand">
+    
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      
+      
+        <h1 class="post-title" itemprop="name headline">
+          
+          
+            
+              4.JavaScript 的作用域和提升
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于
+          <time itemprop="dateCreated" datetime="2014-11-29T11:21:04+08:00" content="2014-11-29">
+            2014-11-29
+          </time>
+        </span>
+
+        
+
+        
+          
+        
+      </div>
+    </header>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        <span itemprop="articleBody"><p>你知道下面的 JavaScript 程序执行时会输出什么值吗？</p>
+<figure class="highlight openscad"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">var foo = <span class="number">1</span>;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">bar</span><span class="params">()</span> &#123;</span></span><br><span class="line">    <span class="keyword">if</span> <span class="params">(!foo)</span> &#123;</span><br><span class="line">        var foo = <span class="number">10</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    alert<span class="params">(foo)</span>;</span><br><span class="line">&#125;</span><br><span class="line">bar<span class="params">()</span>;</span><br></pre></td></tr></table></figure>
+<p>答案是“10”，吃惊吗？那么下面的可能会真的让你大吃一惊：</p>
+<figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a = <span class="number">1</span>;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">b</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    a = <span class="number">10</span>;</span><br><span class="line">    <span class="keyword">return</span>;</span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">a</span><span class="params">()</span> </span>&#123;&#125;</span><br><span class="line">&#125;</span><br><span class="line">b();</span><br><span class="line">alert(a);</span><br></pre></td></tr></table></figure>
+<p>这里浏览器会弹出“1”。这里发生了什么呢？这似乎看起来是奇怪，未知，让人混淆的，但这实际上是这门语言一个强大和富有表现力的特性。我不知道这一特性行为是否有标准名字，但我喜欢这个术语“提升（hoisting）”。本文试图揭示这一特性的机制，但首先让我们理解 JavaScript 的作用域。</p>
+<p>###JavaScript中的作用域（scope）</p>
+<p>JavaScript初学者最容易混淆的地方是作用域。实际上，不只是初学者。我遇到过许多经验丰富的JavaScript程序员，却不完全明白作用域。JavaScript的作用域如此容易混淆的原因是它看起来很像C家族的语言（类C语言）。考虑下面的C程序：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">#<span class="keyword">include</span> &lt;stdio.h&gt;</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> x = <span class="number">1</span>;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"%d, "</span>, x); <span class="comment">// 1</span></span><br><span class="line">    <span class="keyword">if</span> (<span class="number">1</span>) &#123;</span><br><span class="line">        <span class="keyword">int</span> x = <span class="number">2</span>;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"%d, "</span>, x); <span class="comment">// 2</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"%d\n"</span>, x); <span class="comment">// 1</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>程序的输出是1，2，1.这是因为C和C家族的语言有块级作用域（block-level scope）。当控制流进入一个块，比如if语句，新的变量会在块作用域里声明，不会对外面作用域产生印象。这不适用于JavaScript。在Firebug里运行下面的代码：</p>
+<figure class="highlight openscad"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">var x = <span class="number">1</span>;</span><br><span class="line">console.<span class="built_in">log</span><span class="params">(x)</span>; <span class="comment">// 1</span></span><br><span class="line"><span class="keyword">if</span> <span class="params">(<span class="literal">true</span>)</span> &#123;</span><br><span class="line">    var x = <span class="number">2</span>;</span><br><span class="line">    console.<span class="built_in">log</span><span class="params">(x)</span>; <span class="comment">// 2</span></span><br><span class="line">&#125;</span><br><span class="line">console.<span class="built_in">log</span><span class="params">(x)</span>; <span class="comment">// 2</span></span><br></pre></td></tr></table></figure>
+<p>在这个例子中，Firebug 将输出1，2，2。这是因为 JavaScript 有函数级作用域（function-level scope）。这一点和C家族完全不同。语句块，如if语言，不创建新的作用域。仅仅函数创建新作用域。</p>
+<p>很多程序员，像C，C++，C#或Java，都不知道这点，也不希望这样。幸运的是，因为JavaScript函数的灵活性，有一个解决方案。你若你必须要在函数内部创建一个临时作用域，像下面这样做：</p>
+<figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> x = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">if</span> (x) &#123;</span><br><span class="line">        (<span class="function"><span class="keyword">function</span> <span class="params">()</span> </span>&#123;</span><br><span class="line">            <span class="keyword">var</span> x = <span class="number">2</span>;</span><br><span class="line">            <span class="comment">// 此处省略一万个字</span></span><br><span class="line">        &#125;());</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// x 仍然是 1.</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这方法实际上相当灵活，可以在你需要临时作用域的时候随意使用，不局限于块级语句内部。然而，我强烈建议你花时间去了解和欣赏JavaScript的作用域。它非常强大，是这门语言中我最喜欢的特性之一。如果你了解作用域，将更容易理解提升。</p>
+<p>###声明，名字和提升（Hoisting）</p>
+<p>在 JavaScript 中，作用域中的名字（属性名）有四种基本来源：<br>语言定义：默认所有作用域都有属性名this和arguments。<br>形参：函数可能有形式参数，其作用域是整个函数体内部。<br>函数声明：类似于function foo() {}这种形式。<br>变量声明：var foo;这种形式的代码。 函数声明和变量声明总是被 JavaScript 解释器无形中移动到（提升）包含他们的作用域顶部。函数参数和语言定义的名称明显总是存在。这意味着像下面的代码：</p>
+<p><code>function foo() { bar(); var x = 1; }</code></p>
+<p>实际上被解释为像下面这样：</p>
+<figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> x;</span><br><span class="line">    bar();</span><br><span class="line">    x = <span class="number">1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>无论包含声明的代码行是否会被执行，上面的过程都会发生。下面的两个函数是等价的：</p>
+<figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="literal">false</span>) &#123;</span><br><span class="line">        <span class="keyword">var</span> x = <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span>;</span><br><span class="line">    <span class="keyword">var</span> y = <span class="number">1</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> x, y;</span><br><span class="line">    <span class="keyword">if</span> (<span class="literal">false</span>) &#123;</span><br><span class="line">        x = <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span>;</span><br><span class="line">    y = <span class="number">1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>注意变量声明中 <strong>赋值</strong>的过程不会被提升，仅仅变量名字被提升了。但这不适用于函数声明，整个函数体也会提升。但不要忘记有两种声明函数的方法，考虑下面的JavaScript代码：</p>
+<figure class="highlight openscad"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">test</span><span class="params">()</span> &#123;</span></span><br><span class="line">    foo<span class="params">()</span>; <span class="comment">// 类型错误 “foo 不是一个函数”</span></span><br><span class="line">    bar<span class="params">()</span>; <span class="comment">// “这能运行”</span></span><br><span class="line">    var foo = <span class="function"><span class="keyword">function</span> <span class="params">()</span> &#123;</span> <span class="comment">// 将函数表达式赋值给本地变量“foo”</span></span><br><span class="line">        alert<span class="params">(<span class="string">"this won't run!"</span>)</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">bar</span><span class="params">()</span> &#123;</span> <span class="comment">//  'bar'函数声明，分配“bar”名字</span></span><br><span class="line">        alert<span class="params">(<span class="string">"this will run!"</span>)</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">test<span class="params">()</span>;</span><br></pre></td></tr></table></figure>
+<p>在这种情况下，仅仅函数声明的函数体被提升到顶部。名字“foo”被提升，但后面的函数体，在执行的时候才被指派。</p>
+<p>这是有关 JavaScript 提升的全部，看起来并不复杂和让人混淆。当然，这是JavaScript，在某些特殊性况下会更复杂一点。</p>
+<p>###名字解析顺序</p>
+<p>需要记住的最重要的特殊情况是名字的解析顺序。记住作用域中的名字有四种来源。上面我列出他们的顺序是他们<strong>被解析的顺序</strong>。一般来说，如果一个名字已经被定义过，那么它不会再被其他有相同名字的属性重写。这意味着函数声明优先于变量声明。这并不意味着为名字赋值的过程将不工作，仅仅声明的过程会被忽略。有几个例外情况：</p>
+<ul>
+<li>函数的内置变量arguments比较奇怪。它看起来是在普通的函数参数之后才声明，其实是在函数声明之前。如果参数里面有名称为arguments的参数，它会比内置的那个优先级高，即使它是undefined。所以不要使用arguments作为为函数参数的名称。</li>
+<li>尝试使用this作为标示符的地方都会造成一个语法错误。这是一个很好的特性。</li>
+<li>如果多个参数具有相同的名字，那么最后一个参数会优先于先前的，即使它是undefined。</li>
+</ul>
+<p>###命名函数表达式</p>
+<p>你可以在函数表达式给中给函数命名，用这样的语法不能完成一个函数声明，下面有一些代码来说明我的意思：</p>
+<figure class="highlight openscad"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">foo<span class="params">()</span>; <span class="comment">// TypeError "foo is not a function"</span></span><br><span class="line">bar<span class="params">()</span>; <span class="comment">// valid</span></span><br><span class="line">baz<span class="params">()</span>; <span class="comment">// TypeError "baz is not a function"</span></span><br><span class="line">spam<span class="params">()</span>; <span class="comment">// ReferenceError "spam is not defined"</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">var foo = <span class="function"><span class="keyword">function</span> <span class="params">()</span> &#123;</span>&#125;; <span class="comment">// 匿名函数表达式（“foo”会被提升）</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">bar</span><span class="params">()</span> &#123;</span>&#125;; <span class="comment">// 函数声明（“bar”和函数体会被提升）</span></span><br><span class="line">var baz = <span class="function"><span class="keyword">function</span> <span class="title">spam</span><span class="params">()</span> &#123;</span>&#125;; <span class="comment">// 命名函数表达式（仅“baz”会被提升）</span></span><br><span class="line"></span><br><span class="line">foo<span class="params">()</span>; <span class="comment">// valid</span></span><br><span class="line">bar<span class="params">()</span>; <span class="comment">// valid</span></span><br><span class="line">baz<span class="params">()</span>; <span class="comment">// valid</span></span><br><span class="line">spam<span class="params">()</span>; <span class="comment">// ReferenceError "spam is not defined"</span></span><br></pre></td></tr></table></figure>
+<p>###编码时如何使用这些知识</p>
+<p>现在你应该理解了作用域和提升（hoisting），那么我们在编写JavaScript的时候应该怎么做呢？最重要的事情就是始终用var表达式来声明你的变量。我强烈建议你使用单var模式（single var）。如果你强迫自己做到这一点，你将永远不会遇到任何与变量提升相关的混乱的问题。但是这样做也让我们很难跟踪那些在当前作用域中实际上已经声明的变量。我建议你使用JSLint和声明一次原则来进行实际操作，如果你这样做了，你的代码应该会看起来像这样：</p>
+<figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*jslint onevar: true [...] */</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span><span class="params">(a, b, c)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> x = <span class="number">1</span>,</span><br><span class="line">        bar,</span><br><span class="line">        baz = <span class="string">"something"</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>###标准给出的解释</p>
+<p>我翻了翻ECMAScript标准，想直接了解这些东西是如何工作的，发现效果不错。这里我不得不说关于变量声明和作用域（第12.2.2节）的内容：</p>
+<blockquote>
+<p>如果在一个函数中声明变量，这些变量就被定义在了在该函数的函数作用域中，见第10.1.3所述。不然它们就是被定义在全局的作用域内（即，它们被创建为全局对象的成员，见第10.1.3所述），当进入执行环境的时候，变量就被创建。一个语句块不能定义一个新的作用域。只有一个程序或者函数声明能够产生一个新的作用域。创建变量时，被初始化为undefined。如果变量声明语句里面带有赋值操作，则赋值操作只有被执行到声明语句的时候才会发生，而不是创建的时候。<br>我希望这篇文章阐明了对JavaScript程序员来说最常见的迷惑问题，我试图讲的尽可能详尽，以避免造成更多的迷惑，如果我说错了或者有大的遗漏，请通知我。</p>
+</blockquote>
+<p>原文 <a href="http://www.adequatelygood.com/JavaScript-Scoping-and-Hoisting.html" target="_blank" rel="external">http://www.adequatelygood.com/JavaScript-Scoping-and-Hoisting.html</a></p>
+</span>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/JavaScript/" rel="tag">#JavaScript</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2014/11/29/8. 立即调用函数表达式（完）/" rel="prev">8. 立即调用函数表达式（完）</a>
+            
+          </div>
+
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2014/11/29/6.闭包/" rel="next">6. 闭包</a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+ </div>
+
+        
+
+        
+          <div class="comments" id="comments">
+            
+          </div>
+        
+      </div>
+
+      
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" src="/images/tx.jpg" alt="Go7hic" itemprop="image"/>
+          <p class="site-author-name" itemprop="name">Go7hic</p>
+        </div>
+        <p class="site-description motion-element" itemprop="description">jsut 4 fun</p>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">95</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          <div class="site-state-item site-state-categories">
+            
+              <span class="site-state-item-count">0</span>
+              <span class="site-state-item-name">分类</span>
+              
+          </div>
+
+          <div class="site-state-item site-state-tags">
+            <a href="/tags">
+              <span class="site-state-item-count">22</span>
+              <span class="site-state-item-name">标签</span>
+              </a>
+          </div>
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="menu-item-icon icon-next-feed"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+      </section>
+
+      
+        <section class="post-toc-wrap sidebar-panel-active">
+          <div class="post-toc-indicator-top post-toc-indicator"></div>
+          <div class="post-toc">
+            
+            
+              <p class="post-toc-empty">此文章未包含目录</p>
+            
+          </div>
+          <div class="post-toc-indicator-bottom post-toc-indicator"></div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner"> <div class="copyright" >
+  
+  &copy; &nbsp; 
+  <span itemprop="copyrightYear">2015</span>
+  <span class="with-love">
+    <i class="icon-next-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Go7hic</span>
+</div>
+
+<div class="">
+  「万物之中，希望至美；至美之物，永不凋零」
+</div>
+
+ </div>
+    </footer>
+
+    <div class="back-to-top"></div>
+  </div>
+
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  
+  
+    
+    
+
+  
+
+
+  
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js"></script>
+  <script type="text/javascript" src="/js/fancy-box.js?v=0.4.5.1"></script>
+
+
+  <script type="text/javascript" src="/js/helpers.js?v=0.4.5.1"></script>
+  
+
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js"></script>
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js"></script>
+
+  <script type="text/javascript" src="/js/motion_global.js?v=0.4.5.1" id="motion.global"></script>
+
+
+
+
+  <script type="text/javascript" src="/js/nav-toggle.js?v=0.4.5.1"></script>
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  
+<script type="text/javascript" src="/js/bootstrap.scrollspy.js?v=0.4.5.1" id="bootstrap.scrollspy.custom"></script>
+
+
+<script type="text/javascript" id="sidebar.toc.highlight">
+  $(document).ready(function () {
+    var tocSelector = '.post-toc';
+    var $tocSelector = $(tocSelector);
+    var activeCurrentSelector = '.active-current';
+
+    $tocSelector
+      .on('activate.bs.scrollspy', function () {
+        var $currentActiveElement = $(tocSelector + ' .active').last();
+
+        removeCurrentActiveClass();
+        $currentActiveElement.addClass('active-current');
+
+        $tocSelector[0].scrollTop = $currentActiveElement.position().top;
+      })
+      .on('clear.bs.scrollspy', function () {
+        removeCurrentActiveClass();
+      });
+
+    function removeCurrentActiveClass () {
+      $(tocSelector + ' ' + activeCurrentSelector)
+        .removeClass(activeCurrentSelector.substring(1));
+    }
+
+    function processTOC () {
+      getTOCMaxHeight();
+      toggleTOCOverflowIndicators();
+    }
+
+    function getTOCMaxHeight () {
+      var height = $('.sidebar').height() -
+                   $tocSelector.position().top -
+                   $('.post-toc-indicator-bottom').height();
+
+      $tocSelector.css('height', height);
+
+      return height;
+    }
+
+    function toggleTOCOverflowIndicators () {
+      tocOverflowIndicator(
+        '.post-toc-indicator-top',
+        $tocSelector.scrollTop() > 0 ? 'show' : 'hide'
+      );
+
+      tocOverflowIndicator(
+        '.post-toc-indicator-bottom',
+        $tocSelector.scrollTop() >= $tocSelector.find('ol').height() - $tocSelector.height() ? 'hide' : 'show'
+      )
+    }
+
+    $(document).on('sidebar.motion.complete', function () {
+      processTOC();
+    });
+
+    $('body').scrollspy({ target: tocSelector });
+    $(window).on('resize', function () {
+      if ( $('.sidebar').hasClass('sidebar-active') ) {
+        processTOC();
+      }
+    });
+
+    onScroll($tocSelector);
+
+    function onScroll (element) {
+      element.on('mousewheel DOMMouseScroll', function (event) {
+          var oe = event.originalEvent;
+          var delta = oe.wheelDelta || -oe.detail;
+
+          this.scrollTop += ( delta < 0 ? 1 : -1 ) * 30;
+          event.preventDefault();
+
+          toggleTOCOverflowIndicators();
+      });
+    }
+
+    function tocOverflowIndicator (indicator, action) {
+      var $indicator = $(indicator);
+      var opacity = action === 'show' ? 0.4 : 0;
+      $indicator.velocity ?
+        $indicator.velocity('stop').velocity({
+          opacity: opacity
+        }, { duration: 100 }) :
+        $indicator.stop().animate({
+          opacity: opacity
+        }, 100);
+    }
+
+  });
+</script>
+
+<script type="text/javascript" id="sidebar.nav">
+  $(document).ready(function () {
+    var html = $('html');
+    var TAB_ANIMATE_DURATION = 200;
+    var hasVelocity = $.isFunction(html.velocity);
+
+    $('.sidebar-nav li').on('click', function () {
+      var item = $(this);
+      var activeTabClassName = 'sidebar-nav-active';
+      var activePanelClassName = 'sidebar-panel-active';
+      if (item.hasClass(activeTabClassName)) {
+        return;
+      }
+
+      var currentTarget = $('.' + activePanelClassName);
+      var target = $('.' + item.data('target'));
+
+      hasVelocity ?
+        currentTarget.velocity('transition.slideUpOut', TAB_ANIMATE_DURATION, function () {
+          target
+            .velocity('stop')
+            .velocity('transition.slideDownIn', TAB_ANIMATE_DURATION)
+            .addClass(activePanelClassName);
+        }) :
+        currentTarget.animate({ opacity: 0 }, TAB_ANIMATE_DURATION, function () {
+          currentTarget.hide();
+          target
+            .stop()
+            .css({'opacity': 0, 'display': 'block'})
+            .animate({ opacity: 1 }, TAB_ANIMATE_DURATION, function () {
+              currentTarget.removeClass(activePanelClassName);
+              target.addClass(activePanelClassName);
+            });
+        });
+
+      item.siblings().removeClass(activeTabClassName);
+      item.addClass(activeTabClassName);
+    });
+
+    $('.post-toc a').on('click', function (e) {
+      e.preventDefault();
+      var targetSelector = escapeSelector(this.getAttribute('href'));
+      var offset = $(targetSelector).offset().top;
+      hasVelocity ?
+        html.velocity('stop').velocity('scroll', {
+          offset: offset  + 'px',
+          mobileHA: false
+        }) :
+        $('html, body').stop().animate({
+          scrollTop: offset
+        }, 500);
+    });
+
+    // Expand sidebar on post detail page by default, when post has a toc.
+    var $tocContent = $('.post-toc-content');
+    if (isDesktop() && CONFIG.sidebar === 'post') {
+      if ($tocContent.length > 0 && $tocContent.html().trim().length > 0) {
+        displaySidebar();
+      }
+    }
+  });
+</script>
+
+
+
+  <script type="text/javascript">
+    $(document).ready(function () {
+      if (CONFIG.sidebar === 'always') {
+        displaySidebar();
+      }
+      if (isMobile()) {
+        FastClick.attach(document.body);
+      }
+    });
+  </script>
+
+  
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/lazyload.js"></script>
+  <script type="text/javascript">
+    $(function () {
+      $("#posts").find('img').lazyload({
+        placeholder: "/images/loading.gif",
+        effect: "fadeIn"
+      });
+    });
+  </script>
+</body>
+</html>
