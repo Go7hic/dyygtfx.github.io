@@ -457,78 +457,6 @@ David T. Freeman
           
           
             
-              <a class="post-title-link" href="/2014/08/14/2014-08-14-you-know-nothing-about-code/" itemprop="url">
-                You know nothing about code
-              </a>
-            
-          
-        </h1>
-      
-
-      <div class="post-meta">
-        <span class="post-time">
-          发表于
-          <time itemprop="dateCreated" datetime="2014-08-14T00:00:00+08:00" content="2014-08-14">
-            2014-08-14
-          </time>
-        </span>
-
-        
-
-        
-          
-        
-      </div>
-    </header>
-
-    <div class="post-body">
-
-      
-      
-
-      
-        
-          <p>你知道吗？你的那些年收入 15 万刀的码农们，也不是每天都在写代码。</p>
-<blockquote>
-<p>The more you know, the more you realize how much you don’t know — the less you know, the more you think you know. </p>
-<ul>
-<li>David T. Freeman</li>
-</ul>
-<p>懂得越多，就会发现其实自己知道的事物宛如沧海一栗；懂得越少，就会产生自己什么都懂的错觉。<br>-David T. Freeman<br>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2014/08/14/2014-08-14-you-know-nothing-about-code/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      
-      
-        <h1 class="post-title" itemprop="name headline">
-          
-          
-            
               <a class="post-title-link" href="/2014/08/12/JavaScript Puzzlers! 选择题答案解析/" itemprop="url">
                 JavaScript Puzzlers! 选择题答案解析
               </a>
@@ -572,78 +500,6 @@ A：[“1”, “2”, “3”]
           </span>
           <div class="post-more-link text-center">
             <a class="btn" href="/2014/08/12/JavaScript Puzzlers! 选择题答案解析/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      
-      
-        <h1 class="post-title" itemprop="name headline">
-          
-          
-            
-              <a class="post-title-link" href="/2014/07/20/JavaScript启示录(一)笔记： 作用域和闭包/" itemprop="url">
-                JavaScript启示录(一)笔记： 作用域和闭包
-              </a>
-            
-          
-        </h1>
-      
-
-      <div class="post-meta">
-        <span class="post-time">
-          发表于
-          <time itemprop="dateCreated" datetime="2014-07-20T11:21:04+08:00" content="2014-07-20">
-            2014-07-20
-          </time>
-        </span>
-
-        
-
-        
-          
-        
-      </div>
-    </header>
-
-    <div class="post-body">
-
-      
-      
-
-      
-        
-          <span itemprop="articleBody">
-            
-            首先这是篇读书笔记，《Javascript启示录》这本书虽然薄但写得真好，翻译的也不错。本书个人觉得作者是围绕JavaScript一切皆为对象来展开写的，只有一两章没有过多的涉及到对象，其中就包括这个知识点，虽然简单，但是再次读来还是有新的体会，我就先从这章记起吧。
-首先我们要知道在js里作用域是用来执行代码的上下文，有三种类型分别为全局作用域、局部作用域、eVal作用域。
-看一段代码展示各种作用
-            ...
-          </span>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2014/07/20/JavaScript启示录(一)笔记： 作用域和闭包/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -732,6 +588,143 @@ A：[“1”, “2”, “3”]
 
 
     
+      
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      
+      
+        <h1 class="post-title" itemprop="name headline">
+          
+          
+            
+              <a class="post-title-link" href="/2014/07/17/2014-07-17-js-12-guaipi/" itemprop="url">
+                JavaScript的12个怪癖
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于
+          <time itemprop="dateCreated" datetime="2014-07-17T00:00:00+08:00" content="2014-07-17">
+            2014-07-17
+          </time>
+        </span>
+
+        
+
+        
+          
+        
+      </div>
+    </header>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <p>###一：隐式类型转换<br><strong>（0）：提要</strong></p>
+<p>JavaScript 是非常宽容的，「来者不拒」，不在乎什么类型。 例如，它如果想要接受数字，它并不拒绝其他类型的值，而是试图把它们转换成数字：</p>
+<blockquote>
+<p>‘5’ - ‘2’<br>3<br>‘5’ * ‘2’<br>10</p>
+</blockquote>
+<p>自动转换为布尔值通常不会引起问题，而且往往很有用（译注：比如在C语言里，根本就没有布尔类型。by @justjavac）。 即使如此，这些隐式转换也会引起怪癖（quirks）。 但是当自动转换为字符串时，可能会引起问题。<br>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2014/07/17/2014-07-17-js-12-guaipi/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      
+      
+        <h1 class="post-title" itemprop="name headline">
+          
+          
+            
+              <a class="post-title-link" href="/2014/07/14/2014-07-14-javascript_strict_mode/" itemprop="url">
+                Javascript 严格模式详解
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于
+          <time itemprop="dateCreated" datetime="2014-07-14T00:00:00+08:00" content="2014-07-14">
+            2014-07-14
+          </time>
+        </span>
+
+        
+
+        
+          
+        
+      </div>
+    </header>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <p>###一、概述<br>除了正常运行模式，ECMAscript 5添加了第二种运行模式：”严格模式”（strict mode）。顾名思义，这种模式使得Javascript在更严格的条件下运行。<br>设立”严格模式”的目的，主要有以下几个：<br>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2014/07/14/2014-07-14-javascript_strict_mode/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
   </section>
 
   
@@ -770,7 +763,7 @@ A：[“1”, “2”, “3”]
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">91</span>
+              <span class="site-state-item-count">89</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
