@@ -53,7 +53,7 @@
 在 Vue 里，ViewModel 是指 一个同步 Model 和 View 的对象，每个">
 <meta property="og:image" content="http://cn.vuejs.org/images/mvvm.png">
 <meta property="og:image" content="http://cn.vuejs.org/images/data.png">
-<meta property="og:updated_time" content="2015-09-26T14:03:02.000Z">
+<meta property="og:updated_time" content="2015-09-26T14:05:14.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Vue 入门介绍及实践教程 (一)">
 <meta name="twitter:description" content="Vue.js 是国人 @尤小右 开发的一个轻量的 MVVM 库，在 Github 上有着 7k+ 的 start，其火热程度可见一斑，而且听说在岛国同行里很受欢迎。
@@ -217,7 +217,7 @@
 <p>这里的 div 元素有一个 v-text 指令，其值为 message。Vue.js 会让该 div 的文本内容与 Vue 实例中的 message 属性值保持一致。<br>Directives 可以封装任何 DOM 操作。比如 v-attr 会操作一个元素的特性；v-repeat 会基于数组来复制一个元素；v-on 会绑定事件等。</p>
 <p>Mustache 风格绑定，除了可以用指令来绑定外，还可以用mustache 风格的绑定，不管在文本中还是在属性中。它们在底层会被转换成v-text 和 v-attr 的指令。但是使用这个有两点需要注意的地方。</p>
 <ul>
-<li>一个 <image> 的 src 属性在赋值时会产生一个 HTTP 请求，所以当模板在第一次被解析时会产生一个 404 请求。这种情况下更适合用 v-attr。</image></li>
+<li>一个 <code>&lt;image&gt;</code> 的 src 属性在赋值时会产生一个 HTTP 请求，所以当模板在第一次被解析时会产生一个 404 请求。这种情况下更适合用 v-attr。</li>
 <li>Internet Explorer 在解析 HTML 时会移除非法的内联 style 属性，所以如果你想支持 IE，请在绑定内联 CSS 的时候始终使用 v-style。</li>
 </ul>
 <h4 id="Filters_过滤器">Filters 过滤器</h4><p>过滤器是用于在更新视图之前处理原始值的函数。它们通过一个“管道”在指令或绑定中进行处理：</p>
