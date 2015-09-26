@@ -53,7 +53,7 @@
 在 Vue 里，ViewModel 是指 一个同步 Model 和 View 的对象，每个">
 <meta property="og:image" content="http://cn.vuejs.org/images/mvvm.png">
 <meta property="og:image" content="http://cn.vuejs.org/images/data.png">
-<meta property="og:updated_time" content="2015-09-26T13:59:04.000Z">
+<meta property="og:updated_time" content="2015-09-26T14:03:02.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Vue 入门介绍及实践教程 (一)">
 <meta name="twitter:description" content="Vue.js 是国人 @尤小右 开发的一个轻量的 MVVM 库，在 Github 上有着 7k+ 的 start，其火热程度可见一斑，而且听说在岛国同行里很受欢迎。
@@ -207,8 +207,9 @@
         <span itemprop="articleBody"><p>Vue.js 是国人 @尤小右 开发的一个轻量的 MVVM 库，在 Github 上有着 7k+ 的 start，其火热程度可见一斑，而且听说在岛国同行里很受欢迎。</p>
 <p>在官网里，作者介绍说 Vue 专注 MVVM 模型的 ViewModel 层，通过双向数据绑定把 view 层和 Model 层连接起来。</p>
 <p><img src="http://cn.vuejs.org/images/mvvm.png" alt=""></p>
-<p>在 Vue 里，ViewModel 是指 一个同步 Model 和 View 的对象，每个 Vue 实例都是一个 ViewModel。它们是通过构造函数 Vue 或其子类被创建出来的。比如：var vm = new Vue({})。<br>View 则是指被 Vue 实例管理的 Dom 节点，vm.$el。每个 Vue 实例都关联着一个相应的 DOM 元素。当一个 Vue 实例被创建时，它会递归遍历根元素的所有子结点，同时完成必要的数据绑定。当这个视图被编译之后，它就会自动响应数据的变化。</p>
-<p>Model 则是指一个轻微改动过的原生 JavaScript 对象，也可以称之为数据对象。一旦某对象被作为 Vue 实例中的数据，它就成为一个 “响应式” 的对象了。你可以操作它们的属性，同时正在观察它的 Vue 实例也会收到提示。<br>一旦数据被观察，Vue.js 就不会再侦测到新加入或删除的属性了。作为弥补，Vue 为被观察的对象增加 $add , $set和 $delete 方法。</p>
+<p>在 Vue 里，ViewModel 是指 一个同步 Model 和 View 的对象，每个 Vue 实例都是一个 ViewModel。它们是通过构造函数 Vue 或其子类被创建出来的。比如：var vm = new Vue({})。</p>
+<h4 id="View">View</h4><p>View 则是指被 Vue 实例管理的 Dom 节点，vm.$el。每个 Vue 实例都关联着一个相应的 DOM 元素。当一个 Vue 实例被创建时，它会递归遍历根元素的所有子结点，同时完成必要的数据绑定。当这个视图被编译之后，它就会自动响应数据的变化。</p>
+<h4 id="Model">Model</h4><p>Model 则是指一个轻微改动过的原生 JavaScript 对象，也可以称之为数据对象。一旦某对象被作为 Vue 实例中的数据，它就成为一个 “响应式” 的对象了。你可以操作它们的属性，同时正在观察它的 Vue 实例也会收到提示。<br>一旦数据被观察，Vue.js 就不会再侦测到新加入或删除的属性了。作为弥补，Vue 为被观察的对象增加 $add , $set和 $delete 方法。</p>
 <p>下面是对 Vue.js 数据观测机制实现的高层概览：</p>
 <p><img src="http://cn.vuejs.org/images/data.png" alt=""></p>
 <p>Directives 指令，在 Vue 里，指令表示带特殊前缀的 HTML 特性，可以让 Vue.js 对一个 DOM 元素做各种处理。比如：</p>
@@ -219,12 +220,11 @@
 <li>一个 <image> 的 src 属性在赋值时会产生一个 HTTP 请求，所以当模板在第一次被解析时会产生一个 404 请求。这种情况下更适合用 v-attr。</image></li>
 <li>Internet Explorer 在解析 HTML 时会移除非法的内联 style 属性，所以如果你想支持 IE，请在绑定内联 CSS 的时候始终使用 v-style。</li>
 </ul>
-<p>Filters 过滤器 </p>
-<p>过滤器是用于在更新视图之前处理原始值的函数。它们通过一个“管道”在指令或绑定中进行处理：</p>
+<h4 id="Filters_过滤器">Filters 过滤器</h4><p>过滤器是用于在更新视图之前处理原始值的函数。它们通过一个“管道”在指令或绑定中进行处理：</p>
 <figure class="highlight crystal"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;div&gt;<span class="expansion">&#123;&#123;message | capitalize&#125;&#125;</span>&lt;<span class="regexp">/div&gt;</span></span><br></pre></td></tr></table></figure>
 <p>这样在 div 的文本内容被更新之前，message 的值会先传给 capitalizie 函数处理</p>
-<p>Components 组件<br>在 Vue.js，每个组件都是一个简单的 Vue 实例。一个树形嵌套的各种组件就代表了你的应用程序的各种接口。通过 Vue.extend 返回的自定义构造函数可以把这些组件实例化，不过更推荐的声明式的用法是通过 Vue.component(id, constructor) 注册这些组件。一旦组件被注册，它们就可以在 Vue 实例的模板中以自定义元素形式使用了。</p>
-<p>了解了 Vue 的基本概念后，我们先来做个简单的例子：</p>
+<h4 id="Components_组件">Components 组件</h4><p>在 Vue.js，每个组件都是一个简单的 Vue 实例。一个树形嵌套的各种组件就代表了你的应用程序的各种接口。通过 Vue.extend 返回的自定义构造函数可以把这些组件实例化，不过更推荐的声明式的用法是通过 Vue.component(id, constructor) 注册这些组件。一旦组件被注册，它们就可以在 Vue 实例的模板中以自定义元素形式使用了。</p>
+<h4 id="实践">实践</h4><p>了解了 Vue 的基本概念后，我们先来做个简单的例子：</p>
 <ol>
 <li><code>npm init</code> 初始化 package.json</li>
 <li><code>npm install vue vue-resources bootstrap --save -d</code> 安装需要的模块，vue 和 vue 插件以及 bootstrap 来写样式</li>
@@ -369,7 +369,7 @@
           <div class="post-toc">
             
             
-              <p class="post-toc-empty">此文章未包含目录</p>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#View"><span class="nav-number">1.</span> <span class="nav-text">View</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Model"><span class="nav-number">2.</span> <span class="nav-text">Model</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Filters_过滤器"><span class="nav-number">3.</span> <span class="nav-text">Filters 过滤器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Components_组件"><span class="nav-number">4.</span> <span class="nav-text">Components 组件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#实践"><span class="nav-number">5.</span> <span class="nav-text">实践</span></a></li></ol></div>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator"></div>
