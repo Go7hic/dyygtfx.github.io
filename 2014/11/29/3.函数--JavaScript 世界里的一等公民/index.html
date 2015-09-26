@@ -213,9 +213,9 @@
 <p>####函数有原型属性和链接他的构造方法</p>
 <figure class="highlight dns"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">feedCat.food = "kibble"<span class="comment">;</span></span><br><span class="line">alert(feedCat.food)<span class="comment">;</span></span><br><span class="line">alert(feedCat.constructor)<span class="comment">;</span></span><br></pre></td></tr></table></figure>
 <p>####你可以把函数存在一个变量里</p>
-<figure class="highlight openscad"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">feedCat</span><span class="params">()</span>&#123;</span></span><br><span class="line">    alert<span class="params">(<span class="string">"Kibble, tinned food and water"</span>)</span>;</span><br><span class="line">&#125;</span><br><span class="line">var eveningChore = feedCat;eveningChore<span class="params">()</span>;</span><br></pre></td></tr></table></figure>
+<figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">feedCat</span><span class="params">()</span></span>&#123;</span><br><span class="line">    alert(<span class="string">"Kibble, tinned food and water"</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> eveningChore = feedCat;eveningChore();</span><br></pre></td></tr></table></figure>
 <p>####你可以把函数当做一个参数传递给另一个函数</p>
-<figure class="highlight openscad"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">doEveningChores</span><span class="params">(chores)</span>&#123;</span></span><br><span class="line">    <span class="keyword">for</span><span class="params">(var x=<span class="number">0</span>; x&lt;chores .length; x++)</span></span><br><span class="line">        chores[x]<span class="params">()</span>;</span><br><span class="line">&#125;</span><br><span class="line">doEveningChores<span class="params">([feedCat])</span>;</span><br></pre></td></tr></table></figure>
+<figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">doEveningChores</span><span class="params">(chores)</span></span>&#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">var</span> x=<span class="number">0</span>; x&lt;chores .length; x++)</span><br><span class="line">        chores[x]();</span><br><span class="line">&#125;</span><br><span class="line">doEveningChores([feedCat]);</span><br></pre></td></tr></table></figure>
 <p>####你可以从函数里返回一个函数</p>
 <figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">tonightChores</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> feedCat;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> tonight = tonightChores();</span><br><span class="line">tonight();</span><br></pre></td></tr></table></figure>
 <p>###能够减少重复的代码</p>
@@ -326,7 +326,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">98</span>
+              <span class="site-state-item-count">99</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -340,7 +340,7 @@
 
           <div class="site-state-item site-state-tags">
             <a href="/tags">
-              <span class="site-state-item-count">21</span>
+              <span class="site-state-item-count">22</span>
               <span class="site-state-item-name">标签</span>
               </a>
           </div>

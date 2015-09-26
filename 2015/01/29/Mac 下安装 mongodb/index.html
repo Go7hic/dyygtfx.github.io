@@ -213,7 +213,7 @@
 <ol>
 <li>然后就是修改 mongo 的配置信息，在 /usr/local/etc 的 mongo.conf 里面，用你的编辑器打开之后，修改成下面这样：</li>
 </ol>
-<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">systemLog:</span></span><br><span class="line"><span class="string">destination:</span> file</span><br><span class="line"><span class="string">path:</span> <span class="regexp">/usr/</span>local<span class="regexp">/var/</span>log<span class="regexp">/mongodb/</span>mongo.log</span><br><span class="line"><span class="string">logAppend:</span> <span class="literal">true</span></span><br><span class="line"><span class="string">storage:</span></span><br><span class="line"><span class="string">dbPath:</span> <span class="regexp">/data/</span>db</span><br><span class="line"><span class="string">net:</span></span><br><span class="line"><span class="string">bindIp:</span> <span class="number">127.0</span>.0.1</span><br></pre></td></tr></table></figure>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">systemLog:</span></span><br><span class="line"><span class="string">destination:</span> file</span><br><span class="line"><span class="string">path:</span> <span class="regexp">/usr/</span>local<span class="regexp">/var/</span>log<span class="regexp">/mongodb/</span>mongo.log</span><br><span class="line"><span class="string">logAppend:</span> <span class="literal">true</span></span><br><span class="line"><span class="string">storage:</span></span><br><span class="line"><span class="string">dbPath:</span> <span class="regexp">/data/</span>db</span><br><span class="line"><span class="string">net:</span></span><br><span class="line"><span class="string">bindIp:</span> <span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span></span><br></pre></td></tr></table></figure>
 <p>6.然后在命令行用 mongod 启动，发现最后一行提示退出了，那时你还没有权限，需要简单的修改一下权限</p>
 <p>7.<code> sudo chown <code>id -u</code> /data/db </code>通过这个命令修改权限，然后再试试 mongod ，启动成功</p>
 <p>8.你也可以用 <code>mongo</code> 打开你的 mongodb 客户端</p>
@@ -302,7 +302,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">98</span>
+              <span class="site-state-item-count">99</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -316,7 +316,7 @@
 
           <div class="site-state-item site-state-tags">
             <a href="/tags">
-              <span class="site-state-item-count">21</span>
+              <span class="site-state-item-count">22</span>
               <span class="site-state-item-name">标签</span>
               </a>
           </div>

@@ -226,7 +226,7 @@
 <p>第二种方式：<br><figure class="highlight nimrod"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> file = $('<span class="comment">#test-input')[0].files[0];</span></span><br><span class="line"></span><br><span class="line">$.ajax('myserver/uploads', &#123;</span><br><span class="line">    <span class="keyword">method</span>: '<span class="type">POST</span>',</span><br><span class="line">    contentType: file.<span class="keyword">type</span>,</span><br><span class="line">    processData: <span class="literal">false</span>,</span><br><span class="line">    data: file</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
 <p>两种方式中，都使用了 processData: false 来防止jQuery对文件内容进行编码。</p>
 <p>XMLHttpRequest</p>
-<p>第一种方式，multipart/form-data：<br><figure class="highlight ocaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">var formData = <span class="keyword">new</span> <span class="type">FormData</span><span class="literal">()</span>,</span><br><span class="line">    file = document.getElementById(<span class="symbol">'test</span>-input').files[<span class="number">0</span>],</span><br><span class="line">    xhr = <span class="keyword">new</span> <span class="type">XMLHttpRequest</span><span class="literal">()</span>;</span><br><span class="line"></span><br><span class="line">formData.append(<span class="symbol">'file'</span>, file);</span><br><span class="line">xhr.<span class="keyword">open</span>(<span class="symbol">'POST'</span>, <span class="symbol">'myserver</span>/uploads');</span><br><span class="line">xhr.send(formData);</span><br></pre></td></tr></table></figure></p>
+<p>第一种方式，multipart/form-data：<br><figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">var formData = <span class="keyword">new</span> FormData(),</span><br><span class="line">    <span class="keyword">file</span> = document.getElementById(<span class="string">'test-input'</span>).<span class="keyword">files</span>[<span class="number">0</span>],</span><br><span class="line">    xhr = <span class="keyword">new</span> XMLHttpRequest();</span><br><span class="line"></span><br><span class="line">formData.<span class="built_in">append</span>(<span class="string">'file'</span>, <span class="keyword">file</span>);</span><br><span class="line">xhr.<span class="keyword">open</span>(<span class="string">'POST'</span>, <span class="string">'myserver/uploads'</span>);</span><br><span class="line">xhr.send(formData);</span><br></pre></td></tr></table></figure></p>
 <p>第二种方式：<br><figure class="highlight vhdl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">var <span class="keyword">file</span> = document.getElementById(<span class="attribute">'test</span>-input').files[<span class="number">0</span>],</span><br><span class="line">    xhr = <span class="keyword">new</span> XMLHttpRequest();</span><br><span class="line"></span><br><span class="line">xhr.<span class="keyword">open</span>(<span class="attribute">'POST</span>', <span class="attribute">'myserver</span>/uploads');</span><br><span class="line">xhr.setRequestHeader(<span class="attribute">'Content</span>-<span class="keyword">Type</span>', <span class="keyword">file</span>.<span class="keyword">type</span>);</span><br><span class="line">xhr.send(<span class="keyword">file</span>);</span><br></pre></td></tr></table></figure></p>
 <p>####跨域请求</p>
 <blockquote>
@@ -333,7 +333,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">98</span>
+              <span class="site-state-item-count">99</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -347,7 +347,7 @@
 
           <div class="site-state-item site-state-tags">
             <a href="/tags">
-              <span class="site-state-item-count">21</span>
+              <span class="site-state-item-count">22</span>
               <span class="site-state-item-name">标签</span>
               </a>
           </div>

@@ -197,7 +197,7 @@
 
       
         <span itemprop="articleBody"><p>今天在 mdn 上看文档，看到一个陌生的东西，仔细看了一下感觉还是不错的，这个东西就是 Array.prototype.slice.call()。<br>这个东西有啥用呢？一句话概括就是把类数组转成真的数组，怎么说呢，具体例子就是把 arguments 转成真正的数组。</p>
-<p>我们知道 argument 对象是函数内部的本地变量，并且已经不是函数的属性了。他并不是一个真正的数组，他是一个类数组，没有数组特有的方法和属性，除了 length。我们可以通过 arguments 来获取函数所有的参数。这个对象为传递给函数的每个参数建立一个条目，条目的索引号从 0 开始。例如，如果一个函数有三个参数，你可以通过以下方式获取参数：<br><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">arguments</span><span class="attr_selector">[0]</span></span><br><span class="line"><span class="tag">arguments</span><span class="attr_selector">[1]</span></span><br><span class="line"><span class="tag">arguments</span><span class="attr_selector">[2]</span></span><br></pre></td></tr></table></figure></p>
+<p>我们知道 argument 对象是函数内部的本地变量，并且已经不是函数的属性了。他并不是一个真正的数组，他是一个类数组，没有数组特有的方法和属性，除了 length。我们可以通过 arguments 来获取函数所有的参数。这个对象为传递给函数的每个参数建立一个条目，条目的索引号从 0 开始。例如，如果一个函数有三个参数，你可以通过以下方式获取参数：<br><figure class="highlight accesslog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">arguments<span class="string">[0]</span></span><br><span class="line">arguments<span class="string">[1]</span></span><br><span class="line">arguments<span class="string">[2]</span></span><br></pre></td></tr></table></figure></p>
 <p>很多时候我们需要把 arguments 里的内容转成数组来处理更方便，这时候我们就可以用这个方法来处理 arguments.<br><code>var args = Array.prototype.slice.call(arguments);</code></p>
 <p>我们还知道 slice 方法是数组自带的，所以通过 Array.prototype 来调用，在某些情况下也可以直接用 Array.slice 。我们再来分析一下， call() 方法在使用一个指定的 this 值和若干个指定的参数值的 v 前提下调用某个函数或方法。通过 call() 方法我们可以在一个对象上借用另一个对象上的方法，比如<br>Array.prototype.slice.call(arguments) 就是把 arguments 对象借用 Array 的 slice 方法，从而生成一个新的数组。我这里我就不继续分析 call() 方法了。</p>
 <p>最后我们可以看一个例子：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">myConcat</span>(<span class="params">separator</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> args = <span class="built_in">Array</span>.prototype.slice.call(<span class="built_in">arguments</span>, <span class="number">1</span>);</span><br><span class="line">  <span class="keyword">return</span> args.join(separator);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
@@ -288,7 +288,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">98</span>
+              <span class="site-state-item-count">99</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -302,7 +302,7 @@
 
           <div class="site-state-item site-state-tags">
             <a href="/tags">
-              <span class="site-state-item-count">21</span>
+              <span class="site-state-item-count">22</span>
               <span class="site-state-item-name">标签</span>
               </a>
           </div>

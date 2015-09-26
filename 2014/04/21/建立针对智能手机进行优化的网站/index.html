@@ -225,8 +225,8 @@
 <p>为了帮助我们的算法了解您网站上的这种配置，我们建议您使用以下注释：</p>
 <p>在桌面版网页上，添加指向相应移动版网址的特殊链接rel=”alternate”标记。这有助于Googlebot发现网站的移动版网页所在的位置。<br>在移动版网页上，添加指向相应桌面版网址的链接rel=”canonical”标记。<br>我们支持采用以下两种方法添加此注释：在网页本身的HTML中，以及在站点地图中。例如，假设桌面版网址为<a href="http://example.com/page-1且相应的移动版网址为http://m.example.com/page-1。那么此示例中的注释如下所示：" target="_blank" rel="external">http://example.com/page-1且相应的移动版网址为http://m.example.com/page-1。那么此示例中的注释如下所示：</a></p>
 <p>HTML中的注释</p>
-<p>在桌面版网页上，添加：<br><figure class="highlight nix"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;link <span class="variable">rel=</span><span class="string">"alternate"</span> <span class="variable">media=</span><span class="string">"only screen and (max-width: 640px)"</span></span><br><span class="line">      <span class="variable">href=</span><span class="string">"http://m.example.com/page-1"</span> &gt;</span><br></pre></td></tr></table></figure></p>
-<p>而在移动版网页上，所需的注释应为：<br><figure class="highlight nix"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;link <span class="variable">rel=</span><span class="string">"canonical"</span> <span class="variable">href=</span><span class="string">"http://www.example.com/page-1"</span> &gt;</span><br></pre></td></tr></table></figure></p>
+<p>在桌面版网页上，添加：<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">link</span> <span class="attribute">rel</span>=<span class="value">"alternate"</span> <span class="attribute">media</span>=<span class="value">"only screen and (max-width: 640px)"</span></span><br><span class="line">      <span class="attribute">href</span>=<span class="value">"http://m.example.com/page-1"</span> &gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>而在移动版网页上，所需的注释应为：<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">link</span> <span class="attribute">rel</span>=<span class="value">"canonical"</span> <span class="attribute">href</span>=<span class="value">"http://www.example.com/page-1"</span> &gt;</span></span><br></pre></td></tr></table></figure></p>
 <p>此移动版网址中指向桌面版网页的rel=”canonical”标记是必需的。</p>
 <p>站点地图中的注释</p>
 <p>我们支持按以下方式在站点地图中为桌面版网页添加rel=”alternate”注释：<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="pi">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">urlset</span> <span class="attribute">xmlns</span>=<span class="value">"http://www.sitemaps.org/schemas/sitemap/0.9"</span></span><br><span class="line">        <span class="attribute">xmlns:xhtml</span>=<span class="value">"http://www.w3.org/1999/xhtml"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">url</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">loc</span>&gt;</span>http://www.example.com/page-1/<span class="tag">&lt;/<span class="title">loc</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">xhtml:link</span></span><br><span class="line">    <span class="attribute">rel</span>=<span class="value">"alternate"</span></span><br><span class="line">    <span class="attribute">media</span>=<span class="value">"only screen and (max-width: 640px)"</span></span><br><span class="line">    <span class="attribute">href</span>=<span class="value">"http://m.example.com/page-1"</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">url</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">urlset</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
@@ -321,7 +321,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">98</span>
+              <span class="site-state-item-count">99</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -335,7 +335,7 @@
 
           <div class="site-state-item site-state-tags">
             <a href="/tags">
-              <span class="site-state-item-count">21</span>
+              <span class="site-state-item-count">22</span>
               <span class="site-state-item-name">标签</span>
               </a>
           </div>

@@ -349,7 +349,7 @@ A：[“1”, “2”, “3”]">
 <p>死知识，MDN传送门，这是MDN官方给的例子…</p>
 <p>第十五题</p>
 <p>What is the result of this expression? (or multiple ones)</p>
-<figure class="highlight openscad"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">var a = [<span class="number">0</span>];</span><br><span class="line"><span class="keyword">if</span> <span class="params">([<span class="number">0</span>])</span> &#123; </span><br><span class="line">  console.<span class="built_in">log</span><span class="params">(a == <span class="literal">true</span>)</span>;</span><br><span class="line">&#125; <span class="keyword">else</span> &#123; </span><br><span class="line">  console.<span class="built_in">log</span><span class="params">(<span class="string">"wut"</span>)</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">var a = [<span class="number">0</span>];</span><br><span class="line"><span class="keyword">if</span> ([<span class="number">0</span>]) &#123; </span><br><span class="line">  console.<span class="built_in">log</span>(a == <span class="literal">true</span>);</span><br><span class="line">&#125; <span class="keyword">else</span> &#123; </span><br><span class="line">  console.<span class="built_in">log</span>(<span class="string">"wut"</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>A: true</p>
 <p>B: false</p>
 <p>C: “wut”</p>
@@ -358,7 +358,7 @@ A：[“1”, “2”, “3”]">
 <p>而==左右的转换，会使用如果一个操作值为布尔值，则在比较之前先将其转换为数值的规则来转换，Number([0])，也就是0，于是变成了0 == true，结果自然是false，所以最终结果为B</p>
 <p>第十六题</p>
 <p>What is the result of this expression? (or multiple ones)</p>
-<figure class="highlight inform7"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">[]</span> == <span class="comment">[]</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight accesslog"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">[]</span> == <span class="string">[]</span></span><br></pre></td></tr></table></figure>
 <p>A: true</p>
 <p>B: false</p>
 <p>C: error</p>
@@ -366,7 +366,7 @@ A：[“1”, “2”, “3”]">
 <p>这题考的是数组字面量创建数组的原理和==运算符，首先JS中数组的真实类型是Object这点很明显typeof []的值为”object”，而==运算符当左右都是对象时，则会比较其是否指向同一个对象。而每次调用字面量创建，都会创造新的对象，也就是会开辟新的内存区域。所以指针的值自然不一样，结果为 false，选B</p>
 <p>第十七题</p>
 <p>What is the result of this expression? (or multiple ones)</p>
-<figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">'5'</span> + <span class="number">3</span>  </span><br><span class="line"><span class="string">'5'</span> - <span class="number">3</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">'5'</span> + <span class="number">3</span>  </span><br><span class="line"><span class="string">'5'</span> - <span class="number">3</span></span><br></pre></td></tr></table></figure>
 <p>A: 53, 2</p>
 <p>B: 8, 2</p>
 <p>C: error</p>
@@ -377,7 +377,7 @@ A：[“1”, “2”, “3”]">
 <p>所以第一行结果为字符串运算，为’53’。第二行结果为2，选A</p>
 <p>第十八题</p>
 <p>What is the result of this expression? (or multiple ones)</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">1 + - + + + - + 1</span><br></pre></td></tr></table></figure>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1</span> + - + + + - + <span class="number">1</span></span><br></pre></td></tr></table></figure>
 <p>A: 2</p>
 <p>B: 1</p>
 <p>C: error</p>
@@ -393,7 +393,7 @@ A：[“1”, “2”, “3”]">
 <p>又是考的Array.prototype.map的用法，map在使用的时候，只有数组中被初始化过元素才会被触发，其他都是undefined，所以结果为[“1”, undefined × 2]，选D</p>
 <p>第二十题</p>
 <p>What is the result of this expression? (or multiple ones)</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">sidEffecting</span>(<span class="params">ary</span>) </span>&#123; </span><br><span class="line">  ary[<span class="number">0</span>] = ary[<span class="number">2</span>];</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">bar</span>(<span class="params">a,b,c</span>) </span>&#123; </span><br><span class="line">  c = <span class="number">10</span></span><br><span class="line">  sidEffecting(<span class="built_in">arguments</span>);</span><br><span class="line">  <span class="keyword">return</span> a + b + c;</span><br><span class="line">&#125;</span><br><span class="line">bar(<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>)</span><br></pre></td></tr></table></figure>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">function <span class="title">sidEffecting</span><span class="params">(ary)</span> </span>&#123; </span><br><span class="line">  ary[<span class="number">0</span>] = ary[<span class="number">2</span>];</span><br><span class="line">&#125;</span><br><span class="line"><span class="function">function <span class="title">bar</span><span class="params">(a,b,c)</span> </span>&#123; </span><br><span class="line">  c = <span class="number">10</span></span><br><span class="line">  sidEffecting(arguments);</span><br><span class="line">  <span class="keyword">return</span> a + b + c;</span><br><span class="line">&#125;</span><br><span class="line">bar(<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>)</span><br></pre></td></tr></table></figure>
 <p>A: 3</p>
 <p>B: 12</p>
 <p>C: error</p>
@@ -418,7 +418,7 @@ A：[“1”, “2”, “3”]">
 <p>D: window</p>
 <p>这题考查的是函数调用时的this和Array.prototype.reverse方法。</p>
 <p>首先看Array.prototype.reverse方法，首先举几个栗子：</p>
-<figure class="highlight openscad"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">console.<span class="built_in">log</span><span class="params">(Array.prototype.reverse.call<span class="params">(<span class="string">"skyinlayer"</span>)</span>)</span>;</span><br><span class="line"><span class="comment">//skyinlayer</span></span><br><span class="line">console.<span class="built_in">log</span><span class="params">(Array.prototype.reverse.call<span class="params">(&#123;&#125;)</span>)</span>;</span><br><span class="line"><span class="comment">//Object &#123;&#125;</span></span><br><span class="line">console.<span class="built_in">log</span><span class="params">(Array.prototype.reverse.call<span class="params">(<span class="number">123</span>)</span>)</span>;</span><br><span class="line"><span class="comment">//123</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight processing"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">console.<span class="built_in">log</span>(<span class="keyword">Array</span>.prototype.<span class="built_in">reverse</span>.call(<span class="string">"skyinlayer"</span>));</span><br><span class="line"><span class="comment">//skyinlayer</span></span><br><span class="line">console.<span class="built_in">log</span>(<span class="keyword">Array</span>.prototype.<span class="built_in">reverse</span>.call(&#123;&#125;));</span><br><span class="line"><span class="comment">//Object &#123;&#125;</span></span><br><span class="line">console.<span class="built_in">log</span>(<span class="keyword">Array</span>.prototype.<span class="built_in">reverse</span>.call(<span class="number">123</span>));</span><br><span class="line"><span class="comment">//123</span></span><br></pre></td></tr></table></figure>
 <p>这几个栗子可以得出一个结论，Array.prototype.reverse方法的返回值，就是this</p>
 <p>Javascript中this有如下几种情况：</p>
 <p>全局下this，指向window对象</p>
@@ -449,7 +449,7 @@ A：[“1”, “2”, “3”]">
 <p>如果要表示最小的负数和最大的负数，可以使用-Number.MAX_VALUE和-Number.MIN_VALUE</p>
 <p>第二十四题</p>
 <p>What is the result of this expression? (or multiple ones)</p>
-<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[<span class="number">1</span> &lt; <span class="number">2</span> &lt; <span class="number">3</span>, <span class="number">3</span> &lt; <span class="number">2</span> &lt; <span class="number">1</span>]</span><br></pre></td></tr></table></figure>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[<span class="number">1</span> &lt; <span class="number">2</span> &lt; <span class="number">3</span>, <span class="number">3</span> &lt; <span class="number">2</span> &lt; <span class="number">1</span>]</span><br></pre></td></tr></table></figure>
 <p>A: [true, true]</p>
 <p>B: [true, false]</p>
 <p>C: error</p>
@@ -460,7 +460,7 @@ A：[“1”, “2”, “3”]">
 <p>所以结果为A</p>
 <p>第二十五题</p>
 <p>What is the result of this expression? (or multiple ones)</p>
-<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">// the most classic wtf</span><br><span class="line"><span class="number">2</span> == <span class="string">[[[2]]</span>]</span><br></pre></td></tr></table></figure>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// the most classic wtf</span></span><br><span class="line"><span class="number">2</span> == [[[<span class="number">2</span>]]]</span><br></pre></td></tr></table></figure>
 <p>A: true</p>
 <p>B: false</p>
 <p>C: undefined</p>
@@ -491,7 +491,7 @@ A：[“1”, “2”, “3”]">
 <p>综上，选C</p>
 <p>第二十七题</p>
 <p>What is the result of this expression? (or multiple ones)</p>
-<figure class="highlight openscad"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="params">(function<span class="params">()</span>&#123;</span><br><span class="line">  var x = y = <span class="number">1</span>;</span><br><span class="line">&#125;)</span><span class="params">()</span>;</span><br><span class="line">console.<span class="built_in">log</span><span class="params">(y)</span>;</span><br><span class="line">console.<span class="built_in">log</span><span class="params">(x)</span>;</span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">  <span class="keyword">var</span> x = y = <span class="number">1</span>;</span><br><span class="line">&#125;)();</span><br><span class="line"><span class="built_in">console</span>.log(y);</span><br><span class="line"><span class="built_in">console</span>.log(x);</span><br></pre></td></tr></table></figure>
 <p>A: 1, 1</p>
 <p>B: error, error</p>
 <p>C: 1, error</p>
@@ -503,7 +503,7 @@ A：[“1”, “2”, “3”]">
 <p>所以，y是全局作用域下，而x则是在函数内部，结果就为1, error，选C</p>
 <p>第二十八题</p>
 <p>What is the result of this expression? (or multiple ones)</p>
-<figure class="highlight nix"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">var <span class="variable">a =</span> /<span class="number">123</span>/,</span><br><span class="line">    <span class="variable">b =</span> /<span class="number">123</span>/;</span><br><span class="line"><span class="variable">a =</span>= b</span><br><span class="line"><span class="variable">a =</span>== b</span><br></pre></td></tr></table></figure>
+<figure class="highlight autohotkey"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">var <span class="literal">a</span> = /<span class="number">123</span>/,</span><br><span class="line">    b = /<span class="number">123</span>/<span class="comment">;</span></span><br><span class="line"><span class="literal">a</span> == b</span><br><span class="line"><span class="literal">a</span> === b</span><br></pre></td></tr></table></figure>
 <p>A: true, true</p>
 <p>B: true, false</p>
 <p>C: false, false</p>
@@ -512,7 +512,7 @@ A：[“1”, “2”, “3”]">
 <p>console.log(typeof /123/);<br>//输出结果：<br>//“object”<br>==运算符左右两边都是对象时，会比较他们是否指向同一个对象，可以理解为C语言中两个指针的值是否一样（指向同一片内存），所以两个结果自然都是false</p>
 <p>第二十九题</p>
 <p>What is the result of this expression? (or multiple ones)</p>
-<figure class="highlight autohotkey"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">var <span class="literal">a</span> = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>],</span><br><span class="line">    b = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>],</span><br><span class="line">    c = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">4</span>]</span><br><span class="line"><span class="literal">a</span> == b</span><br><span class="line"><span class="literal">a</span> === b</span><br><span class="line"><span class="literal">a</span> &gt; c</span><br><span class="line"><span class="literal">a</span> &lt; c</span><br></pre></td></tr></table></figure>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">var a = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>],</span><br><span class="line">    b = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>],</span><br><span class="line">    c = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">4</span>]</span><br><span class="line">a == b</span><br><span class="line">a === b</span><br><span class="line">a &gt; c</span><br><span class="line">a &lt; c</span><br></pre></td></tr></table></figure>
 <p>A: false, false, false, true</p>
 <p>B: false, false, false, false</p>
 <p>C: true, true, false, true</p>
@@ -582,7 +582,7 @@ A：[“1”, “2”, “3”]">
 <p>综上所述，结果为C</p>
 <p>第三十五题</p>
 <p>What is the result of this expression? (or multiple ones)</p>
-<figure class="highlight coffeescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="reserved">var</span> lowerCaseOnly =  <span class="regexp">/^[a-z]+$/</span>;</span><br><span class="line">[lowerCaseOnly.test(<span class="literal">null</span>), lowerCaseOnly.test()]</span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> lowerCaseOnly =  <span class="regexp">/^[a-z]+$/</span>;</span><br><span class="line">[lowerCaseOnly.test(<span class="literal">null</span>), lowerCaseOnly.test()]</span><br></pre></td></tr></table></figure>
 <p>A: [true, false]</p>
 <p>B: error</p>
 <p>C: [true, true]</p>
@@ -637,7 +637,7 @@ A：[“1”, “2”, “3”]">
 <p>答案选 B 。</p>
 <p>第四十一题 </p>
 <p>What is the result of this expression? (or multiple ones)</p>
-<figure class="highlight openscad"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">var <span class="built_in">min</span> = Math.<span class="built_in">min</span><span class="params">()</span>, <span class="built_in">max</span> = Math.<span class="built_in">max</span><span class="params">()</span></span><br><span class="line"><span class="built_in">min</span> &lt; <span class="built_in">max</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">var</span> min = Math.<span class="function"><span class="title">min</span><span class="params">()</span></span>, max = Math.<span class="function"><span class="title">max</span><span class="params">()</span></span></span><br><span class="line">min &lt; max</span><br></pre></td></tr></table></figure>
 <p>A: true </p>
 <p>B: false</p>
 <p>C:error </p>
@@ -645,7 +645,7 @@ A：[“1”, “2”, “3”]">
 <p>答案选 B false. 因为 Math.min 为空的时候返回的是正无穷，而Math.max为空的时候返回的是负无穷。</p>
 <p>第四十二题</p>
 <p>What is the result of this expression? (or multiple ones)</p>
-<figure class="highlight nix"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">function captureOne(re, str) &#123;</span><br><span class="line">  var <span class="variable">match =</span> re.exec(str);</span><br><span class="line">  return match &amp;&amp; match[<span class="number">1</span>];</span><br><span class="line">&#125;</span><br><span class="line">var <span class="variable">numRe  =</span> /<span class="variable">num=</span>(\d+)/ig,</span><br><span class="line">    <span class="variable">wordRe =</span> /<span class="variable">word=</span>(\w+)/i,</span><br><span class="line">    <span class="variable">a1 =</span> captureOne(numRe,  <span class="string">"num=1"</span>),</span><br><span class="line">    <span class="variable">a2 =</span> captureOne(wordRe, <span class="string">"word=1"</span>),</span><br><span class="line">    <span class="variable">a3 =</span> captureOne(numRe,  <span class="string">"NUM=2"</span>),</span><br><span class="line">    <span class="variable">a4 =</span> captureOne(wordRe,  <span class="string">"WORD=2"</span>);</span><br><span class="line">[<span class="variable">a1 =</span>== a2, <span class="variable">a3 =</span>== a4]</span><br></pre></td></tr></table></figure>
+<figure class="highlight armasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="label">function</span> captureOne(re, <span class="keyword">str) </span>&#123;</span><br><span class="line">  var match = re.exec(<span class="keyword">str);</span><br><span class="line"></span>  return match &amp;&amp; match[<span class="number">1</span>]<span class="comment">;</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="label">var</span> numRe  = /num=(\d+)/ig,</span><br><span class="line">    wordRe = /word=(\w+)/i,</span><br><span class="line">    <span class="literal">a1</span> = captureOne(numRe,  <span class="string">"num=1"</span>),</span><br><span class="line">    <span class="literal">a2</span> = captureOne(wordRe, <span class="string">"word=1"</span>),</span><br><span class="line">    <span class="literal">a3</span> = captureOne(numRe,  <span class="string">"NUM=2"</span>),</span><br><span class="line">    <span class="literal">a4</span> = captureOne(wordRe,  <span class="string">"WORD=2"</span>)<span class="comment">;</span></span><br><span class="line">[<span class="literal">a1</span> === <span class="literal">a2</span>, <span class="literal">a3</span> === <span class="literal">a4</span>]</span><br></pre></td></tr></table></figure>
 <p>A: [true, true]</p>
 <p>B: [false, false]</p>
 <p>C: [true, false]</p>
@@ -736,7 +736,7 @@ A：[“1”, “2”, “3”]">
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">98</span>
+              <span class="site-state-item-count">99</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -750,7 +750,7 @@ A：[“1”, “2”, “3”]">
 
           <div class="site-state-item site-state-tags">
             <a href="/tags">
-              <span class="site-state-item-count">21</span>
+              <span class="site-state-item-count">22</span>
               <span class="site-state-item-name">标签</span>
               </a>
           </div>
