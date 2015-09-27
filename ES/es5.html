@@ -1,0 +1,847 @@
+<p>ECMAScript5.1 </p>
+<p>##介绍</p>
+<p> 这一Ecma标准建立在一些原本的技术上，最为著名的是JavaScript(网景)和JScript (微软)。语言由网景的Brendan Eich发明而第一次出现在这个公司的Navigator 2.0浏览器上。它出现在所有Netscape后来的浏览器以及微软从Internet Explorer 3.0之后的所有浏览器上。</p>
+<p> 这一标准的编制自1996年十一月开始。这一Ecma标准的第一个版本被1997年六月的Ecma General Assembly采纳。</p>
+<p> 上述Ecma标准被以快速跟进流程提交至ISO/IEC JTC 1，并作为于1998年四月作为ISO/IEC 16262通过。1998年六月Ecma General Assembly通过了ECMA-262第二版以保持它与ISO/IEC 16262的完全一致性。第一版到第二版的变更仅仅是编辑性质的。</p>
+<p> 第三版标准引入了强大的正则表达式，更佳的字符串处理，新的控制语句，try/catch异常处理，更严密地错误定义，格式化的数字输出以及一些为国际化和未来语言成长预留的小变更。ECMAScript标准的第三版1999年十二月的Ecma General Assembly采纳并于2002年六月作为ISO/IEC 16262:2002发布。</p>
+<p> 自第三版发布以来，ECMAScript因其与万维网的关联而获得了广泛采用，它已经成为所有web浏览器实质上都提供的一种编程语言。为了编制第四版ECMAScript，有很多有意义的工作。尽管这工作没能完成而且也没有作为ECMAScript的第四版发布，它促进了语言的进化。ECMAScript第五版（发布为ECMA-262 5th edition）纸面化了很多事实上已经在浏览器形成共识的语言规范解析并且增加了对自第三版发布以来的新功能的支持。这些功能包括访问器属性，反射创建以及对象检测，属性特性的程序控制，新增的数组操作函数，JSON对象编码格式，以及提供了改进的错误检查以及程序安全性的严格模式。</p>
+<p> 这一ECMAScript 5.1版本标准完全与国际标准ISO/IEC 16262:2011的第三版本一致。</p>
+<p> ECMAScript是一个充满活力的语言，而且语言的演进尚未完成。有意义的技术性增强将会在未来版本的规范中持续进行。</p>
+<p> 这一Ecma规范由2011年六月Ecma General Assembly采纳。</p>
+<p>##1.范围</p>
+<p> 此标准定义了 ECMAScript 脚本语言。</p>
+<p>##2.一致性</p>
+<p> 符合标准的 ECMAScript 实现，必须提供并支持本规范描述的所有类型、值、对象、属性、函数、程序语法和语义。</p>
+<p> 符合标准的 ECMAScript 实现，应当能解释符合 Unic ode 标准3.0或更高版本，以 UCS-2 或 UTF-16 作为编码格式的 ISO/IEC 10646-1 第3级实现里的字符。如果没有额外指明采用的 ISO/IEC 10646-1 子集，则假定组号为300的 BMP 子集。如果没有额外指明采用的编码格式，则假定编码格式为 UTF-16。</p>
+<p> 符合标准的 ECMAScript 实现，允许提供超出本规范描述的额外类型、值、对象、属性、函数。 尤其是本规范中描述的对象，是允许提供未在本规范中描述的属性和属性值的。</p>
+<p> 符合标准的 ECMAScript 实现，允许支持本规范未描述的程序语法和正则表达式语法。 尤其是本规范 7.6.1.2 列出的“未来保留字”，是允许作为程序语法的。</p>
+<p>##3.参考文献</p>
+<p> 为了实现符合本规范的应用程序，下列引用文档是不可或缺的。对于标注了日期的文档，仅适用标注的那个版本。 对于未标注日期的文档，以文档的最新版为准（包括任何修订版）。</p>
+<p> ISO/IEC 9899:1996, Programming Languages – C, including amendment 1 and technical corrigenda 1 and 2</p>
+<p> ISO/IEC 10646-1:1993, Information Technology – Universal Multiple-Octet Coded Character Set (UCS) plus its amendments and corrigenda</p>
+<p>##4.概述</p>
+<p> 本节包含对 ECMAScript 语言非规范性的概述。</p>
+<p> ECMAScript 是在宿主环境中执行计算，处理对象的面向对象编程语言。这里定义的 ECMAScript 并未打算要计算性自足；事实上，本规范没有任何针对输入外部数据或输出计算结果的条文。相反，我们期望 ECMAScript 程序的计算环境可提供本规范中描述的对象和其它设施之外的、某些特定环境下的 宿主 (host) 对象，除了说明宿主对象应该提供可被 ECMAScript 程序访问的某些属性，调用的某些方法外，关于它的其他描述和行为超出了本规范涉及的范围。</p>
+<p> 脚本语言 是一种用于操作，自定义，自动化现有系统设施的编程语言。在这种系统中，已经可以通过一个用户界面使用可用功能，脚本语言是一种机制，暴漏这些功能给程序控制。这样，现有系统可以说给完善脚本语言能力需要的对象和设施提供了一个宿主环境。脚本语言被设计成专业和非专业程序员都能使用。</p>
+<p> ECMAScript 最初被设计为 Web 脚本语言 ，提供了一种机制，使浏览器里的网页更加活跃，成为基于 Web 的客户 - 服务器架构的一部分执行服务器计算。ECMAScript 可以为各种宿主环境提供核心的脚本功能，因此本文档为不依赖特定宿主环境的核心脚本语言作出规范。</p>
+<p> ECMAScript 的一些机能和其他编程语言的类似；特别是 Java™，Self，和 Scheme。以下文献描述了他们：</p>
+<p> Gosling, James, Bill Joy and Guy Steele. The Java™ Language Specification. Addison Wesley Publishing Co., 1996.</p>
+<p> Ungar, David, and Smith, Randall B. Self: The Power of Simplicity. OOPSLA ‘87 Conference Proceedings, pp. 227–241, Orlando, FL, October 1987.</p>
+<p> IEEE Standard for the Scheme Programming Language. IEEE Std 1178-1990.</p>
+<p>###4.1Web 脚本语言</p>
+<p> WEB 浏览器为引入客户端计算能力而提供 ECMAScript 宿主环境，例如，它提供的对象有：windows，menus，pop-ups，dialog boxes，text areas，anchors，frames，history，cookies 及输入 / 输出等等。进一步来说，WEB 浏览器中提供的这种宿主环境，它提供了一种方式，使得脚本代码可以去处理诸如改变焦点、页面和图片的加载、卸载、错误和放弃，选择，表单提交和鼠标交互等等事件。脚本代码出现在 HTML 中，显示出来的页面是一个用户接口元素与固定的和计算出来的文本和图片的集合。脚本代码根据用户的交互而做出反应，并不需要存在一个主程序。</p>
+<p> WEB 服务器为了服务端的计算则提供了一个完全不一样的宿主环境，包括的对象有：requests，clients，files 以及数据锁定和分享的机制。通过浏览器端脚本及服务端脚本的配合使用，在为基于 WEB 方式的应用程序提供定制的用户接口时，可以将计算分布到客户端和服务端进行。</p>
+<p> 每一种支持 ECMAScript 的 WEB 浏览器和服务器都将它们自身的宿主环境作为 ECMAScript 的补充，以使得 ECMAScript 的执行环境变得完整。</p>
+<p>###4.2语言概述</p>
+<p> 下面是非正式的 ECMAScript 概述 – 并未描述语言的所有部分。此概述并非标准的一部分。</p>
+<p> ECMAScript 是基于对象的：基本语言和宿主设施都由对象提供，ECMAScript 程序是一组可通信的对象。ECMAScript 对象 (objects) 是 属性 (properties) 的集合，每个属性有零个或多个 特性 (attributes)，它确定怎样使用此属性。例如，当设置一个属性的 Writable 特性为 false 时，任何试图更改此属性值的 ECMAScript 代码的都会运行失败。属性是持有其他 对象 (objects)， 原始值 (primitive values)， 函数 (functions) 的容器。原始值是以下内置类型之一的成员：Undefined，Null，Boolean，Number，String；对象是剩下的内置类型 Object 的成员；函数是可调用对象 (callable object)。方法 (method) 是通过属性与对象关联的函数。</p>
+<p> ECMAScript 定义一组内置对象 (built-in objects)，勾勒出 ECMAScript 实体的定义。这些内置对象包括 全局对象 (global object) ，Object 对象 ，Function 对象 ，Array 对象 ，String 对象 ，Boolean 对象 ，Number 对象 ，Math 对象 ，Date 对象 ，RegExp 对象 ，JSON 对象，和 Error 对象： Error ，EvalError ，RangeError ，ReferenceError ，SyntaxError ，TypeError ，URIError 。</p>
+<p> ECMAScript 中还定义一组内置运算符 (operators)。ECMAScript 运算符包括 一元运算符 ，乘法运算符 ，加法运算符 ，按位移位运算符 ，关系运算符 ，相等运算符 ，二进制位运算符 ，二进制逻辑运算符 ，赋值运算符 ，逗号运算符。</p>
+<p> ECMAScript 语法有意设计成与 Java 语法类似。ECMAScript 的语法是松散的，使其能够作为一个易于使用的脚本语言。例如，一个变量不需要有类型声明，属性也不需要与类型关联，定义的函数也不需要声明在函数调用词句的前面。</p>
+<p>####4.2.1对象</p>
+<p> ECMAScript 不使用诸如 C++，Smalltalk，Java 中的类。相反，对象可以通过各种方式创建，包括字面符号，或通过 构造器 创建对象然后运行代码初始化其全部或部分属性值，为这些属性分配初始值。每个构造器是一个拥有名为“prototype”的属性的函数。此属性用于实现 基于原型的继承 和 共享属性 。构造器通过 new 表达式创建对象：例如，new Date(2009,11) 创建一个新 Date 对象。不使用 new 调用一个构造器的结果，依赖构造器本身。例如，Date() 产生一个表示当前日期时间的字符串，而不是一个对象。</p>
+<p> 每个由构造器创建的对象，都有一个隐式引用 ( 叫做对象的原型 ) 链接到构造器的“prototype”属性值。再者，原型可能有一个非空 (non-null) 隐式引用链接到它自己的原型，以此类推，这叫做 原型链 。当向对象的一个属性提出引用，引用会指向原型链中包含此属性名的第一个对象的此属性。换句话说，首先检查直接提及的对象的同名属性，如果对象包含同名的属性，引用即指向此属性，如果该对象不包含同名的属性，则下一步检查对象的原型；以此类推。</p>
+<p><img src="http://yanhaijing.com/es5/img/figure-1.png" alt=""><br>对象/原型关系<br> 一般情况下基于类的面向对象语言的实例拥有状态，类拥有方法，并且只能继承结构和行为。在 ECMAScript 中，对象拥有状态和方法，并且结构，行为，状态全都可继承。</p>
+<p> 不直接包含原型中包含的特定属性的所有对象会共享此属性及属性值。图 1 说明了这一点：</p>
+<p> CF 是一个构造器（也是一个对象）。五个对象已用 new 表达式创建 : cf1, cf2, cf3, cf4, cf5。每个对象都有名为 q1 和 q2 的属性。虚线表示隐式原型关系；例如：cf3 的原型是 CFp。构造器 CF 自己有名为 P1 和 P2 的两个属性 , 这对 CFp, cf1, cf2, cf3, cf4, cf5 是不可见的。CFp 的名为 CFP1 的属性共享给 cf1, cf2, cf3, cf4, cf5 ( 没有 CF), 以及在 CFp 的隐式原型链中找不到任何名为 q1, q2, 或 CFP1 的属性。 请注意 ，CF 和 CFp 之间没有隐式原型链接。</p>
+<p> 不同于基于类的对象语言，属性可以通过赋值的方式动态添加给对象。也就是说，构造器并不是非要对构造的对象的全部或任何属性命名或赋值。上图中，可以给 CFp 添加新属性值的方式为 cf1, cf2, cf3, cf4,cf5 添加一个新的共享属性。</p>
+<p>####4.2.2 ECMAScript 的严格模式变体</p>
+<p> ECMAScript 语言认可有些用户希望限制使用语言中某些功能的可能性。他们这样做可能是为了安全考虑，避免他们认为是容易出错的功能，获得增强的错误检查，或其他原因。为了支持这种可能性，ECMAScript 中定义了语言的严格变体。语言的严格变体，排除了 ECMAScript 语言的某些特定的语法和语义特征，还修改了某些功能的详细语义。严格变体还指定了必须抛出错误异常报告的额外错误条件，即使在非严格的语言形式下这些条件不属于错误。</p>
+<p> ECMAScript 的严格变体通常被称为语言的 严格模式 (strict mode)。严格模式选择使用的 ECMAScript 严格模式的语法和语义，明确地适用于个别 ECMAScript 代码单元级别。由于严格模式适用于选择的语法代码单元级别，严格模式仅在这个代码单元内施加有局部效果的限制。严格模式不限制或修改任何必须运行在多个代码单元的 ECMAScript 语义层面。一个 ECMAScript 程序可由严格模式和非严格模式的代码单元组成。在这种情况下，严格的模式只适用于严格模式代码单元内实际执行的代码。</p>
+<p> 要符合这一规范，ECMAScript的实现必须同时实现未限制的ECMAScript语言和按照这个规范定义的ECMAScript的严格模式变体。此外，实现还必须支持未限制的和严格模式代码单元的在同一个程序中混用。.</p>
+<p>###4.3术语定义</p>
+<p> 本文档将使用下列术语和定义。</p>
+<p>####4.3.1 类型 (type)</p>
+<p> 本规范第 8 章定义数据的集合。</p>
+<p>####4.3.2 原始值 (primitive value)</p>
+<p> 在本规范的第 8 章定义的未定义，空，布尔，数字，字符串类型之一的成员。</p>
+<p> 原始值直接代表语言实现的最底层的数据。</p>
+<p>####4.3.3 对象 (object)</p>
+<p> 对象类型的成员。</p>
+<p> 对象是属性的集合，并有一个原型对象。原型可以是空值。</p>
+<p>####4.3.4 构造器 (constructor)</p>
+<p> 创建和初始化对象的函数对象。</p>
+<p> 构造器的“prototype”属性值是一个原型对象，它用来实现继承和共享属性。</p>
+<p>####4.3.5 原型 (prototype)</p>
+<p> 为其他对象提供共享属性的对象。</p>
+<p> 当构造器创建一个对象，为了解决对象的属性引用，该对象会隐式引用构造器的“prototype”属性。通过程序表达式 constructor.prototype 可以引用到构造器的“prototype”属性，并且添加到对象原型里的属性，会通过继承与所有共享此原型的对象共享。另外，可使用 Object.create 内置函数，通过明确指定原型来创建一个新对象。</p>
+<p>####4.3.6 原生对象 (native object)</p>
+<p> ECMAScript 实现中，并非由宿主环境，而是完全由本规范定义其语义的对象。</p>
+<p> 标准的原生对象由本规范定义。一些原生对象是内置的，其他的可在 ECMAScript 程序执行过程中构建。</p>
+<p>####4.3.7 内置对象 (built-in object)</p>
+<p> 由 ECMAScript 实现提供，独立于宿主环境的对象，ECMAScript 程序开始执行时就存在。</p>
+<p> 标准的内置对象由本规范定义，ECMAScript 实现可以指定和定义其他的。所有内置对象是原生对象。一个内置构造器 (built-in constructor) 是个内置对象，也是个构造器。</p>
+<p>####4.3.8 宿主对象 (host object)</p>
+<p> 由宿主环境提供的对象，用于完善 ECMAScript 执行环境。</p>
+<p> 任何对象，不是原生对象就是宿主对象。</p>
+<p>####4.3.9 未定义值 (undefined value)</p>
+<p> 说明一个变量没有被分配值的一个原始值。</p>
+<p>####4.3.10 未定义类型 (Undefined type)</p>
+<p> 拥有唯一值“未定义值”的类型。</p>
+<p>####4.3.11 空值 (null value)</p>
+<p> 代表对象值故意留空的一个原始值。</p>
+<p>#####4.3.12 空类型 (Null type)</p>
+<p> 拥有唯一值“空值”的类型。</p>
+<p>####4.3.13 布尔值 (Boolean value)</p>
+<p> 布尔类型的成员。</p>
+<p> 只有两个布尔值，true 和 false 。</p>
+<p>####4.3.14 布尔类型 (Boolean type)</p>
+<p> 由原始值 true 和 false 组成的类型。</p>
+<p>####4.3.15 布尔对象 (Boolean object)</p>
+<p> 对象类型的成员，它是标准内置构造器 Boolean 的一个实例。</p>
+<p> 通过使用 new 表达式，以一个布尔值作为参数调用 Boolean 构造器来创建布尔对象。由此产生的对象包含一个值为此布尔值的内部属性。一个 Boolean 对象可以强制转换为布尔值。</p>
+<p>####4.3.16 字符串值 (String value)</p>
+<p> 原始值，它是零个或多个 16 位无符号整数组成的有限有序序列。</p>
+<p> 一个字符串值是字符串类型的成员。通常序列中的每个整数值代表 UTF-16 文本的单个 16 位单元。然而，对于其值，ECMAScript 只要求必须是 16 位无符号整数，除此之外没有任何限制或要求。</p>
+<p>####4.3.17 字符串类型 (String type)</p>
+<p> 所有可能的字符串值的集合。</p>
+<p>####4.3.18 字符串对象 (String object)</p>
+<p> 对象类型的成员，它是标准内置构造器 String 的一个实例。</p>
+<p> 通过使用 new 表达式，以一个字符串值为参数调用 String 构造器来创建字符串对象。由此产生的对象包含一个值为此字符串值的内部属性。将 String 构造器作为一个函数来调用，可将一个字符串对象强制转换为一个字符串值（15.5.1 ）。</p>
+<p>####4.3.19 数字值 (Number value)</p>
+<p> 原始值，对应一个 64 位双精度二进制 IEEE754 值。</p>
+<p> 一个数字值是数字类型的成员，直接代表一个数字。</p>
+<p>####4.3.20 数字类型 (Number type)</p>
+<p> 所有可能的数字值的集合，包括特殊的“Not-a-Number”(NaN) 值，正无穷，负无穷。</p>
+<p>####4.3.21 数字对象 (Number object)</p>
+<p> 对象类型的成员，它是标准内置构造器 Number 的一个实例。</p>
+<p> 通过使用 new 表达式，以一个数字值为参数调用 Number 构造器来创建数字对象。由此产生的对象包含一个值为此数字值的内部属性。将 Number 构造器作为一个函数来调用，可将一个 Number 对象强制转换为一个数字值（15.7.1 ）。</p>
+<p>####4.3.22 无穷 (Infinity)</p>
+<p> 正无穷数字值。</p>
+<p>####4.3.23 NaN</p>
+<p> 值为 IEEE 754“Not-a-Number”的数字值</p>
+<p>####4.3.24 函数 (function)</p>
+<p> 对象类型的成员，标准内置构造器 Function 的一个实例，并且可做为子程序被调用。</p>
+<p> 函数除了拥有命名的属性，还包含可执行代码、状态，用来确定被调用时的行为。函数的代码不限于 ECMAScript。</p>
+<p>####4.3.25 内置函数 (built-in function)</p>
+<p> 作为函数的内置对象。</p>
+<p> 如 parseInt 和 Math.exp 就是内置函数。一个实现可以提供本规范没有描述的依赖于实现的内置函数。</p>
+<p>####4.3.26 属性 (property)</p>
+<p> 作为对象的一部分联系名和值。</p>
+<p> 属性可能根据属性值的不同表现为直接的数据值（原始值，对象，或一个函数对象）或间接的一对访问器函数。</p>
+<p>####4.3.27 方法 (method)</p>
+<p> 作为属性值的函数。</p>
+<p> 当一个函数被作为一个对象的方法调用，此对象将作为 this 值传递给函数。</p>
+<p>####4.3.28 内置方法 (built-in method)</p>
+<p> 作为内置函数的方法。</p>
+<p> 标准内置方法由本规范定义，一个 ECMAScript 实现可指定，提供其他额外的内置方法。</p>
+<p>####4.3.29 特性 (attribute)</p>
+<p> 定义一个属性的一些特性的内部值。</p>
+<p>####4.3.30自身属性 (own property)</p>
+<p> 对象直接拥有的属性。</p>
+<p>####4.3.31 继承属性 (inherited property)</p>
+<p> 不是对象的自身属性，但是是对象原型的属性 ( 原型的自身属性或继承属性 )。</p>
+<p>##5记法约定</p>
+<p>###5.1语法和词法的文法</p>
+<p>####5.1.1上下文无关文法</p>
+<p> 一个 上下文无关文法 由一定数量的 产生式 (productions) 组成。每个产生式的 左边 (left-hand side) 是一个被称为非终结符 (nonterminal) 的抽象符号， 右边 (right-hand side) 是零或多个非终结符和 终结符 (terminal symbols) 的有序排列。任何文法，它的终结符都来自指定的字母集。</p>
+<p> 当从一个叫做 目标符 (goal symbol) 的特殊非终端符组成的句子起始，那么给出的上下文无关文法就表示 语言 (language)，即，将产生式右边序列的非终结符当作左边，进行反复替换的结果就成为可能的终结符序列集合（可能无限）。</p>
+<p>####5.1.2词法和正则的文法</p>
+<p> 第 7 章给出了 ECMAScript 的 词法文法 (lexical grammar)。作为此文法的终结符字符（Unicode 代码单元）符合第 6 章定义的 SourceCharacter 的规则。它定义了一套产生式，从目标符 InputElementDiv 或 InputElementRegExp 起始，描述了如何将这样的字符序列翻译成一个输入元素序列。</p>
+<p> 空白和注释之外的输入元素构成 ECMAScript 语法文法的终结符，它们被称为 ECMAScript 的 tokens。这些 tokens 是，ECMAScript 语言的保留字，标识符，字面量，标点符号。此外，行结束符虽然不被视为 tokens，但会成为输入元素流的一部分，用于引导处理自动插入分号（ 7.9 ）。空白和单行注释会被简单的丢弃，不会出现在语法文法的输入元素的流中。如果一个 多行注释 (MultiLineComment)（即形式为“/ … /”的注释，不管是否跨越多行）不包含行结束符也会简单地丢弃，但如果一个 多行注释 包含一个或多个结束符，那么，注释会被替换为一个行结束符，成为语法文法输入元素流的一部分。</p>
+<p> 15.10 给出了 ECMAScript 的 正则文法 (RegExp grammar)。此文法的终结符字符也由 SourceCharacter 定义。它定义了一套产生式，从目标符 Pattern 起始，描述了如何将这样的字符序列翻译成一个正则表达式模式。</p>
+<p> 两个冒号“::”作为分隔符分割词法和正则的文法产生式。词法和正则的文法共享某些产生式。</p>
+<p>####5.1.3数字字符串文法</p>
+<p> 用于转换字符串为数字值的一种文法。此文法与词法文法的一部分（与数字字面量有关的）类似，并且有终结符 SourceCharacter。此文法出现在 9.3.1 。</p>
+<p> 三个冒号“:::”作为分隔符分割数字字符串文法的产生式。</p>
+<p>####5.1.4语法文法</p>
+<p> 第 11，12，13，14 章给出了 ECMAScript 的 语法文法 。词法文法定义的 ECMAScript tokens 是此文法的终结符（ 5.1.2 ）。它定义了一组起始于 Program 目标符的产生式，描述了语法正确的 ECMAScript 程序应该怎样排列 tokens。</p>
+<p> 当一个字符流被解析为 ECMAScript 程序，它首先通过词法文法应用程序反复转换为一个输入元素流；然后再用一个语法文法应用程序解析这个输入元素流。当输入元素流没有更多 tokens 时，如果 tokens 不能解析为 Program 目标非终结符的单一实例，那么程序在语法上存在错误。</p>
+<p> 只用一个冒号“:”作为分隔符分割语法词法的产生式。</p>
+<p> 事实上第 11，12，13 和 14 章给出的语法语法，并不能完全说明一个正确的 ECMAScript 程序能接受的 token 序列。一些额外的 token 序列也被接受，即某些特殊位置（如行结束符前）加入分号可以被文法接受。此外，文法描述的某些 token 序列不被文法接受，如一个行结束符出现在“尴尬”的位置。</p>
+<p>####5.1.5JSON 文法</p>
+<p> JSON 文法用于将描述 ECMAScript 对象的字符串转换为实际的对象。15.12.1 给出了 JSON 文法 。</p>
+<p> JSON 文法由 JSON 词法文法和 JSON 语法文法组成。JSON 词法文法用于将字符序列转换为 tokens，类似 ECMAScript 词法文法。JSON 语法文法说明 JSON 词法文法给出怎样的 tokens 序列才能转换为语法上是正确的 JSON 对象。</p>
+<p> 两个冒号“::”作为分隔符分割 JSON 词法文法的产生式。JSON 词法文法使用某些 ECMAScript 词法文法的产生式。JSON 语法文法与 ECMAScript 语法文法类似。JSON 语法文法产生式被一个冒号“:”作为分隔符分割。</p>
+<p>####5.1.6文法标记法</p>
+<p> 词法文法和字符串文法的终结符，以及一些语法文法的终结符，无论是在文法的产生式还是贯穿本规范的所有文本直接给出的终结符，都用 等宽 (fixed width) 字体显示。他们表示程序书写正确。所有以这种方式指定的终结符字符，可以理解为 Unicode 字符的完整的 ASCII 范围，不是任何其他类似的 Unicode 范围字符。</p>
+<p> 非终结符以 斜体 (italic) 显示。一个非终结符的定义由非终结符名称和其后定义的一个或多个冒号给出。（冒号的数量表示产生式所属的文法。）非终结符的右侧有一个或多个替代子紧跟在下一行。 例如，语法定义：</p>
+<pre><code>WhileStatement
+while <span class="list">( <span class="keyword">Expression</span> )</span> Statement
+</code></pre><p> 表示这个非终结符 WhileStatement 代表 while token，其后跟左括号 token，其后跟 Expression，其后跟右括号 token，其后跟 Statement。这里出现的 Expression 和 Statement 本身是非终结符。另一个例子，语法定义：</p>
+<pre><code><span class="rule"><span class="attribute">ArgumentList </span>:<span class="value"> 
+AssignmentExpression 
+ArgumentList , AssignmentExpression</span></span>
+</code></pre><p> 表示这个 ArgumentList 可以代表一个 AssignmentExpression，或 ArgumentList，其后跟一个逗号，其后跟一个 AssignmentExpression。这个 ArgumentList 的定义是递归的，也就是说，它定义它自身。其结果是，一个 ArgumentList 可能包含用逗号隔开的任意正数个参数，每个参数表达式是一个 AssignmentExpression。这样，非终结符共用了递归的定义。</p>
+<p> 终结符或非终结符可能会出现后缀下标“ opt ”，表示它是可选符号。实际上包含可选符号的替代子包含两个右边，一个是省略可选元素的，另一个是包含可选元素的。这意味着：</p>
+<pre><code><span class="rule"><span class="attribute">VariableDeclaration </span>:<span class="value"> 
+Identifier Initialiseropt</span></span>
+</code></pre><p> 是以下的一种缩写：</p>
+<pre><code><span class="rule"><span class="attribute">VariableDeclaration </span>:<span class="value"> 
+Identifier Identifier Initialiser</span></span>
+</code></pre><p> 并且：</p>
+<pre><code><span class="rule"><span class="attribute">IterationStatement </span>:<span class="value"> 
+for ( ExpressionNoInopt </span></span>; <span class="tag">Expressionopt</span> ; <span class="tag">Expressionopt</span> ) <span class="tag">Statement</span>
+</code></pre><p> 是以下的一种缩写：</p>
+<pre><code><span class="title">IterationStatement</span> : 
+for ( ; <span class="title">Expressionopt</span> ; <span class="title">Expressionopt</span> ) Statement
+for ( ExpressionNoIn ; <span class="title">Expressionopt</span> ; <span class="title">Expressionopt</span> ) Statement
+</code></pre><p> 是以下的一种缩写 :</p>
+<pre><code>IterationStatement : 
+<span class="keyword">for</span> <span class="params">( ; ; Expressionopt )</span> Statement 
+<span class="keyword">for</span> <span class="params">( ; Expression ; Expressionopt)</span> Statement 
+<span class="keyword">for</span> <span class="params">( ExpressionNoIn ; ; Expressionopt)</span> Statement 
+<span class="keyword">for</span> <span class="params">( ExpressionNoIn ; Expression ; Expressionopt)</span> Statement
+</code></pre><p> 是以下的一种缩写：</p>
+<pre><code>IterationStatement : 
+<span class="keyword">for</span> <span class="params">( ; ; )</span> Statement 
+<span class="keyword">for</span> <span class="params">( ; ; Expression )</span> Statement 
+<span class="keyword">for</span> <span class="params">( ; Expression ; )</span> Statement 
+<span class="keyword">for</span> <span class="params">( ; Expression ; Expression )</span> Statement 
+<span class="keyword">for</span> <span class="params">( ExpressionNoIn ; ; )</span> Statement 
+<span class="keyword">for</span> <span class="params">( ExpressionNoIn ; ; Expression )</span> Statement 
+<span class="keyword">for</span> <span class="params">( ExpressionNoIn ; Expression ; )</span> Statement 
+<span class="keyword">for</span> <span class="params">( ExpressionNoIn ; Expression ; Expression )</span> Statement
+</code></pre><p> 因此，非终结 IterationStatement 实际上有 8 个右侧变体。</p>
+<p> 如果文法定义的冒号后面出现文字“one of”，那么其后一行或多行出现的每个终结符都是一个选择定义。例如，ECMAScript 包含的词法文法生产器：</p>
+<pre><code>NonZeroDigit :: one of 
+<span class="number">1</span> <span class="number">2</span> <span class="number">3</span> <span class="number">4</span> <span class="number">5</span> <span class="number">6</span> <span class="number">7</span> <span class="number">8</span> <span class="number">9</span>
+</code></pre><p> 这仅仅下面写法的一种缩写：</p>
+<pre><code>NonZeroDigit :: <span class="number">1</span> <span class="number">2</span> <span class="number">3</span> <span class="number">4</span> <span class="number">5</span> <span class="number">6</span> <span class="number">7</span> <span class="number">8</span> <span class="number">9</span>
+</code></pre><p> 如果产生式的右侧是出现“[empty]”，它表明，产生式的右侧不包含终结符或非终结符。</p>
+<p> 如果产生式的右侧出现“[lookahead ∉ set]”，它表明，给定 set 的成员不得成为产生式紧随其后的 token。这个 set 可以写成一个大括号括起来的终结符列表。为方便起见，set 也可以写成一个非终结符，在这种情况下，它代表了这个非终结符 set 可扩展所有终结符。例如，给出定义</p>
+<pre><code>DecimalDigit :: one of 
+<span class="number">0</span> <span class="number">1</span> <span class="number">2</span> <span class="number">3</span> <span class="number">4</span> <span class="number">5</span> <span class="number">6</span> <span class="number">7</span> <span class="number">8</span> <span class="number">9</span>
+</code></pre><pre><code><span class="bullet">DecimalDigits :: 
+</span>DecimalDigit 
+DecimalDigits DecimalDigit
+</code></pre><p> 在定义</p>
+<pre><code>LookaheadExample :: 
+n [lookahead ∉ {<span class="number">1</span> , <span class="number">3</span> , <span class="number">5</span> , <span class="number">7</span> , <span class="number">9</span>}]DecimalDigits 
+DecimalDigit [lookahead ∉ DecimalDigit ]
+</code></pre><p> 能匹配字母 n 后跟随由偶数起始的一个或多个十进制数字，或一个十进制数字后面跟随一个非十进制数字。</p>
+<p> 如果产生式的右侧出现“[no LineTerminator here]”，那么它表示此产生式是个受限的产生式：如果 LineTerminator 在输入流的指定位置出现，那么此产生式将不会被适用。例如，产生式：</p>
+<pre><code><span class="rule"><span class="attribute">ThrowStatement </span>:<span class="value"> 
+throw [no LineTerminator here] Expression </span></span>;
+</code></pre><p> 表示如果程序中 return token 和 Expression 之间的出现 LineTerminator，那么不得使用此产生式。</p>
+<p> LineTerminator 除了禁止出现在受限的产生式，可以在输入元素流的任何两个 tokens 之间出现任意次数，而不会影响程序的语法验证。</p>
+<p> 当一个词法文法产生式或数字字符串文法中出现多字符 token，它表示此字符序列将注册一个 token。</p>
+<p> 使用词组“but not“可以指定某些不允许在产生式右侧的扩展，它说明排除这个扩展。例如，产生式：</p>
+<pre><code>Identifier :: 
+IdentifierName <span class="keyword">but</span> <span class="keyword">not</span> ReservedWord
+</code></pre><p> 此非终结符 Identifier 可以由可替换成 IdentifierName 的字符序列替换，相同的字符序列不能替换 ReservedWord。</p>
+<p> 最后，对于实际上不可能列出全部可变元的少量非终结符，我们用普通字体写出描述性的短语来描述它们：</p>
+<pre><code>SourceCharacter :: 
+<span class="built_in">any</span> Unicode code <span class="keyword">unit</span>
+</code></pre><p>###5.2算法约定</p>
+<p> 此规范通常使用带编号的列表来指定算法的步骤。这些算法是用来精确地指定 ECMAScript 语言结构所需的语义。该算法无意暗示任何具体实现使用的技术。在实践中，也许可用更有效的算法实现一个给定功能。</p>
+<p> 为了方便其使用本规范的多个部分，叫做 抽象操作 (abstract operations) 的一些算法编写成带名称的可传参函数化形式，所以在其他算法里可以通过名称引用它们。</p>
+<p> 当一个算法产生返回值 ，“return x” 指令说明该算法的返回值是 x，并且算法应该终止。“第 n 步的结果”的简写是 Result(n) 。</p>
+<p> 为了表达清晰，算法的步骤可细分为有序的子步骤。子步骤被缩进，可以将自身进一步划分为缩进子步骤。大纲编号约定用于识别分步骤，第一层次的子步骤适用小写字母标记，第二层次的子步骤使用小写罗马数字标记。如果需要超过三个层次，则重复这些规则，第四层次使用数字标记。例如 :</p>
+<pre><code><span class="number">1</span><span class="class">.Top-level</span> step
+    <span class="tag">a</span><span class="class">.Substep</span>.
+    <span class="tag">b</span><span class="class">.Substep</span>
+        <span class="tag">i</span><span class="class">.Subsubstep</span>.
+        ii<span class="class">.Subsubstep</span>.
+            <span class="number">1</span><span class="class">.Subsubsubstep</span>
+                <span class="tag">a</span>.Subsubsubsubstep
+</code></pre><p> 步骤或子步骤可写“if”谓词作为它的子步骤的条件。在这种情况下，当谓词为真时子步骤才适用。如果一个步骤或子步骤由单词“else”开始，那么它是一个谓词，否定前面的同一层级的“if”谓词。</p>
+<p> 步骤可以表示其子步骤的迭代应用可能指定其子步的迭代应用程序。</p>
+<p> 步骤可能断言其算法中的某一不变条件。这样的断言可以让算法中隐含的不变条件变成显式的。这种断言不会添加额外的语义要求，实现没有一定去检查的必要性。它们只是用来让算法更清晰。</p>
+<p> 数学运算，如加法，减法，取反，乘法，除法，还有稍后在本节中定义的数学函数应该总是被理解为对数学实数计算精确的数学结果，其中不包括无穷大，不包括负零区别于正零。本标准中的浮点运算算法模型，包括明确的步骤，在必要情况下处理无穷大和有符号零和执行四舍五入。如果一个数学运算或函数应用一个浮点数，它应该被应用为代表此浮点数的确切的数学值，一个浮点数必须是有限的 ，如果是 +0 或 -0 ，则相应的数学值就是 0。</p>
+<p> 数学函数 abs(x) 产生 x 的绝对值，如果 x 是负数（小于零），它是这是 - x，否则是 X 本身。</p>
+<p> 如果 x 是正数，数学函数 sign (x) 产生 1，如果 x 是负数产生 - 1。此标准中 x 为零的情况下不使用 sign 函数。</p>
+<p> 符号 “x modulo y” (y 必须有限且非零 ) 计算一个满足以下条件的 k 值 ，与 y 同号 ( 或是零 ) ，abs(k) &lt; abs(y) ，对一些整数 q 满足 x−k = q × y。</p>
+<p> 数学函数 floor(x) 产生不大于 x 的最大整数（最大可为正无穷）。</p>
+<p> floor(x) = x−(x modulo 1).</p>
+<p> 如果算法定义“抛出一个异常”，算法的执行将被终止，且没有返回结果。已调用的算法也被终止，直到算法步骤使用术语“如果一个异常被抛出 …”明确指出异常处理。一旦遇到这种算法步骤，异常将不再被视已发生过。</p>
+<p> ##6.源代码文本</p>
+<p> 用 3.0 或更高版本 Unicode 字符编码的一个字符序列来表示 ECMAScript 源文本。该文本预期已经正常化为 Unicode Technical Report #15 中描述的 Unicode 正常化形式 C（canonical composition）。符合 ECMAScript 的实现不要求对文本执行正常化，也不要求将其表现为像执行了正常化一样。为了目的，此规范 ECMAScript 的源文本被假定为一个 16 位代码单元，本规范的目的序列。这样的包含 16 位代码单元序列的源文本可能不是有效的的 UTF-16 字符编码。如果实际的源文本没有用 16 位代码单元形式编码，那么必须把它看作已经转换为 UTF-16 一样处理。</p>
+<p> 语法</p>
+<pre><code>SourceCharacter :: 
+<span class="built_in">any</span> Unicode code <span class="keyword">unit</span>
+</code></pre><p> 贯穿本文档，短语“代码单元 (code unit)”和单词“字符 (character)”特指表示文本的单个 16 位单元的 16 位无符号值。短语“Unicode 字符 (Unicode character)”特指单个 Unicode 标量值（这可能大于 16 位，因此它可能代表多个代码单位）表示的语言或排版上的抽象单位。短语“代码点 (code point)”是指这样一个 Unicode 标量值。“Unicode 字符”仅指由单一的 Unicode 标量值表示的实体：组合字符序列的每个组成部分都是单个“Unicode 字符”，尽管用户可能会认为整个序列是单个字符。</p>
+<p> 在字符串字面量，正则表达式字面量，标识符中的任意字符（代码单元），可以是由六个字符组成的 Unicode 转义序列，即 \u 加上四个 16 进制数字。在注释中，这样的转义序列被当作注释的一部分忽略掉。在字符串字面量或正则表达式字面量中，Unicode 转义序列会给字面量值贡献一个字符。在标识符中，转义序列给标识符贡献一个字符。</p>
+<blockquote>
+<p>虽然本文档有时会提到“字符串 (string)”里的“字符 (character)”和代表字符代码单元的 16 位无符号整数间的“变换 (transformation)”。事实上并没有变换，因为实际上就是用 16 位无符号值代表“字符串”里的“字符”。</p>
+</blockquote>
+<p> ECMAScript 与 Java 编程语言对 Unicode 转义序列有不同的解释。在 Java 程序中，如果 Unicode 转义序列 \u000A 出现在单行注释中，它会被解释成行终结符（Unicode 字符000A 是换行），因此接下来的一个字符不是注释的一部分。与此类似，如果 Java 程序中的字符串字面量里出现 Unicode 转义序列 \u000A，它同样会被解释成行终结符，字符串字面量里不允许出现行终结符，不得不将作为字符串字面量字符值的换行符的 \u000A 替换成 \n。在 ECMAScript 程序中，始终不会解释注释里出现的 Unicode 转义序列，因此无法给注释贡献终止符。与此类似，如果 ECMAScript 程序中的字符串字面量里出现 Unicode 转义序列，它始终会贡献一个字符给字面量值，并且始终不会解释成有可能终止字符串字面量的行终结符或引号标记。</p>
+<p>##7.词法</p>
+<p> ECMAScript 程序的源文本首先转换成一个输入元素序列；tokens，行终结符，注释，空白构成输入元素序列。从左到右扫描源文本，反复获取作为下一个输入元素的尽可能长的字符序列。</p>
+<p> 词法文法有两个目标符。InputElementDiv 目标符用在允许除法 (/) 或除赋值 (/=) 运算符开始的语法文法上下文中。InputElementRegExp 目标符用在其他语法文法上下文。</p>
+<p> 没有允许除法或除赋值运算符开头，同时又允许 RegularExpressionLiteral 开头的语法文法上下文。这不会被分号插入（见 7.9）影响；如下面的例子：</p>
+<pre><code>a = b /hi/g.exec<span class="comment">(c)</span>.map<span class="comment">(d)</span>;
+</code></pre><p> 其中 LineTerminator 后的第一个非空白，非注释字符是斜线（/），并且这个语法上下文允许除法或除赋值运算符，所以不会在这个 LineTerminator 位置插入分号。也就是说，上面的例子解释为：</p>
+<pre><code>a = b / hi / g.exec<span class="comment">(c)</span>.map<span class="comment">(d)</span>;
+</code></pre><p> 语法：</p>
+<pre><code><span class="bullet">InputElementDiv :: 
+</span>WhiteSpace 
+LineTerminator 
+Comment 
+Token 
+DivPunctuator
+</code></pre><pre><code><span class="bullet">InputElementRegExp :: 
+</span>WhiteSpace 
+LineTerminator 
+Comment 
+Token 
+RegularExpressionLiteral
+</code></pre><p>###7.1 Unicode 格式控制字符</p>
+<p> Unicode 格式控制字符（即，Unicode 字符数据库中“Cf”分类里的字符，如“左至右符号 (left-to-right mark)”或“右至左符号 (left-to-right mark)”）是用来控制被更高层级协议（如标记语言）忽略的文本范围的格式的控制代码。</p>
+<p> 允许在源文本中出现控制字符是有用的，以方便编辑和显示。所有格式控制字符可写入到注释，字符串字面量，正则表达式字面量中。</p>
+<p> 在某些语言中和控制字符用于创建必要的的分隔符分割词或短语。在 ECMAScript 源文本里，和还可以用在一个标识符后的第一个字符。</p>
+<p> 控制字符主要出现的文本的开头，标记它是 Unicode，并允许检测文本的编码和字节顺序。用于这一目的字符，有时也可能出现在文本开始的后面，例如，一个合并的文件。字符被视为空白字符（见 [7.2]）。</p>
+<p> 表 1 总结了一些在注释，字符串字面量，正则表达式字面量之外被特殊对待的格式控制字符。</p>
+<p>表1–控制字符的使用</p>
+<table>
+<thead>
+<tr>
+<th>字符编码值</th>
+<th>名称</th>
+<th>正式名称</th>
+<th style="text-align:center">用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>\u200C</td>
+<td>零宽非连接符</td>
+<td>\<ZWNJ></td>
+<td style="text-align:center">IdentifierPart</td>
+</tr>
+<tr>
+<td>\u200D</td>
+<td>零宽连接符</td>
+<td>\<ZWJ></td>
+<td style="text-align:center">IdentifierPart</td>
+</tr>
+<tr>
+<td>\uFEFF</td>
+<td>位序掩码</td>
+<td>\<BOM></td>
+<td style="text-align:center">Whitespace</td>
+</tr>
+</tbody>
+</table>
+<p>空白字符</p>
+<p> 空白字符用来改善源文本的可读性和分割 tokens（不可分割的词法单位），此外就无关紧要。空白字符可以出现的两个 token 之间还可以出现在输入的开始或结束位置。空白字符，还可以出现在字符串 字面量 (StringLiteral) 或正则 表达式字面量 (RegularExpressionLiteral)( 在这里它表示组成字面量的字符 ) 或 注释 (Comment) 中，但是不能出现的其他任何 token 内。</p>
+<p> 表 2 中列出了 ECMAScript 空白字符。</p>
+<p>表2–空白字符</p>
+<table>
+<thead>
+<tr>
+<th>字符编码值</th>
+<th>名称</th>
+<th style="text-align:center">正式名称</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>\u0009</td>
+<td>制表符</td>
+<td style="text-align:center">\<TAB></td>
+</tr>
+<tr>
+<td>\u000B</td>
+<td>纵向制表符</td>
+<td style="text-align:center">\<VT></td>
+</tr>
+<tr>
+<td>\u000C</td>
+<td>进纸符</td>
+<td style="text-align:center">\<FF></td>
+</tr>
+<tr>
+<td>\u0020</td>
+<td>空格</td>
+<td style="text-align:center">\<SP></td>
+</tr>
+<tr>
+<td>\u00A0</td>
+<td>非断空格</td>
+<td style="text-align:center">\<NBSP></td>
+</tr>
+<tr>
+<td>\uFEFF</td>
+<td>位序掩码</td>
+<td style="text-align:center">\<BOM></td>
+</tr>
+<tr>
+<td>其它分类“Zs”</td>
+<td>其它任何Unicode”空白分隔符”</td>
+<td style="text-align:center">\    <USP></td>
+</tr>
+</tbody>
+</table>
+<p> ECMAScript 实现必须认可 Unicode 3.0 中定义的所有空白字符。后续版本的 Unicode 标准可能定义其他空白字符。ECMAScript 实现可以认可更高版本 Unicode 标准里的空白字符。</p>
+<p> 语法：</p>
+<pre><code><span class="keyword">WhiteSpace</span> :: 
+<span class="tag">&lt;tab&gt;</span> 
+<span class="tag">&lt;vt&gt;</span> 
+<span class="tag">&lt;ff&gt;</span> 
+<span class="tag">&lt;sp&gt;</span> 
+<span class="tag">&lt;nbsp&gt;</span> 
+<span class="tag">&lt;bom&gt;</span> 
+<span class="tag">&lt;usp&gt;</span>
+</code></pre><p>###7.3 行终结符</p>
+<p> 像空白字符一样，行终止字符用于改善源文本的可读性和分割 tokens（不可分割的词法单位）。然而，不像空白字符，行终结符对语法文法的行为有一定的影响。一般情况下，行终结符可以出现在任何两个 token 之间，但也有少数地方，语法文法禁止这样做。行终结符也影响自动插入分号过程（7.9）。行终结符不能出现在 StringLiteral 之外的任何 token 内。行终结符只能出现在作为 LineContinuation 一部分的 StringLiteral token 里。</p>
+<p> 行终结符可以出现在 MultiLineComment（7.4）内，但不能出现在 SingleLineComment 内。</p>
+<p> 正则表达式的 \s 类匹配的空白字符集中包含行终结符。</p>
+<p> 表 3 列出了 ECMAScript 的行终止字符。</p>
+<p>表3–行终止字符</p>
+<table>
+<thead>
+<tr>
+<th>字符编码值</th>
+<th>名称</th>
+<th>正式名称</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>\u000A</td>
+<td>进行符</td>
+<td>\<LF></td>
+</tr>
+<tr>
+<td>\u000D</td>
+<td>回车符</td>
+<td>\<CR></td>
+</tr>
+<tr>
+<td>\u2028</td>
+<td>行分隔符</td>
+<td>\<LS></td>
+</tr>
+<tr>
+<td>\u2029</td>
+<td>段分隔符</td>
+<td>\<PS></td>
+</tr>
+</tbody>
+</table>
+<p>只有表 3 中的字符才被视为行终结符。其他新行或折行字符被视为空白，但不作为行终结符。字符序列 作一个行终结符。计算行数时它应该被视为一个字符。</p>
+<p> 语法：</p>
+<pre><code><span class="bullet">LineTerminator :: 
+</span><span class="bullet">LineTerminatorSequence :: </span>[lookahead ∉ ]
+</code></pre><p>###7.4注释</p>
+<p> 注释可以是单行或多行。多行注释不能嵌套。</p>
+<p> 因为单行注释可以包含除了 LineTerminator 字符之外的任何字符，又因为有一般规则：一个 token 总是尽可能匹配更长，所以一个单行注释总是包含从 // 到行终结符之间的所有字符。然而，在该行末尾的 LineTerminator 不被看成是单行注释的一部分，它被词法文法识别成语法文法输入元素流的一部分。这一点非常重要，因为这意味着是否存在单行注释都不影响自动分号插入进程（见 7.9）。</p>
+<p> 像空白一样，注释会被语法文法简单丢弃，除了 MultiLineComment 包含行终结符字符的情况，这种情况下整个注释会当作一个 LineTerminator 提供给语法文法解析。</p>
+<p> 语法：</p>
+<pre><code><span class="label">Comment</span> :: 
+<span class="keyword">MultiLineComment </span>
+<span class="label">SingleLineComment</span>
+</code></pre><pre><code><span class="keyword">MultiLineComment </span>:: 
+<span class="comment">/* MultiLineCommentCharsopt*/</span>
+</code></pre><pre><code><span class="keyword">MultiLineCommentChars </span>:: 
+<span class="keyword">MultiLineNotAsteriskChar </span><span class="keyword">MultiLineCommentCharsopt </span>
+* PostAsteriskCommentCharsopt
+</code></pre><pre><code><span class="label">PostAsteriskCommentChars</span> :: 
+<span class="keyword">MultiLineNotForwardSlashOrAsteriskChar </span>
+<span class="keyword">MultiLineCommentCharsopt </span>
+* PostAsteriskCommentCharsopt
+</code></pre><pre><code>MultiLineNotAsteriskChar :: 
+SourceCharacter <span class="keyword">but</span> <span class="keyword">not</span> asterisk *
+</code></pre><pre><code>MultiLineNotForwardSlashOrAsteriskChar :: 
+SourceCharacter <span class="keyword">but</span> <span class="keyword">not</span> forward-slash / <span class="keyword">or</span> asterisk *
+</code></pre><pre><code><span class="string">SingleLineComment :</span>: 
+<span class="comment">// SingleLineCommentCharsopt</span>
+</code></pre><pre><code><span class="bullet">SingleLineCommentChars :: 
+</span>SingleLineCommentChar SingleLineCommentCharsopt
+</code></pre><pre><code>SingleLineCommentChar :: 
+SourceCharacter <span class="keyword">but</span> <span class="keyword">not</span> LineTerminator
+</code></pre><p>###7.5 Tokens</p>
+<p> 语法：</p>
+<pre><code>Token :: 
+IdentifierName 
+Punctuator 
+NumericLiteral 
+StringLiteral
+</code></pre><blockquote>
+<p>DivPunctuator 和 RegularExpressionLiteral 产生式定义 tokens ，但 Token 的产生式不包含它们。</p>
+</blockquote>
+<p>###7.6 标识符名和标识符</p>
+<p> 标识符名是 tokens，Unicode 标准第 5 章的“标识符”节给出的文法加入了一些小的修改来解释它。Identifier 是一个 IdentifierName 但不是一个 ReservedWord( 见 7.6.1)。Unicode 标识符文法基于 Unicode 标准指出的 normative 和 informative 字符分类。所有符合 ECMAScript 的实现必须能够正确处理 Unicode 标准 3.0 版本中指定的分类里的字符的分类。</p>
+<p> 本标准增加了个别字符：在 IdentifierName 的任何位置允许出现美元符（$）和下划线（_）。</p>
+<p> IdentifierName 还允许出现 Unicode 转义序列，它们被 UnicodeEscapeSequence 的 CV 计算成单个字符贡献给 IdentifierName（见 7.8.4）。UnicodeEscapeSequence 前面的 \ 不给IdentifierName 贡献字符。UnicodeEscapeSequence 不能提供单个字符给将要成为非法字符的 IdentifierName。换句话说，如果一个 \ UnicodeEscapeSequence 序列被UnicodeEscapeSequence 的 CV 替换，结果必须仍是有效的包含与原 IdentifierName 精确相同字符序列的 IdentifierName。本规范说明的所有标识符是根据它的实际字符，不管转义序列贡献特定字符与否。</p>
+<p> 根据 Unicode 标准两个规范的 IdentifierName 相等，是说除非他们的代码单元序列准确相等，否则不同（换句话说，符合 ECMAScript 的实现只需要按位比较 IdentifierName 值）。其目的是为了传入编译器之前就把源文本转换为正常化形式 C。</p>
+<p> ECMAScript 实现可以识别后续版本 Unicode 标准定义的标识符字符。如果考虑可移植性，程序员应该只采用 Unicode 3.0 中定义的标识符字符。</p>
+<p> 语法：</p>
+<pre><code>Identifier :: 
+IdentifierName <span class="keyword">but</span> <span class="keyword">not</span> ReservedWord
+</code></pre><pre><code><span class="bullet">IdentifierName :: 
+</span>IdentifierStart 
+IdentifierName IdentifierPart
+</code></pre><pre><code><span class="bullet">IdentifierStart :: 
+</span>UnicodeLetter 
+$ 
+_ 
+\ 
+UnicodeEscapeSequence
+</code></pre><pre><code><span class="bullet">IdentifierPart :: 
+</span>IdentifierStart 
+UnicodeCombiningMark 
+UnicodeDigit 
+UnicodeConnectorPunctuation
+</code></pre><pre><code>UnicodeLetter 
+<span class="keyword">any</span> <span class="keyword">character</span> <span class="operator">in</span> <span class="operator">the</span> Unicode categories 
+“Uppercase letter (Lu)”, “Lowercase letter (Ll)”, 
+“Titlecase letter (Lt)”, “Modifier letter (Lm)”, 
+“Other letter (Lo)”,<span class="operator">or</span> “Letter <span class="built_in">number</span> (Nl)”.
+</code></pre><pre><code>UnicodeCombiningMark 
+<span class="built_in">any</span> <span class="type">character</span> <span class="type">in</span> the Unicode categories “Non-<span class="built_in">spacing</span> mark (Mn)”\\\ 
+or “Combining <span class="built_in">spacing</span> mark (Mc)”
+</code></pre><pre><code>UnicodeDigit 
+<span class="built_in">any</span> <span class="type">character</span> <span class="type">in</span> the Unicode category “<span class="keyword">Decimal</span> <span class="keyword">number</span> (Nd)”
+</code></pre><pre><code>UnicodeConnectorPunctuation 
+<span class="keyword">any</span> <span class="keyword">character</span> <span class="operator">in</span> <span class="operator">the</span> Unicode category “Connector punctuation (Pc)”
+</code></pre><pre><code>UnicodeEscapeSequence 
+see <span class="number">7.8</span><span class="number">.4</span>.
+</code></pre><p>###7.6.1保留字</p>
+<p> 保留字不能作为 Identifier 的 IdentifierName。</p>
+<p> 语法</p>
+<pre><code><span class="bullet">ReservedWord :: 
+</span>Keyword FutureReservedWord NullLiteral BooleanLiteral
+</code></pre><p>####7.6.1.1关键词</p>
+<p> 下列 token 是 ECMAScript 的关键词，不能用作 ECMAScript 程序的 Identifiers。</p>
+<p> 语法</p>
+<pre><code>Keyword :: one <span class="keyword">of</span> 
+<span class="keyword">break</span> <span class="keyword">do</span> <span class="keyword">instanceof</span> <span class="keyword">typeof</span> 
+<span class="keyword">case</span> <span class="keyword">else</span> <span class="keyword">new</span> <span class="keyword">var</span> 
+<span class="keyword">catch</span> <span class="keyword">finally</span> <span class="keyword">return</span> <span class="literal">void</span> 
+<span class="keyword">continue</span> <span class="keyword">for</span> <span class="keyword">switch</span> <span class="keyword">while</span> 
+<span class="keyword">debugger</span> <span class="keyword">function</span> <span class="keyword">this</span> <span class="keyword">with</span> 
+<span class="keyword">default</span> <span class="keyword">if</span> <span class="keyword">throw</span> <span class="keyword">delete</span> 
+<span class="keyword">in</span> <span class="keyword">try</span>
+</code></pre><p>####7.6.1.2未来保留字</p>
+<p> 下列词被用作建议扩展关键字，因此保留，以便未来可能采用这些扩展。</p>
+<p> 语法</p>
+<pre><code><span class="type">FutureReservedWord</span> :: one of 
+<span class="class"><span class="keyword">class</span> <span class="title">enum</span> <span class="keyword"><span class="keyword">extends</span></span> <span class="title">super</span> 
+</span>const export <span class="keyword">import</span>
+</code></pre><p> 当下列 tokens 出现在 严格模式代码 (strict mode code )（见 10.1.1）里，将被当成是 FutureReservedWords。任意这些 tokens 出现在任意上下文中的严格模式代码 (strict mode code) 中，如果 FutureReservedWord 出现的位置会产生错误，那么必须抛出对应的异常：</p>
+<pre><code><span class="keyword">implements</span> let <span class="keyword">private</span> <span class="keyword">public</span> yield 
+<span class="keyword">interface</span> <span class="keyword">package</span> <span class="keyword">protected</span> <span class="keyword">static</span>
+</code></pre><p>###7.7 标点符号</p>
+<p> 语法</p>
+<pre><code><span class="bullet">Punctuator :: </span>one of 
+{ } ( ) [ ]
+<span class="bullet">.  </span>; , &lt; &gt; &lt;= 
+&gt;= ==  != ===  !== 
+<span class="code">+ - *  % +</span>+ -- 
+&lt;&lt; &gt;&gt; &gt;&gt;&gt; &amp; | ^  ! ~ &amp;&amp; ||  ?  : 
+<span class="header">= += -= *=  %= &lt;&lt;= </span>
+&gt;&gt;= &gt;&gt;&gt;= &amp;= |= ^=
+</code></pre><pre><code><span class="string">DivPunctuator :</span>: one of <span class="regexp">/ /</span>=
+</code></pre><p>###7.8字面量</p>
+<p> 语法</p>
+<pre><code><span class="label">Literal</span> :: 
+<span class="label">NullLiteral</span> 
+<span class="keyword">BooleanLiteral </span>
+<span class="label">NumericLiteral</span> 
+<span class="keyword">StringLiteral </span>
+<span class="label">RegularExpressionLiteral</span>
+</code></pre><p>####7.8.1空值字面量</p>
+<p> 语法：</p>
+<pre><code><span class="string">NullLiteral :</span>: 
+<span class="literal">null</span>
+</code></pre><p> 语义：</p>
+<p> 空值字面量的值 null，是 Null 类型的唯一值。</p>
+<p>####7.8.2布尔值字面量</p>
+<p> 语法：</p>
+<pre><code><span class="label">BooleanLiteral ::</span> 
+<span class="literal">true</span> <span class="literal">false</span>
+</code></pre><p> 语义：</p>
+<p> 布尔值字面量的值 true 是个布尔类型值 ，即 true。</p>
+<p> 布尔值字面量的值 false 是个布尔类型值 ，即 false。</p>
+<p>###7.8.3 数值字面量</p>
+<p> 语法：</p>
+<pre><code><span class="bullet">NumericLiteral :: 
+</span>DecimalLiteral 
+HexIntegerLiteral
+</code></pre><pre><code><span class="bullet">DecimalLiteral :: 
+</span>DecimalIntegerLiteral . DecimalDigitsopt ExponentPartopt 
+<span class="bullet">. </span>DecimalDigits ExponentPartopt 
+DecimalIntegerLiteral ExponentPartopt
+</code></pre><pre><code><span class="title">DecimalIntegerLiteral</span> :: 
+<span class="number">0</span> 
+N<span class="built_in">on</span>ZeroDigit DecimalDigitsopt
+</code></pre><pre><code><span class="bullet">DecimalDigits :: 
+</span>DecimalDigit 
+DecimalDigits DecimalDigit
+</code></pre><pre><code>DecimalDigit :: one of 
+<span class="number">0</span> <span class="number">1</span> <span class="number">2</span> <span class="number">3</span> <span class="number">4</span> <span class="number">5</span> <span class="number">6</span> <span class="number">7</span> <span class="number">8</span> <span class="number">9</span>
+</code></pre><pre><code>NonZeroDigit :: one of 
+<span class="number">1</span> <span class="number">2</span> <span class="number">3</span> <span class="number">4</span> <span class="number">5</span> <span class="number">6</span> <span class="number">7</span> <span class="number">8</span> <span class="number">9</span>
+</code></pre><pre><code><span class="bullet">ExponentPart :: 
+</span>ExponentIndicator SignedInteger
+</code></pre><pre><code>ExponentIndicator :: <span class="keyword">one</span> of 
+<span class="keyword">e</span> <span class="literal">E</span>
+</code></pre><pre><code><span class="bullet">SignedInteger :: 
+</span>DecimalDigits 
++ DecimalDigits 
+<span class="bullet">- </span>DecimalDigits
+</code></pre><pre><code>HexIntegerLiteral :: 
+<span class="number">0</span>x HexDigit 
+<span class="number">0</span>X HexDigit 
+HexIntegerLiteral HexDigit
+</code></pre><pre><code>HexDigit :: one of 
+<span class="number">0</span> <span class="number">1</span> <span class="number">2</span> <span class="number">3</span> <span class="number">4</span> <span class="number">5</span> <span class="number">6</span> <span class="number">7</span> <span class="number">8</span> <span class="number">9</span> a b c d e f A B C D E F
+</code></pre><p> 源字符中的 NumericLiteral 后面不允许紧跟着 IdentifierStart 或 DecimalDigit。</p>
+<blockquote>
+<p>例如：3in<br> 是错误的，不存在两个输入元素 3 和 in。</p>
+</blockquote>
+<p> 语义：</p>
+<p> 一个数值字面量代表一个 Number 类型的值。此值取决于两个步骤：第一，由字面量得出的数学值 (mathematical value)（MV）；第二，这个数学值按照后面描述的规则舍入。</p>
+<ul>
+<li>NumericLiteral::DecimalLiteral 的 MV 是 DecimalLiteral 的 MV。</li>
+<li>NumericLiteral :: HexIntegerLiteral 的 MV 是 HexIntegerLiteral 的 MV。</li>
+<li>DecimalLiteral :: DecimalIntegerLiteral . 的 MV 是 DecimalIntegerLiteral 的 MV 是。</li>
+<li>DecimalLiteral :: DecimalIntegerLiteral . DecimalDigits 的 MV 是 DecimalIntegerLiteral 的 MV 加上 (DecimalDigits 的 MV 乘 10-n), 这里的 n 是 DecimalDigits 的字符个数。</li>
+<li>DecimalLiteral :: DecimalIntegerLiteral . ExponentPart 的 MV 是 DecimalIntegerLiteral 的 MV 乘 10e, 这里的 e 是 ExponentPart 的 MV。</li>
+<li>DecimalLiteral :: DecimalIntegerLiteral . DecimalDigits ExponentPart 的 MV 是 (DecimalIntegerLiteral 的 MV 加 (DecimalDigits 的 MV 乘 10-n)) 乘 10e, 这里的 n 是 DecimalDigits 的字符个数，e 是 ExponentPart 的 MV。</li>
+<li>DecimalLiteral ::. DecimalDigits 的 MV 是 DecimalDigits 的 MV 乘 10-n, 这里的 n 是 DecimalDigits 的字符个数。</li>
+<li>DecimalLiteral ::. DecimalDigits ExponentPart 的 MV 是 DecimalDigits 的 MV 乘 10e-n, 这里的 n 是 DecimalDigits 的字符个数，e 是 ExponentPart 的 MV。</li>
+<li>DecimalLiteral :: DecimalIntegerLiteral 的 MV 是 DecimalIntegerLiteral 的 MV。</li>
+<li>DecimalLiteral :: DecimalIntegerLiteral ExponentPart 的 MV 是 DecimalIntegerLiteral 的 MV 乘 10e, 这里的 e 是 ExponentPart 的 MV。</li>
+<li>DecimalIntegerLiteral :: 0 的 MV 是 0。</li>
+<li>DecimalIntegerLiteral :: NonZeroDigit DecimalDigits 的 MV 是 (NonZeroDigit 的 MV 乘 10n) 加 DecimalDigits 的 MV, 这里的 n 是 DecimalDigits 的字符个数。</li>
+<li>DecimalDigits :: DecimalDigit 的 MV 是 DecimalDigit 的 MV。</li>
+<li>DecimalDigits :: DecimalDigits DecimalDigit 的 MV 是 (DecimalDigits 的 MV 乘 10) 加 DecimalDigit 的 MV。</li>
+<li>ExponentPart :: ExponentIndicator SignedInteger 的 MV 是 SignedInteger 的 MV。</li>
+<li>SignedInteger :: DecimalDigits 的 MV 是 DecimalDigits 的 MV。</li>
+<li>SignedInteger :: + DecimalDigits 的 MV 是 DecimalDigits 的 MV。</li>
+<li>SignedInteger :: - DecimalDigits 的 MV 是 DecimalDigits 的 MV 取负。</li>
+<li>DecimalDigit :: 0 或 HexDigit :: 0 的 MV 是 0。</li>
+<li>DecimalDigit :: 1 或 NonZeroDigit :: 1 或 HexDigit :: 1 的 MV 是 1。</li>
+<li>DecimalDigit :: 2 或 NonZeroDigit :: 2 或 HexDigit :: 2 的 MV 是 2。</li>
+<li>DecimalDigit :: 3 或 NonZeroDigit :: 3 或 HexDigit :: 3 的 MV 是 3。</li>
+<li>DecimalDigit :: 4 或 NonZeroDigit :: 4 或 HexDigit :: 4 的 MV 是 4。</li>
+<li>DecimalDigit :: 5 或 NonZeroDigit :: 5 或 HexDigit :: 5 的 MV 是 5。</li>
+<li>DecimalDigit :: 6 或 NonZeroDigit :: 6 或 HexDigit :: 6 的 MV 是 6。</li>
+<li>DecimalDigit :: 7 或 NonZeroDigit :: 7 或 HexDigit :: 7 的 MV 是 7。</li>
+<li>DecimalDigit :: 8 或 NonZeroDigit :: 8 或 HexDigit :: 8 的 MV 是 8。</li>
+<li>DecimalDigit :: 9 或 NonZeroDigit :: 9 或 HexDigit :: 9 的 MV 是 9。</li>
+<li>HexDigit :: a 或 HexDigit :: A 的 MV 是 10。</li>
+<li>HexDigit :: b 或 HexDigit :: B 的 MV 是 11。</li>
+<li>HexDigit :: c 或 HexDigit :: C 的 MV 是 12。</li>
+<li>HexDigit :: d 或 HexDigit :: D 的 MV 是 13。</li>
+<li>HexDigit :: e 或 HexDigit :: E 的 MV 是 14。</li>
+<li>HexDigit :: f 或 HexDigit :: F 的 MV 是 15。</li>
+<li>HexIntegerLiteral :: 0x HexDigit 的 MV 是 HexDigit 的 MV。</li>
+<li>HexIntegerLiteral :: 0X HexDigit 的 MV 是 HexDigit 的 MV。</li>
+<li><p>HexIntegerLiteral :: HexIntegerLiteral HexDigit 的 MV 是 (HexIntegerLiteral 的 MV 乘 16) 加 HexDigit 的 MV。</p>
+<p>数值字面量的确切 MV 值一旦被确定，它就会舍入成 Number 类型的值。如果 MV 是 0，那么舍入值是 +0；否则，舍入值必须是 MV 对应的准确数字值（8.5 中定义），除非此字面量是有效数字超过 20 位的 DecimalLiteral，这种情况下，数字值可以用下面两种方式产生的 MV 值确定：一，将 20 位后的每个有效数字用 0 替换后产生的 MV，二，将 20 位后的每个有效数字用 0 替换，并且递增第 20 位有效数字位置的字面量值，产生的 MV。如果一个数字是 ExponentPart 的一部分，并且：</p>
+</li>
+<li><p>它不是 0；或</p>
+</li>
+<li><p>它的左侧是非零数字，它的右侧是不在 ExponentPart 的非零数字。</p>
+<p>符合标准的实现，在处理严格模式代码（见 10.1.1）时，按照 B.1.1 的描述，不得扩展 NumericLiteral 包含 OctalIntegerLiteral 的语法。</p>
+</li>
+</ul>
+<p>7.8.4 字符串字面量</p>
+<p> 一个字符串字面量是关闭的单引号或双引号里的零个或多个字符。每个字符都可以用一个转义序列代表。除了闭合银行字符，反斜杠，回车，行分隔符，段落分隔符，换行符之外的所有字符都可以直接出现的字符串字面量里。任何字符都可以通过转移序列的形式出现。</p>
+<p> 语法</p>
+<pre><code><span class="rule"><span class="attribute">StringLiteral </span>:<span class="value">: 
+<span class="string">" DoubleStringCharactersopt "</span> 
+<span class="string">' SingleStringCharactersopt '</span></span></span>
+</code></pre><pre><code><span class="bullet">DoubleStringCharacters :: 
+</span>DoubleStringCharacter DoubleStringCharactersopt
+</code></pre><pre><code><span class="bullet">SingleStringCharacters :: 
+</span>SingleStringCharacter SingleStringCharactersopt
+</code></pre><pre><code>DoubleStringCharacter <span class="comment">:: </span>
+SourceCharacter but <span class="keyword">not</span> double-quote " <span class="keyword">or</span> backslash \ <span class="keyword">or</span> LineTerminator 
+\ EscapeSequence 
+LineContinuation
+</code></pre><pre><code>SingleStringCharacter :: 
+SourceCharacter <span class="keyword">but</span> <span class="keyword">not</span> single-<span class="constant">quote</span> ' <span class="keyword">or</span> backslash \ <span class="keyword">or</span> LineTerminator 
+\ EscapeSequence 
+LineContinuation
+</code></pre><pre><code><span class="bullet">LineContinuation :: 
+</span>\ LineTerminatorSequence
+</code></pre><pre><code><span class="bullet">EscapeSequence :: 
+</span>CharacterEscapeSequence 
+0 [lookahead ∉ DecimalDigit] 
+HexEscapeSequence 
+UnicodeEscapeSequence
+</code></pre><pre><code><span class="title">CharacterEscapeSequence</span> :: 
+SingleEscapeCharacter 
+N<span class="built_in">on</span>EscapeCharacter
+</code></pre><pre><code>SingleEscapeCharacter :: <span class="constant">one</span> <span class="operator">of</span> 
+<span class="string">' " \ b f n r t v</span>
+</code></pre><pre><code>NonEscapeCharacter :: 
+SourceCharacter <span class="keyword">but</span> <span class="keyword">not</span> EscapeCharacter <span class="keyword">or</span> LineTerminator
+</code></pre><pre><code><span class="bullet">EscapeCharacter :: 
+</span>SingleEscapeCharacter
+DecimalDigit 
+x 
+u
+</code></pre><pre><code><span class="bullet">HexEscapeSequence :: 
+</span>x HexDigit HexDigit
+</code></pre><pre><code><span class="bullet">UnicodeEscapeSequence :: 
+</span>u HexDigit HexDigit HexDigit HexDigit
+</code></pre><p> 7.6 给出了 HexDigit 非终结符的定义。 第 6 章 定义了 SourceCharacter。</p>
+<p> 语义</p>
+<p> 一个字符串字面量代表一个 String 类型的值。字面量的字符串值 (SV) 由字符串字面量各部分贡献的字符值 (CV) 描述。作为这一过程的一部分，字符字面量里的某些字符字符会被解释成包含数学值 (MV)，如 7.8.3 和下面描述的。</p>
+<ul>
+<li>StringLiteral :: “” 的 SV 是空字符序列。</li>
+<li>StringLiteral :: 的 SV 是空字符序列。</li>
+<li>StringLiteral :: “ DoubleStringCharacters “ 的 SV 是 DoubleStringCharacters 的 SV。</li>
+<li>StringLiteral :: ‘ SingleStringCharacters ‘ 的 SV 是 SingleStringCharacters 的 SV。</li>
+<li>DoubleStringCharacters :: DoubleStringCharacter 的 SV 是包含一个字符的序列，此字符的 CV 是 DoubleStringCharacter 的 CV。</li>
+<li>DoubleStringCharacters :: DoubleStringCharacter DoubleStringCharacters 的 SV 是 （DoubleStringCharacter 的 CV 后面跟着 - - - DoubleStringCharacters 的 SV 里所有字符的）序列。</li>
+<li>SingleStringCharacters :: SingleStringCharacter 的 SV 是包含一个字符的序列，此字符的 CV 是 SingleStringCharacter 的 CV。</li>
+<li>SingleStringCharacters :: SingleStringCharacter SingleStringCharacters 的 SV 是（SingleStringCharacter 的 CV 后面跟着 SingleStringCharacters 的 SV 里所有字符的）序列。</li>
+<li>LineContinuation :: \ LineTerminatorSequence 的 SV 是空字符序列。</li>
+<li>DoubleStringCharacter :: SourceCharacter but not double-quote “ or backslash \ or LineTerminator 的 CV 是 SourceCharacter 字符自身。</li>
+<li>DoubleStringCharacter :: \ EscapeSequence 的 CV 是 EscapeSequence 的 CV。</li>
+<li>DoubleStringCharacter :: LineContinuation 的 CV 是空字符序列。</li>
+<li>SingleStringCharacter :: SourceCharacter but not single-quote ‘ or backslash \ or LineTerminator 的 CV 是 SourceCharacter 字符自身。</li>
+<li>SingleStringCharacter :: \ EscapeSequence 的 CV 是 EscapeSequence 的 CV。</li>
+<li>SingleStringCharacter :: LineContinuation 的 CV 是空字符序列。<br>-EscapeSequence :: CharacterEscapeSequence 的 CV 是 CharacterEscapeSequence 的 CV。</li>
+<li>EscapeSequence :: 0 [lookahead ∉ DecimalDigit] 的 CV 是 字符（Unicode 值 0000）。</li>
+<li>EscapeSequence :: HexEscapeSequence 的 CV 是 HexEscapeSequence 的 CV。</li>
+<li>EscapeSequence :: UnicodeEscapeSequence 的 CV 是 UnicodeEscapeSequence 的 CV。<br>-CharacterEscapeSequence ::SingleEscapeCharacter 的 CV 是表格 4 里的 SingleEscapeCharacter 确定的代码单元值字符：</li>
+</ul>
+<p>表4–字符串单字符转义序列</p>
+<table>
+<thead>
+<tr>
+<th>转义序列</th>
+<th>字符编码值</th>
+<th>名称</th>
+<th>符号</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>\b</td>
+<td>\u0008</td>
+<td>回格</td>
+<td>\<BS></td>
+</tr>
+<tr>
+<td>\t</td>
+<td>\u0009</td>
+<td>水平制表符</td>
+<td>\<HT></td>
+</tr>
+<tr>
+<td>\n</td>
+<td>\u000A</td>
+<td>进行（新行）</td>
+<td>\    <LF></td>
+</tr>
+<tr>
+<td>\v</td>
+<td>\u000B</td>
+<td>竖直制表符</td>
+<td>\<VT></td>
+</tr>
+<tr>
+<td>\f</td>
+<td>\u000C</td>
+<td>进纸</td>
+<td>\<FF></td>
+</tr>
+<tr>
+<td>\r</td>
+<td>\u000D</td>
+<td>回车</td>
+<td>\<CR></td>
+</tr>
+<tr>
+<td>\”</td>
+<td>\u0022</td>
+<td>双引号</td>
+<td>\    “</td>
+</tr>
+<tr>
+<td>\’</td>
+<td>\u0027</td>
+<td>单引号</td>
+<td>\’</td>
+</tr>
+<tr>
+<td>\</td>
+<td>\u005C</td>
+<td>反斜杠</td>
+<td>\</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>CharacterEscapeSequence :: NonEscapeCharacter 的 CV 是 NonEscapeCharacter 的 CV.</li>
+<li>NonEscapeCharacter :: SourceCharacter but not EscapeCharacter or LineTerminator 的 CV 是 SourceCharacter 字符自身 .</li>
+<li>HexEscapeSequence :: x HexDigit HexDigit 的 CV 是 ((16 乘第一个 HexDigit 的 MV) 加第二个 HexDigit 的 MV) 代码单元确定的字符。</li>
+<li><p>UnicodeEscapeSequence :: u HexDigit HexDigit HexDigit HexDigit 的 CV 是 (4096 乘第一个 HexDigit 的 MV) 加 (256 乘第二个 HexDigit 的 MV) 加 (16 乘第三个 HexDigit 的 MV) 加 ( 第四个 HexDigit 的 MV) 代码单元确定的字符。</p>
+<p>符合标准的实现，在处理严格模式代码（见 10.1.1）时，按照 B.1.2 的描述，不得扩展 EscapeSequence 包含 OctalEscapeSequence 的语法。</p>
+<p>行终结符不能出现在字符串字面量里，除非它成为 LineContinuation 的一部分产生空字符序列。让字符串字面量的字符串值包含行终结符的正确方法是使用转义序列，如 \n或 \u000A。</p>
+</li>
+</ul>
+<p>正则表达式字面量</p>
+<p> 正则表达式字面量是输入元素，每当字面量被评估时会转换为 RegExp 对象（见 15.10）。当一个程序中有两个正则表达式字面量评估成正则表达式对象，不能用 === 比较他们是否相等，即使两个字面量包含相同内容。RegExp 对象也可以在运行时使用 new RegExp（见 15.10.4）或以函数方式调用 RegExp 构造器来创建（见 15.10.3）。</p>
+<p> 下面的产生式描述了正则表达式字面量的语法，输入元素扫描器还用它搜索正则表达式字面量的结束位置。RegularExpressionBody 和 RegularExpressionFlags 包含的字符组成的字符串会直接传递给正则表达式构造器，在那里用更严格文法进行解析。一个实现可以扩展正则表达式构造器的文法。但它不能扩展 RegularExpressionBody 和 RegularExpressionFlags 产生式或使用这些产生式的产生式。</p>
+<p> 语法</p>
+<pre><code><span class="label"> RegularExpressionLiteral ::</span> / RegularExpressionBody / RegularExpressionFlags 
+<span class="label"> RegularExpressionBody ::</span> RegularExpressionFirstChar RegularExpressionChars 
+<span class="label">RegularExpressionChars ::</span> [empty] RegularExpressionChars RegularExpressionChar
+<span class="label">RegularExpressionFirstChar ::</span> RegularExpressionNonTerminator but <span class="literal">not</span> *<span class="literal">or</span> \<span class="literal">or</span> / <span class="literal">or</span> [ RegularExpressionBackslashSequence RegularExpressionClass
+<span class="label">RegularExpressionChar ::</span> RegularExpressionNonTerminator but <span class="literal">not</span> \<span class="literal">or</span> / <span class="literal">or</span> [ RegularExpressionBackslashSequence RegularExpressionClass
+<span class="label"> RegularExpressionBackslashSequence ::</span> \ RegularExpressionNonTerminator 
+<span class="label"> RegularExpressionNonTerminator ::</span> SourceCharacter but <span class="literal">not</span> LineTerminator 
+<span class="label"> RegularExpressionClass ::</span> [ RegularExpressionClassChars ] 
+<span class="label"> RegularExpressionClassChars ::</span> [empty] 
+<span class="label"> RegularExpressionClassChars RegularExpressionClassChar RegularExpressionClassChar ::</span> RegularExpressionNonTerminator but <span class="literal">not</span> ]<span class="literal">or</span> \ RegularExpressionBackslashSequence 
+<span class="label">RegularExpressionFlags ::</span> [empty] RegularExpressionFlags IdentifierPart
+</code></pre><p> 正则表达式字面量不能为空；并不是说正则表达式字面量不能代表空，字符 // 会启动一个单行注释。要指定一个空正则，使用：/(?:)/。</p>
+<p> 语义</p>
+<p> 正则表达式字面量会评估为一个 Object 类型值，它是标准内置构造器 RegExp 的一个实例。此值取决于两个步骤：首先，展开组成正则表达式产生式 RegularExpressionBody 和RegularExpressionFlags 的字符，将其以未解析形式分别存成两个字符串 Pattern 和 Flags。然后，在每次评估字面量时创建新对象，仿佛使用 new RegExp(Pattern, Flags) 一样，这里的 RegExp 是标准内置构造器名。新构造的对象将成为 RegularExpressionLiteral 的值。如果调用 new RegExp 会产生 15.10.4.1 指定的错误，那么必须把错误当作是早期错误 ( 见 第 16 章 )。</p>
+<p>###7.9 自动分号插入</p>
+<p> 必须用分号终止某些 ECMAScript 语句 ( 空语句 , 变量声明语句 , 表达式语句 , do-while 语句 , continue 语句 , break 语句 , return 语句 ,throw 语句 )。这些分号总是明确的显示在源文本里。然而，为了方便起见，某些情况下这些分号可以在源文本里省略。描述这种情况会说：这种情况下给源代码的 token 流自动插入分号。</p>
+<p>####7.9.1自动分号插入规则</p>
+<p> 分号插入有三个基本规则：</p>
+<p>1.左到右解析程序，当遇到一个不符合任何文法产生式的 token（叫做 违规 token(offending token)），那么只要满足下面条件之一就在违规 token 前面自动插入分号。</p>
+<pre><code>-<span class="ruby"> 至少一个 <span class="constant">LineTerminator</span> 分割了违规 token 和前一个 token。
+</span>-<span class="ruby"> 违规 token 是 }。</span>
+</code></pre><p>2.左到右解析程序，tokens 输入流已经结束，当解析器无法将输入 token 流解析成单个完整 ECMAScript 程序 ，那么就在输入流的结束位置自动插入分号。</p>
+<p>3.左到右解析程序，遇到一个某些文法产生式允许的 token，但是此产生式是受限产生式，受限产生式的里紧跟在 no LineTerminator here 后的第一个终结符或非终结符的 token 叫做受限的 token，当至少一个 LineTerminator 分割了受限的 token 和前一个 token，那么就在受限 token 前面自动插入分号。</p>
+<p> 然而，上述规则有一个附加的优先条件：如果插入分号后解析结果是空语句，或如果插入分号后它成为 for 语句头部的两个分号之一（见 12.6.3），那么不会自动插入分号。</p>
+<p> 注:文法里的受限产生式只限以下：</p>
+<pre><code><span class="title">PostfixExpression</span> : 
+LeftHandSideExpression [<span class="built_in">no</span> LineTerminator here] ++ LeftHandSideExpression [<span class="built_in">no</span> LineTerminator here] --
+</code></pre><pre><code><span class="rule"><span class="attribute">ContinueStatement </span>:<span class="value">
+ continue [no LineTerminator here] Identifier</span></span>;
+</code></pre><pre><code><span class="rule"><span class="attribute">BreakStatement </span>:<span class="value"> 
+break [no LineTerminator here] Identifier</span></span>;
+</code></pre><pre><code><span class="rule"><span class="attribute">ReturnStatement </span>:<span class="value"> 
+return [no LineTerminator here] Expression</span></span>;
+</code></pre><pre><code><span class="rule"><span class="attribute">ThrowStatement </span>:<span class="value"> 
+throw [no LineTerminator here] Expression</span></span>;
+</code></pre><p> 这些受限产生式的实际效果如下：</p>
+<p> 当遇到的 ++ 或 –token 将要被解析器当作一个后缀运算符，并且至少有一个 LineTerminator 出现 ++ 或 –token 和它之前的 token 之间，那么在 ++ 或 –token 前面自动插入一个分号。</p>
+<p> 当遇到 continue, break, return, throw token，并且在下一个 token 前面遇到 LineTerminator，那么在 continue, break, return, throw token 后面自动插入一个分号。</p>
+<p> 这对 ECMAScript 程序员的实际影响是：</p>
+<p> 后缀运算符 ++ 或 – 和它的操作数应该出现在同一行。</p>
+<p> return 或 throw 语句的表达式开始位置应该和 return 或 throw token 同一行。</p>
+<p> break 或 continue 语句的标示符应该和 break 或 continue token 同一行。</p>
+<p>####7.9.2自动分号插入的例子</p>
+<p> 源代码：</p>
+<pre><code>{ <span class="number">1</span> <span class="number">2</span> } <span class="number">3</span>
+</code></pre><p> 即使在自动分号插入规则下，它也不符合 ECMAScript 文法。做为对比，源代码：</p>
+<pre><code>{ <span class="number">1</span> <span class="number">2</span> } <span class="number">3</span>
+</code></pre><p> 它还是不符合 ECMAScript 文法，但是它会被自动分号插入成为一下形式：</p>
+<pre><code>{ <span class="number">1</span>  ;<span class="number">2</span> ;} <span class="number">3</span>;
+</code></pre><p> 这符合 ECMAScript 文法。</p>
+<p> 源代码：</p>
+<pre><code>for <span class="comment">(a; b )</span>
+</code></pre><p> 不符合 ECMAScript 文法，并且不会被自动分号插入所更改，因为 for 语句头部需要分号。自动分号插入从来不会插入成 for 语句头部的两个分号之一。</p>
+<p> 源代码：</p>
+<pre><code><span class="keyword">return</span> <span class="literal">a</span> + b
+</code></pre><p> 会被自动分号插入转换成以下形式：</p>
+<pre><code><span class="keyword">return</span><span class="comment">; a + b;</span>
+</code></pre><p> 表达式 a + b 不会被当做是 return 语句要返回的值，因为有一个 LineTerminator 分割了它和 return token。</p>
+<p> 源代码：</p>
+<pre><code><span class="tag">a</span> = <span class="tag">b</span> ++c
+</code></pre><p> 会被自动分号插入转换成以下形式：</p>
+<pre><code>a = <span class="keyword">b; </span>++c<span class="comment">;</span>
+</code></pre><p> ++token 不会被当做应用于变量 b 的后缀运算符，因为 b 和 ++ 之间出现了一个 LineTerminator。</p>
+<p> 源代码：</p>
+<pre><code><span class="keyword">if</span> (<span class="tag">a</span> &gt; b) <span class="keyword">else</span> c = d
+</code></pre><p> 它不符合 ECMAScript 文法 ，else token 前面不会被自动分号插入改变，即使没有文法产生式适用这一位置，因为自动插入分号后会解析成空语句。</p>
+<p> 源代码：</p>
+<pre><code><span class="tag">a</span> = <span class="tag">b</span> + c (d + e).<span class="function"><span class="title">print</span><span class="params">()</span></span>
+</code></pre><p> 它不会被自动分号插入改变，因为第二行开始位置的括号表达式可以解释成函数调用的参数列表：</p>
+<pre><code><span class="tag">a</span> = <span class="tag">b</span> + <span class="function"><span class="title">c</span><span class="params">(d + e)</span></span>.<span class="function"><span class="title">print</span><span class="params">()</span></span>
+</code></pre><p> 在赋值语句必须用左括号开头的情况下，程序员在前面语句的结束位置明确的提供一个分号是个好主意，而不是依赖于自动分号插入。</p>
