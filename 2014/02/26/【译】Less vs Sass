@@ -190,6 +190,13 @@ Sass和Less的争论可以结束了.在本文我将解释为什么Sass真的比�
 
         
           
+            <span class="post-comments-count">
+            &nbsp; | &nbsp;
+            <a href="/2014/02/26/【译】Less vs Sass? 是时候选择Sass了/#comments" itemprop="discussionUrl">
+              <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2014/02/26/【译】Less vs Sass? 是时候选择Sass了/" itemprop="commentsCount"></span>
+            </a>
+          </span>
+          
         
       </div>
     </header>
@@ -268,6 +275,10 @@ Sass和Less的争论可以结束了.在本文我将解释为什么Sass真的比�
 
         
           <div class="comments" id="comments">
+            
+              <div id="disqus_thread">
+                <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+              </div>
             
           </div>
         
@@ -397,6 +408,27 @@ Sass和Less的争论可以结束了.在本文我将解释为什么Sass真的比�
     
     
 
+  
+
+    <script type="text/javascript">
+      var disqus_shortname = 'g07hic';
+      var disqus_identifier = '2014/02/26/【译】Less vs Sass? 是时候选择Sass了/';
+      var disqus_title = '【译】Less vs Sass? 是时候选择Sass了';
+      var disqus_url = 'http://blog.yongyuan.us/2014/02/26/【译】Less vs Sass? 是时候选择Sass了/';
+
+      function run_disqus_script(disqus_script){
+        var dsq = document.createElement('script');
+        dsq.type = 'text/javascript';
+        dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      }
+
+      run_disqus_script('count.js');
+      
+        run_disqus_script('embed.js');
+      
+    </script>
   
 
 
