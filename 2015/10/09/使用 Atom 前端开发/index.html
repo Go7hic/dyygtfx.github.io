@@ -39,28 +39,16 @@
   <link rel="shorticon icon" type="image/x-icon" href="/favicon.ico?v=0.4.5.1" />
 
 
-<meta name="description" content="之前很早用 jQuery 的时候就遇到这个问题，想写篇文章来研究一下这两个的区别。但是只在印象笔记里开了个头就没继续了。刚好前段时间看到 winter 在微博上写了篇短文，我就直接参考啦。
-一、概述
-attribute和property是常常被弄混的两个概念。
-简单来说，property则是JS代码里访问的：
-document.getElementByTagName(&apos;my-element&apos;).p">
+<meta name="description" content="编辑器之战是程序员之间永不停歇的战争，如果说 vi 和 Emacs 是所有程序员之间的战争，那么 sublimeText 和 Atom 则可能是 web 开发届的编辑器之战。你要做个调查做前端开发的用什么编辑器最多，我相信现在还是 sublimeText 最多，但是 Atom 作为 Github 出品的编辑器也收买了大量的前端人员的心，越来越多的前端开始从 sublimeText 转向 Atom。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="attribute 和 property 的区别">
-<meta property="og:url" content="http://blog.yongyuan.us/2015/07/05/attribute 和 property 的区别/index.html">
+<meta property="og:title" content="使用 Atom 前端开发">
+<meta property="og:url" content="http://blog.yongyuan.us/2015/10/09/使用 Atom 前端开发/index.html">
 <meta property="og:site_name" content="Go7hic">
-<meta property="og:description" content="之前很早用 jQuery 的时候就遇到这个问题，想写篇文章来研究一下这两个的区别。但是只在印象笔记里开了个头就没继续了。刚好前段时间看到 winter 在微博上写了篇短文，我就直接参考啦。
-一、概述
-attribute和property是常常被弄混的两个概念。
-简单来说，property则是JS代码里访问的：
-document.getElementByTagName(&apos;my-element&apos;).p">
-<meta property="og:updated_time" content="2015-09-04T17:31:45.000Z">
+<meta property="og:description" content="编辑器之战是程序员之间永不停歇的战争，如果说 vi 和 Emacs 是所有程序员之间的战争，那么 sublimeText 和 Atom 则可能是 web 开发届的编辑器之战。你要做个调查做前端开发的用什么编辑器最多，我相信现在还是 sublimeText 最多，但是 Atom 作为 Github 出品的编辑器也收买了大量的前端人员的心，越来越多的前端开始从 sublimeText 转向 Atom。">
+<meta property="og:updated_time" content="2015-10-27T16:42:15.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="attribute 和 property 的区别">
-<meta name="twitter:description" content="之前很早用 jQuery 的时候就遇到这个问题，想写篇文章来研究一下这两个的区别。但是只在印象笔记里开了个头就没继续了。刚好前段时间看到 winter 在微博上写了篇短文，我就直接参考啦。
-一、概述
-attribute和property是常常被弄混的两个概念。
-简单来说，property则是JS代码里访问的：
-document.getElementByTagName(&apos;my-element&apos;).p">
+<meta name="twitter:title" content="使用 Atom 前端开发">
+<meta name="twitter:description" content="编辑器之战是程序员之间永不停歇的战争，如果说 vi 和 Emacs 是所有程序员之间的战争，那么 sublimeText 和 Atom 则可能是 web 开发届的编辑器之战。你要做个调查做前端开发的用什么编辑器最多，我相信现在还是 sublimeText 最多，但是 Atom 作为 Github 出品的编辑器也收买了大量的前端人员的心，越来越多的前端开始从 sublimeText 转向 Atom。">
 
 
 <script type="text/javascript" id="hexo.configuration">
@@ -70,7 +58,7 @@ document.getElementByTagName(&apos;my-element&apos;).p">
   };
 </script>
 
-  <title> attribute 和 property 的区别 | Go7hic </title>
+  <title> 使用 Atom 前端开发 | Go7hic </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -177,7 +165,7 @@ document.getElementByTagName(&apos;my-element&apos;).p">
           
           
             
-              attribute 和 property 的区别
+              使用 Atom 前端开发
             
           
         </h1>
@@ -186,8 +174,8 @@ document.getElementByTagName(&apos;my-element&apos;).p">
       <div class="post-meta">
         <span class="post-time">
           发表于
-          <time itemprop="dateCreated" datetime="2015-07-05T11:21:04+08:00" content="2015-07-05">
-            2015-07-05
+          <time itemprop="dateCreated" datetime="2015-10-09T11:21:04+08:00" content="2015-10-09">
+            2015-10-09
           </time>
         </span>
 
@@ -197,8 +185,8 @@ document.getElementByTagName(&apos;my-element&apos;).p">
           
             <span class="post-comments-count">
             &nbsp; | &nbsp;
-            <a href="/2015/07/05/attribute 和 property 的区别/#comments" itemprop="discussionUrl">
-              <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2015/07/05/attribute 和 property 的区别/" itemprop="commentsCount"></span>
+            <a href="/2015/10/09/使用 Atom 前端开发/#comments" itemprop="discussionUrl">
+              <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2015/10/09/使用 Atom 前端开发/" itemprop="commentsCount"></span>
             </a>
           </span>
           
@@ -212,95 +200,13 @@ document.getElementByTagName(&apos;my-element&apos;).p">
       
 
       
-        <span itemprop="articleBody"><p>之前很早用 jQuery 的时候就遇到这个问题，想写篇文章来研究一下这两个的区别。但是只在印象笔记里开了个头就没继续了。刚好前段时间看到 winter 在微博上写了篇短文，我就直接参考啦。</p>
-<p>一、概述</p>
-<p>attribute和property是常常被弄混的两个概念。</p>
-<p>简单来说，property则是JS代码里访问的：</p>
-<pre><code><span class="built_in">document</span>.getElementByTagName(<span class="string">'my-element'</span>).prop1 = <span class="string">'hello'</span>;
-</code></pre><p>attribute类似这种：</p>
-<pre><code>&lt;<span class="keyword">my</span>-element attr1=<span class="string">"cool"</span> /&gt;
-</code></pre><p>JS代码里访问attribute的方式是getAttribute和setAttribute：</p>
-<pre><code><span class="built_in">document</span>.getElementByTagName(<span class="string">'my-element'</span>).setAttribute(<span class="string">'attr1'</span>,<span class="string">'Hello'</span>);
-<span class="built_in">document</span>.getElementByTagName(<span class="string">'my-element'</span>).getAttribute(<span class="string">'attr1'</span>,<span class="string">'Hello'</span>);
-</code></pre><p>二、区别</p>
-<p>多数情况下，两者是等效的。在web标准中，常常会规定某attribute“反射”了同名的property。但是例外的情况还是不少的。</p>
-<ol>
-<li>名字不一致</li>
-</ol>
-<p>最典型的是className，为了回避JavaScript保留字，JS中跟class attribute对应的property是className。</p>
-<pre><code><span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"cls1 cls2"</span>&gt;</span><span class="tag">&lt;/<span class="title">div</span>&gt;</span>
-<span class="tag">&lt;<span class="title">script</span>&gt;</span><span class="javascript">
-    <span class="keyword">var</span> div = <span class="built_in">document</span>.getElementByTagName(<span class="string">'div'</span>);
-    div.className <span class="comment">//cls1 cls2</span>
-&lt;<span class="regexp">/scrpit&gt;</span></span>
-</code></pre><ol>
-<li>类型不一致</li>
-</ol>
-<p>最典型的是style，不接受字符串型赋值。</p>
-<pre><code><span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"cls1 cls2"</span> <span class="attribute">style</span>=<span class="value">"color:blue"</span> &gt;</span><span class="tag">&lt;/<span class="title">div</span>&gt;</span>
-<span class="tag">&lt;<span class="title">script</span>&gt;</span><span class="javascript">
-    <span class="keyword">var</span> div = <span class="built_in">document</span>.getElementByTagName(<span class="string">'div'</span>);
-    div.style <span class="comment">// 对象</span>
-&lt;<span class="regexp">/scrpit&gt;</span></span>
-</code></pre><ol>
-<li>语义不一致</li>
-</ol>
-<p>如a元素的href属性。</p>
-<pre><code><span class="tag">&lt;<span class="title">a</span> <span class="attribute">href</span>=<span class="value">"//m.taobao.com"</span> &gt;</span><span class="tag">&lt;/<span class="title">div</span>&gt;</span>
-<span class="tag">&lt;<span class="title">script</span>&gt;</span><span class="javascript">
-    <span class="keyword">var</span> a = <span class="built_in">document</span>.getElementByTagName(<span class="string">'a'</span>);
-    a.href <span class="comment">// “http://m.taobao.com”，这个url是resolve过的结果</span>
-    a.getAttribute(<span class="string">'href'</span>) <span class="comment">//  “//m.taobao.com”，跟HTML代码中完全一致</span>
-&lt;<span class="regexp">/scrpit&gt;</span></span>
-</code></pre><ol>
-<li>单向同步关系</li>
-</ol>
-<p>value是一个极为特殊的attribute/property。</p>
-<pre><code>&lt;input <span class="keyword">value</span> = <span class="string">"cute"</span> /&gt;
-&lt;script&gt;
-    <span class="keyword">var</span> input = document.getElementByTagName(<span class="string">'input'</span>);
-    <span class="comment">//若property没有设置，则结果是attribute</span>
-    input.<span class="keyword">value</span> <span class="comment">//cute</span>
-    input.getAttribute(<span class="string">'value'</span>); <span class="comment">//cute</span>
-
-    input.<span class="keyword">value</span> = <span class="string">'hello'</span>;
-    <span class="comment">//若value属性已经设置，则attribute不变，property变化，元素上实际的效果是property优先</span>
-    input.<span class="keyword">value</span> <span class="comment">//hello</span>
-    input.getAttribute(<span class="string">'value'</span>); <span class="comment">//cute</span>
-&lt;/scrpit&gt;
-</code></pre><p>除此之外，checkbox的显示状态由checked和indeterminate两个property决定，而只有一个名为checked的property，这种情况下property是更完善的访问模型。</p>
-<p>三、特殊场景</p>
-<p>1.mutation</p>
-<p>使用mutation observer，只能监测到attribute变化。</p>
-<p>  var observer = new MutationObserver(function(mutations){<br>      for(var i = 0; i &lt; mutations.length; i++) {<br>          var mutation = mutations[i];<br>          console.log(mutation.attributeName);<br>      }<br>  });<br>  observer.observe(element,{attributes:true});<br>  element.prop1 = ‘aa’ // 不会触发<br>  element.setAttribute(‘attr1’, ‘aa’) //会触发<br>2.custom element</p>
-<p>在使用WebComponents时，可以定义attribute和property，两者可以互相反射，也可以全无关联。</p>
-<pre><code><span class="keyword">var</span> MyElementProto = <span class="built_in">Object</span>.create(HTMLElement.prototype, {
-    createdCallback : { 
-        value : <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>{  }
-    }
-});
-
-<span class="comment">//定义property</span>
-<span class="built_in">Object</span>.defineProperty(MyElementProto,<span class="string">'prop1'</span>, {
-    get:<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>{
-        <span class="keyword">return</span> <span class="comment">//</span>
-    },
-    set:<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>{
-        <span class="built_in">console</span>.log(<span class="string">'property change'</span>);<span class="comment">//do something</span>
-    }
-});
-
-<span class="comment">//定义attribute</span>
-MyElementProto.attributeChangedCallback = <span class="function"><span class="keyword">function</span>(<span class="params">attr, oldVal, newVal</span>) </span>{
-    <span class="keyword">if</span>(attr === <span class="string">'attr1'</span>) {
-        <span class="built_in">console</span>.log(<span class="string">'attribute change'</span>);<span class="comment">//do something</span>
-    }
-};
-
-<span class="built_in">window</span>.MyElement = <span class="built_in">document</span>.registerElement(<span class="string">'my-element'</span>, {
-    prototype: MyElementProto
-});
-</code></pre></span>
+        <span itemprop="articleBody"><p>编辑器之战是程序员之间永不停歇的战争，如果说 vi 和 Emacs 是所有程序员之间的战争，那么 sublimeText 和 Atom 则可能是 web 开发届的编辑器之战。<br>你要做个调查做前端开发的用什么编辑器最多，我相信现在还是 sublimeText 最多，但是 Atom 作为 Github 出品的编辑器也收买了大量的前端人员的心，越来越多的前端<br>开始从 sublimeText 转向 Atom。论优雅 Atom 有过之而无不及，论插件扩展， Atom 则更加灵活了，而且还是用前端语言来写的，厉害一点的前端完全可以自己写自己需要的 Atom 插件，但是 sublimeText 的扩展是 python 写的，而且安装扩展的源好像被封了（不知道现在好了咩），要改 Host 才能安装，且不论自带的 markdown 功能完全可以当 markdown 编辑器使用，自带补全也比 sublimeText强的多，当然这是说自带，插件实现的话两者都很强。<br>当然 Atom 一直被诟病的一点就是启动慢，但是我相信程序员的电脑配置不会太差吧，这点速度差别还是可以接收的，而且我用了一段时间的 Atom 完全不觉得这有啥影响，完全可以忽略这启动速度的差别。<br>这里再提一下 webstrom 这个 IDE，虽然是个 IDE ,但是在前端圈也有人喜欢用，因为提示什么的都很智能，但是我想说 Atom 自带 jshint 效果，完全可以智能检查提示你的代码<br>，所以这个完全可以放弃 webstrom。</p>
+<p>好了，不扯那么多了，作为一名前端，从最开始的 vim，到后面一直用 sublimeText2/3，到现在使用 Atom。我觉得好马配好鞍，程序员肯定就的用自己最喜欢的最好用的编辑器来写代码，而且 sublimeText 和 Atom 的很多快捷键基本相同，所以根本没啥学习成本。</p>
+<p>安装使用很简单，我也不写教程了，这里记录一下我现在用到的一些 Atom 插件吧，直接在终端 <code>apm list</code> 即可看到。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">├── angularjs@<span class="number">0.3</span><span class="number">.3</span></span><br><span class="line">├── atom-jade@<span class="number">0.3</span><span class="number">.0</span></span><br><span class="line">├── atom-jshint@<span class="number">2.0</span><span class="number">.0</span></span><br><span class="line">├── atom-material-ui@<span class="number">0.6</span><span class="number">.2</span></span><br><span class="line">├── css-snippets@<span class="number">0.9</span><span class="number">.0</span></span><br><span class="line">├── docblockr@<span class="number">0.7</span><span class="number">.3</span></span><br><span class="line">├── emmet@<span class="number">2.3</span><span class="number">.13</span></span><br><span class="line">├── file-icons@<span class="number">1.6</span><span class="number">.11</span></span><br><span class="line">├── jshint@<span class="number">1.8</span><span class="number">.1</span></span><br><span class="line">├── minimap@<span class="number">4.15</span><span class="number">.0</span></span><br><span class="line">├── open-in-browser@<span class="number">0.4</span><span class="number">.6</span></span><br><span class="line">├── react@<span class="number">0.12</span><span class="number">.10</span></span><br><span class="line">├── <span class="built_in">set</span>-syntax@<span class="number">0.3</span><span class="number">.0</span></span><br><span class="line">└── toggle-quotes@<span class="number">0.11</span><span class="number">.3</span></span><br></pre></td></tr></table></figure>
+<p>还有一些快捷键记录：</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line">ctrl + alt + <span class="tag">b</span></span><br><span class="line"></span><br><span class="line">格式化代码 (来自git beautify)</span><br><span class="line"></span><br><span class="line">ctrl + d</span><br><span class="line"></span><br><span class="line">在有选中的状态下，快速选中下一个。</span><br><span class="line"></span><br><span class="line">ctrl + k</span><br><span class="line"></span><br><span class="line">在有选中的状态下，跳过当前选中。</span><br><span class="line"></span><br><span class="line">alt + g up/down</span><br><span class="line"></span><br><span class="line">到上一个/下一个修改处 (来自git diff)</span><br><span class="line"></span><br><span class="line">ctrl + up/down</span><br><span class="line"></span><br><span class="line">选中行上移、下移。</span><br><span class="line"></span><br><span class="line">ctrl + shift + <span class="tag">a</span> + <span class="tag">a</span></span><br><span class="line"></span><br><span class="line">添加所有已变更的文件到git并commit (来自git puls)</span><br><span class="line"></span><br><span class="line">ctrl + ,</span><br><span class="line"></span><br><span class="line">打开设置面板</span><br><span class="line"></span><br><span class="line">ctrl + g</span><br><span class="line"></span><br><span class="line">进入行号跳转面板。</span><br><span class="line"></span><br><span class="line">ctrl + t</span><br><span class="line"></span><br><span class="line">进入文件跳转面板。</span><br><span class="line"></span><br><span class="line">ctrl + r</span><br><span class="line"></span><br><span class="line">进入变量、函数跳转面板。</span><br><span class="line"></span><br><span class="line">ctrl + shift + up/down</span><br><span class="line"></span><br><span class="line">向上或者向下复制光标。</span><br><span class="line"></span><br><span class="line">ctrl + shift + <span class="tag">b</span></span><br><span class="line"></span><br><span class="line">运行编辑区域的代码（来自script）。</span><br><span class="line"></span><br><span class="line">ctrl + alt + t</span><br><span class="line"></span><br><span class="line">打开一个新的终端窗口，起始目录为项目根目录。（来自atom-terminal）</span><br></pre></td></tr></table></figure>
+</span>
       
     </div>
 
@@ -317,13 +223,13 @@ MyElementProto.attributeChangedCallback = <span class="function"><span class="ke
         <div class="post-nav">
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2015/07/09/Array.prototype.slice.call() 这个东西/" rel="prev">Array.prototype.slice.call() 这个东西</a>
+              <a href="/2015/10/23/又一些 CSS Tips /" rel="prev">又一些 CSS Tips</a>
             
           </div>
 
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2015/07/05/JS 尾调用/" rel="next">JS 尾调用</a>
+              <a href="/2015/10/09/精通 flex 布局/" rel="next">精通 flex 布局</a>
             
           </div>
         </div>
@@ -484,9 +390,9 @@ MyElementProto.attributeChangedCallback = <span class="function"><span class="ke
 
     <script type="text/javascript">
       var disqus_shortname = 'g07hic';
-      var disqus_identifier = '2015/07/05/attribute 和 property 的区别/';
-      var disqus_title = 'attribute 和 property 的区别';
-      var disqus_url = 'http://blog.yongyuan.us/2015/07/05/attribute 和 property 的区别/';
+      var disqus_identifier = '2015/10/09/使用 Atom 前端开发/';
+      var disqus_title = '使用 Atom 前端开发';
+      var disqus_url = 'http://blog.yongyuan.us/2015/10/09/使用 Atom 前端开发/';
 
       function run_disqus_script(disqus_script){
         var dsq = document.createElement('script');
