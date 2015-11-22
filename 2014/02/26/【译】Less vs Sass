@@ -317,7 +317,7 @@ Sass和Less的争论可以结束了.在本文我将解释为什么Sass真的比�
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">105</span>
+              <span class="site-state-item-count">106</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
