@@ -28,7 +28,7 @@
 
 
 
-  <meta name="keywords" content="JavaScript," />
+  <meta name="keywords" content="Hexo,next" />
 
 
 
@@ -39,23 +39,22 @@
   <link rel="shorticon icon" type="image/x-icon" href="/favicon.ico?v=0.4.5.1" />
 
 
-<meta name="description" content="&amp;lt;html lang=&amp;quot;zh-CN&amp;quot;&amp;gt;;我相信很多人都熟悉这个东西，这个就是我们平常写网页头部的那个语言声明吧，估计很多人和我一样以为默认的中文就是这么写，但是今天在知乎看到一个问题，发现我们了解的真是不够啊…
+<meta name="description" content="Angular 提供了有关表单的属性来帮助我们验证表单. 他们给我们提供了各种有关一个表单及其输入的信息，并且应用到了表单和输入.
 
-首先lang属性的取值应该遵循 BCP 47 - Tags for Identifying Languages。而单一的 zh 和 zh-CN 均属于废弃">
+属性类          描述$valid        ng-valid    Boolean 告诉我们这一项当前基于你设定的规则是否验证通过$invalid    ng-invalid    Boolean 告诉我们这一项当前基于你设定的规则是否验证未通过$pr">
 <meta property="og:type" content="article">
-<meta property="og:title" content="关于网页头部lang属性的一些思考">
-<meta property="og:url" content="http://blog.yongyuan.us/2013/12/31/关于网页头部lang属性的一些思考/index.html">
+<meta property="og:title" content="Angular form valid in action">
+<meta property="og:url" content="http://blog.yongyuan.us/2015/12/13/ Angular form valid in action/index.html">
 <meta property="og:site_name" content="Go7hic">
-<meta property="og:description" content="&amp;lt;html lang=&amp;quot;zh-CN&amp;quot;&amp;gt;;我相信很多人都熟悉这个东西，这个就是我们平常写网页头部的那个语言声明吧，估计很多人和我一样以为默认的中文就是这么写，但是今天在知乎看到一个问题，发现我们了解的真是不够啊…
+<meta property="og:description" content="Angular 提供了有关表单的属性来帮助我们验证表单. 他们给我们提供了各种有关一个表单及其输入的信息，并且应用到了表单和输入.
 
-首先lang属性的取值应该遵循 BCP 47 - Tags for Identifying Languages。而单一的 zh 和 zh-CN 均属于废弃">
-<meta property="og:image" content="http://m2.img.libdd.com/farm5/d/2013/1231/20/28ADBA93FBD527757EA11C66ADA55C22_B500_900_500_75.png">
-<meta property="og:updated_time" content="2015-09-04T04:55:26.000Z">
+属性类          描述$valid        ng-valid    Boolean 告诉我们这一项当前基于你设定的规则是否验证通过$invalid    ng-invalid    Boolean 告诉我们这一项当前基于你设定的规则是否验证未通过$pr">
+<meta property="og:updated_time" content="2015-12-12T16:07:11.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="关于网页头部lang属性的一些思考">
-<meta name="twitter:description" content="&amp;lt;html lang=&amp;quot;zh-CN&amp;quot;&amp;gt;;我相信很多人都熟悉这个东西，这个就是我们平常写网页头部的那个语言声明吧，估计很多人和我一样以为默认的中文就是这么写，但是今天在知乎看到一个问题，发现我们了解的真是不够啊…
+<meta name="twitter:title" content="Angular form valid in action">
+<meta name="twitter:description" content="Angular 提供了有关表单的属性来帮助我们验证表单. 他们给我们提供了各种有关一个表单及其输入的信息，并且应用到了表单和输入.
 
-首先lang属性的取值应该遵循 BCP 47 - Tags for Identifying Languages。而单一的 zh 和 zh-CN 均属于废弃">
+属性类          描述$valid        ng-valid    Boolean 告诉我们这一项当前基于你设定的规则是否验证通过$invalid    ng-invalid    Boolean 告诉我们这一项当前基于你设定的规则是否验证未通过$pr">
 
 
 <script type="text/javascript" id="hexo.configuration">
@@ -65,7 +64,7 @@
   };
 </script>
 
-  <title> 关于网页头部lang属性的一些思考 | Go7hic </title>
+  <title> Angular form valid in action | Go7hic </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -172,7 +171,7 @@
           
           
             
-              关于网页头部lang属性的一些思考
+              Angular form valid in action
             
           
         </h1>
@@ -181,8 +180,8 @@
       <div class="post-meta">
         <span class="post-time">
           发表于
-          <time itemprop="dateCreated" datetime="2013-12-31T11:21:04+08:00" content="2013-12-31">
-            2013-12-31
+          <time itemprop="dateCreated" datetime="2015-12-13T00:00:00+08:00" content="2015-12-13">
+            2015-12-13
           </time>
         </span>
 
@@ -192,8 +191,8 @@
           
             <span class="post-comments-count">
             &nbsp; | &nbsp;
-            <a href="/2013/12/31/关于网页头部lang属性的一些思考/#comments" itemprop="discussionUrl">
-              <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2013/12/31/关于网页头部lang属性的一些思考/" itemprop="commentsCount"></span>
+            <a href="/2015/12/13/ Angular form valid in action/#comments" itemprop="discussionUrl">
+              <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2015/12/13/ Angular form valid in action/" itemprop="commentsCount"></span>
             </a>
           </span>
           
@@ -207,37 +206,32 @@
       
 
       
-        <span itemprop="articleBody"><p><code>&lt;html lang=&quot;zh-CN&quot;&gt;</code>;我相信很多人都熟悉这个东西，这个就是我们平常写网页头部的那个语言声明吧，估计很多人和我一样以为默认的中文就是这么写，但是今天在知乎看到一个问题，发现我们了解的真是不够啊…</p>
-<p><img src="http://m2.img.libdd.com/farm5/d/2013/1231/20/28ADBA93FBD527757EA11C66ADA55C22_B500_900_500_75.png" alt=""></p>
-<p>首先lang属性的取值应该遵循 <a href="http://tools.ietf.org/html/bcp47" target="_blank" rel="nofollow">BCP 47 - Tags for Identifying Languages<i></i></a>。而单一的 zh 和 zh-CN 均属于废弃用法。因为问题主要在于，zh 现在不是语言code了，而是macrolang，能作为语言code的是cmn（国语）、yue（粤语）、wuu（吴语）等。我通常建议写成 zh-cmn 而不是光写 cmn，主要是考虑兼容性（至少可匹配 zh），有不少软件和框架还没有据此更新。</p>
-<p>zh-CN 的问题还在于，其实多数情况下标记的是简体中文，但是不恰当的使用了地区，这导致同样用简体中文的 zh-SG（新加坡）等无法匹配。更典型的是 zh-TW 和 zh-HK。所以其实应该使用 zh-Hans / zh-Hant 来表示简体和繁体。那么完整的写法就是 zh-cmn-Hans，表示简体中文书写的普通话/国语。一般而言没有必要加地区代码，除非要表示地区特异性，一般是词汇不一样（比如维基百科的大陆简体和新马简体）。</p>
-<p>但是，由于历史原因，有时候不得不继续使用zh-CN。比如中文维基百科，沿用了传统的zh-CN/zh-HK/zh-SG/zh-TW（按照标准应该使用 zh-cmn-Hans-CN、zh-cmn-Hant-HK、zh-cmn-Hans-SG、zh-cmn-Hant-TW）。这时候，合理的软件行为，是将 zh-CN 等转化为 zh-cmn-Hans（即转化为最常见的误用所对应的实际标准写法）。</p>
-<p>最后，所以说要真正正确的写应该是按这个步骤来的 lang= cmn，但是为了兼容性可以写成lang=zh-cmn或者zh-cmn-Hans亦或者lang=”zh-cmn-Hans-CN”</p>
-<p>当然继续用zh-CN也没多大的问题，如果你不知道怎么写不写lang也可以，嘿嘿…纯属探讨思考，求高人指点。</p>
+        <span itemprop="articleBody"><p>Angular 提供了有关表单的属性来帮助我们验证表单. 他们给我们提供了各种有关一个表单及其输入的信息，并且应用到了表单和输入.</p>
+<blockquote>
+<p>属性类          描述<br>$valid        ng-valid    Boolean 告诉我们这一项当前基于你设定的规则是否验证通过<br>$invalid    ng-invalid    Boolean 告诉我们这一项当前基于你设定的规则是否验证未通过<br>$pristine    ng-pristine    Boolean 如果表单或者输入框没有使用则为True<br>$dirty        ng-dirty    Boolean 如果表单或者输入框有使用到则为True</p>
+</blockquote>
+<p>Angular 也提供了有关表单及其输入框的类，以便你能够依据每一个状态设置其样式.下面是一个我用的表单验证,表单名为 userForm, 提交表单的方法有多种，我这里采用 ngSubmit 的方法，方法为 saveUserInfo()。</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">form(name=&#34;userForm&#34;,ng-submit=&#34;saveUserInfo(userForm.$valid)&#34;,novalidate)&#10;    label(for=&#34;&#34;,ng-class=&#34;&#123; &#39;has-error&#39; : userForm.telephone.$invalid &#38;&#38; !userForm.telephone.$pristine &#125;&#34;)&#10;        | &#32844;&#20301;&#10;        span(ng-show=&#34;userForm.jobTitle.$invalid &#38;&#38; !userForm.jobTitle.$pristine&#34;) &#22635;&#20889;&#27491;&#30830;&#30340;&#25163;&#26426;&#21495;&#30721;&#10;        input.form-control(type=&#34;text&#34;,name=&#34;jobTitle&#34;,ng-model=&#34;user.jobTitle&#34;,required)&#10;    label(for=&#34;&#34;,ng-class=&#34;&#123; &#39;has-error&#39; : userForm.nick.$invalid &#38;&#38; !userForm.nick.$pristine &#125;&#34;)&#10;        | &#29992;&#25143;&#26165;&#31216;&#10;        span(ng-show=&#34;userForm.nick.$invalid &#38;&#38; !userForm.nick.$pristine&#34;) &#22635;&#20889;&#27491;&#30830;&#30340;&#25163;&#26426;&#21495;&#30721;&#10;        input.form-control(type=&#34;text&#34;,name=&#34;nick&#34;,ng-model=&#34;user.nick&#34;,required)&#10;    label(for=&#34;&#34;,ng-class=&#34;&#123; &#39;has-error&#39; : userForm.email.$invalid &#38;&#38; !userForm.telephone.$pristine &#125;&#34;)&#10;        | &#37038;&#31665;&#10;        span(ng-show=&#34;userForm.email.$invalid &#38;&#38; !userForm.email.$pristine&#34;) &#22635;&#20889;&#27491;&#30830;&#30340;&#25163;&#26426;&#21495;&#30721;&#10;        input.form-control(type=&#34;text&#34;,name=&#34;email&#34;,ng-model=&#34;user.email&#34;,required)&#10;    label(for=&#34;&#34;,ng-class=&#34;&#123; &#39;has-error&#39; : userForm.telephone.$invalid &#38;&#38; !userForm.telephone.$pristine &#125;&#34;)&#10;        | &#32852;&#31995;&#30005;&#35805;&#10;        span(ng-show=&#34;userForm.telephone.$invalid &#38;&#38; !userForm.telephone.$pristine&#34;) &#22635;&#20889;&#27491;&#30830;&#30340;&#25163;&#26426;&#21495;&#30721;&#10;        input.form-control(type=&#34;text&#34;,name=&#34;telephone&#34;,ng-model=&#34;user.telephone&#34;,ng-pattern=&#34;/1[3|5|7|8|][0-9]&#123;9&#125;/&#34;,required)&#10;    button.btn.btn-primary(type=&#34;submit&#34;,ng-disabled=&#34;userForm.$invalid&#34;) &#30830;&#35748;&#10;    button.btn.btn-default(ng-click=&#34;cancel()&#34;) &#21462;&#28040;</span><br></pre></td></tr></table></figure>
+<p>有几点可以分析一下，首先一定要每个 input 要有 name 属性，给每个 input 输入框准备一个错误提醒的消息，就是上面的 span 标签。这里我们只想使用 angular 自带的验证，需要关闭浏览器对 html5 表单的原生验证，所以给表单加上 novalidate 属性.</p>
+<p>如果需要每个表单都必填，那么给 input 添加 required 属性，顺便给提交按钮添加  disabled 属性，当有一个表单的校验没通过，这个按钮都是灰色不可用的。</p>
+<p>还有表单一个常用的 radio 类型没有提到，这里也顺便一起说了，有时候我们需要做一些单项选择，而且可以二次修改，所以如果之前这个 radio 已经选好了某个选项，那么下次修改他的时候，它默认也应该是选中的状态。这个利用双向绑定很容易实现的:<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">label(for=&#34;&#34;)&#10;    | &#24615;&#21035;&#65306;&#10;    label.radio-inline.c-radio&#10;        input(type=&#39;radio&#39;,ng-trim=&#34;&#34;,name=&#34;sex&#34;,ng-click=&#34;user.sex=1&#34;,value=&#34;1&#34;,ng-model=&#34;user.sex&#34;)&#10;        span.iconfont.icon-check&#10;        |  &#30007;&#10;    label.radio-inline.c-radio&#10;        input(type=&#39;radio&#39;,ng-trim=&#34;&#34;,name=&#34;sex&#34;,ng-click=&#34;user.sex=2&#34;,value=&#34;2&#34;,ng-model=&#34;user.sex&#34;)&#10;        span.iconfont.icon-check&#10;        |  &#22899;</span><br></pre></td></tr></table></figure></p>
+<p>只要给对应的选项添加对应选中的 value 值，绑定 ngModel 即可。<br>上面这些都是一些基本的 angualr 表单的使用。没啥技巧，都是一些死东西，第一次明白后面基本照用就是。</p>
 </span>
       
     </div>
 
     <footer class="post-footer">
       
-        <div class="post-tags">
-          
-            <a href="/tags/JavaScript/" rel="tag">#JavaScript</a>
-          
-        </div>
-      
 
       
         <div class="post-nav">
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2014/01/24/CSS 之伪类和伪元素区别详解/" rel="prev">css之伪类和伪元素区别详解</a>
-            
           </div>
 
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2013/12/21/避免常见的几种html5错误用法/" rel="next">避免常见的几种html5错误用法</a>
+              <a href="/2015/12/02/2015-12-02 乱谈/" rel="next">乱谈</a>
             
           </div>
         </div>
@@ -398,9 +392,9 @@
 
     <script type="text/javascript">
       var disqus_shortname = 'g07hic';
-      var disqus_identifier = '2013/12/31/关于网页头部lang属性的一些思考/';
-      var disqus_title = '关于网页头部lang属性的一些思考';
-      var disqus_url = 'http://blog.yongyuan.us/2013/12/31/关于网页头部lang属性的一些思考/';
+      var disqus_identifier = '2015/12/13/ Angular form valid in action/';
+      var disqus_title = 'Angular form valid in action';
+      var disqus_url = 'http://blog.yongyuan.us/2015/12/13/ Angular form valid in action/';
 
       function run_disqus_script(disqus_script){
         var dsq = document.createElement('script');
