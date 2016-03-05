@@ -1,0 +1,663 @@
+<!doctype html>
+<html class="theme-next use-motion ">
+<head>
+  
+
+<meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+  <link rel="stylesheet" type="text/css" href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5"/>
+
+
+
+
+<link rel="stylesheet" type="text/css" href="/css/main.css?v=0.4.5.1"/>
+
+
+    <meta name="description" content="jsut 4 fun" />
+
+
+
+  <meta name="keywords" content="JavaScript," />
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Go7hic" type="application/atom+xml" />
+
+
+
+  <link rel="shorticon icon" type="image/x-icon" href="/favicon.ico?v=0.4.5.1" />
+
+
+<meta name="description" content="匿名函数就是在运行时动态声明的函数。之所以称作匿名函数，是因为它不像标准的函数会给定一个函数名称。
+匿名函数是使用 function 操作符定义的，而不是使用函数声明的方式定义的。可以使用 function 操作符创建一个新的函数，无论它是否是一个有效的表达式。例如，你可以定义一个新的函数作为另一个函数的参数，或者作为一个对象的属性。
+下面是一个典型的命名函数：
+12345function fly">
+<meta property="og:type" content="article">
+<meta property="og:title" content="2. JavaScript 匿名函数">
+<meta property="og:url" content="http://blog.yongyuan.us/2014/11/29/2.JavaScript 匿名函数/index.html">
+<meta property="og:site_name" content="Go7hic">
+<meta property="og:description" content="匿名函数就是在运行时动态声明的函数。之所以称作匿名函数，是因为它不像标准的函数会给定一个函数名称。
+匿名函数是使用 function 操作符定义的，而不是使用函数声明的方式定义的。可以使用 function 操作符创建一个新的函数，无论它是否是一个有效的表达式。例如，你可以定义一个新的函数作为另一个函数的参数，或者作为一个对象的属性。
+下面是一个典型的命名函数：
+12345function fly">
+<meta property="og:image" content="http://helephant.com/wp-content/uploads/2008/08/function-declaration.png">
+<meta property="og:image" content="http://helephant.com/wp-content/uploads/2008/08/function-operator.png">
+<meta property="og:updated_time" content="2015-09-05T08:12:31.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="2. JavaScript 匿名函数">
+<meta name="twitter:description" content="匿名函数就是在运行时动态声明的函数。之所以称作匿名函数，是因为它不像标准的函数会给定一个函数名称。
+匿名函数是使用 function 操作符定义的，而不是使用函数声明的方式定义的。可以使用 function 操作符创建一个新的函数，无论它是否是一个有效的表达式。例如，你可以定义一个新的函数作为另一个函数的参数，或者作为一个对象的属性。
+下面是一个典型的命名函数：
+12345function fly">
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var CONFIG = {
+    scheme: '',
+    sidebar: 'post'
+  };
+</script>
+
+  <title> 2. JavaScript 匿名函数 | Go7hic </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  <!--[if lte IE 8]>
+  <div style=' clear: both; height: 59px; padding:0 0 0 15px; position: relative;margin:0 auto;'>
+    <a href="http://windows.microsoft.com/en-US/internet-explorer/products/ie/home?ocid=ie6_countdown_bannercode">
+      <img src="http://7u2nvr.com1.z0.glb.clouddn.com/picouterie.jpg" border="0" height="42" width="820"
+           alt="You are using an outdated browser. For a faster, safer browsing experience, upgrade for free today or use other browser ,like chrome firefox safari."
+           style='margin-left:auto;margin-right:auto;display: block;'/>
+    </a>
+  </div>
+<![endif]-->
+  
+
+
+
+  <div class="container one-column page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><h1 class="site-meta">
+  <span class="logo-line-before"><i></i></span>
+  <a href="/" class="brand" rel="start">
+      <span class="logo">
+        <i class="icon-next-logo"></i>
+      </span>
+      <span class="site-title">Go7hic</span>
+  </a>
+  <span class="logo-line-after"><i></i></span>
+</h1>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu ">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            <i class="menu-item-icon icon-next-home"></i> <br />
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            <i class="menu-item-icon icon-next-archives"></i> <br />
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            <i class="menu-item-icon icon-next-tags"></i> <br />
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            <i class="menu-item-icon icon-next-about"></i> <br />
+            关于
+          </a>
+        </li>
+      
+
+      
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div id="content" class="content"> 
+
+  <div id="posts" class="posts-expand">
+    
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      
+      
+        <h1 class="post-title" itemprop="name headline">
+          
+          
+            
+              2. JavaScript 匿名函数
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于
+          <time itemprop="dateCreated" datetime="2014-11-29T11:11:04+08:00" content="2014-11-29">
+            2014-11-29
+          </time>
+        </span>
+
+        
+
+        
+          
+            <span class="post-comments-count">
+            &nbsp; | &nbsp;
+            <a href="/2014/11/29/2.JavaScript 匿名函数/#comments" itemprop="discussionUrl">
+              <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2014/11/29/2.JavaScript 匿名函数/" itemprop="commentsCount"></span>
+            </a>
+          </span>
+          
+        
+      </div>
+    </header>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        <span itemprop="articleBody"><p>匿名函数就是在运行时动态声明的函数。之所以称作匿名函数，是因为它不像标准的函数会给定一个函数名称。</p>
+<p>匿名函数是使用 function 操作符定义的，而不是使用函数声明的方式定义的。可以使用 function 操作符创建一个新的函数，无论它是否是一个有效的表达式。例如，你可以定义一个新的函数作为另一个函数的参数，或者作为一个对象的属性。</p>
+<p>下面是一个典型的命名函数：</p>
+<figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">flyToTheMoon</span><span class="params">()</span></span><br><span class="line"></span>&#123;</span><br><span class="line">  alert(<span class="string">"Zoom! Zoom! Zoom!"</span>);</span><br><span class="line">&#125;</span><br><span class="line">flyToTheMoon();</span><br></pre></td></tr></table></figure>
+<p>下面是一个用匿名函数创建的和上面相同的函数：</p>
+<figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> flyToTheMoon = <span class="function"><span class="keyword">function</span><span class="params">()</span></span><br><span class="line"></span>&#123;</span><br><span class="line">  alert(<span class="string">"Zoom! Zoom! Zoom!"</span>);</span><br><span class="line">&#125;</span><br><span class="line">flyToTheMoon();</span><br></pre></td></tr></table></figure>
+<p>####匿名函数是使用函数操作符创建的<br>在 JavaScript 中创建函数最常见的两种方式分别是使用函数声明和函数操作符。而匿名函数便是使用函数操作符创建的。</p>
+<p>如果 function 关键字首先出现在声明中，同时紧跟一个函数名，则说明这个函数是通过函数声明的方式创建的：</p>
+<p><img src="http://helephant.com/wp-content/uploads/2008/08/function-declaration.png" alt=""></p>
+<p>如果 function 关键字出现在其他地方，那么它可能只是被用作一个函数操作符：</p>
+<p><img src="http://helephant.com/wp-content/uploads/2008/08/function-operator.png" alt=""></p>
+<p>当 function 操作符被调用的时候，它会创建一个新的函数对象并返回它。下面有一个例子，我们创建了一个函数，然后将它分配给了一个名为 myFunction 的变量：</p>
+<figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> flyToTheMoon = <span class="function"><span class="keyword">function</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  alert(<span class="string">"Zoom! Zoom! Zoom!"</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这个分配工作与你将任何函数的返回值分配给一个变量的方式相同，唯一不同的是，在上面的代码中分配给变量的是一个函数对象，而不是一个简单的值，诸如：数字，或者是一个日期。</p>
+<p>这是可以的，因为函数在 JavaScript 知识一个特殊类型的对象。这意味着使用它们可以像使用其他任何对象一样。它们可以存储在变量中，作为参数传递给其他函数，或者使用 return 语句从函数中返回。函数始终都是对象，不管它们是如何创建的。</p>
+<p>一旦函数保存到变量中，就可以使用该变量来调用它：</p>
+<figure class="highlight dns"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">lyToTheMoon()<span class="comment">;</span></span><br></pre></td></tr></table></figure>
+<p>####匿名函数创建于运行时<br>function 操作符可以用于任何地方有效的使用表达式。比如可以在变量定义中，或者给函数传递参数时或者 return 语句中。这是可以的，因为 function 操作符时钟在运行时调用。</p>
+<p>而函数定义与此不同。它们会在任何其他代码执行之前运行，因此它们可以在没有定义之前调用。</p>
+<p>函数定义不能用来创建匿名函数，因为它们必须有一个函数名。函数定义会将它的函数名作为当前作用域中的一个变量。</p>
+<p>####匿名函数没有函数名<br>这似乎有些奇怪，匿名函数没有函数名，那我们如何调用它呢？其工作原理是它的函数名是用来保存函数对象的变量。</p>
+<p>使用函数定义创建的函数始终有一个函数名，函数变量与之完全相同，因为函数定义会自动创建该变量给你。</p>
+<figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">flyToTheMoon</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  alert(<span class="string">"Zoom! Zoom! Zoom!"</span>);</span><br><span class="line">&#125;</span><br><span class="line">flyToTheMoon();</span><br></pre></td></tr></table></figure>
+<p>对于使用 function 操作符创建的函数，其名称是可选的。在大多数情况下，这个函数名并不重要，因此我们通常都会创没有名称的匿名函数：</p>
+<figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> flyToTheMoon = <span class="function"><span class="keyword">function</span><span class="params">()</span> </span>&#123;</span><br><span class="line">   alert(<span class="string">"Zoom! Zoom! Zoom"</span>);</span><br><span class="line">&#125;</span><br><span class="line">flyToTheMoon();</span><br></pre></td></tr></table></figure>
+<p>然而，如果设置一个名称，function 操作符也是支持的。下面是一个与上面相同的函数，只是在这里有一个函数名：</p>
+<figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> flyToTheMoon = <span class="function"><span class="keyword">function</span> <span class="title">flyToTheMoon</span><span class="params">()</span> </span>&#123;</span><br><span class="line">   alert(<span class="string">"Zoom! Zoom! Zoom"</span>);</span><br><span class="line">&#125;</span><br><span class="line">flyToTheMoon();</span><br></pre></td></tr></table></figure>
+<p>但是给定的函数名并不会将这个函数名作为变量自动添加到作用域中。仍然需要将这个 function 操作符的返回值分配给一个变量。</p>
+<p>在上面的例子中，存储函数对象的变量和函数名想听，其实它们也可以不相同：</p>
+<figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> thingsToDoToday = <span class="function"><span class="keyword">function</span> <span class="title">flyToTheMoon</span><span class="params">()</span> </span>&#123;</span><br><span class="line">   alert(<span class="string">"Zoom! Zoom! Zoom"</span>);</span><br><span class="line">&#125;</span><br><span class="line">thingsToDoToday();</span><br></pre></td></tr></table></figure>
+<p>####为什么匿名函数也可以有一个函数名？</p>
+<p>函数名可以用于在函数自身内部调用该函数。这对于函数递归来说非常有用：</p>
+<figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> thingsToDoToday = <span class="function"><span class="keyword">function</span> <span class="title">flyToTheMoon</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  <span class="keyword">if</span>(!onTheMoon)</span><br><span class="line">    flyToTheMoon();</span><br><span class="line">  <span class="keyword">else</span></span><br><span class="line">    alert(<span class="string">"One small step for a man.."</span>);</span><br><span class="line">&#125;</span><br><span class="line">thingsToDoToday();</span><br></pre></td></tr></table></figure>
+<p>这也有利于调试工作，因为这样就可以在函数调用栈中看到对应的函数名。匿名函数通常在调用栈中看起来一样。如果有调试的需求，又是有给匿名函数一个名称可以让开发人员更清除代码的运行。</p>
+<p>$$solo_more$$</p>
+<p>####为什么匿名函数如此有用？<br>不必为匿名函数设置一个函数名只是比较方便，因为大多数情况下函数名并不是特别重要。并且大多数的时间里匿名函数和命名函数都能工作得很好。</p>
+<p>原文：<a href="http://helephant.com/2008/08/23/javascript-anonymous-functions/" target="_blank" rel="external">http://helephant.com/2008/08/23/javascript-anonymous-functions/</a> </p>
+</span>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/JavaScript/" rel="tag">#JavaScript</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2014/11/29/3.函数--JavaScript 世界里的一等公民/" rel="prev">3. 函数--JavaScript 世界里的一等公民</a>
+            
+          </div>
+
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2014/11/29/1.JavaScript面向对象简介/" rel="next">1.JavaScript面向对象简介</a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+ </div>
+
+        
+
+        
+          <div class="comments" id="comments">
+            
+              <div id="disqus_thread">
+                <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+              </div>
+            
+          </div>
+        
+      </div>
+
+      
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" src="/images/tx.jpg" alt="Go7hic" itemprop="image"/>
+          <p class="site-author-name" itemprop="name">Go7hic</p>
+        </div>
+        <p class="site-description motion-element" itemprop="description">jsut 4 fun</p>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">113</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          <div class="site-state-item site-state-categories">
+            
+              <span class="site-state-item-count">0</span>
+              <span class="site-state-item-name">分类</span>
+              
+          </div>
+
+          <div class="site-state-item site-state-tags">
+            <a href="/tags">
+              <span class="site-state-item-count">26</span>
+              <span class="site-state-item-name">标签</span>
+              </a>
+          </div>
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="menu-item-icon icon-next-feed"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+      </section>
+
+      
+        <section class="post-toc-wrap sidebar-panel-active">
+          <div class="post-toc-indicator-top post-toc-indicator"></div>
+          <div class="post-toc">
+            
+            
+              <p class="post-toc-empty">此文章未包含目录</p>
+            
+          </div>
+          <div class="post-toc-indicator-bottom post-toc-indicator"></div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner"> <div class="copyright" >
+  
+  &copy; &nbsp; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="icon-next-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Go7hic</span>
+</div>
+
+<div class="">
+  「万物之中，希望至美；至美之物，永不凋零」
+</div>
+
+ </div>
+    </footer>
+
+    <div class="back-to-top"></div>
+  </div>
+
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  
+  
+    
+    
+
+  
+
+    <script type="text/javascript">
+      var disqus_shortname = 'g07hic';
+      var disqus_identifier = '2014/11/29/2.JavaScript 匿名函数/';
+      var disqus_title = '2. JavaScript 匿名函数';
+      var disqus_url = 'http://blog.yongyuan.us/2014/11/29/2.JavaScript 匿名函数/';
+
+      function run_disqus_script(disqus_script){
+        var dsq = document.createElement('script');
+        dsq.type = 'text/javascript';
+        dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      }
+
+      run_disqus_script('count.js');
+      
+        run_disqus_script('embed.js');
+      
+    </script>
+  
+
+
+  
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js"></script>
+  <script type="text/javascript" src="/js/fancy-box.js?v=0.4.5.1"></script>
+
+
+  <script type="text/javascript" src="/js/helpers.js?v=0.4.5.1"></script>
+  
+
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js"></script>
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js"></script>
+
+  <script type="text/javascript" src="/js/motion_global.js?v=0.4.5.1" id="motion.global"></script>
+
+
+
+
+  <script type="text/javascript" src="/js/nav-toggle.js?v=0.4.5.1"></script>
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  
+<script type="text/javascript" src="/js/bootstrap.scrollspy.js?v=0.4.5.1" id="bootstrap.scrollspy.custom"></script>
+
+
+<script type="text/javascript" id="sidebar.toc.highlight">
+  $(document).ready(function () {
+    var tocSelector = '.post-toc';
+    var $tocSelector = $(tocSelector);
+    var activeCurrentSelector = '.active-current';
+
+    $tocSelector
+      .on('activate.bs.scrollspy', function () {
+        var $currentActiveElement = $(tocSelector + ' .active').last();
+
+        removeCurrentActiveClass();
+        $currentActiveElement.addClass('active-current');
+
+        $tocSelector[0].scrollTop = $currentActiveElement.position().top;
+      })
+      .on('clear.bs.scrollspy', function () {
+        removeCurrentActiveClass();
+      });
+
+    function removeCurrentActiveClass () {
+      $(tocSelector + ' ' + activeCurrentSelector)
+        .removeClass(activeCurrentSelector.substring(1));
+    }
+
+    function processTOC () {
+      getTOCMaxHeight();
+      toggleTOCOverflowIndicators();
+    }
+
+    function getTOCMaxHeight () {
+      var height = $('.sidebar').height() -
+                   $tocSelector.position().top -
+                   $('.post-toc-indicator-bottom').height();
+
+      $tocSelector.css('height', height);
+
+      return height;
+    }
+
+    function toggleTOCOverflowIndicators () {
+      tocOverflowIndicator(
+        '.post-toc-indicator-top',
+        $tocSelector.scrollTop() > 0 ? 'show' : 'hide'
+      );
+
+      tocOverflowIndicator(
+        '.post-toc-indicator-bottom',
+        $tocSelector.scrollTop() >= $tocSelector.find('ol').height() - $tocSelector.height() ? 'hide' : 'show'
+      )
+    }
+
+    $(document).on('sidebar.motion.complete', function () {
+      processTOC();
+    });
+
+    $('body').scrollspy({ target: tocSelector });
+    $(window).on('resize', function () {
+      if ( $('.sidebar').hasClass('sidebar-active') ) {
+        processTOC();
+      }
+    });
+
+    onScroll($tocSelector);
+
+    function onScroll (element) {
+      element.on('mousewheel DOMMouseScroll', function (event) {
+          var oe = event.originalEvent;
+          var delta = oe.wheelDelta || -oe.detail;
+
+          this.scrollTop += ( delta < 0 ? 1 : -1 ) * 30;
+          event.preventDefault();
+
+          toggleTOCOverflowIndicators();
+      });
+    }
+
+    function tocOverflowIndicator (indicator, action) {
+      var $indicator = $(indicator);
+      var opacity = action === 'show' ? 0.4 : 0;
+      $indicator.velocity ?
+        $indicator.velocity('stop').velocity({
+          opacity: opacity
+        }, { duration: 100 }) :
+        $indicator.stop().animate({
+          opacity: opacity
+        }, 100);
+    }
+
+  });
+</script>
+
+<script type="text/javascript" id="sidebar.nav">
+  $(document).ready(function () {
+    var html = $('html');
+    var TAB_ANIMATE_DURATION = 200;
+    var hasVelocity = $.isFunction(html.velocity);
+
+    $('.sidebar-nav li').on('click', function () {
+      var item = $(this);
+      var activeTabClassName = 'sidebar-nav-active';
+      var activePanelClassName = 'sidebar-panel-active';
+      if (item.hasClass(activeTabClassName)) {
+        return;
+      }
+
+      var currentTarget = $('.' + activePanelClassName);
+      var target = $('.' + item.data('target'));
+
+      hasVelocity ?
+        currentTarget.velocity('transition.slideUpOut', TAB_ANIMATE_DURATION, function () {
+          target
+            .velocity('stop')
+            .velocity('transition.slideDownIn', TAB_ANIMATE_DURATION)
+            .addClass(activePanelClassName);
+        }) :
+        currentTarget.animate({ opacity: 0 }, TAB_ANIMATE_DURATION, function () {
+          currentTarget.hide();
+          target
+            .stop()
+            .css({'opacity': 0, 'display': 'block'})
+            .animate({ opacity: 1 }, TAB_ANIMATE_DURATION, function () {
+              currentTarget.removeClass(activePanelClassName);
+              target.addClass(activePanelClassName);
+            });
+        });
+
+      item.siblings().removeClass(activeTabClassName);
+      item.addClass(activeTabClassName);
+    });
+
+    $('.post-toc a').on('click', function (e) {
+      e.preventDefault();
+      var targetSelector = escapeSelector(this.getAttribute('href'));
+      var offset = $(targetSelector).offset().top;
+      hasVelocity ?
+        html.velocity('stop').velocity('scroll', {
+          offset: offset  + 'px',
+          mobileHA: false
+        }) :
+        $('html, body').stop().animate({
+          scrollTop: offset
+        }, 500);
+    });
+
+    // Expand sidebar on post detail page by default, when post has a toc.
+    var $tocContent = $('.post-toc-content');
+    if (isDesktop() && CONFIG.sidebar === 'post') {
+      if ($tocContent.length > 0 && $tocContent.html().trim().length > 0) {
+        displaySidebar();
+      }
+    }
+  });
+</script>
+
+
+
+  <script type="text/javascript">
+    $(document).ready(function () {
+      if (CONFIG.sidebar === 'always') {
+        displaySidebar();
+      }
+      if (isMobile()) {
+        FastClick.attach(document.body);
+      }
+    });
+  </script>
+
+  
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/lazyload.js"></script>
+  <script type="text/javascript">
+    $(function () {
+      $("#posts").find('img').lazyload({
+        placeholder: "/images/loading.gif",
+        effect: "fadeIn"
+      });
+    });
+  </script>
+</body>
+</html>
