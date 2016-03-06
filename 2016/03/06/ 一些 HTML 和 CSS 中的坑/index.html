@@ -1,0 +1,645 @@
+<!doctype html>
+<html class="theme-next use-motion ">
+<head>
+  
+
+<meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+  <link rel="stylesheet" type="text/css" href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5"/>
+
+
+
+
+<link rel="stylesheet" type="text/css" href="/css/main.css?v=0.4.5.1"/>
+
+
+    <meta name="description" content="jsut 4 fun" />
+
+
+
+  <meta name="keywords" content="Hexo,next" />
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Go7hic" type="application/atom+xml" />
+
+
+
+  <link rel="shorticon icon" type="image/x-icon" href="/favicon.ico?v=0.4.5.1" />
+
+
+<meta name="description" content="&amp;lt;!DOCTYPE&amp;gt; 声明&amp;lt;!DOCTYPE&amp;gt; 会声明一个文档类型给浏览器识别，例如我们经常使用的 HTML5 的文档类型声明是这样的：
+&amp;lt;!DOCTYPE html&amp;gt;如果你没有为页面声明文档类型，浏览器将会使用 Quirks 模式（兼容模式）去渲染页面上非标准的表格，input 控件和其它元素，这样可能会引发一些问题。
+盒模型计算当元素设置了 padding">
+<meta property="og:type" content="article">
+<meta property="og:title" content="一些 HTML 和 CSS 中的坑">
+<meta property="og:url" content="http://blog.yongyuan.us/2016/03/06/ 一些 HTML 和 CSS 中的坑/index.html">
+<meta property="og:site_name" content="Go7hic">
+<meta property="og:description" content="&amp;lt;!DOCTYPE&amp;gt; 声明&amp;lt;!DOCTYPE&amp;gt; 会声明一个文档类型给浏览器识别，例如我们经常使用的 HTML5 的文档类型声明是这样的：
+&amp;lt;!DOCTYPE html&amp;gt;如果你没有为页面声明文档类型，浏览器将会使用 Quirks 模式（兼容模式）去渲染页面上非标准的表格，input 控件和其它元素，这样可能会引发一些问题。
+盒模型计算当元素设置了 padding">
+<meta property="og:updated_time" content="2016-03-06T08:58:15.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="一些 HTML 和 CSS 中的坑">
+<meta name="twitter:description" content="&amp;lt;!DOCTYPE&amp;gt; 声明&amp;lt;!DOCTYPE&amp;gt; 会声明一个文档类型给浏览器识别，例如我们经常使用的 HTML5 的文档类型声明是这样的：
+&amp;lt;!DOCTYPE html&amp;gt;如果你没有为页面声明文档类型，浏览器将会使用 Quirks 模式（兼容模式）去渲染页面上非标准的表格，input 控件和其它元素，这样可能会引发一些问题。
+盒模型计算当元素设置了 padding">
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var CONFIG = {
+    scheme: '',
+    sidebar: 'post'
+  };
+</script>
+
+  <title> 一些 HTML 和 CSS 中的坑 | Go7hic </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  <!--[if lte IE 8]>
+  <div style=' clear: both; height: 59px; padding:0 0 0 15px; position: relative;margin:0 auto;'>
+    <a href="http://windows.microsoft.com/en-US/internet-explorer/products/ie/home?ocid=ie6_countdown_bannercode">
+      <img src="http://7u2nvr.com1.z0.glb.clouddn.com/picouterie.jpg" border="0" height="42" width="820"
+           alt="You are using an outdated browser. For a faster, safer browsing experience, upgrade for free today or use other browser ,like chrome firefox safari."
+           style='margin-left:auto;margin-right:auto;display: block;'/>
+    </a>
+  </div>
+<![endif]-->
+  
+
+
+
+  <div class="container one-column page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><h1 class="site-meta">
+  <span class="logo-line-before"><i></i></span>
+  <a href="/" class="brand" rel="start">
+      <span class="logo">
+        <i class="icon-next-logo"></i>
+      </span>
+      <span class="site-title">Go7hic</span>
+  </a>
+  <span class="logo-line-after"><i></i></span>
+</h1>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu ">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            <i class="menu-item-icon icon-next-home"></i> <br />
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            <i class="menu-item-icon icon-next-archives"></i> <br />
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            <i class="menu-item-icon icon-next-tags"></i> <br />
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            <i class="menu-item-icon icon-next-about"></i> <br />
+            关于
+          </a>
+        </li>
+      
+
+      
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div id="content" class="content"> 
+
+  <div id="posts" class="posts-expand">
+    
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      
+      
+        <h1 class="post-title" itemprop="name headline">
+          
+          
+            
+              一些 HTML 和 CSS 中的坑
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于
+          <time itemprop="dateCreated" datetime="2016-03-06T00:00:00+08:00" content="2016-03-06">
+            2016-03-06
+          </time>
+        </span>
+
+        
+
+        
+          
+            <span class="post-comments-count">
+            &nbsp; | &nbsp;
+            <a href="/2016/03/06/ 一些 HTML 和 CSS 中的坑/#comments" itemprop="discussionUrl">
+              <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/03/06/ 一些 HTML 和 CSS 中的坑/" itemprop="commentsCount"></span>
+            </a>
+          </span>
+          
+        
+      </div>
+    </header>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        <span itemprop="articleBody"><h4 id="&lt;!DOCTYPE&gt;_声明">&lt;!DOCTYPE&gt; 声明</h4><p>&lt;!DOCTYPE&gt; 会声明一个文档类型给浏览器识别，例如我们经常使用的 HTML5 的文档类型声明是这样的：</p>
+<p><code>&lt;!DOCTYPE html&gt;</code><br>如果你没有为页面声明文档类型，浏览器将会使用 Quirks 模式（兼容模式）去渲染页面上非标准的表格，input 控件和其它元素，这样可能会引发一些问题。</p>
+<h4 id="盒模型计算">盒模型计算</h4><p>当元素设置了 padding 或者 border-width 的时候，实际上元素的实际宽度是要比设置的 width 要 宽 的。为了避免这个尴尬的问题，我们可以统一使用 box-sizing: border-box; 来重新设置元素盒模型宽度的计算范围。</p>
+<h4 id="rem_单位和_Safari_Mobile_的爱恨情仇">rem 单位和 Safari Mobile 的爱恨情仇</h4><p>虽然 Safari Mobible 已经支持识别属性值的 rem 单位了，但是当你在媒体查询条件中使用rem的时候，会导致页面的文字在不同尺寸下来回跳闪，亮瞎你的双眼。</p>
+<p>解决办法是在媒体查询条件中使用em代替rem。<br><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">html</span> <span class="rules">&#123;</span><br><span class="line">  <span class="rule"><span class="attribute">font-size</span>:<span class="value"> <span class="number">16px</span></span></span>;</span><br><span class="line">&#125;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/* Causes flashing bug in Mobile Safari */</span></span><br><span class="line"><span class="at_rule">@<span class="keyword">media</span> (min-width: <span class="number">40rem</span>) </span>&#123;</span><br><span class="line">  <span class="tag">html</span> <span class="rules">&#123;</span><br><span class="line">    <span class="rule"><span class="attribute">font-size</span>:<span class="value"> <span class="number">20px</span></span></span>;</span><br><span class="line">  &#125;</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* Works great in Mobile Safari */</span></span><br><span class="line"><span class="at_rule">@<span class="keyword">media</span> (min-width: <span class="number">40em</span>) </span>&#123;</span><br><span class="line">  <span class="tag">html</span> <span class="rules">&#123;</span><br><span class="line">    <span class="rule"><span class="attribute">font-size</span>:<span class="value"> <span class="number">20px</span></span></span>;</span><br><span class="line">  &#125;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>紧急求助！ 如果你有向 Apple 或者 Webkit 报告这个 BUG，请告诉我，我会把链接附上。因为这个 BUG 只出现在手机端的 Safari 上，桌面版并没有，所以我也不是很确定应该向哪里提 BUG。</p>
+<h4 id="高贵的浮动元素">高贵的浮动元素</h4><p>浮动元素最好放置在文档流的开头。因为浮动元素需要内容环绕，否则除了浮动显示内容，它还容易出现一些意想不到的负面效果。</p>
+<div class="parent"><br>  <div class="float">Float</div><br>  <div class="content"><br>    <!-- ... --><br>  </div><br></div>
+
+<h4 id="清除浮动">清除浮动</h4><p>当你使用完float之后，你可能需要清除它。当某元素使用了float之后，附近元素的内容都会环绕着它，只有清除了浮动这个影响才会去除。你可以使用下面的方法清除浮动。</p>
+<p>根据 clearfix 大法 定义一个样式类，使用它来清除浮动：<br><figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="class">.clearfix</span><span class="pseudo">:before</span>,</span><br><span class="line"><span class="class">.clearfix</span><span class="pseudo">:after</span> &#123;</span><br><span class="line">  <span class="attribute">display</span>: table;</span><br><span class="line">  <span class="attribute">content</span>: <span class="string">""</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="class">.clearfix</span><span class="pseudo">:after</span> &#123;</span><br><span class="line">  <span class="attribute">clear</span>: both;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>或者你也可以使用overflow，在父元素上设置overflow:auto;或者overflow:hidden;也可以达到目的。<br><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="class">.parent</span> <span class="rules">&#123;</span><br><span class="line">  <span class="rule"><span class="attribute">overflow</span>:<span class="value"> auto</span></span>; <span class="comment">/* clearfix */</span></span><br><span class="line">&#125;</span></span><br><span class="line"><span class="class">.other-parent</span> <span class="rules">&#123;</span><br><span class="line">  <span class="rule"><span class="attribute">overflow</span>:<span class="value"> hidden</span></span>; <span class="comment">/* clearfix */</span></span><br><span class="line">&#125;</span></span><br></pre></td></tr></table></figure></p>
+<p>当然你要小心使用overflow，因为它会给其他元素带来一些不可预料的影响。</p>
+<p>重大提示！ 由于样式类可以被覆盖或者增加其他内容，所以你最好在样式类上加上 <figure class="highlight"><figcaption><span>clearfix</span><a href="/```">注释用以提示你的同伴。</a></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#10;&#10;#### &#28014;&#21160;&#20803;&#32032;&#35745;&#31639;&#39640;&#24230;&#10;&#24403;&#29238;&#20803;&#32032;&#20165;&#21253;&#21547;&#19968;&#20010;&#28014;&#21160;&#20803;&#32032;&#30340;&#26102;&#20505;&#65292;&#27492;&#26102;&#29238;&#20803;&#32032;&#26368;&#32456;&#39640;&#24230;&#26159; 0&#12290;&#36890;&#36807;&#22312;&#29238;&#20803;&#32032;&#19978;&#20351;&#29992; clearfix &#28165;&#38500;&#28014;&#21160;&#20043;&#21518;&#21487;&#20197;&#24378;&#21046;&#27983;&#35272;&#22120;&#35745;&#31639;&#29238;&#20803;&#32032;&#30340;&#39640;&#24230;&#20026;&#28014;&#21160;&#20803;&#32032;&#39640;&#24230;&#12290;&#10;&#10;&#10;#### &#28014;&#21160;&#20803;&#32032;&#23601;&#26159;&#22359;&#32423;&#20803;&#32032;&#10;&#24403;&#19968;&#20010;&#20803;&#32032;&#34987;&#35774;&#32622;&#20102; float &#23646;&#24615;&#65292;&#37027;&#20040;&#23427;&#20250;&#33258;&#21160;&#35774;&#32622; display: block&#12290;&#25152;&#20197;&#19981;&#35201;&#21516;&#26102;&#35774;&#32622;&#36825;&#20004;&#20010;&#23646;&#24615;&#65292;&#22240;&#20026; float &#20250;&#35206;&#30422;&#20320;&#30340; display &#35774;&#32622;&#12290;</span><br></pre></td></tr></table></figure></p>
+<p>.element {<br>  float: left;<br>  display: block; /<em> Not necessary </em>/<br>}<br><figure class="highlight scss"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">趣闻： 许多年前，我们不得不给浮动元素设置 <span class="attribute">display</span><span class="value">: inline;</span> 属性避免元素在 IE6 上触发 <span class="attribute">margin</span> 加倍的 bug。好在现在我们已经不用管这些了。</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">#### 垂直方向相邻 <span class="attribute">margin</span> 合并</span><br><span class="line">相邻元素的 <span class="attribute">margin-bottom</span> 和 <span class="attribute">margin-top</span> （两个<span class="attribute">margin</span>是挨着的）一般情况会发生合并，但是对 <span class="attribute">float</span> 元素和 <span class="attribute">position</span><span class="value">: absolute;</span> 的元素是无效的。阅读这篇 MDN 文档，或者这篇 CSS2 规范中的 <span class="attribute">margin</span> 合并 了解更多。</span><br><span class="line"></span><br><span class="line">注意！水平方向相邻的 <span class="attribute">margin</span> 是永远不会合并的！</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">#### 给表格的&lt;<span class="tag">tr</span>&gt;定义样式</span><br><span class="line">除非你给父元素 &lt;<span class="tag">table</span>&gt; 设置了 <span class="attribute">border</span>-cllapse<span class="value">: collapse;</span> 属性，否则你的 &lt;<span class="tag">tr</span>&gt; 是无法直接设置 <span class="attribute">border</span> 属性的。当然你还需要知道的是，如果你的 &lt;<span class="tag">tr</span>&gt; 中的子元素 &lt;<span class="tag">td</span>&gt; 或者 &lt;<span class="tag">th</span>&gt; 设置了一个和父元素一样大小的 <span class="attribute">border-width</span>，那么父元素 &lt;<span class="tag">tr</span>&gt; 中的设置将不会生效。无例子无真相，点击这里查看例子。</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">#### Firefox 和 &lt;<span class="tag">input</span>&gt; 按钮的悲欢离合</span><br><span class="line">不知道为什么，Firefox 会自动给 &lt;<span class="tag">input</span>&gt; 类按钮增加 <span class="attribute">line-height</span> 属性，并且你不能自定义样式覆盖它！针对这个问题你有两个选择：</span><br><span class="line"></span><br><span class="line">#### 坚持使用 &lt;<span class="tag">button</span>&gt; 元素</span><br><span class="line">在你的按钮上不要使用 <span class="attribute">line-height</span></span><br><span class="line">如果你选择了第一个（我也推荐这个因为怎么看使用 &lt;<span class="tag">button</span>&gt; 也是更好的选择），下面这个是你需要知道的：</span><br></pre></td></tr></table></figure></p>
+<!-- Not so good -->
+<p><input type="submit" value="Save changes"></p>
+<input type="button" value="Cancel">
+
+<!-- Super good everywhere -->
+<p><button type="submit">Save changes</button></p>
+<p><button type="button">Cancel</button><br><figure class="highlight gherkin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">如果你选择了第二个，其实你只要不给元素设置 line-height 转而只使用padding 去达到垂直居中按钮文字也还好啦。大家可以在 Firefox 中浏览示例查看问题表现和解决方法。</span><br><span class="line"></span><br><span class="line">捷报！ 这个问题似乎在 Firefox 30 中已经修复了。但是老版本肯定还是会存在的，所以使用上依旧要小心。</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">#### Firefox 默认给按钮增加外边框</span></span><br><span class="line">当按钮获得焦点即 :focus 的时候，Firefox 默认给按钮（包括 <span class="variable">&lt;input&gt;</span> 和 <span class="variable">&lt;button&gt;</span>）增加了外边框。这个设置如果你觉得很奇怪的话可以使用下面的 CSS 覆盖它：</span><br></pre></td></tr></table></figure></p>
+<p>input::-moz-focus-inner,<br>button::-moz-focus-inner {<br>  padding: 0;<br>  border: 0;<br>}<br><figure class="highlight fsharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">你可以在之前的例子中看到修复后的实际效果。</span><br><span class="line"></span><br><span class="line">重大提示！ 确保为你的按钮，链接和 input 空间增加了获得焦点的状态。为这个状态提供可视化对于一些使用Tab键切换焦点和示例不好的人来说是极为重要的用户体验。</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">#### 总是给 &lt;button&gt; 元素设置 <span class="class"><span class="keyword">type</span> 属性</span></span><br><span class="line">&lt;button&gt; 默认的 <span class="class"><span class="keyword">type</span> 属性值是 <span class="title">submit</span>，这个意味着如果按钮在表单中点击可以提交表单。使用 <span class="title">type</span></span>=<span class="string">"button"</span> 可以让按钮在表单中回归本来，而不会触发提交事件。当然如果你想要设置提交事件，设置 <span class="class"><span class="keyword">type</span></span>=<span class="string">"submit"</span> 即可。</span><br></pre></td></tr></table></figure></p>
+<p><button type="submit">Save changes</button></p>
+<p><button type="button">Cancel</button><br><figure class="highlight fsharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">当你不在表单中需要使用 &lt;button&gt; 元素时，最好也设置一下 <span class="class"><span class="keyword">type</span></span>=<span class="string">"button"</span>。</span><br></pre></td></tr></table></figure></p>
+<p><button class="dismiss" type="button">x</button><br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&gt; 趣闻： IE7 是不支持读取 <span class="tag">&lt;<span class="title">button</span>&gt;</span> 元素的 value 属性值的。当它读取 value 属性的值的时候，它会去查找元素的 innerHTML 的值并复制给它。然而我为什么没有把这个坑给列出来呢？主要是因为 IE7 的份额在日渐下滑，已经很少人在用它了，另外一个原因也是因为几乎很少人会同时设置 <span class="tag">&lt;<span class="title">button</span>&gt;</span> 元素的 value 属性和它的 innerHTML。</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">#### IE 选择器限制</span><br><span class="line">IE9- 允许一个样式表中最多只有 4096 个选择器。对于页面内样式表 <span class="tag">&lt;<span class="title">style</span>&gt;</span><span class="css"></span><span class="tag">&lt;/<span class="title">style</span>&gt;</span> 也有每页最大 31 个选择器的限制。当然其他浏览器是没有这个问题的。你要么选择分割你的 CSS 样式表，要么对你的代码进行重构。我个人建议选择后者。</span><br><span class="line"></span><br><span class="line">下面给一段代码告诉下大家浏览器是如何计算选择器个数的：</span><br></pre></td></tr></table></figure></p>
+<p>/<em> One selector </em>/<br>.element { }</p>
+<p>/<em> Two more selectors </em>/<br>.element,<br>.other-element { }</p>
+<p>/<em> Three more selectors </em>/<br>input[type=”text”],<br>.form-control,<br>.form-group &gt; input { }<br>```</p>
+<h4 id="Position_属性值讲解">Position 属性值讲解</h4><p>元素设置position: fixed; 属性之后，位置是相对于浏览器的视口来设置的。元素设置 position: absolute; 属性之后，位置是相对于最近的一个 position 值为非 static （例如 relative, absolute 或 fixed）的父元素而设置的。</p>
+<h4 id="Position_和_Width_不得不说的故事">Position 和 Width 不得不说的故事</h4><p>不要对一个设置了 position: [absolute|fixed];, left 和 right 的元素设置 width: 100%;。这里 width:100% 和设置了 left: 0;及right: 0; 的效果是一样的。两者择其一，没必要都用。 Don’t set width: 100%; on an element that has position: [absolute|fixed];, left, and right. The use of width: 100%; is the same as the combined use of left: 0; and right: 0;. Use one or the other, but not both.</p>
+<h4 id="｀position:_fixed;和transform`_的恩怨是非">｀position: fixed;和transform` 的恩怨是非</h4><p>当一个 position: fixed; 元素的父元素设置了 transform 属性之后，浏览器会破坏 position: fixed 的解析。使用 transform 属性元素脱离文档流，相当于创建了一个新的内容块，强制父元素的表现和 position: relative; 一样，强制 position: fixed; 的元素的行为表现和 position: absolute; 一样。</p>
+</span>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/02/17/every day code/" rel="next">Every Day Code 上线网站了</a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+ </div>
+
+        
+
+        
+          <div class="comments" id="comments">
+            
+              <div id="disqus_thread">
+                <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+              </div>
+            
+          </div>
+        
+      </div>
+
+      
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" src="/images/tx.jpg" alt="Go7hic" itemprop="image"/>
+          <p class="site-author-name" itemprop="name">Go7hic</p>
+        </div>
+        <p class="site-description motion-element" itemprop="description">jsut 4 fun</p>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">114</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          <div class="site-state-item site-state-categories">
+            
+              <span class="site-state-item-count">0</span>
+              <span class="site-state-item-name">分类</span>
+              
+          </div>
+
+          <div class="site-state-item site-state-tags">
+            <a href="/tags">
+              <span class="site-state-item-count">26</span>
+              <span class="site-state-item-name">标签</span>
+              </a>
+          </div>
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="menu-item-icon icon-next-feed"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+      </section>
+
+      
+        <section class="post-toc-wrap sidebar-panel-active">
+          <div class="post-toc-indicator-top post-toc-indicator"></div>
+          <div class="post-toc">
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#<!DOCTYPE>_声明"><span class="nav-number">1.</span> <span class="nav-text"><!DOCTYPE> 声明</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#盒模型计算"><span class="nav-number">2.</span> <span class="nav-text">盒模型计算</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#rem_单位和_Safari_Mobile_的爱恨情仇"><span class="nav-number">3.</span> <span class="nav-text">rem 单位和 Safari Mobile 的爱恨情仇</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#高贵的浮动元素"><span class="nav-number">4.</span> <span class="nav-text">高贵的浮动元素</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#清除浮动"><span class="nav-number">5.</span> <span class="nav-text">清除浮动</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Position_属性值讲解"><span class="nav-number">6.</span> <span class="nav-text">Position 属性值讲解</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Position_和_Width_不得不说的故事"><span class="nav-number">7.</span> <span class="nav-text">Position 和 Width 不得不说的故事</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#｀position:_fixed;和transform`_的恩怨是非"><span class="nav-number">8.</span> <span class="nav-text">｀position: fixed;和transform` 的恩怨是非</span></a></li></ol></div>
+            
+          </div>
+          <div class="post-toc-indicator-bottom post-toc-indicator"></div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner"> <div class="copyright" >
+  
+  &copy; &nbsp; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="icon-next-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Go7hic</span>
+</div>
+
+<div class="">
+  「万物之中，希望至美；至美之物，永不凋零」
+</div>
+
+ </div>
+    </footer>
+
+    <div class="back-to-top"></div>
+  </div>
+
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  
+  
+    
+    
+
+  
+
+    <script type="text/javascript">
+      var disqus_shortname = 'g07hic';
+      var disqus_identifier = '2016/03/06/ 一些 HTML 和 CSS 中的坑/';
+      var disqus_title = '一些 HTML 和 CSS 中的坑';
+      var disqus_url = 'http://blog.yongyuan.us/2016/03/06/ 一些 HTML 和 CSS 中的坑/';
+
+      function run_disqus_script(disqus_script){
+        var dsq = document.createElement('script');
+        dsq.type = 'text/javascript';
+        dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      }
+
+      run_disqus_script('count.js');
+      
+        run_disqus_script('embed.js');
+      
+    </script>
+  
+
+
+  
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js"></script>
+  <script type="text/javascript" src="/js/fancy-box.js?v=0.4.5.1"></script>
+
+
+  <script type="text/javascript" src="/js/helpers.js?v=0.4.5.1"></script>
+  
+
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js"></script>
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js"></script>
+
+  <script type="text/javascript" src="/js/motion_global.js?v=0.4.5.1" id="motion.global"></script>
+
+
+
+
+  <script type="text/javascript" src="/js/nav-toggle.js?v=0.4.5.1"></script>
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  
+<script type="text/javascript" src="/js/bootstrap.scrollspy.js?v=0.4.5.1" id="bootstrap.scrollspy.custom"></script>
+
+
+<script type="text/javascript" id="sidebar.toc.highlight">
+  $(document).ready(function () {
+    var tocSelector = '.post-toc';
+    var $tocSelector = $(tocSelector);
+    var activeCurrentSelector = '.active-current';
+
+    $tocSelector
+      .on('activate.bs.scrollspy', function () {
+        var $currentActiveElement = $(tocSelector + ' .active').last();
+
+        removeCurrentActiveClass();
+        $currentActiveElement.addClass('active-current');
+
+        $tocSelector[0].scrollTop = $currentActiveElement.position().top;
+      })
+      .on('clear.bs.scrollspy', function () {
+        removeCurrentActiveClass();
+      });
+
+    function removeCurrentActiveClass () {
+      $(tocSelector + ' ' + activeCurrentSelector)
+        .removeClass(activeCurrentSelector.substring(1));
+    }
+
+    function processTOC () {
+      getTOCMaxHeight();
+      toggleTOCOverflowIndicators();
+    }
+
+    function getTOCMaxHeight () {
+      var height = $('.sidebar').height() -
+                   $tocSelector.position().top -
+                   $('.post-toc-indicator-bottom').height();
+
+      $tocSelector.css('height', height);
+
+      return height;
+    }
+
+    function toggleTOCOverflowIndicators () {
+      tocOverflowIndicator(
+        '.post-toc-indicator-top',
+        $tocSelector.scrollTop() > 0 ? 'show' : 'hide'
+      );
+
+      tocOverflowIndicator(
+        '.post-toc-indicator-bottom',
+        $tocSelector.scrollTop() >= $tocSelector.find('ol').height() - $tocSelector.height() ? 'hide' : 'show'
+      )
+    }
+
+    $(document).on('sidebar.motion.complete', function () {
+      processTOC();
+    });
+
+    $('body').scrollspy({ target: tocSelector });
+    $(window).on('resize', function () {
+      if ( $('.sidebar').hasClass('sidebar-active') ) {
+        processTOC();
+      }
+    });
+
+    onScroll($tocSelector);
+
+    function onScroll (element) {
+      element.on('mousewheel DOMMouseScroll', function (event) {
+          var oe = event.originalEvent;
+          var delta = oe.wheelDelta || -oe.detail;
+
+          this.scrollTop += ( delta < 0 ? 1 : -1 ) * 30;
+          event.preventDefault();
+
+          toggleTOCOverflowIndicators();
+      });
+    }
+
+    function tocOverflowIndicator (indicator, action) {
+      var $indicator = $(indicator);
+      var opacity = action === 'show' ? 0.4 : 0;
+      $indicator.velocity ?
+        $indicator.velocity('stop').velocity({
+          opacity: opacity
+        }, { duration: 100 }) :
+        $indicator.stop().animate({
+          opacity: opacity
+        }, 100);
+    }
+
+  });
+</script>
+
+<script type="text/javascript" id="sidebar.nav">
+  $(document).ready(function () {
+    var html = $('html');
+    var TAB_ANIMATE_DURATION = 200;
+    var hasVelocity = $.isFunction(html.velocity);
+
+    $('.sidebar-nav li').on('click', function () {
+      var item = $(this);
+      var activeTabClassName = 'sidebar-nav-active';
+      var activePanelClassName = 'sidebar-panel-active';
+      if (item.hasClass(activeTabClassName)) {
+        return;
+      }
+
+      var currentTarget = $('.' + activePanelClassName);
+      var target = $('.' + item.data('target'));
+
+      hasVelocity ?
+        currentTarget.velocity('transition.slideUpOut', TAB_ANIMATE_DURATION, function () {
+          target
+            .velocity('stop')
+            .velocity('transition.slideDownIn', TAB_ANIMATE_DURATION)
+            .addClass(activePanelClassName);
+        }) :
+        currentTarget.animate({ opacity: 0 }, TAB_ANIMATE_DURATION, function () {
+          currentTarget.hide();
+          target
+            .stop()
+            .css({'opacity': 0, 'display': 'block'})
+            .animate({ opacity: 1 }, TAB_ANIMATE_DURATION, function () {
+              currentTarget.removeClass(activePanelClassName);
+              target.addClass(activePanelClassName);
+            });
+        });
+
+      item.siblings().removeClass(activeTabClassName);
+      item.addClass(activeTabClassName);
+    });
+
+    $('.post-toc a').on('click', function (e) {
+      e.preventDefault();
+      var targetSelector = escapeSelector(this.getAttribute('href'));
+      var offset = $(targetSelector).offset().top;
+      hasVelocity ?
+        html.velocity('stop').velocity('scroll', {
+          offset: offset  + 'px',
+          mobileHA: false
+        }) :
+        $('html, body').stop().animate({
+          scrollTop: offset
+        }, 500);
+    });
+
+    // Expand sidebar on post detail page by default, when post has a toc.
+    var $tocContent = $('.post-toc-content');
+    if (isDesktop() && CONFIG.sidebar === 'post') {
+      if ($tocContent.length > 0 && $tocContent.html().trim().length > 0) {
+        displaySidebar();
+      }
+    }
+  });
+</script>
+
+
+
+  <script type="text/javascript">
+    $(document).ready(function () {
+      if (CONFIG.sidebar === 'always') {
+        displaySidebar();
+      }
+      if (isMobile()) {
+        FastClick.attach(document.body);
+      }
+    });
+  </script>
+
+  
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/lazyload.js"></script>
+  <script type="text/javascript">
+    $(function () {
+      $("#posts").find('img').lazyload({
+        placeholder: "/images/loading.gif",
+        effect: "fadeIn"
+      });
+    });
+  </script>
+</body>
+</html>
