@@ -49,7 +49,7 @@
 <meta property="og:description" content="&amp;lt;!DOCTYPE&amp;gt; 声明&amp;lt;!DOCTYPE&amp;gt; 会声明一个文档类型给浏览器识别，例如我们经常使用的 HTML5 的文档类型声明是这样的：
 &amp;lt;!DOCTYPE html&amp;gt;如果你没有为页面声明文档类型，浏览器将会使用 Quirks 模式（兼容模式）去渲染页面上非标准的表格，input 控件和其它元素，这样可能会引发一些问题。
 盒模型计算当元素设置了 padding">
-<meta property="og:updated_time" content="2016-03-06T16:00:03.000Z">
+<meta property="og:updated_time" content="2016-03-06T16:10:58.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="一些 HTML 和 CSS 中的坑">
 <meta name="twitter:description" content="&amp;lt;!DOCTYPE&amp;gt; 声明&amp;lt;!DOCTYPE&amp;gt; 会声明一个文档类型给浏览器识别，例如我们经常使用的 HTML5 的文档类型声明是这样的：
@@ -237,7 +237,7 @@
 <figure class="highlight crystal"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="symbol">input:</span><span class="symbol">:-moz-focus-inner</span>,</span><br><span class="line"><span class="symbol">button:</span><span class="symbol">:-moz-focus-inner</span> &#123;</span><br><span class="line">  <span class="symbol">padding:</span> <span class="number">0</span>;</span><br><span class="line">  <span class="symbol">border:</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>你可以在之前的例子中看到修复后的实际效果。</p>
 <p>重大提示！ 确保为你的按钮，链接和 input 空间增加了获得焦点的状态。为这个状态提供可视化对于一些使用Tab键切换焦点和示例不好的人来说是极为重要的用户体验。</p>
-<h4 id="总是给&lt;button&gt;元素设置_type_属性">总是给<code>&lt;button&gt;</code>元素设置 type 属性</h4><p><button> 默认的 type 属性值是 submit，这个意味着如果按钮在表单中点击可以提交表单。使用 type=”button” 可以让按钮在表单中回归本来，而不会触发提交事件。当然如果你想要设置提交事件，设置 type=”submit” 即可。</button></p>
+<h4 id="总是给&lt;button&gt;元素设置_type_属性">总是给<code>&lt;button&gt;</code>元素设置 type 属性</h4><p><code>&lt;button&gt;</code>默认的 type 属性值是 submit，这个意味着如果按钮在表单中点击可以提交表单。使用 type=”button” 可以让按钮在表单中回归本来，而不会触发提交事件。当然如果你想要设置提交事件，设置 type=”submit” 即可。</p>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">button</span> <span class="attribute">type</span>=<span class="value">"submit"</span>&gt;</span>Save changes<span class="tag">&lt;/<span class="title">button</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">button</span> <span class="attribute">type</span>=<span class="value">"button"</span>&gt;</span>Cancel<span class="tag">&lt;/<span class="title">button</span>&gt;</span></span><br></pre></td></tr></table></figure>
 <p>当你不在表单中需要使用 <code>&lt;button&gt;</code>元素时，最好也设置一下 <code>type=&quot;button&quot;</code>。</p>
 <figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;button <span class="class"><span class="keyword">class</span>=</span><span class="string">"dismiss"</span> <span class="class"><span class="keyword">type</span>=</span><span class="string">"button"</span>&gt;x&lt;/button&gt;</span><br></pre></td></tr></table></figure>
