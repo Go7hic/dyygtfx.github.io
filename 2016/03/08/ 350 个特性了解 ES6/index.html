@@ -1,0 +1,1057 @@
+<!doctype html>
+<html class="theme-next use-motion ">
+<head>
+  
+
+<meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+  <link rel="stylesheet" type="text/css" href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5"/>
+
+
+
+
+<link rel="stylesheet" type="text/css" href="/css/main.css?v=0.4.5.1"/>
+
+
+    <meta name="description" content="jsut 4 fun" />
+
+
+
+  <meta name="keywords" content="Hexo,next" />
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Go7hic" type="application/atom+xml" />
+
+
+
+  <link rel="shorticon icon" type="image/x-icon" href="/favicon.ico?v=0.4.5.1" />
+
+
+<meta name="description" content="介绍
+ES6 - 也被叫做 Harmony、es-next、ES2015，是这门语言最新的标准规范
+ES6 规范在 2015 年 6 月正式通过
+未来规范的版本将会按照 ES[YYYY] 这种模式命名，比如：ES2016 对应的就是 ES7
+年度发布时间，没有被确定的功能会被放到下一个版本
+在 ES6 被确定之前，我们大部分人一直称之为 ES6
+从  ES2016(ES7) 开始，我们应该用 ES">
+<meta property="og:type" content="article">
+<meta property="og:title" content="350 个特性了解 ES6">
+<meta property="og:url" content="http://blog.yongyuan.us/2016/03/08/ 350 个特性了解 ES6/index.html">
+<meta property="og:site_name" content="Go7hic">
+<meta property="og:description" content="介绍
+ES6 - 也被叫做 Harmony、es-next、ES2015，是这门语言最新的标准规范
+ES6 规范在 2015 年 6 月正式通过
+未来规范的版本将会按照 ES[YYYY] 这种模式命名，比如：ES2016 对应的就是 ES7
+年度发布时间，没有被确定的功能会被放到下一个版本
+在 ES6 被确定之前，我们大部分人一直称之为 ES6
+从  ES2016(ES7) 开始，我们应该用 ES">
+<meta property="og:updated_time" content="2016-03-08T15:58:33.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="350 个特性了解 ES6">
+<meta name="twitter:description" content="介绍
+ES6 - 也被叫做 Harmony、es-next、ES2015，是这门语言最新的标准规范
+ES6 规范在 2015 年 6 月正式通过
+未来规范的版本将会按照 ES[YYYY] 这种模式命名，比如：ES2016 对应的就是 ES7
+年度发布时间，没有被确定的功能会被放到下一个版本
+在 ES6 被确定之前，我们大部分人一直称之为 ES6
+从  ES2016(ES7) 开始，我们应该用 ES">
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var CONFIG = {
+    scheme: '',
+    sidebar: 'post'
+  };
+</script>
+
+  <title> 350 个特性了解 ES6 | Go7hic </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  <!--[if lte IE 8]>
+  <div style=' clear: both; height: 59px; padding:0 0 0 15px; position: relative;margin:0 auto;'>
+    <a href="http://windows.microsoft.com/en-US/internet-explorer/products/ie/home?ocid=ie6_countdown_bannercode">
+      <img src="http://7u2nvr.com1.z0.glb.clouddn.com/picouterie.jpg" border="0" height="42" width="820"
+           alt="You are using an outdated browser. For a faster, safer browsing experience, upgrade for free today or use other browser ,like chrome firefox safari."
+           style='margin-left:auto;margin-right:auto;display: block;'/>
+    </a>
+  </div>
+<![endif]-->
+  
+
+
+
+  <div class="container one-column page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><h1 class="site-meta">
+  <span class="logo-line-before"><i></i></span>
+  <a href="/" class="brand" rel="start">
+      <span class="logo">
+        <i class="icon-next-logo"></i>
+      </span>
+      <span class="site-title">Go7hic</span>
+  </a>
+  <span class="logo-line-after"><i></i></span>
+</h1>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu ">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            <i class="menu-item-icon icon-next-home"></i> <br />
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            <i class="menu-item-icon icon-next-archives"></i> <br />
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            <i class="menu-item-icon icon-next-tags"></i> <br />
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            <i class="menu-item-icon icon-next-about"></i> <br />
+            关于
+          </a>
+        </li>
+      
+
+      
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div id="content" class="content"> 
+
+  <div id="posts" class="posts-expand">
+    
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      
+      
+        <h1 class="post-title" itemprop="name headline">
+          
+          
+            
+              350 个特性了解 ES6
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于
+          <time itemprop="dateCreated" datetime="2016-03-08T00:00:00+08:00" content="2016-03-08">
+            2016-03-08
+          </time>
+        </span>
+
+        
+
+        
+          
+            <span class="post-comments-count">
+            &nbsp; | &nbsp;
+            <a href="/2016/03/08/ 350 个特性了解 ES6/#comments" itemprop="discussionUrl">
+              <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/03/08/ 350 个特性了解 ES6/" itemprop="commentsCount"></span>
+            </a>
+          </span>
+          
+        
+      </div>
+    </header>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        <span itemprop="articleBody"><h3 id="介绍">介绍</h3><ul>
+<li>ES6 - 也被叫做 Harmony、<code>es-next</code>、ES2015，是这门语言最新的标准规范</li>
+<li>ES6 规范在 2015 年 6 月正式通过</li>
+<li>未来规范的版本将会按照 <code>ES[YYYY]</code> 这种模式命名，比如：ES2016 对应的就是 ES7<ul>
+<li><strong>年度发布时间</strong>，没有被确定的功能会被放到下一个版本</li>
+<li>在 ES6 被确定之前，我们大部分人一直称之为 ES6</li>
+<li>从  ES2016(ES7) 开始，我们应该用 <code>ES[YYYY]</code> 的格式指代新的版本</li>
+<li>这种命名的主要原因是来自现代浏览器快速实现新功能的压力</li>
+</ul>
+</li>
+</ul>
+<h3 id="工具">工具</h3><ul>
+<li>为了让 ES6 现在就能工作，你需要一个 JavaScript 转换器</li>
+<li>下面简单介绍一下转换器：<ul>
+<li>允许你把该语言的最新版本编译成旧版本</li>
+<li>当浏览器的支持变得更好，可以把 ES2016,ES2017 转换成 ES6以及更早的版本</li>
+<li>需要更好的源映射（sourcemap）功能</li>
+<li>以最可靠的方式把 ES6 源代码运行在生产环境上（虽然现在很多浏览器只支持到 ES5）</li>
+</ul>
+</li>
+<li>Babel (一个转换器) 有个杀手级的功能：能够编译输出我们人类可读的代码</li>
+<li>在静态构建过程，我们可以使用 <a href="http://babeljs.io/" target="_blank" rel="external"><code>babel</code></a> 把 ES6 源码转换成 ES5</li>
+<li>使用 <a href="https://github.com/babel/babelify" target="_blank" rel="external"><code>babelify</code></a> 把 babel 添加到你的构建过程[Gulp,Grunt 或者「npm run」]</li>
+<li>使用 Node.js <code>v4.x.x</code> 或者更新的版本因为它对 ES6 支持更好，感谢 <code>V8</code></li>
+<li>使用 <code>node</code> 任何版本的 <code>babel-node</code> ，把它作为转换成 ES5 的模块</li>
+<li>Babel 有一个非常丰富的社区生态系统，已经有很多插件支持 ES6 了</li>
+<li>参考阅读 <a href="https://ponyfoo.com/articles/a-brief-history-of-es6-tooling" target="_blank" rel="external">ES6 工具简史</a></li>
+</ul>
+<h3 id="解构赋值">解构赋值</h3><ul>
+<li><code>var {foo} = pony</code> 等效于 <code>var foo = pony.foo</code></li>
+<li><code>var {foo: baz} = pony</code> 等效于 <code>var baz = pony.foo</code></li>
+<li>你可以提供一个默认值，比如：<code>var {foo=&#39;bar&#39;} = baz</code>，如果<code>baz.foo</code> 为 <code>undefined</code>，会得到 <code>foo: &#39;bar&#39;</code></li>
+<li>只要你喜欢，你可以随便写几个属性，别名或者不写，<code>var {foo, bar: baz} = {foo: 0, bar: 1}</code> 你会得到 <code>foo: 0</code> 和 <code>baz: 1</code></li>
+<li>你也可以嵌套赋值。<code>var {foo: {bar}} = { foo: { bar: &#39;baz&#39; } }</code>，将会得到 <code>bar: &#39;baz&#39;</code></li>
+<li>你也可以给对象属性设置别名。<code>var {foo: {bar: deep}} = { foo: { bar: &#39;baz&#39; } }</code> ，将会得到 <code>deep: &#39;baz&#39;</code></li>
+<li>如果解构对象变量的属性没有发现，那么值为 <code>undefined</code>，比如：<code>var {foo} = {}</code></li>
+<li>深度嵌套的对象属性不存在的话会得到一个错误，比如：<code>var {foo: {bar}} = {}</code></li>
+<li>当然，数组也是可以解构赋值的， <code>[a, b] = [0, 1]</code> 将会得到 <code>a: 0</code>  和 <code>b: 1</code></li>
+<li>在数组里，可以直接跳过元素位置解构赋值，比如：<code>[a, , b] = [0, 1, 2]</code>，将会得到 <code>a: 0</code> 以及<code>b: 2</code></li>
+<li>你可以交换一个没有声明的变量，<code>[a, b] = [b, a]</code></li>
+<li>你可以在函数的参数里使用解构<ul>
+<li>设置默认值，比如：<code>function foo (bar=2) {}</code></li>
+<li>默认的值可以设置成对象形式，比如：<code>function foo (bar={ a: 1, b: 2 }) {}</code></li>
+<li>完全解构 <code>bar</code>，比如：<code>function foo ({ a=1, b=2 }) {}</code></li>
+<li>默认设置为一个空对象如果没有提供赋值，比如：<code>function foo ({ a=1, b=2 } = {}) {}</code></li>
+</ul>
+</li>
+<li>参考阅读 <a href="https://ponyfoo.com/articles/es6-destructuring-in-depth" target="_blank" rel="external">深入理解 ES6 JavaScript 解构</a></li>
+</ul>
+<h3 id="展开运算符和不定参数">展开运算符和不定参数</h3><ul>
+<li><p>不定参数比<code>arguments</code> 更好</p>
+<ul>
+<li>你可以在一个方法里面像这样声明：<code>function foo (...everything) {}</code></li>
+<li><code>everything</code> 是一个数组，里面所有元素都是传递给该函数 <code>foo</code> 的多出来的实参的值.</li>
+<li>你可以在不定参数 <code>...everything</code> 之前定义其他参数, 比如 <code>function foo (bar, ...rest) {}</code></li>
+<li>参数命名的形式为 <code>...rest</code></li>
+<li><code>...rest</code> 一定是在参数列表的最后</li>
+</ul>
+</li>
+<li><p>展开运算符比 magic 更强大，并且支持<code>...</code>语法</p>
+<ul>
+<li>避免使用 <code>.apply</code> 调用方法，<code>fn(...[1,2,3])</code> 和 <code>fn(1,2,3)</code> 是等效的</li>
+<li>数组之间更容易连接 ，比如<code>[1, 2, ...[3, 4, 5], 6, 7]</code></li>
+<li>将类数组对象转换成数组, 比如 <code>[...document.querySelectorAll(&#39;img&#39;)]</code></li>
+<li>解构赋值的时候也可以用，<code>[a, , ...rest] = [1, 2, 3, 4, 5]</code> 会得到 <code>a: 1</code> ， <code>rest: [3, 4, 5]</code></li>
+<li>配合使用 <code>new</code> 和 <code>.apply</code> 毫无压力，<code>new Date(...[2015,31,8])</code></li>
+</ul>
+</li>
+<li>阅读 <a href="https://ponyfoo.com/articles/es6-spread-and-butter-in-depth" target="_blank" rel="external">深入理解 ES6 展开运算符和不定参数</a></li>
+</ul>
+<h3 id="箭头函数">箭头函数</h3><ul>
+<li>声明一个简短的函数，比如： <code>param =&gt; returnValue</code></li>
+<li>做某些功能的时候，像 <code>[1, 2].map(x =&gt; x * 2)</code> 这种方式是很有用的</li>
+<li>有几个新东西可能需要慢慢消化<ul>
+<li><code>p1 =&gt; expr</code> 是一个参数</li>
+<li><code>p1 =&gt; expr</code> 会有一个隐式的返回语句给 <code>expr</code></li>
+<li>如果直接隐式的返回一个对象，要像  <code>() =&gt; ({ foo: &#39;bar&#39; })</code> 这样用括号括住对象，不然会报错的</li>
+<li>当你没有参数或者两个参数，更多参数的时候，用圆括号代表参数部分,像这样 <code>() =&gt; expr</code> 或 <code>(p1, p2) =&gt; expr</code></li>
+<li>右边的代码块有多条语句的话用大括号括起来，<code>() =&gt; {}</code></li>
+<li>当使用代码块的时候，没有隐式的 <code>return</code>，你要自己去提供一个：<code>() =&gt; { return &#39;foo&#39; }</code></li>
+</ul>
+</li>
+<li>You can’t name arrow functions statically, but runtimes are now much better at inferring names for most methods</li>
+<li>你不能静态的命名箭头函数</li>
+<li>箭头函数会绑定它们自己的词法作用域<ul>
+<li><code>this</code> 就是父作用域上下文所在的 <code>this</code></li>
+<li><code>this</code> 不能被 <code>.call</code>,<code>.apply</code> 或者类似的反射类型方法修改</li>
+</ul>
+</li>
+<li>阅读 <a href="https://ponyfoo.com/articles/es6-arrow-functions-in-depth" target="_blank" rel="external">深入理解 ES6 箭头函数</a></li>
+</ul>
+<h3 id="模板字符串">模板字符串</h3><ul>
+<li>除了双引号<code>&quot;</code>和单引号<code>&#39;</code>以外，你还可以可以用<code>` </code>(反撇号）声明一个字符串</li>
+<li>用反撇号包含的字符串就是 模板字符串</li>
+<li>模板字符串可以分多行写</li>
+<li>模板字符串允许插值，比如 <code>ponyfoo.com is ${rating}</code>，其中 <code>rating</code> 是个变量</li>
+<li>你可以在字符串里用任何原生 Js 表达式，比如：<code>${2 * 3}</code> 或 <code>${foo()}</code></li>
+<li>你可以使用标记模板改变表达式内的插值<ul>
+<li>添加一个前缀给 <code>fn</code>,${bar} and ${baz}</li>
+<li><code>fn</code> 也叫做 <code>template, ...expressions</code></li>
+<li><code>template</code> 是 <code>[&#39;foo, &#39;, &#39; and &#39;, &#39;&#39;]</code> ， <code>expressions</code> 是 <code>[bar, baz]</code></li>
+<li><code>fn</code> 的结果最后变成模板字符串的值</li>
+<li>使用的时候可能要注意输入过滤表达式和参数解析等</li>
+</ul>
+</li>
+<li>模板字符串基本上和用单引号双引号包含的字符串一样严格</li>
+<li>阅读 <a href="https://ponyfoo.com/articles/es6-template-strings-in-depth" target="_blank" rel="external">深入理解 ES6 模板字符串</a></li>
+</ul>
+<h3 id="对象字面量">对象字面量</h3><ul>
+<li>你可以用 <code>{foo}</code> 的写法代替<code>{foo:foo}</code> – 属性值简写</li>
+<li>计算属性名,比如 <code>{ [prefix + &#39;Foo&#39;]: &#39;bar&#39; }</code>, 如果 <code>prefix: &#39;moz&#39;</code>, 那么将得到 <code>{ mozFoo: &#39;bar&#39; }</code></li>
+<li>你不能快速合并计算属性名字和属性值，<code>{ [foo] }</code> 是无效的</li>
+<li>方法定义一个对象字面可以使用另一个声明,更简洁的语法</li>
+<li>在一个对象里面定义方法可以使用另外一个声明，更简单的语法，<code>{foo() {}}</code></li>
+<li>参考 <a href="#object"><code>Object</code></a> 部分</li>
+<li>阅读 <a href="https://ponyfoo.com/articles/es6-object-literal-features-in-depth" target="_blank" rel="external">深入理解 ES6 对象字面量</a></li>
+</ul>
+<h3 id="Classes">Classes</h3><ul>
+<li>不是传统的类，是原型继承的语法糖。</li>
+<li>语法类似于声明对象 <code>class Foo{}</code>。</li>
+<li>实例方法 <em>– <code>new Foo().bar</code> –</em> 使用简短的语法声明 <a href="#object-literals">object literal</a> , <code>class Foo { bar () {} }</code></li>
+<li>静态方法 <em>– <code>Foo.isPonyFoo()</code> –</em> 需要一个 <code>static</code> 关键词前缀, <code>class Foo { static isPonyFoo () {} }</code></li>
+<li>构造函数方法 <code>class Foo { constructor () { /* initialize instance */ } }</code></li>
+<li>一个很简单的语法就可以实现原型继承 <code>class PonyFoo extends Foo {}</code></li>
+<li>阅读 <a href="https://ponyfoo.com/articles/es6-classes-in-depth" target="_blank" rel="external">深入理解 ES6 Classes</a></li>
+</ul>
+<h3 id="Let_和_Const">Let 和 Const</h3><ul>
+<li>声明变量的时候，用<code>let</code>和<code>const</code>代替<code>var</code></li>
+<li><code>let</code>是个块级作用域，代替一个函数的词法作用域</li>
+<li><code>let</code>是一个块级作用域，而不是<code>function</code>的词法作用域</li>
+<li><code>let</code> 声明的变量会 <a href="https://ponyfoo.com/articles/javascript-variable-hoisting" target="_blank" rel="external">提升</a> 块级作用域的顶部, 而 <code>var</code> 生命的变量会提升到函数的顶部</li>
+<li>“暂时性死区” – TDZ 简介<ul>
+<li>块作用域在 <code>let foo</code> 声明的时候开始</li>
+<li>结束的地方让foo的声明放置在用户代码</li>
+<li><code>let foo</code> 声明被用户的代码替换后结束作用域块</li>
+<li>Attempts to access or assign to <code>foo</code> within the TDZ <em>(before the <code>let foo</code> statement is reached)</em> result in an error</li>
+<li>有助于在变量未声明前操作变量产生的神奇 bug。</li>
+</ul>
+</li>
+<li><code>const</code> 也是一个块级作用域，提升以及受限于 TDZ 语义</li>
+<li><code>const</code> 变量必须要声明一个初始值，<code>const foo = &#39;bar&#39;</code></li>
+<li>在 <code>const</code> 变量初始化失败之后会默默的指向其他值</li>
+<li><code>const</code> 变量不要改变它分配的值<ul>
+<li><code>const foo = { bar: &#39;baz&#39; }</code> 意味着 <code>foo</code> 会一直引用右边对象的值</li>
+<li><code>const foo = { bar: &#39;baz&#39; }; foo.bar = &#39;boo&#39;</code> 不会抛错</li>
+</ul>
+</li>
+<li>声明变量名相同时会抛出异常</li>
+<li>为了修复错误,你要重新分配一个内存变量，其他的就会失去引用</li>
+<li>在 ES6 里, <strong>函数都是块级作用域</strong><ul>
+<li>防止提升暴露块级作用域<code>{ let _foo = &#39;secret&#39;, bar = () =&gt; _foo; }</code></li>
+<li>在大多数情况下不要打断用户代码，随便输入你想要的东西.</li>
+</ul>
+</li>
+<li>阅读 <a href="https://ponyfoo.com/articles/es6-let-const-and-temporal-dead-zone-in-depth" target="_blank" rel="external">深入理解 ES6 Let,Const和暂时性死区</a></li>
+</ul>
+<h3 id="Symbols">Symbols</h3><ul>
+<li>ES6 里的一个新的数据类型</li>
+<li>你可以通过 Symbol 函数创建自己的 symbols,比如：<code>var symbol = Symbol()</code></li>
+<li>你可以添加参数的形式添加一个对 Symbol 的描述，方便调式，比如：<code>Symbol(&#39;ponyfoo&#39;)</code></li>
+<li>Symbols 有多种形式，并且都是不同的。<code>Symbol()</code>, <code>Symbol()</code>, <code>Symbol(&#39;foo&#39;)</code> 和 <code>Symbol(&#39;foo&#39;)</code> 都是不同的</li>
+<li>Symbols 的类型就是 <code>symbol</code>, 所以: <code>typeof Symbol() === &#39;symbol&#39;</code></li>
+<li>你可以 通过 <code>Symbol.for(key)</code> 创建一个全局的 symbols<ul>
+<li>如果一个 symbol 的 <code>key</code> 已经存在，可以直接获取这个值</li>
+<li>创建一个新的 symbol,使用<code>key</code>作为 symbol 的描述</li>
+<li><code>Symbol.keyFor(symbol)</code> 有着相反的功能, 通过一个 <code>symbol</code> 返回它的 <code>key</code></li>
+<li>全局环境的 symbols 在全局哪获得的值就是它的值<ul>
+<li><code>window</code> 上下文</li>
+<li><code>eval</code> 上下文</li>
+<li><code>&lt;iframe&gt;</code>上下文, <code>Symbol.for(&#39;foo&#39;) === iframe.contentWindow.Symbol.for(&#39;foo&#39;)</code></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>还有一些众所周知的 symbols<ul>
+<li>不在全局注册属性，可以通过 <code>Symbol[name]</code>,比如：<code>Symbol.iterator</code>；</li>
+<li>跨域, 意思就是 <code>Symbol.iterator === iframe.contentWindow.Symbol.iterator</code></li>
+<li>Used by specification to define protocols, such as the <a href="#iterators"><em>iterable</em> protocol</a> over <code>Symbol.iterator</code></li>
+<li>They’re not <strong>actually well-known</strong> – in colloquial terms</li>
+</ul>
+</li>
+<li>遍历 symbol 的属性是很难的，但也不是不可能的<ul>
+<li>Symbol 隐藏了所有 pre-ES6 <code>反射</code> 方法</li>
+<li>Symbol 可以通过 <code>Object.getOwnPropertySymbols</code> 访问属性</li>
+<li>不可能不会偶然发现他们，除非你努力去发现</li>
+</ul>
+</li>
+<li>阅读 <a href="https://ponyfoo.com/articles/es6-symbols-in-depth" target="_blank" rel="external">深入理解 ES6 Symbols</a></li>
+</ul>
+<h3 id="Iterators_(遍历器)">Iterators (遍历器)</h3><ul>
+<li>迭代器和iterable协议定义了如何遍历任何对象,不是数组和类数组</li>
+<li>A well-known <code>Symbol</code> is used to assign an iterator to any object</li>
+<li><code>var foo = { [Symbol.iterator]: iterable}</code>, or <code>foo[Symbol.iterator] = iterable</code></li>
+<li>The <code>iterable</code> is a method that returns an <code>iterator</code> object that has a <code>next</code> method</li>
+<li>The <code>next</code> method returns objects with two properties, <code>value</code> and <code>done</code><ul>
+<li>The <code>value</code> property indicates the current value in the sequence being iterated</li>
+<li>The <code>done</code> property indicates whether there are any more items to iterate</li>
+</ul>
+</li>
+<li>Objects that have a <code>[Symbol.iterator]</code> value are <em>iterable</em>, because they subscribe to the iterable protocol</li>
+<li>Some built-ins like <code>Array</code>, <code>String</code>, or <code>arguments</code> – and <code>NodeList</code> in browsers – are iterable by default in ES6</li>
+<li>Iterable objects can be looped over with <code>for..of</code>, such as <code>for (let el of document.querySelectorAll(&#39;a&#39;))</code></li>
+<li>Iterable objects can be synthesized using the spread operator, like <code>[...document.querySelectorAll(&#39;a&#39;)]</code></li>
+<li>You can also use <code>Array.from(document.querySelectorAll(&#39;a&#39;))</code> to synthesize an iterable sequence into an array</li>
+<li>Iterators are <em>lazy</em>, and those that produce an infinite sequence still can lead to valid programs</li>
+<li>Be careful not to attempt to synthesize an infinite sequence with <code>...</code> or <code>Array.from</code> as that <strong>will</strong> cause an infinite loop</li>
+<li>阅读 <a href="https://ponyfoo.com/articles/es6-iterators-in-depth" target="_blank" rel="external">深入理解 ES6 迭代器</a></li>
+</ul>
+<h3 id="Generators">Generators</h3><ul>
+<li>Generator functions are a special kind of <em>iterator</em> that can be declared using the <code>function* generator () {}</code> syntax</li>
+<li>Generator functions use <code>yield</code> to emit an element sequence</li>
+<li>Generator functions can also use <code>yield*</code> to delegate to another generator function <em>– or any iterable object</em></li>
+<li>Generator functions return a generator object that’s adheres to both the <em>iterable</em> and <em>iterator</em> protocols<ul>
+<li>Given <code>g = generator()</code>, <code>g</code> adheres to the iterable protocol because <code>g[Symbol.iterator]</code> is a method</li>
+<li>Given <code>g = generator()</code>, <code>g</code> adheres to the iterator protocol because <code>g.next</code> is a method</li>
+<li>The iterator for a generator object <code>g</code> is the generator itself: <code>g[Symbol.iterator]() === g</code></li>
+</ul>
+</li>
+<li>Pull values using <code>Array.from(g)</code>, <code>[...g]</code>, <code>for (let item of g)</code>, or just calling <code>g.next()</code></li>
+<li>Generator function execution is suspended, remembering the last position, in four different cases<ul>
+<li>A <code>yield</code> expression returning the next value in the sequence</li>
+<li>A <code>return</code> statement returning the last value in the sequence</li>
+<li>A <code>throw</code> statement halts execution in the generator entirely</li>
+<li>Reaching the end of the generator function signals <code>{ done: true }</code></li>
+</ul>
+</li>
+<li>Once the <code>g</code> sequence has ended, <code>g.next()</code> simply returns <code>{ done: true }</code> and has no effect</li>
+<li>It’s easy to make asynchronous flows feel synchronous<ul>
+<li>Take user-provided generator function</li>
+<li>User code is suspended while asynchronous operations take place</li>
+<li>Call <code>g.next()</code>, unsuspending execution in user code</li>
+</ul>
+</li>
+<li>Read <a href="https://ponyfoo.com/articles/es6-generators-in-depth" target="_blank" rel="external">ES6 Generators in Depth</a></li>
+</ul>
+<h3 id="Promises">Promises</h3><ul>
+<li>Follows the <a href="https://promisesaplus.com/" target="_blank" rel="external"><code>Promises/A+</code></a> specification, was widely implemented in the wild before ES6 was standarized <em>(e.g <a href="https://github.com/petkaantonov/bluebird" target="_blank" rel="external"><code>bluebird</code></a>)</em></li>
+<li>Promises behave like a tree. Add branches with <code>p.then(handler)</code> and <code>p.catch(handler)</code></li>
+<li>Create new <code>p</code> promises with <code>new Promise((resolve, reject) =&gt; { /* resolver */ })</code><ul>
+<li>The <code>resolve(value)</code> callback will fulfill the promise with the provided <code>value</code></li>
+<li>The <code>reject(reason)</code> callback will reject <code>p</code> with a <code>reason</code> error</li>
+<li>You can call those methods asynchronously, blocking deeper branches of the promise tree</li>
+</ul>
+</li>
+<li>Each call to <code>p.then</code> and <code>p.catch</code> creates another promise that’s blocked on <code>p</code> being settled</li>
+<li>Promises start out in <em>pending</em> state and are <strong>settled</strong> when they’re either <em>fulfilled</em> or <em>rejected</em></li>
+<li>Promises can only be settled once, and then they’re settled. Settled promises unblock deeper branches</li>
+<li>You can tack as many promises as you want onto as many branches as you need</li>
+<li>Each branch will execute either <code>.then</code> handlers or <code>.catch</code> handlers, never both</li>
+<li>A <code>.then</code> callback can transform the result of the previous branch by returning a value</li>
+<li>A <code>.then</code> callback can block on another promise by returning it</li>
+<li><code>p.catch(fn).catch(fn)</code> won’t do what you want – unless what you wanted is to catch errors in the error handler</li>
+<li><a href="https://ponyfoo.com/articles/es6-promises-in-depth#using-promiseresolve-and-promisereject" target="_blank" rel="external"><code>Promise.resolve(value)</code></a> creates a promise that’s fulfilled with the provided <code>value</code></li>
+<li><a href="https://ponyfoo.com/articles/es6-promises-in-depth#using-promiseresolve-and-promisereject" target="_blank" rel="external"><code>Promise.reject(reason)</code></a> creates a promise that’s rejected with the provided <code>reason</code></li>
+<li><a href="https://ponyfoo.com/articles/es6-promises-in-depth#leveraging-promiseall-and-promiserace" target="_blank" rel="external"><code>Promise.all(...promises)</code></a> creates a promise that settles when all <code>...promises</code> are fulfilled or 1 of them is rejected</li>
+<li><a href="https://ponyfoo.com/articles/es6-promises-in-depth#leveraging-promiseall-and-promiserace" target="_blank" rel="external"><code>Promise.race(...promises)</code></a> creates a promise that settles as soon as 1 of <code>...promises</code> is settled</li>
+<li>Use <a href="http://bevacqua.github.io/promisees/" target="_blank" rel="external">Promisees</a> – the promise visualization playground – to better understand promises</li>
+<li>Read <a href="https://ponyfoo.com/articles/es6-promises-in-depth" target="_blank" rel="external">ES6 Promises in Depth</a></li>
+</ul>
+<h3 id="Maps">Maps</h3><ul>
+<li>A replacement to the common pattern of creating a hash-map using plain JavaScript objects<ul>
+<li>Avoids security issues with user-provided keys</li>
+<li>Allows keys to be arbitrary values, you can even use DOM elements or functions as the <code>key</code> to an entry</li>
+</ul>
+</li>
+<li><code>Map</code> adheres to <em><a href="#iterators">iterable</a></em> protocol</li>
+<li>Create a <code>map</code> using <code>new Map()</code></li>
+<li>Initialize a map with an <code>iterable</code> like <code>[[key1, value1], [key2, value2]]</code> in <code>new Map(iterable)</code></li>
+<li>Use <code>map.set(key, value)</code> to add entries</li>
+<li>Use <code>map.get(key)</code> to get an entry</li>
+<li>Check for a <code>key</code> using <code>map.has(key)</code></li>
+<li>Remove entries with <code>map.delete(key)</code></li>
+<li>Iterate over <code>map</code> with <code>for (let [key, value] of map)</code>, the spread operator, <code>Array.from</code>, etc</li>
+<li>阅读 <a href="https://ponyfoo.com/articles/es6-maps-in-depth" target="_blank" rel="external">ES6 Maps in Depth</a></li>
+</ul>
+<h3 id="WeakMaps">WeakMaps</h3><ul>
+<li>Similar to <code>Map</code>, but not quite the same</li>
+<li><code>WeakMap</code> isn’t iterable, so you don’t get enumeration methods like <code>.forEach</code>, <code>.clear</code>, and others you had in <code>Map</code></li>
+<li><code>WeakMap</code> keys must be reference types. You can’t use value types like symbols, numbers, or strings as keys</li>
+<li><code>WeakMap</code> entries with a <code>key</code> that’s the only reference to the referenced variable are subject to garbage collection</li>
+<li>That last point means <code>WeakMap</code> is great at keeping around metadata for objects, while those objects are still in use</li>
+<li>You avoid memory leaks, without manual reference counting – think of <code>WeakMap</code> as <a href="https://msdn.microsoft.com/en-us/library/system.idisposable%28v=vs.110%29.aspx?f=255&amp;MSPPError=-2147217396" target="_blank" rel="external"><code>IDisposable</code></a> in .NET</li>
+<li>Read <a href="https://ponyfoo.com/articles/es6-weakmaps-sets-and-weaksets-in-depth#es6-weakmaps" target="_blank" rel="external">ES6 WeakMaps in Depth</a></li>
+</ul>
+<h3 id="Sets">Sets</h3><ul>
+<li>和 <code>Map</code> 有点相同，但是又不完全一样</li>
+<li><code>Set</code> 没有键名，只有键值</li>
+<li><code>set.set(value)</code> 看起来是错误的，我们要用 <code>set.add(value)</code> 代替</li>
+<li>Sets 不能有重复值，因为值都是对应键的值</li>
+<li>阅读 <a href="https://ponyfoo.com/articles/es6-weakmaps-sets-and-weaksets-in-depth#es6-sets" target="_blank" rel="external">深入理解 ES6 Sets</a></li>
+</ul>
+<h3 id="WeakSets">WeakSets</h3><p>*</p>
+<ul>
+<li><code>WeakSet</code> is sort of a cross-breed between <code>Set</code> and <code>WeakMap</code></li>
+<li>A <code>WeakSet</code> is a set that can’t be iterated and doesn’t have enumeration methods</li>
+<li><code>WeakSet</code> values must be reference types</li>
+<li><code>WeakSet</code> may be useful for a metadata table indicating whether a reference is actively in use or not</li>
+<li>阅读 <a href="https://ponyfoo.com/articles/es6-weakmaps-sets-and-weaksets-in-depth#es6-weaksets" target="_blank" rel="external">深入理解 ES6 WeakSets</a></li>
+</ul>
+<h3 id="Proxies">Proxies</h3><ul>
+<li>Proxies are created with <code>new Proxy(target, handler)</code>, where <code>target</code> is any object and <code>handler</code> is configuration</li>
+<li>The default behavior of a <code>proxy</code> acts as a passthrough to the underlying <code>target</code> object</li>
+<li>Handlers determine how the underlying <code>target</code> object is accessed on top of regular object property access semantics</li>
+<li>You pass off references to <code>proxy</code> and retain strict control over how <code>target</code> can be interacted with</li>
+<li>Handlers are also known as traps, these terms are used interchangeably</li>
+<li>You can create <strong>revocable</strong> proxies with <code>Proxy.revocable(target, handler)</code><ul>
+<li>That method returns an object with <code>proxy</code> and <code>revoke</code> properties</li>
+<li>You could <a href="#destructuring">destructure</a> <code>var {proxy, revoke} = Proxy.revocable(target, handler)</code> for convenience</li>
+<li>You can configure the <code>proxy</code> all the same as with <code>new Proxy(target, handler)</code></li>
+<li>After <code>revoke()</code> is called, the <code>proxy</code> will <strong>throw</strong> on <em>any operation</em>, making it convenient when you can’t trust consumers</li>
+</ul>
+</li>
+<li><a href="https://ponyfoo.com/articles/es6-proxies-in-depth#get" target="_blank" rel="external"><code>get</code></a> – traps <code>proxy.prop</code> and <code>proxy[&#39;prop&#39;]</code></li>
+<li><a href="https://ponyfoo.com/articles/es6-proxies-in-depth#set" target="_blank" rel="external"><code>set</code></a> – traps <code>proxy.prop = value</code> and <code>proxy[&#39;prop&#39;] = value</code></li>
+<li><a href="https://ponyfoo.com/articles/es6-proxy-traps-in-depth#has" target="_blank" rel="external"><code>has</code></a> – traps <code>in</code> operator</li>
+<li><a href="https://ponyfoo.com/articles/es6-proxy-traps-in-depth#deleteproperty" target="_blank" rel="external"><code>deleteProperty</code></a> – traps <code>delete</code> operator</li>
+<li><a href="https://ponyfoo.com/articles/es6-proxy-traps-in-depth#defineproperty" target="_blank" rel="external"><code>defineProperty</code></a> – traps <code>Object.defineProperty</code> and declarative alternatives</li>
+<li><a href="https://ponyfoo.com/articles/es6-proxy-traps-in-depth#enumerate" target="_blank" rel="external"><code>enumerate</code></a> – traps <code>for..in</code> loops</li>
+<li><a href="https://ponyfoo.com/articles/es6-proxy-traps-in-depth#ownkeys" target="_blank" rel="external"><code>ownKeys</code></a> – traps <code>Object.keys</code> and related methods</li>
+<li><a href="https://ponyfoo.com/articles/es6-proxy-traps-in-depth#apply" target="_blank" rel="external"><code>apply</code></a> – traps <em>function calls</em></li>
+<li><a href="https://ponyfoo.com/articles/morees6-proxy-traps-in-depth#construct" target="_blank" rel="external"><code>construct</code></a> – traps usage of the <code>new</code> operator</li>
+<li><a href="https://ponyfoo.com/articles/morees6-proxy-traps-in-depth#getprototypeof" target="_blank" rel="external"><code>getPrototypeOf</code></a> – traps internal calls to <code>[[GetPrototypeOf]]</code></li>
+<li><a href="https://ponyfoo.com/articles/morees6-proxy-traps-in-depth#setprototypeof" target="_blank" rel="external"><code>setPrototypeOf</code></a> – traps calls to <code>Object.setPrototypeOf</code></li>
+<li><a href="https://ponyfoo.com/articles/morees6-proxy-traps-in-depth#isextensible" target="_blank" rel="external"><code>isExtensible</code></a> – traps calls to <code>Object.isExtensible</code></li>
+<li><a href="https://ponyfoo.com/articles/morees6-proxy-traps-in-depth#preventextensions" target="_blank" rel="external"><code>preventExtensions</code></a> – traps calls to <code>Object.preventExtensions</code></li>
+<li><a href="https://ponyfoo.com/articles/morees6-proxy-traps-in-depth#getownpropertydescriptor" target="_blank" rel="external"><code>getOwnPropertyDescriptor</code></a> – traps calls to <code>Object.getOwnPropertyDescriptor</code></li>
+<li>Read <a href="https://ponyfoo.com/articles/es6-proxies-in-depth" target="_blank" rel="external">ES6 Proxies in Depth</a></li>
+<li>Read <a href="https://ponyfoo.com/articles/es6-proxy-traps-in-depth" target="_blank" rel="external">ES6 Proxy Traps in Depth</a></li>
+<li>Read <a href="https://ponyfoo.com/articles/more-es6-proxy-traps-in-depth" target="_blank" rel="external">More ES6 Proxy Traps in Depth</a></li>
+</ul>
+<h3 id="Reflection">Reflection</h3><ul>
+<li>‘Reflection’ 是 ES6 标准库里一个新的静态方法（和 Math 对象一样）</li>
+<li><code>Reflection</code> 方法有合理的内部结构，比如<code>Reflect.defineProperty</code>返回的就是一个布尔值。</li>
+<li>每个代理处理器都有一个 <code>Reflection</code> 方法，它们分别对应着每个处理器的默认方法</li>
+<li>在未来，和 <code>Object.keys</code> 一样类似的反射（Reflection）方法将会被放在 <code>Reflection</code> 命名下面。</li>
+<li>阅读 <a href="https://ponyfoo.com/articles/es6-reflection-in-depth" target="_blank" rel="external">深入理解 ES6 Reflection</a></li>
+</ul>
+<h3 id="Number"><code>Number</code></h3><ul>
+<li>二进制和八进制分别使用前缀 <code>Ob</code>和<code>0o</code></li>
+<li><code>Number.isNaN</code> 和 <code>Number.isFinite</code> 与全局方法有点像, 但是它们只对输入的为数值有效，非数值一律返回 false</li>
+<li><code>Number.parseInt</code> 和 <code>Number.parseFloat</code> 与全局方法是完全一样的</li>
+<li><code>Number.isInteger</code> 检查一个值是否为整数</li>
+<li><code>Number.EPSILON</code> 帮助两个浮点数计算设置一个可接受误差范围，误差小于 Number.EPSILON 说明计算正确，比如<code>0.1 + 0.2</code> 和 <code>0.3</code></li>
+<li><code>Number.MAX_SAFE_INTEGER</code> 表示在 JavaScript 里整数能安全精确表示的最小值</li>
+<li><code>Number.MAX_SAFE_INTEGER</code> 表示在 JavaScript 里整数能安全精确表示的最大值</li>
+<li><code>Number.isSafeInteger</code> 检查一个整数是否能够在范围内（MIN_SAFE_INTEGER-MAX_SAFE_INTEGER）安全精确的表示出来</li>
+<li>阅读 <a href="https://ponyfoo.com/articles/es6-number-improvements-in-depth" target="_blank" rel="external">深入理解 ES6 数字的改进</a></li>
+</ul>
+<h3 id="Math"><code>Math</code></h3><ul>
+<li><a href="https://ponyfoo.com/articles/es6-math-additions-in-depth#mathsign" target="_blank" rel="external"><code>Math.sign</code></a> – 用来判断一个数到底是正数、负数、还是零</li>
+<li><a href="https://ponyfoo.com/articles/es6-math-additions-in-depth#mathtrunc" target="_blank" rel="external"><code>Math.trunc</code></a> – 去除一个数的小数部分，返回整数部分</li>
+<li><a href="https://ponyfoo.com/articles/es6-math-additions-in-depth#mathcbrt" target="_blank" rel="external"><code>Math.cbrt</code></a> – 用于计算一个数的立方根</li>
+<li><a href="https://ponyfoo.com/articles/es6-math-additions-in-depth#mathexpm1" target="_blank" rel="external"><code>Math.expm1</code></a> – <code>e</code> to the <code>value</code> minus <code>1</code>, or <code>e&lt;sup&gt;value&lt;/sup&gt; - 1</code></li>
+<li><a href="https://ponyfoo.com/articles/es6-math-additions-in-depth#mathlog1p" target="_blank" rel="external"><code>Math.log1p</code></a> – natural logarithm of <code>value + 1</code>, or <code>_ln_(value + 1)</code></li>
+<li><a href="https://ponyfoo.com/articles/es6-math-additions-in-depth#mathlog10" target="_blank" rel="external"><code>Math.log10</code></a> – base 10 logarithm of <code>value</code>, or <code>_log_&lt;sub&gt;10&lt;/sub&gt;(value)</code></li>
+<li><a href="https://ponyfoo.com/articles/es6-math-additions-in-depth#mathlog2" target="_blank" rel="external"><code>Math.log2</code></a> – base 2 logarithm of <code>value</code>, or <code>_log_&lt;sub&gt;2&lt;/sub&gt;(value)</code></li>
+<li><a href="https://ponyfoo.com/articles/es6-math-additions-in-depth#mathsinh" target="_blank" rel="external"><code>Math.sinh</code></a> – hyperbolic sine of a number</li>
+<li><a href="https://ponyfoo.com/articles/es6-math-additions-in-depth#mathcosh" target="_blank" rel="external"><code>Math.cosh</code></a> – hyperbolic cosine of a number</li>
+<li><a href="https://ponyfoo.com/articles/es6-math-additions-in-depth#mathtanh" target="_blank" rel="external"><code>Math.tanh</code></a> – hyperbolic tangent of a number</li>
+<li><a href="https://ponyfoo.com/articles/es6-math-additions-in-depth#mathasinh" target="_blank" rel="external"><code>Math.asinh</code></a> – hyperbolic arc-sine of a number</li>
+<li><a href="https://ponyfoo.com/articles/es6-math-additions-in-depth#mathacosh" target="_blank" rel="external"><code>Math.acosh</code></a> – hyperbolic arc-cosine of a number</li>
+<li><a href="https://ponyfoo.com/articles/es6-math-additions-in-depth#mathatanh" target="_blank" rel="external"><code>Math.atanh</code></a> – hyperbolic arc-tangent of a number</li>
+<li><a href="https://ponyfoo.com/articles/es6-math-additions-in-depth#mathhypot" target="_blank" rel="external"><code>Math.hypot</code></a> – square root of the sum of squares</li>
+<li><a href="https://ponyfoo.com/articles/es6-math-additions-in-depth#mathclz32" target="_blank" rel="external"><code>Math.clz32</code></a> – 返回一个数的32位无符号整数形式有多少个前导0。</li>
+<li><a href="https://ponyfoo.com/articles/es6-math-additions-in-depth#mathimul" target="_blank" rel="external"><code>Math.imul</code></a> – 返回两个数以32位带符号整数形式相乘的结果</li>
+<li><a href="https://ponyfoo.com/articles/es6-math-additions-in-depth#mathfround" target="_blank" rel="external"><code>Math.fround</code></a> – 最接近这个小数的单精度浮点数。</li>
+<li>阅读 <a href="https://ponyfoo.com/articles/es6-math-additions-in-depth" target="_blank" rel="external">深入理解 ES6 <code>Math</code> 的扩展</a></li>
+</ul>
+<h3 id="Array"><code>Array</code></h3><ul>
+<li><a href="https://ponyfoo.com/articles/es6-array-extensions-in-depth#arrayfrom" target="_blank" rel="external"><code>Array.from</code></a> – create <code>Array</code> instances from arraylike objects like <code>arguments</code> or iterables</li>
+<li><a href="https://ponyfoo.com/articles/es6-array-extensions-in-depth#arrayof" target="_blank" rel="external"><code>Array.of</code></a> – similar to <code>new Array(...items)</code>, but without special cases</li>
+<li><a href="https://ponyfoo.com/articles/es6-array-extensions-in-depth#arrayprototypecopywithin" target="_blank" rel="external"><code>Array.prototype.copyWithin</code></a> – copies a sequence of array elements into somewhere else in the array</li>
+<li><a href="https://ponyfoo.com/articles/es6-array-extensions-in-depth#arrayprototypefill" target="_blank" rel="external"><code>Array.prototype.fill</code></a> – fills all elements of an existing array with the provided value</li>
+<li><a href="https://ponyfoo.com/articles/es6-array-extensions-in-depth#arrayprototypefind" target="_blank" rel="external"><code>Array.prototype.find</code></a> – returns the first item to satisfy a callback</li>
+<li><a href="https://ponyfoo.com/articles/es6-array-extensions-in-depth#arrayprototypefindindex" target="_blank" rel="external"><code>Array.prototype.findIndex</code></a> – returns the index of the first item to satisfy a callback</li>
+<li><a href="https://ponyfoo.com/articles/es6-array-extensions-in-depth#arrayprototypekeys" target="_blank" rel="external"><code>Array.prototype.keys</code></a> – returns an iterator that yields a sequence holding the keys for the array</li>
+<li><a href="https://ponyfoo.com/articles/es6-array-extensions-in-depth#arrayprototypevalues" target="_blank" rel="external"><code>Array.prototype.values</code></a> – returns an iterator that yields a sequence holding the values for the array</li>
+<li><a href="https://ponyfoo.com/articles/es6-array-extensions-in-depth#arrayprototypeentries" target="_blank" rel="external"><code>Array.prototype.entries</code></a> – returns an iterator that yields a sequence holding key value pairs for the array</li>
+<li><a href="https://ponyfoo.com/articles/es6-array-extensions-in-depth#arrayprototype-symboliterator" target="_blank" rel="external"><code>Array.prototype[Symbol.iterator]</code></a> – exactly the same as the <a href="https://ponyfoo.com/articles/es6-array-extensions-in-depth#arrayprototypevalues" target="_blank" rel="external"><code>Array.prototype.values</code></a> method</li>
+<li>Read <a href="https://ponyfoo.com/articles/es6-array-extensions-in-depth" target="_blank" rel="external">ES6 <code>Array</code> Extensions in Depth</a></li>
+</ul>
+<h3 id="Object"><code>Object</code></h3><ul>
+<li><a href="https://ponyfoo.com/articles/es6-object-changes-in-depth#objectassign" target="_blank" rel="external"><code>Object.assign</code></a> –将源对象的所有可枚举属性，复制到目标对象（target）</li>
+<li><a href="https://ponyfoo.com/articles/es6-object-changes-in-depth#objectis" target="_blank" rel="external"><code>Object.is</code></a> – 用来比较两个值是否严格相等，与严格比较运算符 <code>===</code> 的行为基本一致。但是 <code>+0</code>和<code>-0</code>不相等的， <code>NaN</code> 和 <code>NaN</code> 是相等的</li>
+<li><a href="https://ponyfoo.com/articles/es6-object-changes-in-depth#objectgetownpropertysymbols" target="_blank" rel="external"><code>Object.getOwnPropertySymbols</code></a> – 返回一个数组，包含对象自身的所有Symbol属性。</li>
+<li><a href="https://ponyfoo.com/articles/es6-object-changes-in-depth#objectsetprototypeof" target="_blank" rel="external"><code>Object.setPrototypeOf</code></a> – 改变属性. 等同于 <code>target.__proto__</code> setter 方法</li>
+<li>参考 <a href="#object-literals">Object Literals</a> 部分</li>
+<li>阅读 <a href="https://ponyfoo.com/articles/es6-object-changes-in-depth" target="_blank" rel="external">深入理解 ES6 <code>Object</code> 变化</a></li>
+</ul>
+<h3 id="字符串和编码">字符串和编码</h3><ul>
+<li>字符串操作<ul>
+<li><a href="https://ponyfoo.com/articles/es6-strings-and-unicode-in-depth#stringprototypestartswith" target="_blank" rel="external"><code>String.prototype.startsWith</code></a> – 表示字符串是否在一个值的开头</li>
+<li><a href="https://ponyfoo.com/articles/es6-strings-and-unicode-in-depth#stringprototypeendswith" target="_blank" rel="external"><code>String.prototype.endsWith</code></a> – 表示字符串是否在一个值的最后</li>
+<li><a href="https://ponyfoo.com/articles/es6-strings-and-unicode-in-depth#stringprototypeincludes" target="_blank" rel="external"><code>String.prototype.includes</code></a> – 表示这个值是否包含这个字符串</li>
+<li><a href="https://ponyfoo.com/articles/es6-strings-and-unicode-in-depth#stringprototyperepeat" target="_blank" rel="external"><code>String.prototype.repeat</code></a> – 返回这个字符串出现的次数</li>
+<li><a href="https://ponyfoo.com/articles/es6-strings-and-unicode-in-depth#stringprototype-symboliterator" target="_blank" rel="external"><code>String.prototype[Symbol.iterator]</code></a> – 让你遍历一个 unicode 序列的代码点</li>
+</ul>
+</li>
+<li><a href="https://ponyfoo.com/articles/es6-strings-and-unicode-in-depth#unicode" target="_blank" rel="external">Unicode</a><ul>
+<li><a href="https://ponyfoo.com/articles/es6-strings-and-unicode-in-depth#stringprototypecodepointat" target="_blank" rel="external"><code>String.prototype.codePointAt</code></a> – 八进制数数代码点的数值表示在给定位置的字符串</li>
+<li><a href="https://ponyfoo.com/articles/es6-strings-and-unicode-in-depth#stringfromcodepoint%60" target="_blank" rel="external"><code>String.fromCodePoint</code></a> – 给出 <code>...codepoints</code>,返回一个由 unicode 表示的字符串</li>
+<li><a href="https://ponyfoo.com/articles/es6-strings-and-unicode-in-depth#stringprototypenormalize" target="_blank" rel="external"><code>String.prototype.normalize</code></a> – 返回一个 unicode 表示字符串的规范版本</li>
+</ul>
+</li>
+<li>阅读 <a href="https://ponyfoo.com/articles/es6-strings-and-unicode-in-depth" target="_blank" rel="external">深入 ES6 字符串和Unicode扩展</a></li>
+</ul>
+<h3 id="Modules">Modules</h3><ul>
+<li>ES6  的模块默认采用严格模式</li>
+<li>ES6 模块文件对外接口 <a href="https://ponyfoo.com/articles/es6-modules-in-depth#export" target="_blank" rel="external"><code>export</code></a></li>
+<li><a href="https://ponyfoo.com/articles/es6-modules-in-depth#exporting-a-default-binding" target="_blank" rel="external"><code>export default value</code></a> 输出默认的绑定值</li>
+<li><a href="https://ponyfoo.com/articles/es6-modules-in-depth#named-exports" target="_blank" rel="external"><code>export var foo = &#39;bar&#39;</code></a> 输出一个变量</li>
+<li>绑定输出命名的模块在输出的时候是随时可以修改的</li>
+<li><code>export { foo, bar }</code> 输出 <a href="https://ponyfoo.com/articles/es6-modules-in-depth#exporting-lists" target="_blank" rel="external">a list of named exports</a></li>
+<li><code>export { foo as ponyfoo }</code>  对输出的变量 <code>foo</code> 通过 as 重命名为 <code>ponyfoo</code></li>
+<li><code>export { foo as default }</code> 给默认输出的变量重命名</li>
+<li>作为一个 <a href="https://ponyfoo.com/articles/es6-modules-in-depth#best-practices-and-export" target="_blank" rel="external">最佳实践</a>, <code>export default api</code> 要放在你所有模块的最后,  <code>api</code> 是一个对象, 避免搞混</li>
+<li>模块加载是自己特定实现的，可以取代 Commonjs</li>
+<li><a href="https://ponyfoo.com/articles/es6-modules-in-depth#import" target="_blank" rel="external"><code>import &#39;foo&#39;</code></a> 从默认的模块里加载 <code>foo</code>  模块</li>
+<li><a href="https://ponyfoo.com/articles/es6-modules-in-depth#importing-default-exports" target="_blank" rel="external"><code>import foo from &#39;ponyfoo&#39;</code></a> 指定这个默认输出的 <code>ponyfoo</code> 给一个本地的变量</li>
+<li><a href="https://ponyfoo.com/articles/es6-modules-in-depth#importing-named-exports" target="_blank" rel="external"><code>import {foo, bar} from &#39;baz&#39;</code></a> 从 <code>baz</code> 模块加载 <code>foo</code>和 <code>bar</code></li>
+<li><code>import {foo as bar} from &#39;baz&#39;</code> 加载一个命名为 <code>foo</code> 变量并且重命名为 <code>bar</code></li>
+<li><code>import {default} from &#39;foo&#39;</code> 也可以加载默认输出的模块</li>
+<li><code>import {default as bar} from &#39;foo&#39;</code> 加载默认输出的模块并且重命名变量为 <code>bar</code></li>
+<li>在一个声明里面包含默认模块 <code>foo</code> 和命名的 <code>bar</code>,<code>baz</code></li>
+<li><a href="https://ponyfoo.com/articles/es6-modules-in-depth#import-all-the-things" target="_blank" rel="external"><code>import * as foo from &#39;foo&#39;</code></a> 加载命名空间对象<ul>
+<li>通过  <code>foo[name]</code> 包含所有命名的输出</li>
+<li>如果模块里有默认的输出，则 <code>foo.default</code> 包含的就是默认的输出</li>
+</ul>
+</li>
+<li>阅读 <a href="https://ponyfoo.com/articles/es6-modules-in-depth" target="_blank" rel="external">深入理解 ES6 模块</a></li>
+</ul>
+<p>目前就列出了这些点. 最后, 我推荐你阅读这个系列的文章 <a href="https://ponyfoo.com/articles/tagged/es6-in-depth" target="_blank" rel="external">深入理解 ES6</a> .</p>
+</span>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/03/06/ 一些 HTML 和 CSS 中的坑/" rel="next">一些 HTML 和 CSS 中的坑</a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+ </div>
+
+        
+
+        
+          <div class="comments" id="comments">
+            
+              <div id="disqus_thread">
+                <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+              </div>
+            
+          </div>
+        
+      </div>
+
+      
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" src="/images/tx.jpg" alt="Go7hic" itemprop="image"/>
+          <p class="site-author-name" itemprop="name">Go7hic</p>
+        </div>
+        <p class="site-description motion-element" itemprop="description">jsut 4 fun</p>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">115</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          <div class="site-state-item site-state-categories">
+            
+              <span class="site-state-item-count">0</span>
+              <span class="site-state-item-name">分类</span>
+              
+          </div>
+
+          <div class="site-state-item site-state-tags">
+            <a href="/tags">
+              <span class="site-state-item-count">26</span>
+              <span class="site-state-item-name">标签</span>
+              </a>
+          </div>
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="menu-item-icon icon-next-feed"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+      </section>
+
+      
+        <section class="post-toc-wrap sidebar-panel-active">
+          <div class="post-toc-indicator-top post-toc-indicator"></div>
+          <div class="post-toc">
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#介绍"><span class="nav-number">1.</span> <span class="nav-text">介绍</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#工具"><span class="nav-number">2.</span> <span class="nav-text">工具</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#解构赋值"><span class="nav-number">3.</span> <span class="nav-text">解构赋值</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#展开运算符和不定参数"><span class="nav-number">4.</span> <span class="nav-text">展开运算符和不定参数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#箭头函数"><span class="nav-number">5.</span> <span class="nav-text">箭头函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#模板字符串"><span class="nav-number">6.</span> <span class="nav-text">模板字符串</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#对象字面量"><span class="nav-number">7.</span> <span class="nav-text">对象字面量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Classes"><span class="nav-number">8.</span> <span class="nav-text">Classes</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Let_和_Const"><span class="nav-number">9.</span> <span class="nav-text">Let 和 Const</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Symbols"><span class="nav-number">10.</span> <span class="nav-text">Symbols</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Iterators_(遍历器)"><span class="nav-number">11.</span> <span class="nav-text">Iterators (遍历器)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Generators"><span class="nav-number">12.</span> <span class="nav-text">Generators</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Promises"><span class="nav-number">13.</span> <span class="nav-text">Promises</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Maps"><span class="nav-number">14.</span> <span class="nav-text">Maps</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#WeakMaps"><span class="nav-number">15.</span> <span class="nav-text">WeakMaps</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Sets"><span class="nav-number">16.</span> <span class="nav-text">Sets</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#WeakSets"><span class="nav-number">17.</span> <span class="nav-text">WeakSets</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Proxies"><span class="nav-number">18.</span> <span class="nav-text">Proxies</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Reflection"><span class="nav-number">19.</span> <span class="nav-text">Reflection</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Number"><span class="nav-number">20.</span> <span class="nav-text">Number</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Math"><span class="nav-number">21.</span> <span class="nav-text">Math</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Array"><span class="nav-number">22.</span> <span class="nav-text">Array</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Object"><span class="nav-number">23.</span> <span class="nav-text">Object</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#字符串和编码"><span class="nav-number">24.</span> <span class="nav-text">字符串和编码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Modules"><span class="nav-number">25.</span> <span class="nav-text">Modules</span></a></li></ol></div>
+            
+          </div>
+          <div class="post-toc-indicator-bottom post-toc-indicator"></div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner"> <div class="copyright" >
+  
+  &copy; &nbsp; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="icon-next-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Go7hic</span>
+</div>
+
+<div class="">
+  「万物之中，希望至美；至美之物，永不凋零」
+</div>
+
+ </div>
+    </footer>
+
+    <div class="back-to-top"></div>
+  </div>
+
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  
+  
+    
+    
+
+  
+
+    <script type="text/javascript">
+      var disqus_shortname = 'g07hic';
+      var disqus_identifier = '2016/03/08/ 350 个特性了解 ES6/';
+      var disqus_title = '350 个特性了解 ES6';
+      var disqus_url = 'http://blog.yongyuan.us/2016/03/08/ 350 个特性了解 ES6/';
+
+      function run_disqus_script(disqus_script){
+        var dsq = document.createElement('script');
+        dsq.type = 'text/javascript';
+        dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      }
+
+      run_disqus_script('count.js');
+      
+        run_disqus_script('embed.js');
+      
+    </script>
+  
+
+
+  
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js"></script>
+  <script type="text/javascript" src="/js/fancy-box.js?v=0.4.5.1"></script>
+
+
+  <script type="text/javascript" src="/js/helpers.js?v=0.4.5.1"></script>
+  
+
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js"></script>
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js"></script>
+
+  <script type="text/javascript" src="/js/motion_global.js?v=0.4.5.1" id="motion.global"></script>
+
+
+
+
+  <script type="text/javascript" src="/js/nav-toggle.js?v=0.4.5.1"></script>
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  
+<script type="text/javascript" src="/js/bootstrap.scrollspy.js?v=0.4.5.1" id="bootstrap.scrollspy.custom"></script>
+
+
+<script type="text/javascript" id="sidebar.toc.highlight">
+  $(document).ready(function () {
+    var tocSelector = '.post-toc';
+    var $tocSelector = $(tocSelector);
+    var activeCurrentSelector = '.active-current';
+
+    $tocSelector
+      .on('activate.bs.scrollspy', function () {
+        var $currentActiveElement = $(tocSelector + ' .active').last();
+
+        removeCurrentActiveClass();
+        $currentActiveElement.addClass('active-current');
+
+        $tocSelector[0].scrollTop = $currentActiveElement.position().top;
+      })
+      .on('clear.bs.scrollspy', function () {
+        removeCurrentActiveClass();
+      });
+
+    function removeCurrentActiveClass () {
+      $(tocSelector + ' ' + activeCurrentSelector)
+        .removeClass(activeCurrentSelector.substring(1));
+    }
+
+    function processTOC () {
+      getTOCMaxHeight();
+      toggleTOCOverflowIndicators();
+    }
+
+    function getTOCMaxHeight () {
+      var height = $('.sidebar').height() -
+                   $tocSelector.position().top -
+                   $('.post-toc-indicator-bottom').height();
+
+      $tocSelector.css('height', height);
+
+      return height;
+    }
+
+    function toggleTOCOverflowIndicators () {
+      tocOverflowIndicator(
+        '.post-toc-indicator-top',
+        $tocSelector.scrollTop() > 0 ? 'show' : 'hide'
+      );
+
+      tocOverflowIndicator(
+        '.post-toc-indicator-bottom',
+        $tocSelector.scrollTop() >= $tocSelector.find('ol').height() - $tocSelector.height() ? 'hide' : 'show'
+      )
+    }
+
+    $(document).on('sidebar.motion.complete', function () {
+      processTOC();
+    });
+
+    $('body').scrollspy({ target: tocSelector });
+    $(window).on('resize', function () {
+      if ( $('.sidebar').hasClass('sidebar-active') ) {
+        processTOC();
+      }
+    });
+
+    onScroll($tocSelector);
+
+    function onScroll (element) {
+      element.on('mousewheel DOMMouseScroll', function (event) {
+          var oe = event.originalEvent;
+          var delta = oe.wheelDelta || -oe.detail;
+
+          this.scrollTop += ( delta < 0 ? 1 : -1 ) * 30;
+          event.preventDefault();
+
+          toggleTOCOverflowIndicators();
+      });
+    }
+
+    function tocOverflowIndicator (indicator, action) {
+      var $indicator = $(indicator);
+      var opacity = action === 'show' ? 0.4 : 0;
+      $indicator.velocity ?
+        $indicator.velocity('stop').velocity({
+          opacity: opacity
+        }, { duration: 100 }) :
+        $indicator.stop().animate({
+          opacity: opacity
+        }, 100);
+    }
+
+  });
+</script>
+
+<script type="text/javascript" id="sidebar.nav">
+  $(document).ready(function () {
+    var html = $('html');
+    var TAB_ANIMATE_DURATION = 200;
+    var hasVelocity = $.isFunction(html.velocity);
+
+    $('.sidebar-nav li').on('click', function () {
+      var item = $(this);
+      var activeTabClassName = 'sidebar-nav-active';
+      var activePanelClassName = 'sidebar-panel-active';
+      if (item.hasClass(activeTabClassName)) {
+        return;
+      }
+
+      var currentTarget = $('.' + activePanelClassName);
+      var target = $('.' + item.data('target'));
+
+      hasVelocity ?
+        currentTarget.velocity('transition.slideUpOut', TAB_ANIMATE_DURATION, function () {
+          target
+            .velocity('stop')
+            .velocity('transition.slideDownIn', TAB_ANIMATE_DURATION)
+            .addClass(activePanelClassName);
+        }) :
+        currentTarget.animate({ opacity: 0 }, TAB_ANIMATE_DURATION, function () {
+          currentTarget.hide();
+          target
+            .stop()
+            .css({'opacity': 0, 'display': 'block'})
+            .animate({ opacity: 1 }, TAB_ANIMATE_DURATION, function () {
+              currentTarget.removeClass(activePanelClassName);
+              target.addClass(activePanelClassName);
+            });
+        });
+
+      item.siblings().removeClass(activeTabClassName);
+      item.addClass(activeTabClassName);
+    });
+
+    $('.post-toc a').on('click', function (e) {
+      e.preventDefault();
+      var targetSelector = escapeSelector(this.getAttribute('href'));
+      var offset = $(targetSelector).offset().top;
+      hasVelocity ?
+        html.velocity('stop').velocity('scroll', {
+          offset: offset  + 'px',
+          mobileHA: false
+        }) :
+        $('html, body').stop().animate({
+          scrollTop: offset
+        }, 500);
+    });
+
+    // Expand sidebar on post detail page by default, when post has a toc.
+    var $tocContent = $('.post-toc-content');
+    if (isDesktop() && CONFIG.sidebar === 'post') {
+      if ($tocContent.length > 0 && $tocContent.html().trim().length > 0) {
+        displaySidebar();
+      }
+    }
+  });
+</script>
+
+
+
+  <script type="text/javascript">
+    $(document).ready(function () {
+      if (CONFIG.sidebar === 'always') {
+        displaySidebar();
+      }
+      if (isMobile()) {
+        FastClick.attach(document.body);
+      }
+    });
+  </script>
+
+  
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/lazyload.js"></script>
+  <script type="text/javascript">
+    $(function () {
+      $("#posts").find('img').lazyload({
+        placeholder: "/images/loading.gif",
+        effect: "fadeIn"
+      });
+    });
+  </script>
+</body>
+</html>
