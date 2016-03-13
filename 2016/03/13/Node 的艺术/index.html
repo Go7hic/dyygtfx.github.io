@@ -28,7 +28,7 @@
 
 
 
-  <meta name="keywords" content="Hexo,next" />
+  <meta name="keywords" content="Node," />
 
 
 
@@ -39,20 +39,18 @@
   <link rel="shorticon icon" type="image/x-icon" href="/favicon.ico?v=0.4.5.1" />
 
 
-<meta name="description" content="layout: posttitle: Node 的艺术date: 2014-11-05 11:21:04
-tags: 设计模式Node.js入门本文档假定读者已经懂了以下的两样东西：
+<meta name="description" content="Node.js入门本文档假定读者已经懂了以下的两样东西：
 
 懂得至少一种编程语言。例如：JavaScript，Ruby，Python，Perl或其他编程语言。如果你还不是程序员，你不懂编程语言，你可以阅读JavaScript for Cats。:cat2:
-git和gith">
+git和github。这是一个开源的协作工具，Node社区的用户使用git共享模块。你需要懂得基本操作就能了。这里有三篇很好的入门教程：1,">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Go7hic">
+<meta property="og:title" content="Node 的艺术">
 <meta property="og:url" content="http://blog.yongyuan.us/2016/03/13/Node 的艺术/index.html">
 <meta property="og:site_name" content="Go7hic">
-<meta property="og:description" content="layout: posttitle: Node 的艺术date: 2014-11-05 11:21:04
-tags: 设计模式Node.js入门本文档假定读者已经懂了以下的两样东西：
+<meta property="og:description" content="Node.js入门本文档假定读者已经懂了以下的两样东西：
 
 懂得至少一种编程语言。例如：JavaScript，Ruby，Python，Perl或其他编程语言。如果你还不是程序员，你不懂编程语言，你可以阅读JavaScript for Cats。:cat2:
-git和gith">
+git和github。这是一个开源的协作工具，Node社区的用户使用git共享模块。你需要懂得基本操作就能了。这里有三篇很好的入门教程：1,">
 <meta property="og:image" content="http://blog.yongyuan.us/donate.png">
 <meta property="og:image" content="http://blog.yongyuan.us/server-diagram.png">
 <meta property="og:image" content="http://blog.yongyuan.us/stream-handbook.png">
@@ -65,14 +63,13 @@ git和gith">
 <meta property="og:image" content="http://blog.yongyuan.us/simple-module.png">
 <meta property="og:image" content="http://blog.yongyuan.us/requirebin.png">
 <meta property="og:image" content="http://blog.yongyuan.us/CCBY.png">
-<meta property="og:updated_time" content="2016-03-13T02:21:20.000Z">
+<meta property="og:updated_time" content="2016-03-13T03:53:25.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Go7hic">
-<meta name="twitter:description" content="layout: posttitle: Node 的艺术date: 2014-11-05 11:21:04
-tags: 设计模式Node.js入门本文档假定读者已经懂了以下的两样东西：
+<meta name="twitter:title" content="Node 的艺术">
+<meta name="twitter:description" content="Node.js入门本文档假定读者已经懂了以下的两样东西：
 
 懂得至少一种编程语言。例如：JavaScript，Ruby，Python，Perl或其他编程语言。如果你还不是程序员，你不懂编程语言，你可以阅读JavaScript for Cats。:cat2:
-git和gith">
+git和github。这是一个开源的协作工具，Node社区的用户使用git共享模块。你需要懂得基本操作就能了。这里有三篇很好的入门教程：1,">
 
 
 <script type="text/javascript" id="hexo.configuration">
@@ -82,7 +79,7 @@ git和gith">
   };
 </script>
 
-  <title>  | Go7hic </title>
+  <title> Node 的艺术 | Go7hic </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -189,7 +186,7 @@ git和gith">
           
           
             
-              
+              Node 的艺术
             
           
         </h1>
@@ -198,7 +195,7 @@ git和gith">
       <div class="post-meta">
         <span class="post-time">
           发表于
-          <time itemprop="dateCreated" datetime="2016-03-13T10:21:20+08:00" content="2016-03-13">
+          <time itemprop="dateCreated" datetime="2016-03-13T11:21:04+08:00" content="2016-03-13">
             2016-03-13
           </time>
         </span>
@@ -224,9 +221,7 @@ git和gith">
       
 
       
-        <span itemprop="articleBody"><hr>
-<p>layout: post<br>title: Node 的艺术<br>date: 2014-11-05 11:21:04</p>
-<h2 id="tags:_设计模式">tags: 设计模式</h2><h2 id="Node-js入门">Node.js入门</h2><p>本文档假定读者已经懂了以下的两样东西：</p>
+        <span itemprop="articleBody"><h2 id="Node-js入门">Node.js入门</h2><p>本文档假定读者已经懂了以下的两样东西：</p>
 <ul>
 <li>懂得至少一种编程语言。例如：JavaScript，Ruby，Python，Perl或其他编程语言。如果你还不是程序员，你不懂编程语言，你可以阅读<a href="http://jsforcats.com/" target="_blank" rel="external">JavaScript for Cats</a>。:cat2:</li>
 <li>git和github。这是一个开源的协作工具，Node社区的用户使用git共享模块。你需要懂得基本操作就能了。这里有三篇很好的入门教程：<a href="https://github.com/jlord/git-it-electron#readme" target="_blank" rel="external">1</a>, <a href="http://zachbruggeman.me/github-for-cats/" target="_blank" rel="external">2</a>, <a href="http://opensourcerer.diy.org/" target="_blank" rel="external">3</a></li>
@@ -471,6 +466,12 @@ git和gith">
 
     <footer class="post-footer">
       
+        <div class="post-tags">
+          
+            <a href="/tags/Node/" rel="tag">#Node</a>
+          
+        </div>
+      
 
       
         <div class="post-nav">
@@ -560,7 +561,7 @@ git和gith">
 
           <div class="site-state-item site-state-tags">
             <a href="/tags">
-              <span class="site-state-item-count">26</span>
+              <span class="site-state-item-count">27</span>
               <span class="site-state-item-name">标签</span>
               </a>
           </div>
@@ -595,7 +596,7 @@ git和gith">
           <div class="post-toc">
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#tags:_设计模式"><span class="nav-number">1.</span> <span class="nav-text">tags: 设计模式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Node-js入门"><span class="nav-number">2.</span> <span class="nav-text">Node.js入门</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#目录"><span class="nav-number">3.</span> <span class="nav-text">目录</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#了解Node"><span class="nav-number">4.</span> <span class="nav-text">了解Node</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#核心模块"><span class="nav-number">5.</span> <span class="nav-text">核心模块</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#回调函数"><span class="nav-number">6.</span> <span class="nav-text">回调函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#事件"><span class="nav-number">7.</span> <span class="nav-text">事件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#流"><span class="nav-number">8.</span> <span class="nav-text">流</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Stream_Handbook"><span class="nav-number">8.1.</span> <span class="nav-text">Stream Handbook</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#模块"><span class="nav-number">9.</span> <span class="nav-text">模块</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#如何找到心怡的模块"><span class="nav-number">9.1.</span> <span class="nav-text">如何找到心怡的模块</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#模块开发流程"><span class="nav-number">9.2.</span> <span class="nav-text">模块开发流程</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#require命令是如何工作的"><span class="nav-number">9.2.1.</span> <span class="nav-text">require命令是如何工作的</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#如何写一个模块"><span class="nav-number">9.3.</span> <span class="nav-text">如何写一个模块</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#The_simplest_possible_module"><span class="nav-number">9.3.1.</span> <span class="nav-text">The simplest possible module</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#添加依赖项"><span class="nav-number">9.3.2.</span> <span class="nav-text">添加依赖项</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#用npm在客户端开发"><span class="nav-number">10.</span> <span class="nav-text">用npm在客户端开发</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#析薪杝矣"><span class="nav-number">11.</span> <span class="nav-text">析薪杝矣</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#node外的世界"><span class="nav-number">11.1.</span> <span class="nav-text">node外的世界</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#网络框架"><span class="nav-number">11.1.1.</span> <span class="nav-text">网络框架</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#编程语法"><span class="nav-number">11.1.2.</span> <span class="nav-text">编程语法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#语言的抽象"><span class="nav-number">11.1.3.</span> <span class="nav-text">语言的抽象</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#线程/纤程/非事件的并发处理"><span class="nav-number">11.1.4.</span> <span class="nav-text">线程/纤程/非事件的并发处理</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用许可"><span class="nav-number">12.</span> <span class="nav-text">使用许可</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Node-js入门"><span class="nav-number">1.</span> <span class="nav-text">Node.js入门</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#目录"><span class="nav-number">2.</span> <span class="nav-text">目录</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#了解Node"><span class="nav-number">3.</span> <span class="nav-text">了解Node</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#核心模块"><span class="nav-number">4.</span> <span class="nav-text">核心模块</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#回调函数"><span class="nav-number">5.</span> <span class="nav-text">回调函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#事件"><span class="nav-number">6.</span> <span class="nav-text">事件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#流"><span class="nav-number">7.</span> <span class="nav-text">流</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Stream_Handbook"><span class="nav-number">7.1.</span> <span class="nav-text">Stream Handbook</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#模块"><span class="nav-number">8.</span> <span class="nav-text">模块</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#如何找到心怡的模块"><span class="nav-number">8.1.</span> <span class="nav-text">如何找到心怡的模块</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#模块开发流程"><span class="nav-number">8.2.</span> <span class="nav-text">模块开发流程</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#require命令是如何工作的"><span class="nav-number">8.2.1.</span> <span class="nav-text">require命令是如何工作的</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#如何写一个模块"><span class="nav-number">8.3.</span> <span class="nav-text">如何写一个模块</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#The_simplest_possible_module"><span class="nav-number">8.3.1.</span> <span class="nav-text">The simplest possible module</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#添加依赖项"><span class="nav-number">8.3.2.</span> <span class="nav-text">添加依赖项</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#用npm在客户端开发"><span class="nav-number">9.</span> <span class="nav-text">用npm在客户端开发</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#析薪杝矣"><span class="nav-number">10.</span> <span class="nav-text">析薪杝矣</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#node外的世界"><span class="nav-number">10.1.</span> <span class="nav-text">node外的世界</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#网络框架"><span class="nav-number">10.1.1.</span> <span class="nav-text">网络框架</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#编程语法"><span class="nav-number">10.1.2.</span> <span class="nav-text">编程语法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#语言的抽象"><span class="nav-number">10.1.3.</span> <span class="nav-text">语言的抽象</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#线程/纤程/非事件的并发处理"><span class="nav-number">10.1.4.</span> <span class="nav-text">线程/纤程/非事件的并发处理</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用许可"><span class="nav-number">11.</span> <span class="nav-text">使用许可</span></a></li></ol></div>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator"></div>
@@ -642,7 +643,7 @@ git和gith">
     <script type="text/javascript">
       var disqus_shortname = 'g07hic';
       var disqus_identifier = '2016/03/13/Node 的艺术/';
-      var disqus_title = '';
+      var disqus_title = 'Node 的艺术';
       var disqus_url = 'http://blog.yongyuan.us/2016/03/13/Node 的艺术/';
 
       function run_disqus_script(disqus_script){
