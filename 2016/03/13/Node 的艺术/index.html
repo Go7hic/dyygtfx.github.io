@@ -51,19 +51,18 @@ git和github。这是一个开源的协作工具，Node社区的用户使用git�
 
 懂得至少一种编程语言。例如：JavaScript，Ruby，Python，Perl或其他编程语言。如果你还不是程序员，你不懂编程语言，你可以阅读JavaScript for Cats。:cat2:
 git和github。这是一个开源的协作工具，Node社区的用户使用git共享模块。你需要懂得基本操作就能了。这里有三篇很好的入门教程：1,">
-<meta property="og:image" content="http://blog.yongyuan.us/donate.png">
-<meta property="og:image" content="http://blog.yongyuan.us/server-diagram.png">
-<meta property="og:image" content="http://blog.yongyuan.us/stream-handbook.png">
-<meta property="og:image" content="http://blog.yongyuan.us/npm-search.png">
-<meta property="og:image" content="http://blog.yongyuan.us/pdf-modules.png">
-<meta property="og:image" content="http://blog.yongyuan.us/pdf-readmes.png">
-<meta property="og:image" content="http://blog.yongyuan.us/pdf-code.png">
-<meta property="og:image" content="http://blog.yongyuan.us/mod-diagram-01.png">
-<meta property="og:image" content="http://blog.yongyuan.us/mod-diagram-02.png">
-<meta property="og:image" content="http://blog.yongyuan.us/simple-module.png">
-<meta property="og:image" content="http://blog.yongyuan.us/requirebin.png">
-<meta property="og:image" content="http://blog.yongyuan.us/CCBY.png">
-<meta property="og:updated_time" content="2016-03-13T03:53:25.000Z">
+<meta property="og:image" content="https://github.com/maxogden/art-of-node/raw/master/server-diagram.png">
+<meta property="og:image" content="https://github.com/maxogden/art-of-node/raw/master/stream-handbook.png">
+<meta property="og:image" content="https://github.com/maxogden/art-of-node/raw/master/npm-search.png">
+<meta property="og:image" content="https://github.com/maxogden/art-of-node/raw/master/pdf-modules.png">
+<meta property="og:image" content="https://github.com/maxogden/art-of-node/raw/master/pdf-readmes.png">
+<meta property="og:image" content="https://github.com/maxogden/art-of-node/raw/master/pdf-code.png">
+<meta property="og:image" content="https://github.com/maxogden/art-of-node/raw/master/mod-diagram-01.png">
+<meta property="og:image" content="https://github.com/maxogden/art-of-node/raw/master/mod-diagram-02.png">
+<meta property="og:image" content="https://github.com/maxogden/art-of-node/raw/master/simple-module.png">
+<meta property="og:image" content="https://github.com/maxogden/art-of-node/raw/master/requirebin.png">
+<meta property="og:image" content="https://github.com/maxogden/art-of-node/raw/master/CCBY.png">
+<meta property="og:updated_time" content="2016-03-13T04:18:26.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Node 的艺术">
 <meta name="twitter:description" content="Node.js入门本文档假定读者已经懂了以下的两样东西：
@@ -230,7 +229,6 @@ git和github。这是一个开源的协作工具，Node社区的用户使用git�
 <blockquote>
 <p>译者: 上面这段我没有翻译，因为我希望保持原文。上面作者提到，目前他还没找到工作。如果你喜欢这个文档，希望你可以通过<a href="https://www.gittip.com/maxogden/" target="_blank" rel="external">gittip</a>乐捐给作者。这样作者才能够写更多。</p>
 </blockquote>
-<p><a href="https://www.gittip.com/maxogden/" target="_blank" rel="external"><img src="donate.png" alt="donate"></a></p>
 <h2 id="目录">目录</h2><ul>
 <li><a href="#了解Node">了解Node</a></li>
 <li><a href="#核心模块">核心模块</a></li>
@@ -243,7 +241,7 @@ git和github。这是一个开源的协作工具，Node社区的用户使用git�
 </ul>
 <h2 id="了解Node">了解Node</h2><p>Node.js是一个开源项目，目的是让你通过编写JavaScript的程序进行网络、文件系统或其他I/O源的沟通。就这些！它只是一个简单而稳定的I/O平台，你可以在这个平台上架构模块。</p>
 <p>有没有I/O出的例子？ 我这里有一张图，上面是我用Node.js制作的程序，你可以看到上面有很多I/O源：</p>
-<p><img src="server-diagram.png" alt="server diagram"></p>
+<p><img src="https://github.com/maxogden/art-of-node/raw/master/server-diagram.png" alt="server diagram"></p>
 <p>如果你无法明白上图显示的所有东西，这是没问题的。重点是你看到一个Node的运作（在中间六边形那个），它就像经纪人，管理全部I/O的端口（橙色和紫色的线条代表I/O）。</p>
 <p>一般上我们编写的程序可以分为以下两类：</p>
 <ul>
@@ -347,12 +345,12 @@ git和github。这是一个开源的协作工具，Node社区的用户使用git�
 <p>Node的理念就是以更简单的方式来处理文件系统和网络，所有理所应当的应该有一个通用的模式，可以在不同的场景中运用。好消息是，类似的大多数模式（尽管数量很少）现在已经被认为node在未来不会去更改。</p>
 <p>已经有两个很棒的资源可以用来学习node的流对象。一个叫‘stream-adventure’（参考‘<a href="#了解Node">了解Node</a>’部分),另一个叫‘Stream Handbook’。</p>
 <h3 id="Stream_Handbook">Stream Handbook</h3><p><a href="https://github.com/substack/stream-handbook#introduction" target="_blank" rel="external">stream-handbook</a> 是一个与本项目相似的，包含所有你需要、想要了解的有关流对象的内容的教程。</p>
-<p><a href="https://github.com/substack/stream-handbook" target="_blank" rel="external"><img src="stream-handbook.png" alt="stream-handbook"></a></p>
+<p><a href="https://github.com/substack/stream-handbook" target="_blank" rel="external"><img src="https://github.com/maxogden/art-of-node/raw/master/stream-handbook.png" alt="stream-handbook"></a></p>
 <h2 id="模块">模块</h2><p>Node的核心是由许多模块（modules）组成，像底层的<a href="#事件">事件</a>和<a href="#流">流</a>，高一些层次的<code>http</code>和<code>crypto</code>。</p>
 <p>Node有意被设计成这样，使它的核心模块轻量化，并注重于提供跨平台的处理普通I/O协议和类型的最基本工具。</p>
 <p>除此之外，你可以在<a href="https://npmjs.org/" target="_blank" rel="external">npm</a>上找到其它需要了解的东西。任何人都可以创建一个新的模块，添加一些功能，并发布到<code>npm</code>上。到目前为止，npm上已经有196,950个模块可供下载。</p>
 <h3 id="如何找到心怡的模块">如何找到心怡的模块</h3><p>想象一下你在试图把一个PDF文件转换成一个TXT文本。最好的方式就是执行这样一个搜索命令<code>npm search pdf</code>：</p>
-<p><img src="npm-search.png" alt="pdfsearch"></p>
+<p><img src="https://github.com/maxogden/art-of-node/raw/master/npm-search.png" alt="pdfsearch"></p>
 <p>这里有数以千计的结果！ npm十分热门，所以通常你都可以找到许多可能的解决方案。 如果你把以上的搜索结果浓缩一下（比如过滤掉PDF生成模块），你会得到这样的一些结果：</p>
 <ul>
 <li><a href="https://github.com/galkahana/HummusJS/wiki/Features" target="_blank" rel="external">hummus</a> - c++ pdf manipulator</li>
@@ -374,7 +372,7 @@ git和github。这是一个开源的协作工具，Node社区的用户使用git�
 <li>许多模块实际上都是在unix命令后工具<code>pdftotext</code>/<code>poppler</code>上搭建的</li>
 </ul>
 <p>让我们来比较一下<code>pdftotextjs</code> 和 <code>pdf-text-extract</code>这两个工具，他们都是在<code>pdftotext</code>的基础上打包而成的。</p>
-<p><img src="pdf-modules.png" alt="pdf-modules"></p>
+<p><img src="https://github.com/maxogden/art-of-node/raw/master/pdf-modules.png" alt="pdf-modules"></p>
 <p>这两个模块:</p>
 <ul>
 <li>最近都有更新</li>
@@ -384,9 +382,9 @@ git和github。这是一个开源的协作工具，Node社区的用户使用git�
 <li>非常宽松的使用许可（所有人都可以使用）</li>
 </ul>
 <p>仅依靠<code>package.json</code>文件和模块的统计数据很难说哪一个最正确的选择。所以我们来对比一下说明文档吧：</p>
-<p><img src="pdf-readmes.png" alt="pdf-readmes"></p>
+<p><img src="https://github.com/maxogden/art-of-node/raw/master/pdf-readmes.png" alt="pdf-readmes"></p>
 <p>两个文档都有简单的介绍，CI编译通过的标志，安装命令，清晰的例子和一些测试命令。赞！但是我们要选哪一个呢？我们来对比一下代码吧：</p>
-<p><img src="pdf-code.png" alt="pdf-code"></p>
+<p><img src="https://github.com/maxogden/art-of-node/raw/master/pdf-code.png" alt="pdf-code"></p>
 <p><code>pdftotextjs</code> 有110行代码，而<code>pdf-text-extract</code>则只有40行。其实这两个模块最核心的操作可以归结为这一行代码：</p>
 <figure class="highlight lasso"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">var</span> child = shell<span class="built_in">.</span>exec(<span class="string">'pdftotext '</span> + <span class="built_in">self</span><span class="built_in">.</span>options<span class="built_in">.</span>additional<span class="built_in">.</span><span class="keyword">join</span>(<span class="string">' '</span>));</span><br></pre></td></tr></table></figure>
 <p>通过这一点能判断出哪一个更好吗？很难说诶！所以<em>读</em>代码再下结论是很重要的。如果你找到了想要的模块，执行<code>npm star modulename</code>来给你喜欢的模块一个正面的反馈信息吧。</p>
@@ -402,12 +400,12 @@ git和github。这是一个开源的协作工具，Node社区的用户使用git�
 </ol>
 <p>这一操作会不断循环直到node找到根目录是还没有找的这个模块，在那之后node回去找全局安装时的文件夹（比如Mac OS系统上的 <code>/usr/local/node_modules</code>），如果还没有找到这个<code>some_module</code>，node会报错。</p>
 <p>这里有一个上述操作的可视化说明：</p>
-<p><img src="mod-diagram-01.png" alt="mod-diagram-01"></p>
+<p><img src="https://github.com/maxogden/art-of-node/raw/master/mod-diagram-01.png" alt="mod-diagram-01"></p>
 <p>当前的工作目录为<code>subsubfolder</code>，并且<code>require(&#39;foo&#39;)</code>被执行时，node会查找 <code>subsubsubfolder/node_modules</code>这个子目录。在这个例子中，由于这个子目录被错误地命名为<code>my_modules</code>了，因而node找不到它，只好跳到<code>subsubfolder</code>的上一级目录<code>subfolder_B</code>寻找<code>subfolder_B/node_modules</code>，然而这个文件夹不存在；于是node再往上一级目录寻找，在<code>subfolder_B</code>的上一级目录<code>folder</code>中找到了<code>folder/node_modules</code>，<em>并且</em><code>foo</code>文件夹在其中。至此搜索便结束了，但如果<code>foo</code>并不在那个目录里，node会继续往上一层目录搜索。</p>
 <p>注意这点，我们在<code>subfolder_B</code>中没找到<code>foo</code>模块并向上一级目录寻找的时候，并不会向同一级的 <code>subfolder_A/node_modules</code>中寻找。在它的搜索树中只有 <code>folder/node_modules</code>。</p>
 <p>使用npm的一个好处就是，模块可以安装自己依赖的特定版本模块。 在这个例子中，<code>foo</code>模块特别流行，以至于我们将三个版本安装在不同位置。这样做的原因是调用它们的模块依赖特定版本的<code>foo</code>，比如<code>folder</code>依赖<code>foo@0.0.1</code>, <code>subfolder_A</code> 依赖 <code>foo@0.2.1</code> 等等.</p>
 <p>如果我们把刚才的那个错误的文件夹名称改过来，从<code>my_modules</code>改成<code>node_modules</code>，那么搜索过程就会变成这样:</p>
-<p><img src="mod-diagram-02.png" alt="mod-diagram-02"></p>
+<p><img src="https://github.com/maxogden/art-of-node/raw/master/mod-diagram-02.png" alt="mod-diagram-02"></p>
 <p>为了测试node到底加载了哪个模块，可以执行<code>require.resolve(&#39;some_module&#39;)</code> 命令，这会告诉你哪个文件路径下的模块被node找到并调用了。<code>require.resolve</code> 非常有用，尤其是在确认你<em>认为</em>被夹在的模块是<em>实际上</em>被加载的模块的时候－－有时候一个不同版本的模块可能被存在了被更先查找的位置，导致你的代码调用了错误版本的模块。</p>
 <h3 id="如何写一个模块">如何写一个模块</h3><p>现在你已经知道了如何找一个模块了，在这之后你就可以开始开发自己的模块了！</p>
 <h4 id="The_simplest_possible_module">The simplest possible module</h4><p>Node的模块十分的轻量化。这里有一个最简单的node模块：</p>
@@ -418,7 +416,7 @@ git和github。这是一个开源的协作工具，Node社区的用户使用git�
 <p>默认情况下，当你调用<code>require(&#39;module&#39;)</code>时node会试图加载<code>module/index.js</code>，除非你在<code>package.json</code>中设定了<code>main</code>一项内容指向你的代码，不然用的名称的文件无法被node识别。</p>
 <p>把这两个文件放到<code>number-one</code>目录下（<code>package.json</code>中的<code>id</code>一项必须和目录的名称相同），然后你就可以加载他们了。</p>
 <p>调用<code>require(&#39;number-one&#39;)</code> 这一命令会返回你在模块中<code>module.exports</code>输出的内容：</p>
-<p><img src="simple-module.png" alt="simple-module"></p>
+<p><img src="https://github.com/maxogden/art-of-node/raw/master/simple-module.png" alt="simple-module"></p>
 <p>一个更快捷的创建模块的方法是，执行以下命令：</p>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">mkdir my_module</span><br><span class="line"><span class="built_in">cd</span> my_module</span><br><span class="line">git init</span><br><span class="line">git remote add git@github.com:yourusername/my_module.git</span><br><span class="line">npm init</span><br></pre></td></tr></table></figure>
 <p>执行<code>npm init</code>会生成一个<code>package.json</code>，如果你是在一个<code>git</code>项目里执行，它还会在<code>package.json</code>中自动帮你把<code>repositories</code>设成你的git repo地址！</p>
@@ -433,7 +431,7 @@ git和github。这是一个开源的协作工具，Node社区的用户使用git�
 <p>试着将下面的代码粘贴到<a href="http://requirebin.com/" target="_blank" rel="external">RequireBin</a>并点<code>preview</code>按钮：</p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> reverse = <span class="built_in">require</span>(<span class="string">'ascii-art-reverse'</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">// makes a visible HTML console</span></span><br><span class="line"><span class="built_in">require</span>(<span class="string">'console-log'</span>).show(<span class="literal">true</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> coolbear =</span><br><span class="line">  <span class="string">"    ('-^-/')  \n"</span> +</span><br><span class="line">  <span class="string">"    `o__o' ]  \n"</span> +</span><br><span class="line">  <span class="string">"    (_Y_) _/  \n"</span> +</span><br><span class="line">  <span class="string">"  _..`--'-.`, \n"</span> +</span><br><span class="line">  <span class="string">" (__)_,--(__) \n"</span> +</span><br><span class="line">  <span class="string">"     7:   ; 1 \n"</span> +</span><br><span class="line">  <span class="string">"   _/,`-.-' : \n"</span> +</span><br><span class="line">  <span class="string">"  (_,)-~~(_,) \n"</span></span><br><span class="line"></span><br><span class="line">setInterval(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123; <span class="built_in">console</span>.log(coolbear) &#125;, <span class="number">1000</span>)</span><br><span class="line"></span><br><span class="line">setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  setInterval(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123; <span class="built_in">console</span>.log(reverse(coolbear)) &#125;, <span class="number">1000</span>)</span><br><span class="line">&#125;, <span class="number">500</span>)</span><br></pre></td></tr></table></figure>
 <p>或者看这个<a href="http://requirebin.com/?gist=6031068" target="_blank" rel="external">更复杂的例子</a>（可以随意改变它的颜色）：</p>
-<p><a href="http://requirebin.com/embed?gist=6031068" target="_blank" rel="external"><img src="requirebin.png" alt="requirebin"></a></p>
+<p><a href="http://requirebin.com/embed?gist=6031068" target="_blank" rel="external"><img src="https://github.com/maxogden/art-of-node/raw/master/requirebin.png" alt="requirebin"></a></p>
 <h2 id="析薪杝矣">析薪杝矣</h2><figure class="highlight livecodeserver"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">原文的标题是Going <span class="operator">with</span> <span class="operator">the</span> Grain，大意是顺应着木材的纹理(刨木)，不违背它</span><br><span class="line">此处的<span class="string">'析薪杝矣'</span>出自詩·小雅：</span><br><span class="line">	伐木掎矣，析薪杝矣</span><br><span class="line">大意为，砍伐树木时,要撑住使大树不致突然倒下;劈木材,要依循木材的纹理,才比较容易</span><br></pre></td></tr></table></figure>
 <p>像任意一个顺手的工具一样，node非常强大，但也只适用于特定的应用场景。比如，Rails这个网络架构，非常适合做一些复杂的<a href="(http://en.wikipedia.org/wiki/Business_logic">框架</a>)，比如用代码来构建生活中的业务对象：帐户、借贷、流程图、存货清单等等。虽然从技术上讲，用node可以完成同样的工作，但这并不是node的强项，node更适合去做一些处理I/O问题的工作。希望这个教程能够帮你获得对node适用方案的直觉。</p>
 <h3 id="node外的世界">node外的世界</h3><p>node只是一个处理文件系统和网络I/O的工具，它把更多有趣的功能留给第三方模块来处理。以下是node核心模块之外奇妙世界的一些介绍：</p>
@@ -457,7 +455,7 @@ git和github。这是一个开源的协作工具，Node社区的用户使用git�
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">fs.readFile(<span class="string">'movie.mp4'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">err, data</span>) </span>&#123;</span><br><span class="line">  <span class="comment">// handle error, do stuff with data</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
 <h4 id="线程/纤程/非事件的并发处理">线程/纤程/非事件的并发处理</h4><p>注意：如果你并不知道这些词的含义，你可能会学Node学的更轻松一些。</p>
 <p>Node内部使用线程来加速操作，但是这些部分并不会暴露给用户。如果你是专业人员，并且对node的设计理念十分好奇的话，推荐你阅读这篇<a href="http://nikhilm.github.com/uvbook/" target="_blank" rel="external">the design of libuv</a>，这个是node使用的C++ I/O层。</p>
-<h2 id="使用许可">使用许可</h2><p><img src="CCBY.png" alt="CCBY"></p>
+<h2 id="使用许可">使用许可</h2><p><img src="https://github.com/maxogden/art-of-node/raw/master/CCBY.png" alt="CCBY"></p>
 <p>原文适用知识共享许可协议<br><a href="http://creativecommons.org/licenses/by/2.0/" target="_blank" rel="external">http://creativecommons.org/licenses/by/2.0/</a></p>
 <p>捐款图标来源于 <a href="http://thenounproject.com/term/donate/285/" target="_blank" rel="external">Noun Project</a></p>
 </span>
