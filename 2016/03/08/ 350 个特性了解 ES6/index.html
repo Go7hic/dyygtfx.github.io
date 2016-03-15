@@ -57,7 +57,7 @@ ES6 规范在 2015 年 6 月正式通过
 年度发布时间，没有被确定的功能会被放到下一个版本
 在 ES6 被确定之前，我们大部分人一直称之为 ES6
 从  ES2016(ES7) 开始，我们应该用 ES">
-<meta property="og:updated_time" content="2016-03-08T16:00:10.000Z">
+<meta property="og:updated_time" content="2016-03-15T15:04:58.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="350 个特性了解 ES6">
 <meta name="twitter:description" content="介绍
@@ -395,8 +395,8 @@ ES6 规范在 2015 年 6 月正式通过
 <li>还有一些众所周知的 symbols<ul>
 <li>不在全局注册属性，可以通过 <code>Symbol[name]</code>,比如：<code>Symbol.iterator</code>；</li>
 <li>跨域, 意思就是 <code>Symbol.iterator === iframe.contentWindow.Symbol.iterator</code></li>
-<li>Used by specification to define protocols, such as the <a href="#iterators"><em>iterable</em> protocol</a> over <code>Symbol.iterator</code></li>
-<li>They’re not <strong>actually well-known</strong> – in colloquial terms</li>
+<li>用于规范定义的协议，比如：e <a href="#iterators"><em>iterable</em> protocol</a> 代替 <code>Symbol.iterator</code></li>
+<li>在口语上面它们并不容易理解</li>
 </ul>
 </li>
 <li>遍历 symbol 的属性是很难的，但也不是不可能的<ul>
@@ -486,15 +486,15 @@ ES6 规范在 2015 年 6 月正式通过
 <li><code>Map</code> adheres to <em><a href="#iterators">iterable</a></em> protocol</li>
 <li>Create a <code>map</code> using <code>new Map()</code></li>
 <li>Initialize a map with an <code>iterable</code> like <code>[[key1, value1], [key2, value2]]</code> in <code>new Map(iterable)</code></li>
-<li>Use <code>map.set(key, value)</code> to add entries</li>
-<li>Use <code>map.get(key)</code> to get an entry</li>
-<li>Check for a <code>key</code> using <code>map.has(key)</code></li>
-<li>Remove entries with <code>map.delete(key)</code></li>
+<li>用 <code>map.set(key, value)</code> 去添加条目</li>
+<li>用 <code>map.get(key)</code> 获取条目</li>
+<li>用 <code>map.has(key)</code> 检查 <code>key</code></li>
+<li>通过 <code>map.delete(key)</code> 删除条目</li>
 <li>Iterate over <code>map</code> with <code>for (let [key, value] of map)</code>, the spread operator, <code>Array.from</code>, etc</li>
 <li>阅读 <a href="https://ponyfoo.com/articles/es6-maps-in-depth" target="_blank" rel="external">ES6 Maps in Depth</a></li>
 </ul>
 <h3 id="WeakMaps">WeakMaps</h3><ul>
-<li>Similar to <code>Map</code>, but not quite the same</li>
+<li>和 <code>Map</code> ；类似，但是不完全相同</li>
 <li><code>WeakMap</code> isn’t iterable, so you don’t get enumeration methods like <code>.forEach</code>, <code>.clear</code>, and others you had in <code>Map</code></li>
 <li><code>WeakMap</code> keys must be reference types. You can’t use value types like symbols, numbers, or strings as keys</li>
 <li><code>WeakMap</code> entries with a <code>key</code> that’s the only reference to the referenced variable are subject to garbage collection</li>
@@ -510,10 +510,10 @@ ES6 规范在 2015 年 6 月正式通过
 <li>阅读 <a href="https://ponyfoo.com/articles/es6-weakmaps-sets-and-weaksets-in-depth#es6-sets" target="_blank" rel="external">深入理解 ES6 Sets</a></li>
 </ul>
 <h3 id="WeakSets">WeakSets</h3><ul>
-<li><code>WeakSet</code> is sort of a cross-breed between <code>Set</code> and <code>WeakMap</code></li>
-<li>A <code>WeakSet</code> is a set that can’t be iterated and doesn’t have enumeration methods</li>
-<li><code>WeakSet</code> values must be reference types</li>
-<li><code>WeakSet</code> may be useful for a metadata table indicating whether a reference is actively in use or not</li>
+<li><code>WeakSet</code> 是 <code>Set</code> 和 <code>WeakMap</code>之间的一个混合模式</li>
+<li>A <code>WeakSet</code> 一个 <code>WeakSet</code> 就等于一个不能迭代没有枚举方法的 <code>set</code></li>
+<li><code>WeakSet</code> 的值必须是引用类型</li>
+<li><code>WeakSet</code> 对于判断一个元数据表有没有被引用可能有点用处</li>
 <li>阅读 <a href="https://ponyfoo.com/articles/es6-weakmaps-sets-and-weaksets-in-depth#es6-weaksets" target="_blank" rel="external">深入理解 ES6 WeakSets</a></li>
 </ul>
 <h3 id="Proxies">Proxies</h3><ul>
@@ -543,9 +543,9 @@ ES6 规范在 2015 年 6 月正式通过
 <li><a href="https://ponyfoo.com/articles/morees6-proxy-traps-in-depth#isextensible" target="_blank" rel="external"><code>isExtensible</code></a> – traps calls to <code>Object.isExtensible</code></li>
 <li><a href="https://ponyfoo.com/articles/morees6-proxy-traps-in-depth#preventextensions" target="_blank" rel="external"><code>preventExtensions</code></a> – traps calls to <code>Object.preventExtensions</code></li>
 <li><a href="https://ponyfoo.com/articles/morees6-proxy-traps-in-depth#getownpropertydescriptor" target="_blank" rel="external"><code>getOwnPropertyDescriptor</code></a> – traps calls to <code>Object.getOwnPropertyDescriptor</code></li>
-<li>Read <a href="https://ponyfoo.com/articles/es6-proxies-in-depth" target="_blank" rel="external">ES6 Proxies in Depth</a></li>
-<li>Read <a href="https://ponyfoo.com/articles/es6-proxy-traps-in-depth" target="_blank" rel="external">ES6 Proxy Traps in Depth</a></li>
-<li>Read <a href="https://ponyfoo.com/articles/more-es6-proxy-traps-in-depth" target="_blank" rel="external">More ES6 Proxy Traps in Depth</a></li>
+<li>阅读 <a href="https://ponyfoo.com/articles/es6-proxies-in-depth" target="_blank" rel="external">深入理解 ES6 Proxies</a></li>
+<li>阅读 <a href="https://ponyfoo.com/articles/es6-proxy-traps-in-depth" target="_blank" rel="external">深入理解 ES6 Proxy Traps</a></li>
+<li>阅读 <a href="https://ponyfoo.com/articles/more-es6-proxy-traps-in-depth" target="_blank" rel="external">More ES6 Proxy Traps in Depth</a></li>
 </ul>
 <h3 id="Reflection">Reflection</h3><ul>
 <li>‘Reflection’ 是 ES6 标准库里一个新的静态方法（和 Math 对象一样）</li>
@@ -569,34 +569,34 @@ ES6 规范在 2015 年 6 月正式通过
 <li><a href="https://ponyfoo.com/articles/es6-math-additions-in-depth#mathsign" target="_blank" rel="external"><code>Math.sign</code></a> – 用来判断一个数到底是正数、负数、还是零</li>
 <li><a href="https://ponyfoo.com/articles/es6-math-additions-in-depth#mathtrunc" target="_blank" rel="external"><code>Math.trunc</code></a> – 去除一个数的小数部分，返回整数部分</li>
 <li><a href="https://ponyfoo.com/articles/es6-math-additions-in-depth#mathcbrt" target="_blank" rel="external"><code>Math.cbrt</code></a> – 用于计算一个数的立方根</li>
-<li><a href="https://ponyfoo.com/articles/es6-math-additions-in-depth#mathexpm1" target="_blank" rel="external"><code>Math.expm1</code></a> – <code>e</code> to the <code>value</code> minus <code>1</code>, or <code>e&lt;sup&gt;value&lt;/sup&gt; - 1</code></li>
-<li><a href="https://ponyfoo.com/articles/es6-math-additions-in-depth#mathlog1p" target="_blank" rel="external"><code>Math.log1p</code></a> – natural logarithm of <code>value + 1</code>, or <code>_ln_(value + 1)</code></li>
-<li><a href="https://ponyfoo.com/articles/es6-math-additions-in-depth#mathlog10" target="_blank" rel="external"><code>Math.log10</code></a> – base 10 logarithm of <code>value</code>, or <code>_log_&lt;sub&gt;10&lt;/sub&gt;(value)</code></li>
-<li><a href="https://ponyfoo.com/articles/es6-math-additions-in-depth#mathlog2" target="_blank" rel="external"><code>Math.log2</code></a> – base 2 logarithm of <code>value</code>, or <code>_log_&lt;sub&gt;2&lt;/sub&gt;(value)</code></li>
-<li><a href="https://ponyfoo.com/articles/es6-math-additions-in-depth#mathsinh" target="_blank" rel="external"><code>Math.sinh</code></a> – hyperbolic sine of a number</li>
-<li><a href="https://ponyfoo.com/articles/es6-math-additions-in-depth#mathcosh" target="_blank" rel="external"><code>Math.cosh</code></a> – hyperbolic cosine of a number</li>
-<li><a href="https://ponyfoo.com/articles/es6-math-additions-in-depth#mathtanh" target="_blank" rel="external"><code>Math.tanh</code></a> – hyperbolic tangent of a number</li>
-<li><a href="https://ponyfoo.com/articles/es6-math-additions-in-depth#mathasinh" target="_blank" rel="external"><code>Math.asinh</code></a> – hyperbolic arc-sine of a number</li>
-<li><a href="https://ponyfoo.com/articles/es6-math-additions-in-depth#mathacosh" target="_blank" rel="external"><code>Math.acosh</code></a> – hyperbolic arc-cosine of a number</li>
-<li><a href="https://ponyfoo.com/articles/es6-math-additions-in-depth#mathatanh" target="_blank" rel="external"><code>Math.atanh</code></a> – hyperbolic arc-tangent of a number</li>
-<li><a href="https://ponyfoo.com/articles/es6-math-additions-in-depth#mathhypot" target="_blank" rel="external"><code>Math.hypot</code></a> – square root of the sum of squares</li>
+<li><a href="https://ponyfoo.com/articles/es6-math-additions-in-depth#mathexpm1" target="_blank" rel="external"><code>Math.expm1</code></a> – 返回 <code>e&lt;sup&gt;value&lt;/sup&gt; - 1</code>，即Math.exp(value) - 1</li>
+<li><a href="https://ponyfoo.com/articles/es6-math-additions-in-depth#mathlog1p" target="_blank" rel="external"><code>Math.log1p</code></a> – 返回<code>1 + value</code>的自然对数</li>
+<li><a href="https://ponyfoo.com/articles/es6-math-additions-in-depth#mathlog10" target="_blank" rel="external"><code>Math.log10</code></a> –返回以10为底的 <code>value</code> 的对数</li>
+<li><a href="https://ponyfoo.com/articles/es6-math-additions-in-depth#mathlog2" target="_blank" rel="external"><code>Math.log2</code></a> – 返回以2为底的 <code>value</code> 的对数</li>
+<li><a href="https://ponyfoo.com/articles/es6-math-additions-in-depth#mathsinh" target="_blank" rel="external"><code>Math.sinh</code></a> – 返回一个数的双曲正弦值.</li>
+<li><a href="https://ponyfoo.com/articles/es6-math-additions-in-depth#mathcosh" target="_blank" rel="external"><code>Math.cosh</code></a> – 返回一个数的余弦值</li>
+<li><a href="https://ponyfoo.com/articles/es6-math-additions-in-depth#mathtanh" target="_blank" rel="external"><code>Math.tanh</code></a> – 返回一个数双曲正切值.</li>
+<li><a href="https://ponyfoo.com/articles/es6-math-additions-in-depth#mathasinh" target="_blank" rel="external"><code>Math.asinh</code></a> – 返回一个数的反双曲正弦值.</li>
+<li><a href="https://ponyfoo.com/articles/es6-math-additions-in-depth#mathacosh" target="_blank" rel="external"><code>Math.acosh</code></a> – 返回一个数的反双曲余弦值.</li>
+<li><a href="https://ponyfoo.com/articles/es6-math-additions-in-depth#mathatanh" target="_blank" rel="external"><code>Math.atanh</code></a> – 返回一个数的反双曲正切值.</li>
+<li><a href="https://ponyfoo.com/articles/es6-math-additions-in-depth#mathhypot" target="_blank" rel="external"><code>Math.hypot</code></a> – 方法返回所有参数的平方和的平方根</li>
 <li><a href="https://ponyfoo.com/articles/es6-math-additions-in-depth#mathclz32" target="_blank" rel="external"><code>Math.clz32</code></a> – 返回一个数的32位无符号整数形式有多少个前导0。</li>
 <li><a href="https://ponyfoo.com/articles/es6-math-additions-in-depth#mathimul" target="_blank" rel="external"><code>Math.imul</code></a> – 返回两个数以32位带符号整数形式相乘的结果</li>
 <li><a href="https://ponyfoo.com/articles/es6-math-additions-in-depth#mathfround" target="_blank" rel="external"><code>Math.fround</code></a> – 最接近这个小数的单精度浮点数。</li>
 <li>阅读 <a href="https://ponyfoo.com/articles/es6-math-additions-in-depth" target="_blank" rel="external">深入理解 ES6 <code>Math</code> 的扩展</a></li>
 </ul>
 <h3 id="Array"><code>Array</code></h3><ul>
-<li><a href="https://ponyfoo.com/articles/es6-array-extensions-in-depth#arrayfrom" target="_blank" rel="external"><code>Array.from</code></a> – create <code>Array</code> instances from arraylike objects like <code>arguments</code> or iterables</li>
-<li><a href="https://ponyfoo.com/articles/es6-array-extensions-in-depth#arrayof" target="_blank" rel="external"><code>Array.of</code></a> – similar to <code>new Array(...items)</code>, but without special cases</li>
-<li><a href="https://ponyfoo.com/articles/es6-array-extensions-in-depth#arrayprototypecopywithin" target="_blank" rel="external"><code>Array.prototype.copyWithin</code></a> – copies a sequence of array elements into somewhere else in the array</li>
-<li><a href="https://ponyfoo.com/articles/es6-array-extensions-in-depth#arrayprototypefill" target="_blank" rel="external"><code>Array.prototype.fill</code></a> – fills all elements of an existing array with the provided value</li>
-<li><a href="https://ponyfoo.com/articles/es6-array-extensions-in-depth#arrayprototypefind" target="_blank" rel="external"><code>Array.prototype.find</code></a> – returns the first item to satisfy a callback</li>
-<li><a href="https://ponyfoo.com/articles/es6-array-extensions-in-depth#arrayprototypefindindex" target="_blank" rel="external"><code>Array.prototype.findIndex</code></a> – returns the index of the first item to satisfy a callback</li>
-<li><a href="https://ponyfoo.com/articles/es6-array-extensions-in-depth#arrayprototypekeys" target="_blank" rel="external"><code>Array.prototype.keys</code></a> – returns an iterator that yields a sequence holding the keys for the array</li>
-<li><a href="https://ponyfoo.com/articles/es6-array-extensions-in-depth#arrayprototypevalues" target="_blank" rel="external"><code>Array.prototype.values</code></a> – returns an iterator that yields a sequence holding the values for the array</li>
-<li><a href="https://ponyfoo.com/articles/es6-array-extensions-in-depth#arrayprototypeentries" target="_blank" rel="external"><code>Array.prototype.entries</code></a> – returns an iterator that yields a sequence holding key value pairs for the array</li>
-<li><a href="https://ponyfoo.com/articles/es6-array-extensions-in-depth#arrayprototype-symboliterator" target="_blank" rel="external"><code>Array.prototype[Symbol.iterator]</code></a> – exactly the same as the <a href="https://ponyfoo.com/articles/es6-array-extensions-in-depth#arrayprototypevalues" target="_blank" rel="external"><code>Array.prototype.values</code></a> method</li>
-<li>Read <a href="https://ponyfoo.com/articles/es6-array-extensions-in-depth" target="_blank" rel="external">ES6 <code>Array</code> Extensions in Depth</a></li>
+<li><a href="https://ponyfoo.com/articles/es6-array-extensions-in-depth#arrayfrom" target="_blank" rel="external"><code>Array.from</code></a> – 把类似数组对象和可遍历（iterable）的对象转为真正的数组</li>
+<li><a href="https://ponyfoo.com/articles/es6-array-extensions-in-depth#arrayof" target="_blank" rel="external"><code>Array.of</code></a> – 和 <code>new Array(...items)</code> 相似, 但是没有特殊情况</li>
+<li><a href="https://ponyfoo.com/articles/es6-array-extensions-in-depth#arrayprototypecopywithin" target="_blank" rel="external"><code>Array.prototype.copyWithin</code></a> – 把数组指定位置的元素复制到其他地方</li>
+<li><a href="https://ponyfoo.com/articles/es6-array-extensions-in-depth#arrayprototypefill" target="_blank" rel="external"><code>Array.prototype.fill</code></a> – 用给定值，填充一个已存在的数组</li>
+<li><a href="https://ponyfoo.com/articles/es6-array-extensions-in-depth#arrayprototypefind" target="_blank" rel="external"><code>Array.prototype.find</code></a> – 用于找出第一个符合条件的数组成员</li>
+<li><a href="https://ponyfoo.com/articles/es6-array-extensions-in-depth#arrayprototypefindindex" target="_blank" rel="external"><code>Array.prototype.findIndex</code></a> –返回第一个符合条件的数组成员的位置，如果所有成员都不符合条件，则返回-1。</li>
+<li><a href="https://ponyfoo.com/articles/es6-array-extensions-in-depth#arrayprototypekeys" target="_blank" rel="external"><code>Array.prototype.keys</code></a> – 返回一个数组索引的迭代器。</li>
+<li><a href="https://ponyfoo.com/articles/es6-array-extensions-in-depth#arrayprototypevalues" target="_blank" rel="external"><code>Array.prototype.values</code></a> – 返回一个新的 Array Iterator 对象，该对象包含数组每个索引的值。</li>
+<li><a href="https://ponyfoo.com/articles/es6-array-extensions-in-depth#arrayprototypeentries" target="_blank" rel="external"><code>Array.prototype.entries</code></a> –返回一个 Array Iterator 对象，该对象包含数组中每一个索引的键值对。</li>
+<li><a href="https://ponyfoo.com/articles/es6-array-extensions-in-depth#arrayprototype-symboliterator" target="_blank" rel="external"><code>Array.prototype[Symbol.iterator]</code></a> – 和<a href="https://ponyfoo.com/articles/es6-array-extensions-in-depth#arrayprototypevalues" target="_blank" rel="external"><code>Array.prototype.values</code></a> 方法完全一样</li>
+<li>阅读 <a href="https://ponyfoo.com/articles/es6-array-extensions-in-depth" target="_blank" rel="external">深入理解 ES6 的数组扩展 </a></li>
 </ul>
 <h3 id="Object"><code>Object</code></h3><ul>
 <li><a href="https://ponyfoo.com/articles/es6-object-changes-in-depth#objectassign" target="_blank" rel="external"><code>Object.assign</code></a> –将源对象的所有可枚举属性，复制到目标对象（target）</li>
