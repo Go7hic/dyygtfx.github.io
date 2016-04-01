@@ -57,7 +57,7 @@ ES6 规范在 2015 年 6 月正式通过
 年度发布时间，没有被确定的功能会被放到下一个版本
 在 ES6 被确定之前，我们大部分人一直称之为 ES6
 从  ES2016(ES7) 开始，我们应该用 ES">
-<meta property="og:updated_time" content="2016-03-15T15:04:58.000Z">
+<meta property="og:updated_time" content="2016-03-19T09:00:57.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="350 个特性了解 ES6">
 <meta name="twitter:description" content="介绍
@@ -408,13 +408,13 @@ ES6 规范在 2015 年 6 月正式通过
 <li>阅读 <a href="https://ponyfoo.com/articles/es6-symbols-in-depth" target="_blank" rel="external">深入理解 ES6 Symbols</a></li>
 </ul>
 <h3 id="Iterators_(遍历器)">Iterators (遍历器)</h3><ul>
-<li>迭代器和iterable协议定义了如何遍历任何对象,不是数组和类数组</li>
-<li>A well-known <code>Symbol</code> is used to assign an iterator to any object</li>
-<li><code>var foo = { [Symbol.iterator]: iterable}</code>, or <code>foo[Symbol.iterator] = iterable</code></li>
-<li>The <code>iterable</code> is a method that returns an <code>iterator</code> object that has a <code>next</code> method</li>
-<li>The <code>next</code> method returns objects with two properties, <code>value</code> and <code>done</code><ul>
-<li>The <code>value</code> property indicates the current value in the sequence being iterated</li>
-<li>The <code>done</code> property indicates whether there are any more items to iterate</li>
+<li>迭代器和iterable（遍历器接口）协议定义了如何遍历任何对象,不是数组和类数组</li>
+<li>大家都知道 <code>Symbol</code> 可以用来给任何对象指派为指针对象</li>
+<li><code>var foo = { [Symbol.iterator]: iterable}</code>, 或 <code>foo[Symbol.iterator] = iterable</code></li>
+<li>‘iterable’ 方法返回一个有 <code>next</code> 方法的 <code>iterator</code> 对象</li>
+<li><code>next</code> 方法返回的对象有两个属性，<code>value</code>和 <code>done</code>。<ul>
+<li><code>value</code> 属性返回当前位置的成员</li>
+<li><code>done</code> 属性是一个布尔值，表示遍历是否结束，即是否还有必要再一次调用next方法。</li>
 </ul>
 </li>
 <li>Objects that have a <code>[Symbol.iterator]</code> value are <em>iterable</em>, because they subscribe to the iterable protocol</li>
@@ -484,8 +484,8 @@ ES6 规范在 2015 年 6 月正式通过
 </ul>
 </li>
 <li><code>Map</code> adheres to <em><a href="#iterators">iterable</a></em> protocol</li>
-<li>Create a <code>map</code> using <code>new Map()</code></li>
-<li>Initialize a map with an <code>iterable</code> like <code>[[key1, value1], [key2, value2]]</code> in <code>new Map(iterable)</code></li>
+<li>用 <code>new Map()</code> 创建 <code>map</code></li>
+<li>用 <code>iterable</code> 初始化一个 map ，类似 <code>new Map(iterable)</code> 里面的 <code>[[key1, value1], [key2, value2]]</code></li>
 <li>用 <code>map.set(key, value)</code> 去添加条目</li>
 <li>用 <code>map.get(key)</code> 获取条目</li>
 <li>用 <code>map.has(key)</code> 检查 <code>key</code></li>
@@ -500,7 +500,7 @@ ES6 规范在 2015 年 6 月正式通过
 <li><code>WeakMap</code> entries with a <code>key</code> that’s the only reference to the referenced variable are subject to garbage collection</li>
 <li>That last point means <code>WeakMap</code> is great at keeping around metadata for objects, while those objects are still in use</li>
 <li>You avoid memory leaks, without manual reference counting – think of <code>WeakMap</code> as <a href="https://msdn.microsoft.com/en-us/library/system.idisposable%28v=vs.110%29.aspx?f=255&amp;MSPPError=-2147217396" target="_blank" rel="external"><code>IDisposable</code></a> in .NET</li>
-<li>Read <a href="https://ponyfoo.com/articles/es6-weakmaps-sets-and-weaksets-in-depth#es6-weakmaps" target="_blank" rel="external">ES6 WeakMaps in Depth</a></li>
+<li>阅读 <a href="https://ponyfoo.com/articles/es6-weakmaps-sets-and-weaksets-in-depth#es6-weakmaps" target="_blank" rel="external">深入理解 ES6 WeakMaps</a></li>
 </ul>
 <h3 id="Sets">Sets</h3><ul>
 <li>和 <code>Map</code> 有点相同，但是又不完全一样</li>
@@ -545,7 +545,6 @@ ES6 规范在 2015 年 6 月正式通过
 <li><a href="https://ponyfoo.com/articles/morees6-proxy-traps-in-depth#getownpropertydescriptor" target="_blank" rel="external"><code>getOwnPropertyDescriptor</code></a> – traps calls to <code>Object.getOwnPropertyDescriptor</code></li>
 <li>阅读 <a href="https://ponyfoo.com/articles/es6-proxies-in-depth" target="_blank" rel="external">深入理解 ES6 Proxies</a></li>
 <li>阅读 <a href="https://ponyfoo.com/articles/es6-proxy-traps-in-depth" target="_blank" rel="external">深入理解 ES6 Proxy Traps</a></li>
-<li>阅读 <a href="https://ponyfoo.com/articles/more-es6-proxy-traps-in-depth" target="_blank" rel="external">More ES6 Proxy Traps in Depth</a></li>
 </ul>
 <h3 id="Reflection">Reflection</h3><ul>
 <li>‘Reflection’ 是 ES6 标准库里一个新的静态方法（和 Math 对象一样）</li>
@@ -732,7 +731,7 @@ ES6 规范在 2015 年 6 月正式通过
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">116</span>
+              <span class="site-state-item-count">117</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
