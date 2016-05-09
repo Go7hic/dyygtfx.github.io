@@ -28,7 +28,7 @@
 
 
 
-  <meta name="keywords" content="Hexo,next" />
+  <meta name="keywords" content="JavaScript," />
 
 
 
@@ -39,25 +39,22 @@
   <link rel="shorticon icon" type="image/x-icon" href="/favicon.ico?v=0.4.5.1" />
 
 
-<meta name="description" content="es6 in React/React-Native
-module加载模块
+<meta name="description" content="module加载模块
 1234567//es5var React = require(&quot;react-native&quot;)var &amp;#123;    Image,    Text,    PropTypes&amp;#125; = React  //引用不同的React Native组件
-123456//es6import React, &amp;#123;    I">
+123456//es6import React, &amp;#123;    Image,     Text,    PropTyp">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Go7hic">
+<meta property="og:title" content="ES6 in React/React-Native">
 <meta property="og:url" content="http://blog.yongyuan.us/2016/05/09/ES6 in React:React-Native/index.html">
 <meta property="og:site_name" content="Go7hic">
-<meta property="og:description" content="es6 in React/React-Native
-module加载模块
+<meta property="og:description" content="module加载模块
 1234567//es5var React = require(&quot;react-native&quot;)var &amp;#123;    Image,    Text,    PropTypes&amp;#125; = React  //引用不同的React Native组件
-123456//es6import React, &amp;#123;    I">
-<meta property="og:updated_time" content="2016-05-09T15:06:39.000Z">
+123456//es6import React, &amp;#123;    Image,     Text,    PropTyp">
+<meta property="og:updated_time" content="2016-05-09T15:13:50.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Go7hic">
-<meta name="twitter:description" content="es6 in React/React-Native
-module加载模块
+<meta name="twitter:title" content="ES6 in React/React-Native">
+<meta name="twitter:description" content="module加载模块
 1234567//es5var React = require(&quot;react-native&quot;)var &amp;#123;    Image,    Text,    PropTypes&amp;#125; = React  //引用不同的React Native组件
-123456//es6import React, &amp;#123;    I">
+123456//es6import React, &amp;#123;    Image,     Text,    PropTyp">
 
 
 <script type="text/javascript" id="hexo.configuration">
@@ -67,7 +64,7 @@ module加载模块
   };
 </script>
 
-  <title>  | Go7hic </title>
+  <title> ES6 in React/React-Native | Go7hic </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -174,7 +171,7 @@ module加载模块
           
           
             
-              
+              ES6 in React/React-Native
             
           
         </h1>
@@ -183,7 +180,7 @@ module加载模块
       <div class="post-meta">
         <span class="post-time">
           发表于
-          <time itemprop="dateCreated" datetime="2016-05-09T23:06:40+08:00" content="2016-05-09">
+          <time itemprop="dateCreated" datetime="2016-05-09T00:00:00+08:00" content="2016-05-09">
             2016-05-09
           </time>
         </span>
@@ -209,16 +206,14 @@ module加载模块
       
 
       
-        <span itemprop="articleBody"><p>es6 in React/React-Native</p>
-<h2 id="module">module</h2><p>加载模块</p>
+        <span itemprop="articleBody"><h2 id="module">module</h2><p>加载模块</p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//es5</span></span><br><span class="line"><span class="keyword">var</span> React = <span class="built_in">require</span>(<span class="string">"react-native"</span>)</span><br><span class="line"><span class="keyword">var</span> &#123;</span><br><span class="line">    Image,</span><br><span class="line">    Text,</span><br><span class="line">    PropTypes</span><br><span class="line">&#125; = React  <span class="comment">//引用不同的React Native组件</span></span><br></pre></td></tr></table></figure>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//es6</span></span><br><span class="line"><span class="keyword">import</span> React, &#123;</span><br><span class="line">    Image, </span><br><span class="line">    Text,</span><br><span class="line">    PropTypes</span><br><span class="line">&#125; <span class="keyword">from</span> <span class="string">'react-native'</span></span><br></pre></td></tr></table></figure>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Reacr-Native 0.25+</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> React <span class="keyword">from</span> <span class="string">'react'</span></span><br><span class="line"><span class="keyword">import</span> &#123; Image, Text, PropTypes &#125; <span class="keyword">from</span> <span class="string">'react-native'</span></span><br></pre></td></tr></table></figure>
 <p>导出模块</p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//es5</span></span><br><span class="line"><span class="keyword">var</span> MyComponent = React.createClass(&#123;</span><br><span class="line">    ...</span><br><span class="line">&#125;);</span><br><span class="line"><span class="built_in">module</span>.exports = MyComponent;</span><br></pre></td></tr></table></figure>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//es6</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="class"><span class="keyword">class</span> <span class="title">MyComponent</span> <span class="keyword">extends</span> <span class="title">React</span>.<span class="title">Component</span></span>&#123;</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>##Class</p>
-<h4 id="React-createClass">React.createClass</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// es5</span></span><br><span class="line"><span class="keyword">var</span> Photo = React.createClass(&#123;</span><br><span class="line">  handleDoubleTap: <span class="function"><span class="keyword">function</span>(<span class="params">e</span>) </span>&#123; … &#125;,</span><br><span class="line">  render: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123; … &#125;,</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<h2 id="Class">Class</h2><h4 id="React-createClass">React.createClass</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// es5</span></span><br><span class="line"><span class="keyword">var</span> Photo = React.createClass(&#123;</span><br><span class="line">  handleDoubleTap: <span class="function"><span class="keyword">function</span>(<span class="params">e</span>) </span>&#123; … &#125;,</span><br><span class="line">  render: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123; … &#125;,</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// es6+ </span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Photo</span> <span class="keyword">extends</span> <span class="title">React</span>.<span class="title">Component</span> </span>&#123;</span><br><span class="line">  handleDoubleTap(e) &#123; … &#125;</span><br><span class="line">  render() &#123; … &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h4 id="componentWillMount">componentWillMount</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// es5</span></span><br><span class="line"><span class="keyword">var</span> EmbedModal = React.createClass(&#123;</span><br><span class="line">  componentWillMount: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123; … &#125;,</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// es6+</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">EmbedModal</span> <span class="keyword">extends</span> <span class="title">React</span>.<span class="title">Component</span> </span>&#123;</span><br><span class="line">  constructor(props) &#123;</span><br><span class="line">    <span class="keyword">super</span>(props);</span><br><span class="line">    <span class="comment">// Operations usually carried out in componentWillMount go here</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -247,6 +242,12 @@ module加载模块
     </div>
 
     <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/JavaScript/" rel="tag">#JavaScript</a>
+          
+        </div>
       
 
       
@@ -372,7 +373,7 @@ module加载模块
           <div class="post-toc">
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#module"><span class="nav-number">1.</span> <span class="nav-text">module</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#React-createClass"><span class="nav-number">1.0.1.</span> <span class="nav-text">React.createClass</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#componentWillMount"><span class="nav-number">1.0.2.</span> <span class="nav-text">componentWillMount</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Property_initializers"><span class="nav-number">2.</span> <span class="nav-text">Property initializers</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#箭头函数"><span class="nav-number">3.</span> <span class="nav-text">箭头函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#字符串模板"><span class="nav-number">4.</span> <span class="nav-text">字符串模板</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#initialState"><span class="nav-number">5.</span> <span class="nav-text">initialState</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#解构和传播属性"><span class="nav-number">6.</span> <span class="nav-text">解构和传播属性</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#module"><span class="nav-number">1.</span> <span class="nav-text">module</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Class"><span class="nav-number">2.</span> <span class="nav-text">Class</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#React-createClass"><span class="nav-number">2.0.1.</span> <span class="nav-text">React.createClass</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#componentWillMount"><span class="nav-number">2.0.2.</span> <span class="nav-text">componentWillMount</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Property_initializers"><span class="nav-number">3.</span> <span class="nav-text">Property initializers</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#箭头函数"><span class="nav-number">4.</span> <span class="nav-text">箭头函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#字符串模板"><span class="nav-number">5.</span> <span class="nav-text">字符串模板</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#initialState"><span class="nav-number">6.</span> <span class="nav-text">initialState</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#解构和传播属性"><span class="nav-number">7.</span> <span class="nav-text">解构和传播属性</span></a></li></ol></div>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator"></div>
@@ -419,7 +420,7 @@ module加载模块
     <script type="text/javascript">
       var disqus_shortname = 'g07hic';
       var disqus_identifier = '2016/05/09/ES6 in React:React-Native/';
-      var disqus_title = '';
+      var disqus_title = 'ES6 in React/React-Native';
       var disqus_url = 'http://blog.yongyuan.us/2016/05/09/ES6 in React:React-Native/';
 
       function run_disqus_script(disqus_script){
